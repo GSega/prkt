@@ -10,7 +10,7 @@ In progress...
 <br/><br/>
 
 <div th:each="oneSnowboardBoots : ${allSnowboardBoots}">
-    <a th:href="@{/admin/info_equipment/snowboard_boots/show_all/{id}(id=${oneSnowboardBoots.getId()})}"
+    <a th:href="@{/admin/info_equipment/snowboard_boots/{id}(id=${oneSnowboardBoots.getId()})}"
        th:text="${oneSnowboardBoots.toString()}" ></a>
 </div>
 
