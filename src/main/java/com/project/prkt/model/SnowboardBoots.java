@@ -1,19 +1,32 @@
 package com.project.prkt.model;
 
+import javax.persistence.*;
 import java.util.Objects;
 
-enum Stiffness {SOFT, MEDIUM, HARD}
+/*
+ * specify values for "enum Size"
+ */
 
-public class SnowboardBoots extends Boots {
+@Entity
+@Table
+public class SnowboardBoots extends Equipment {
+    public enum Stiffness {SOFT, MEDIUM, HARD}
+    public enum Size {RU43_EU44_MM285, MEDIUM, LARGE} //change
+
+    @Id
     private Long id;
+    private String name;
+    private boolean available;
+    private EquipmentCondition condition;
+    private Size size;
     private Stiffness stiffness;
 
     public SnowboardBoots() {
     }
 
-    public SnowboardBoots(Long id, String equipmentName, boolean available, EquipmentCondition condition, Size size, Stiffness stiffness) {
+    public SnowboardBoots(Long id, String name, boolean available, EquipmentCondition condition, Size size, Stiffness stiffness) {
         this.id = id;
-        this.equipmentName = equipmentName;
+        this.name = name;
         this.available = available;
         this.condition = condition;
         this.size = size;
@@ -28,12 +41,12 @@ public class SnowboardBoots extends Boots {
         this.id = id;
     }
 
-    public String getEquipmentName() {
-        return equipmentName;
+    public String getName() {
+        return name;
     }
 
-    public void setEquipmentName(String equipmentName) {
-        this.equipmentName = equipmentName;
+    public void setName(String name) {
+        this.name = name;
     }
 
     public boolean isAvailable() {
@@ -74,18 +87,23 @@ public class SnowboardBoots extends Boots {
         if (o == null || getClass() != o.getClass()) return false;
         SnowboardBoots that = (SnowboardBoots) o;
         return id.equals(that.id) && available == that.available &&
-                equipmentName.equals(that.equipmentName) && condition == that.condition &&
+                name.equals(that.name) && condition == that.condition &&
                 size == that.size && stiffness == that.stiffness;
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, equipmentName, available, condition, size, stiffness);
+        return Objects.hash(id, name, available, condition, size, stiffness);
     }
 
     @Override
     public String toString() {
-        return "SnowboardBoots{" + "stiffness=" + stiffness + ", size=" + size + ", id=" + id +
-                ", equipmentName='" + equipmentName + ", available=" + available + ", condition=" + condition + "}";
+        return "Snowboard Boots -> " +
+                "id: " + id +
+                ", name: " + name +
+                ", available: " + (available ? "available" : "not available") +
+                ", condition: " + condition +
+                ", size: " + size +
+                ", stiffness: " + stiffness;
     }
 }
