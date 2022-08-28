@@ -2,17 +2,15 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>New Snowboard Boots</title>
+    <title>Details</title>
 </head>
 <body>
 
-<h1>New Snowboard Boots</h1>
+<h1>Edit information</h1>
 
-<form th:method="POST" th:action="@{/admin/info_equipment/snowboard_boots}" th:object="${newSnowboardBoots}">
-    <label for="bootsId">Enter id: </label>
-    <input type="number" th:field="*{id}" id="bootsId"/>
-
-    <br/>
+<form th:method="PATCH"
+      th:action="@{/admin/info_equipment/snowboard_boots/{id}(id=${snowboardBoots.getId()})}"
+      th:object="${snowboardBoots}">
 
     <label for="name">Enter name: </label>
     <input type="text" th:field="*{name}" id="name"/>
@@ -51,9 +49,8 @@
 
     <br/><br/>
 
-    <input type="submit" value="Create"/>
+    <input type="submit" value="Save changes">
 </form>
-
 
 </body>
 </html>

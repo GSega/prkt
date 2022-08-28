@@ -6,14 +6,12 @@
 </head>
 <body>
 
-List of Snowboard Boots
-
-<br/><br/>
+<h1>List of Snowboard Boots</h1>
 
 <div th:each="oneSnowboardBoots : ${allSnowboardBoots}">
     <a th:text="${oneSnowboardBoots.toString()}"></a>
 
-    <a th:href="@{/admin/info_equipment/snowboard_boots/{id}(id=${oneSnowboardBoots.getId()})}">
+    <a th:href="@{/admin/info_equipment/snowboard_boots/edit/{id}(id=${oneSnowboardBoots.getId()})}">
         <button>Edit</button>
     </a>
 

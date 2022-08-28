@@ -30,10 +30,19 @@ public class SnowboardBootsService {
         snowboardBootsRepository.save(snowboardBoots);
     }
 
-    public void updateAvailableById(Long id, SnowboardBoots snowboardBoots) {
-        SnowboardBoots snowboardBootsToBeUpdated = snowboardBootsRepository.findById(id).orElseThrow(() ->
-                new IllegalStateException("snowboardBoots with id=" + id + " does not exist"));
-//        snowboardBootsToBeUpdated.;
+    public void updateById(Long id, SnowboardBoots updatedSnowboardBoots) {
+        SnowboardBoots snowboardBootsToBeUpdated = findById(id);
+
+        System.out.println(snowboardBootsToBeUpdated.toString());
+        System.out.println(updatedSnowboardBoots.toString());
+
+        snowboardBootsToBeUpdated.setName(updatedSnowboardBoots.getName());
+        snowboardBootsToBeUpdated.setAvailable(updatedSnowboardBoots.isAvailable());
+        snowboardBootsToBeUpdated.setCondition(updatedSnowboardBoots.getCondition());
+        snowboardBootsToBeUpdated.setSize(updatedSnowboardBoots.getSize());
+        snowboardBootsToBeUpdated.setStiffness(updatedSnowboardBoots.getStiffness());
+
+        snowboardBootsRepository.save(snowboardBootsToBeUpdated);
     }
 
     public void deleteFromDatabase(Long id) {

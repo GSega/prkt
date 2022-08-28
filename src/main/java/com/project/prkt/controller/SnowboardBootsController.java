@@ -36,15 +36,16 @@ public class SnowboardBootsController {
         return "redirect:/admin/info_equipment/snowboard_boots";
     }
 
-    @GetMapping("/{id}")
+    @GetMapping("/edit/{id}")
     public String showOneSnowboardBoots(@PathVariable("id") Long id, Model model) {
         model.addAttribute("snowboardBoots", snowboardBootsService.findById(id));
-        return "snowboard_boots/show_one";
+        return "snowboard_boots/edit";
     }
 
-    @PutMapping("/{id}")
-    public void updateSnowboardBootsAvailableById(@PathVariable Long id, @ModelAttribute("snowboardBoots") SnowboardBoots snowboardBoots) {
-        snowboardBootsService.updateAvailableById(id, snowboardBoots);
+    @PatchMapping("/{id}")
+    public String updateSnowboardBootsById(@PathVariable Long id, @ModelAttribute("snowboardBoots") SnowboardBoots snowboardBoots) {
+        snowboardBootsService.updateById(id, snowboardBoots);
+        return "redirect:/admin/info_equipment/snowboard_boots";
     }
 
     @DeleteMapping("/{id}")

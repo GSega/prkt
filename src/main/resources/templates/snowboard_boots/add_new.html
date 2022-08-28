@@ -6,8 +6,7 @@
 </head>
 <body>
 
-New Snowboard Boots
-<br/><br/>
+<h1>New Snowboard Boots</h1>
 
 <form th:method="POST" th:action="@{/admin/info_equipment/snowboard_boots}" th:object="${newSnowboardBoots}">
     <label for="bootsId">Enter id: </label>
@@ -50,7 +49,7 @@ New Snowboard Boots
                 th:value="${i}" th:text="${i}"></option>
     </select>
 
-    <br/>
+    <br/><br/>
 
     <input type="submit" value="Create"/>
 </form>
