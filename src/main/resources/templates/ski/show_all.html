@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>List of Лыж</title>
+
+<body>
+fck
+<div th:each="oneSkiFrom : ${allSki}">
+    <a th:href="@{/admin/info_equipment/ski/{id}(id=${oneSkiFrom.getId()})}"
+        th:text="${oneSkiFrom.getName}"
+    ></a>
+</div>
+</body>
+</html>
