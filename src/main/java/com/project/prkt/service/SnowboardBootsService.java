@@ -51,9 +51,6 @@ public class SnowboardBootsService {
     public void updateById(Long id, SnowboardBoots updatedSnowboardBoots) {
         SnowboardBoots snowboardBootsToBeUpdated = findById(id);
 
-        System.out.println(snowboardBootsToBeUpdated.toString());
-        System.out.println(updatedSnowboardBoots.toString());
-
         snowboardBootsToBeUpdated.setName(updatedSnowboardBoots.getName());
         snowboardBootsToBeUpdated.setAvailable(updatedSnowboardBoots.isAvailable());
         snowboardBootsToBeUpdated.setCondition(updatedSnowboardBoots.getCondition());

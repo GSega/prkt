@@ -5,7 +5,10 @@ import com.project.prkt.service.SnowboardBootsService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
+
+import javax.validation.Valid;
 
 @Controller
 @RequestMapping("/admin/info_equipment/snowboard_boots")
@@ -26,12 +29,16 @@ public class SnowboardBootsController {
 
     @GetMapping("/add_new")
     public String addNewSnowboardBoots(Model model) {
-        model.addAttribute("newSnowboardBoots", new SnowboardBoots());
+        model.addAttribute("snowboardBoots", new SnowboardBoots());
         return "snowboard_boots/add_new";
     }
 
     @PostMapping()
-    public String addNewSnowboardBootsToDatabase(@ModelAttribute("snowboardBoots") SnowboardBoots snowboardBoots) {
+    public String addNewSnowboardBootsToDatabase(@ModelAttribute("snowboardBoots") @Valid SnowboardBoots snowboardBoots,
+                                                 BindingResult bindingResult) {
+        if (bindingResult.hasErrors()) {
+            return "snowboard_boots/add_new";
+        }
         snowboardBootsService.addToDatabase(snowboardBoots);
         return "redirect:/admin/info_equipment/snowboard_boots";
     }
@@ -43,7 +50,12 @@ public class SnowboardBootsController {
     }
 
     @PatchMapping("/{id}")
-    public String updateSnowboardBootsById(@PathVariable Long id, @ModelAttribute("snowboardBoots") SnowboardBoots snowboardBoots) {
+    public String updateSnowboardBootsById(@PathVariable Long id,
+                                           @ModelAttribute("snowboardBoots") @Valid SnowboardBoots snowboardBoots,
+                                           BindingResult bindingResult) {
+        if (bindingResult.hasErrors()) {
+            return "snowboard_boots/edit";
+        }
         snowboardBootsService.updateById(id, snowboardBoots);
         return "redirect:/admin/info_equipment/snowboard_boots";
     }

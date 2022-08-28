@@ -1,12 +1,27 @@
 package com.project.prkt.model;
 
 import javax.persistence.*;
+import javax.validation.constraints.*;
 import java.util.Objects;
 
 @Entity
 @Table
 public class SnowboardBoots extends Equipment {
-    public enum Stiffness {SOFT, MEDIUM, HARD}
+    public enum Stiffness {
+        SOFT("soft"),
+        MEDIUM("medium"),
+        HARD("hard");
+
+        private final String displayValue;
+
+        Stiffness(String displayValue) {
+            this.displayValue = displayValue;
+        }
+
+        public String getDisplayValue() {
+            return displayValue;
+        }
+    }
 
     public enum Size {
         RU36_EU37_MM235("RU36/EU37/235mm"),
@@ -48,6 +63,9 @@ public class SnowboardBoots extends Equipment {
     @SequenceGenerator(name = "sequence", sequenceName = "sequence", allocationSize = 1)
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "sequence")
     private Long id;
+
+    @NotEmpty(message = "Name should not be empty")
+    @javax.validation.constraints.Size(min = 3, max = 30, message = "Name should contain between 3 and 30 characters")
     private String name;
     private boolean available;
     private EquipmentCondition condition;
@@ -135,8 +153,8 @@ public class SnowboardBoots extends Equipment {
                 "id: " + id +
                 ", name: " + name +
                 ", available: " + (available ? "available" : "not available") +
-                ", condition: " + condition +
+                ", condition: " + condition.getDisplayValue() +
                 ", size: " + size.getDisplayValue() +
-                ", stiffness: " + stiffness;
+                ", stiffness: " + stiffness.getDisplayValue();
     }
 }
