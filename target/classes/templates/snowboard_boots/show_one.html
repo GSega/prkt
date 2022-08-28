@@ -15,15 +15,15 @@ Edit information
 <p th:text="${'name: ' + snowboardBoots.getName()}"></p>
 
 <p th:text="${'available: ' + snowboardBoots.isAvailable()}">
-<form th:method="PATCH"
-      th:action="@{/admin/info_equipment/snowboard_boots}"
-      th:object="${snowboardBoots}">
-    <select class="form-control" th:field="*{available}">
-        <option th:value="1">available</option>
-        <option th:value="0">not available</option>
-    </select>
-    <input type="submit" value="Edit">
-</form>
+<!--<form th:method="PUT"-->
+<!--      th:action="@{/admin/info_equipment/snowboard_boots}"-->
+<!--      th:object="${snowboardBoots}">-->
+<!--    <select class="form-control" th:field="*{available}">-->
+<!--        <option th:value="1">available</option>-->
+<!--        <option th:value="0">not available</option>-->
+<!--    </select>-->
+<!--    <input type="submit" value="Edit">-->
+<!--</form>-->
 </p>
 
 <p th:text="${'condition: ' + snowboardBoots.getCondition()}"></p>

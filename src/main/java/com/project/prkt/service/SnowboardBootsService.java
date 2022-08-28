@@ -30,10 +30,10 @@ public class SnowboardBootsService {
         snowboardBootsRepository.save(snowboardBoots);
     }
 
-    public void updateAvailableById(Long id, boolean available) {
+    public void updateAvailableById(Long id, SnowboardBoots snowboardBoots) {
         SnowboardBoots snowboardBootsToBeUpdated = snowboardBootsRepository.findById(id).orElseThrow(() ->
                 new IllegalStateException("snowboardBoots with id=" + id + " does not exist"));
-        snowboardBootsToBeUpdated.setStiffness(SnowboardBoots.Stiffness.HARD);
+//        snowboardBootsToBeUpdated.;
     }
 
     public void deleteFromDatabase(Long id) {

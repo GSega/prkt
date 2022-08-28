@@ -29,6 +29,7 @@ public class SnowboardBootsController {
         model.addAttribute("newSnowboardBoots", new SnowboardBoots());
         return "snowboard_boots/add_new";
     }
+
     @PostMapping()
     public String addNewSnowboardBootsToDatabase(@ModelAttribute("snowboardBoots") SnowboardBoots snowboardBoots) {
         snowboardBootsService.addToDatabase(snowboardBoots);
@@ -41,9 +42,9 @@ public class SnowboardBootsController {
         return "snowboard_boots/show_one";
     }
 
-    @PatchMapping("/{id}")
-    public void updateSnowboardBootsAvailableById(@PathVariable Long id, @ModelAttribute("available") boolean available) {
-        snowboardBootsService.updateAvailableById(id, available);
+    @PutMapping("/{id}")
+    public void updateSnowboardBootsAvailableById(@PathVariable Long id, @ModelAttribute("snowboardBoots") SnowboardBoots snowboardBoots) {
+        snowboardBootsService.updateAvailableById(id, snowboardBoots);
     }
 
     @DeleteMapping("/{id}")

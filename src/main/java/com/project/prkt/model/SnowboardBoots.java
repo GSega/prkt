@@ -34,7 +34,8 @@ public class SnowboardBoots extends Equipment {
         DETSK32_MM205("Junior 32/205mm"),
         DETSK33_MM210("Junior 33/210mm"),
         DETSK34_MM215("Junior 34/215mm"),
-        DETSK35_MM225("Junior 35/225mm");
+        DETSK35_MM225("Junior 35/225mm"),
+        OTHER("Other");
 
         private final String displayValue;
 
