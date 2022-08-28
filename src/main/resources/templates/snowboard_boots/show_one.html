@@ -1,20 +1,36 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <title>Details</title>
 </head>
 <body>
 
-In progress...
+Edit information
+
 <br/>
 
-<p th:text="${'id: ' + oneSnowboardBoots.getId()}"></p>
-<p th:text="${'name: ' + oneSnowboardBoots.getName()}"></p>
-<p th:text="${'available: ' + oneSnowboardBoots.isAvailable()}"></p>
-<p th:text="${'condition: ' + oneSnowboardBoots.getCondition()}"></p>
-<p th:text="${'size: ' + oneSnowboardBoots.getSize()}"></p>
-<p th:text="${'stiffness: ' + oneSnowboardBoots.getStiffness()}"></p>
+
+<p th:text="${'id: ' + snowboardBoots.getId()}"></p>
+<p th:text="${'name: ' + snowboardBoots.getName()}"></p>
+
+<p th:text="${'available: ' + snowboardBoots.isAvailable()}">
+<!--<form th:method="PATCH"-->
+<!--      th:action="@{/admin/info_equipment/snowboard_boots}"-->
+<!--      th:object="${snowboardBoots}">-->
+<!--    <select class="form-control" th:field="*{available}">-->
+<!--        <option th:value="1">available</option>-->
+<!--        <option th:value="0">not available</option>-->
+<!--    </select>-->
+<!--    <input type="submit" value="Edit">-->
+<!--</form>-->
+</p>
+
+<p th:text="${'condition: ' + snowboardBoots.getCondition()}"></p>
+<p th:text="${'size: ' + snowboardBoots.getSize()}"></p>
+<p th:text="${'stiffness: ' + snowboardBoots.getStiffness()}"></p>
+
+<!--</form>-->
 
 </body>
 </html>

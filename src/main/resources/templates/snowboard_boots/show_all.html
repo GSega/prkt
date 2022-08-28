@@ -6,13 +6,29 @@
 </head>
 <body>
 
-In progress...
+List of Snowboard Boots
+
 <br/><br/>
 
 <div th:each="oneSnowboardBoots : ${allSnowboardBoots}">
-    <a th:href="@{/admin/info_equipment/snowboard_boots/{id}(id=${oneSnowboardBoots.getId()})}"
-       th:text="${oneSnowboardBoots.toString()}" ></a>
+    <a th:text="${oneSnowboardBoots.toString()}"></a>
+
+    <a th:href="@{/admin/info_equipment/snowboard_boots/{id}(id=${oneSnowboardBoots.getId()})}">
+        <button>Edit</button>
+    </a>
+
+    <form th:method="DELETE"
+          th:action="@{/admin/info_equipment/snowboard_boots/{id}(id=${oneSnowboardBoots.getId()})}">
+        <input type="submit" value="Delete"/>
+    </form>
 </div>
+
+<br/>
+
+<a href="/admin/info_equipment/snowboard_boots/add_new">
+    <button>Add new Snowboard Boots</button>
+</a>
+
 
 </body>
 </html>

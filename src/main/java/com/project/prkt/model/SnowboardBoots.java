@@ -11,12 +11,41 @@ import java.util.Objects;
 @Table
 public class SnowboardBoots extends Equipment {
     public enum Stiffness {SOFT, MEDIUM, HARD}
-    public enum Size {RU36_EU37_MM235, RU34_EU35_MM240, RU37_EU38_MM245, RU38_EU39_MM250,
-                        RU39_EU40_MM255, RU40_EU41_MM260, RU41_EU42_MM265, RU415_EU425_MM275,
-                        RU42_EU43_MM275, RU425_EU435_MM280, RU43_EU44_MM285, RU44_EU45_MM290,
-                        RU45_EU46_MM300, RU46_EU47_MM310, DETSK26_MM165, DETSK28_MM175,
-                        DETSK30_MM185, DETSK31_MM195, DETSK32_MM205, DETSK33_MM210, DETSK34_MM215,
-                        DETSK35_MM225}
+
+    public enum Size {
+        RU36_EU37_MM235("RU36/EU37/235mm"),
+        RU34_EU35_MM240("RU34/EU35/240mm"),
+        RU37_EU38_MM245("RU37/EU38/245mm"),
+        RU38_EU39_MM250("RU38/EU39/250mm"),
+        RU39_EU40_MM255("RU39/EU40/255mm"),
+        RU40_EU41_MM260("RU40/EU41/260mm"),
+        RU41_EU42_MM265("RU41/EU42/265mm"),
+        RU415_EU425_MM275("RU41.5/EU42.5/275mm"),
+        RU42_EU43_MM275("RU42/EU43/275mm"),
+        RU425_EU435_MM280("RU42.5/EU43.5/280mm"),
+        RU43_EU44_MM285("RU43/EU44/285mm"),
+        RU44_EU45_MM290("RU44/EU45/290mm"),
+        RU45_EU46_MM300("RU45/EU46/300mm"),
+        RU46_EU47_MM310("RU46/EU47/310mm"),
+        DETSK26_MM165("Junior 26/165mm"),
+        DETSK28_MM175("Junior 28/175mm"),
+        DETSK30_MM185("Junior 30/185mm"),
+        DETSK31_MM195("Junior 31/195mm"),
+        DETSK32_MM205("Junior 32/205mm"),
+        DETSK33_MM210("Junior 33/210mm"),
+        DETSK34_MM215("Junior 34/215mm"),
+        DETSK35_MM225("Junior 35/225mm");
+
+        private final String displayValue;
+
+        Size(String displayValue) {
+            this.displayValue = displayValue;
+        }
+
+        public String getDisplayValue() {
+            return displayValue;
+        }
+    }
 
     @Id
     private Long id;
@@ -108,7 +137,7 @@ public class SnowboardBoots extends Equipment {
                 ", name: " + name +
                 ", available: " + (available ? "available" : "not available") +
                 ", condition: " + condition +
-                ", size: " + size +
+                ", size: " + size.getDisplayValue() +
                 ", stiffness: " + stiffness;
     }
 }

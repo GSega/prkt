@@ -24,24 +24,31 @@ public class SnowboardBootsController {
         return "snowboard_boots/show_all";
     }
 
+    @GetMapping("/add_new")
+    public String addNewSnowboardBoots(Model model) {
+        model.addAttribute("newSnowboardBoots", new SnowboardBoots());
+        return "snowboard_boots/add_new";
+    }
+    @PostMapping()
+    public String addNewSnowboardBootsToDatabase(@ModelAttribute("snowboardBoots") SnowboardBoots snowboardBoots) {
+        snowboardBootsService.addToDatabase(snowboardBoots);
+        return "redirect:/admin/info_equipment/snowboard_boots";
+    }
+
     @GetMapping("/{id}")
     public String showOneSnowboardBoots(@PathVariable("id") Long id, Model model) {
-        model.addAttribute("oneSnowboardBoots", snowboardBootsService.findById(id));
+        model.addAttribute("snowboardBoots", snowboardBootsService.findById(id));
         return "snowboard_boots/show_one";
     }
 
-    @PostMapping("/add_new")
-    public void addNewSnowboardBoots(@ModelAttribute("snowboardBoots") SnowboardBoots snowboardBoots) {
-        snowboardBootsService.addToDatabase(snowboardBoots);
-    }
-
-    @PutMapping("/update")
-    public void updateSnowboardBootsAvailableById(Long id, @ModelAttribute("available") boolean available) {
+    @PatchMapping("/{id}")
+    public void updateSnowboardBootsAvailableById(@PathVariable Long id, @ModelAttribute("available") boolean available) {
         snowboardBootsService.updateAvailableById(id, available);
     }
 
-    @DeleteMapping("/addNew")
-    public void deleteSnowboardBoots(Long id) {
+    @DeleteMapping("/{id}")
+    public String deleteSnowboardBoots(@PathVariable("id") Long id) {
         snowboardBootsService.deleteFromDatabase(id);
+        return "redirect:/admin/info_equipment/snowboard_boots";
     }
 }

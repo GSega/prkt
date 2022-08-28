@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>New Snowboard Boots</title>
+</head>
+<body>
+
+New Snowboard Boots
+<br/><br/>
+
+<form th:method="POST" th:action="@{/admin/info_equipment/snowboard_boots}" th:object="${newSnowboardBoots}">
+    <label for="bootsId">Enter id: </label>
+    <input type="number" th:field="*{id}" id="bootsId"/>
+
+    <br/>
+
+    <label for="name">Enter name: </label>
+    <input type="text" th:field="*{name}" id="name"/>
+
+    <br/>
+
+    <label>Set availability: </label>
+    <select class="form-control" th:field="*{available}">
+        <option th:value="1">available</option>
+        <option th:value="0">not available</option>
+    </select>
+
+    <br/>
+
+    <label>Select condition: </label>
+    <select name="condition">
+        <option th:each="i : ${T(com.project.prkt.model.EquipmentCondition).values()}"
+                th:value="${i}" th:text="${i}"></option>
+    </select>
+
+    <br/>
+
+    <label>Select size: </label>
+    <select name="size">
+        <option th:each="i : ${T(com.project.prkt.model.SnowboardBoots.Size).values()}"
+                th:value="${i}" th:text="${i.displayValue}"></option>
+    </select>
+
+    <br/>
+
+    <label>Select stiffness: </label>
+    <select name="stiffness">
+        <option th:each="i : ${T(com.project.prkt.model.SnowboardBoots.Stiffness).values()}"
+                th:value="${i}" th:text="${i}"></option>
+    </select>
+
+    <br/>
+
+    <input type="submit" value="Create"/>
+</form>
+
+
+</body>
+</html>
