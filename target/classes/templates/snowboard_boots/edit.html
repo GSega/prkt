@@ -12,44 +12,53 @@
       th:action="@{/admin/info_equipment/snowboard_boots/{id}(id=${snowboardBoots.getId()})}"
       th:object="${snowboardBoots}">
 
-    <label for="name">Enter name: </label>
-    <input type="text" th:field="*{name}" id="name"/>
+    <table th:cellpadding="2">
+        <tr>
+            <td>Name:</td>
+            <td>
+                <input type="text" th:field="*{name}"/>
+            </td>
+        </tr>
+        <tr>
+            <td>Availability:</td>
+            <td>
+                <select th:field="*{available}">
+                    <option th:value="1">available</option>
+                    <option th:value="0">not available</option>
+                </select>
+            </td>
+        </tr>
+        <tr>
+            <td>Condition:</td>
+            <td>
+                <select name="condition">
+                    <option th:each="i : ${T(com.project.prkt.model.EquipmentCondition).values()}"
+                            th:value="${i}" th:text="${i}"></option>
+                </select></td>
+        </tr>
+        <tr>
+            <td>Size:</td>
+            <td>
+                <select name="size">
+                    <option th:each="i : ${T(com.project.prkt.model.SnowboardBoots.Size).values()}"
+                            th:value="${i}" th:text="${i.displayValue}"></option>
+                </select>
+            </td>
+        </tr>
+        <tr>
+            <td>Stiffness:</td>
+            <td>
+                <select name="stiffness">
+                    <option th:each="i : ${T(com.project.prkt.model.SnowboardBoots.Stiffness).values()}"
+                            th:value="${i}" th:text="${i}"></option>
+                </select>
+            </td>
+        </tr>
+    </table>
 
     <br/>
 
-    <label>Set availability: </label>
-    <select th:field="*{available}">
-        <option th:value="1">available</option>
-        <option th:value="0">not available</option>
-    </select>
-
-    <br/>
-
-    <label>Select condition: </label>
-    <select name="condition">
-        <option th:each="i : ${T(com.project.prkt.model.EquipmentCondition).values()}"
-                th:value="${i}" th:text="${i}"></option>
-    </select>
-
-    <br/>
-
-    <label>Select size: </label>
-    <select name="size">
-        <option th:each="i : ${T(com.project.prkt.model.SnowboardBoots.Size).values()}"
-                th:value="${i}" th:text="${i.displayValue}"></option>
-    </select>
-
-    <br/>
-
-    <label>Select stiffness: </label>
-    <select name="stiffness">
-        <option th:each="i : ${T(com.project.prkt.model.SnowboardBoots.Stiffness).values()}"
-                th:value="${i}" th:text="${i}"></option>
-    </select>
-
-    <br/><br/>
-
-    <input type="submit" value="Save changes">
+    <input type="submit" value="Save changes"/>
 </form>
 
 </body>

@@ -3,10 +3,6 @@ package com.project.prkt.model;
 import javax.persistence.*;
 import java.util.Objects;
 
-/*
- * specify values for "enum Size" - DONE
- */
-
 @Entity
 @Table
 public class SnowboardBoots extends Equipment {
@@ -49,6 +45,8 @@ public class SnowboardBoots extends Equipment {
     }
 
     @Id
+    @SequenceGenerator(name = "sequence", sequenceName = "sequence", allocationSize = 1)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "sequence")
     private Long id;
     private String name;
     private boolean available;

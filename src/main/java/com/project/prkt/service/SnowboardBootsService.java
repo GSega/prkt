@@ -5,6 +5,8 @@ import com.project.prkt.repository.SnowboardBootsRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 
 @Service
@@ -18,7 +20,23 @@ public class SnowboardBootsService {
     }
 
     public List<SnowboardBoots> findAll() {
-        return snowboardBootsRepository.findAll();
+        List<SnowboardBoots> listOfSnowboardBoots = snowboardBootsRepository.findAll();
+
+        Comparator<SnowboardBoots> comparatorId = new Comparator<>() {
+            @Override
+            public int compare(SnowboardBoots o1, SnowboardBoots o2) {
+                if (o1.getId() > o2.getId()) {
+                    return 1;
+                } else if (o1.getId() < o2.getId()) {
+                    return -1;
+                } else {
+                    return 0;
+                }
+            }
+        };
+
+        Collections.sort(listOfSnowboardBoots, comparatorId);
+        return listOfSnowboardBoots;
     }
 
     public SnowboardBoots findById(Long id) {
