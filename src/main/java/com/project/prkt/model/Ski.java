@@ -8,10 +8,24 @@ import java.util.Objects;
 @Entity
 @Table
 public class Ski extends Equipment{
-    public enum Stiffness {SOFT, MEDIUM, HARD}
+    public enum Stiffness {
+        SOFT("мягкие"),
+        MEDIUM ("средней жесткости"),
+        HARD("жесткие");
+
+        private String displayValue;
+        Stiffness(String displayValue){
+            this.displayValue = displayValue;
+        }
+
+        public String getDisplayValue() {
+            return displayValue;
+        }
+    }
     //public enum Size {SOFT, MEDIUM, HARD} //вряд ли будет полезно делать Size через enum
     @Id
-    //@GeneratedValue(strategy = GenerationType.IDENTITY) //присваивается автоматически
+    @SequenceGenerator(name = "sequence", sequenceName = "sequence", allocationSize = 1)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "sequence")
     private Long id;
     private String name;
     private boolean available;
