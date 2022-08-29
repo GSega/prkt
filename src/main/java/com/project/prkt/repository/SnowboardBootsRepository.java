@@ -11,4 +11,6 @@ public interface SnowboardBootsRepository extends JpaRepository<SnowboardBoots, 
 
     //    ----- Search by name -----
     List<SnowboardBoots> findByNameContaining(String search);
+
+    List<SnowboardBoots> findAllByOrderById();
 }

@@ -62,7 +62,6 @@ public class SnowboardBoots extends Equipment {
     @SequenceGenerator(name = "sequence", sequenceName = "sequence", allocationSize = 1)
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "sequence")
     private Long id;
-
     @javax.validation.constraints.Size(min = 3, max = 30, message = "Name should contain between 3 and 30 characters")
     private String name;
     private boolean available;
@@ -151,7 +150,7 @@ public class SnowboardBoots extends Equipment {
                 "id: " + id +
                 ", name: " + name +
                 ", available: " + (available ? "available" : "not available") +
-                ", condition: " + condition.getDisplayValue() +
+                ", condition: " + condition.getDisplayValueEn() +
                 ", size: " + size.getDisplayValue() +
                 ", stiffness: " + stiffness.getDisplayValue();
     }

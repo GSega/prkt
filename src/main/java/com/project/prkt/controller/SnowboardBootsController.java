@@ -21,12 +21,14 @@ public class SnowboardBootsController {
         this.snowboardBootsService = snowboardBootsService;
     }
 
+//    ----- Show all -----
     @GetMapping()
     public String showAllSnowboardBoots(Model model) {
         model.addAttribute("allSnowboardBoots", snowboardBootsService.findAll());
         return "snowboard_boots/show_all";
     }
 
+//    ----- Add new -----
     @GetMapping("/add_new")
     public String addNewSnowboardBoots(Model model) {
         model.addAttribute("snowboardBoots", new SnowboardBoots());
@@ -43,6 +45,7 @@ public class SnowboardBootsController {
         return "redirect:/admin/info_equipment/snowboard_boots";
     }
 
+//    ----- Edit -----
     @GetMapping("/edit/{id}")
     public String showOneSnowboardBoots(@PathVariable("id") Long id, Model model) {
         model.addAttribute("snowboardBoots", snowboardBootsService.findById(id));
@@ -60,6 +63,7 @@ public class SnowboardBootsController {
         return "redirect:/admin/info_equipment/snowboard_boots";
     }
 
+//    ----- Delete -----
     @DeleteMapping("/{id}")
     public String deleteSnowboardBoots(@PathVariable("id") Long id) {
         snowboardBootsService.deleteFromDatabase(id);
@@ -70,7 +74,15 @@ public class SnowboardBootsController {
     @GetMapping("/search_by_name")
     public String showSnowboardBootsByPartOfName(Model model, @RequestParam("search") String search) {
         model.addAttribute("snowboardBootsByName", snowboardBootsService.findByPartOfName(search));
-        return "snowboard_boots/search_results";
+        return "snowboard_boots/search";
     }
 
+//    ----- Sorts -----
+    @GetMapping("/sort")
+    public String sortAllByParameter(@RequestParam("parameter") String parameter,
+                                  @RequestParam("sortDirection") String sortDirection, Model model) {
+        model.addAttribute("reverseSortDirection", sortDirection.equals("asc") ? "desc" : "asc");
+        model.addAttribute("allSnowboardBoots", snowboardBootsService.sortAllByParameter(parameter, sortDirection));
+        return "snowboard_boots/show_all";
+    }
 }

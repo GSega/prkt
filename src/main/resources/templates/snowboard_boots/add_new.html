@@ -2,26 +2,27 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>New Snowboard Boots</title>
+    <title th:text="#{add_new.title}">New Snowboard Boots</title>
 </head>
-<body>
+<body th:align="center">
 
-<h1>New Snowboard Boots</h1>
+<h1 th:text="#{add_new.header}">New Snowboard Boots</h1>
 
 <form th:method="POST"
       th:action="@{/admin/info_equipment/snowboard_boots}"
       th:object="${snowboardBoots}">
 
-    <table th:cellpadding="2">
+    <table th:align="center" style="text-align:left"
+           th:cellpadding="2">
         <tr>
-            <td>Name:</td>
+            <td th:text="#{add_new.field.name}">Name:</td>
             <td>
                 <input th:type="text" th:field="*{name}"/>
                 <div style="color:red" th:if="${#fields.hasErrors('name')}" th:errors="*{name}">Name error</div>
             </td>
         </tr>
         <tr>
-            <td>Availability:</td>
+            <td th:text="#{add_new.field.available}">Availability:</td>
             <td>
                 <select th:field="*{available}">
                     <option th:value="1">available</option>
@@ -30,7 +31,7 @@
             </td>
         </tr>
         <tr>
-            <td>Condition:</td>
+            <td th:text="#{add_new.field.condition}">Condition:</td>
             <td>
                 <select name="condition">
                     <option th:each="i : ${T(com.project.prkt.model.EquipmentCondition).values()}"
@@ -38,7 +39,7 @@
                 </select></td>
         </tr>
         <tr>
-            <td>Size:</td>
+            <td th:text="#{add_new.field.size}">Size:</td>
             <td>
                 <select name="size">
                     <option th:each="i : ${T(com.project.prkt.model.SnowboardBoots.Size).values()}"
@@ -47,7 +48,7 @@
             </td>
         </tr>
         <tr>
-            <td>Stiffness:</td>
+            <td th:text="#{add_new.field.stiffness}">Stiffness:</td>
             <td>
                 <select name="stiffness">
                     <option th:each="i : ${T(com.project.prkt.model.SnowboardBoots.Stiffness).values()}"
@@ -59,7 +60,7 @@
 
     <br/>
 
-    <input type="submit" value="Create"/>
+    <input type="submit" th:value="#{add_new.button.create}"/>
 </form>
 
 </body>

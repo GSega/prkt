@@ -3,6 +3,8 @@ package com.project.prkt.service;
 import com.project.prkt.model.SnowboardBoots;
 import com.project.prkt.repository.SnowboardBootsRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import java.util.Collections;
@@ -20,23 +22,7 @@ public class SnowboardBootsService {
     }
 
     public List<SnowboardBoots> findAll() {
-        List<SnowboardBoots> listOfSnowboardBoots = snowboardBootsRepository.findAll();
-
-        Comparator<SnowboardBoots> comparatorId = new Comparator<>() {
-            @Override
-            public int compare(SnowboardBoots o1, SnowboardBoots o2) {
-                if (o1.getId() > o2.getId()) {
-                    return 1;
-                } else if (o1.getId() < o2.getId()) {
-                    return -1;
-                } else {
-                    return 0;
-                }
-            }
-        };
-
-        Collections.sort(listOfSnowboardBoots, comparatorId);
-        return listOfSnowboardBoots;
+        return snowboardBootsRepository.findAllByOrderById();
     }
 
     public SnowboardBoots findById(Long id) {
@@ -67,5 +53,12 @@ public class SnowboardBootsService {
 //    ----- Search by name -----
     public List<SnowboardBoots> findByPartOfName(String search) {
         return snowboardBootsRepository.findByNameContaining(search);
+    }
+
+//    ----- Sorts -----
+    public List<SnowboardBoots> sortAllByParameter(String parameter, String sortDirection) {
+        Sort sort = sortDirection.equalsIgnoreCase(Sort.Direction.ASC.name()) ?
+                Sort.by(parameter).ascending() : Sort.by(parameter).descending();
+        return snowboardBootsRepository.findAll(sort);
     }
 }
