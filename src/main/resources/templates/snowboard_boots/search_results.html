@@ -1,22 +1,12 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>List of SnowboardBoots</title>
+    <title>Search Results</title>
 </head>
 <body>
 
-<h1>List of Snowboard Boots</h1>
-
-<form method="GET"
-      th:action="@{/admin/info_equipment/snowboard_boots/search_by_name}">
-
-    <input th:type="text" name="search" th:value="${search}" placeholder="Input name: "/>
-
-    <input type="submit" value="Search"/>
-</form>
-
-<br/>
+<h1>Search results</h1>
 
 <table th:border=1 th:cellpadding="5" th:rules="rows">
     <tr>
@@ -29,7 +19,7 @@
         <th></th>
         <th colspan="2">
     </tr>
-    <tr th:each="oneSnowboardBoots : ${allSnowboardBoots}">
+    <tr th:each="oneSnowboardBoots : ${snowboardBootsByName}">
         <td th:text="${oneSnowboardBoots.getId()}">Id</td>
         <td th:text="${oneSnowboardBoots.getName()}">Name</td>
         <td style="text-align: center"
@@ -59,11 +49,10 @@
     </tr>
 </table>
 
-<br/>
 
-<a href="/admin/info_equipment/snowboard_boots/add_new">
-    <button>Add new Snowboard Boots</button>
-</a>
+<div >
+    <a ></a>
+</div>
 
 </body>
 </html>

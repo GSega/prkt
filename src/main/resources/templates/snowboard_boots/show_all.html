@@ -8,6 +8,16 @@
 
 <h1>List of Snowboard Boots</h1>
 
+<form method="GET"
+      th:action="@{/admin/info_equipment/snowboard_boots/search_by_name}">
+
+    <input th:type="text" name="search" th:value="${search}" placeholder="Input name: "/>
+
+    <input type="submit" value="Search"/>
+</form>
+
+<br/>
+
 <table th:border=1 th:cellpadding="5" th:rules="rows">
     <tr>
         <th>Id</th>
@@ -23,13 +33,17 @@
         <td th:text="${oneSnowboardBoots.getId()}">Id</td>
         <td th:text="${oneSnowboardBoots.getName()}">Name</td>
         <td style="text-align: center"
-            th:text="${oneSnowboardBoots.isAvailable()} ? 'available' : 'not available'">Available</td>
+            th:text="${oneSnowboardBoots.isAvailable()} ? 'available' : 'not available'">Available
+        </td>
         <td style="text-align: center"
-            th:text="${oneSnowboardBoots.getCondition().getDisplayValue()}">Condition</td>
+            th:text="${oneSnowboardBoots.getCondition().getDisplayValue()}">Condition
+        </td>
         <td style="text-align: center"
-            th:text="${oneSnowboardBoots.getSize().getDisplayValue()}">Size</td>
+            th:text="${oneSnowboardBoots.getSize().getDisplayValue()}">Size
+        </td>
         <td style="text-align: center"
-            th:text="${oneSnowboardBoots.getStiffness().getDisplayValue()}">Stiffness</td>
+            th:text="${oneSnowboardBoots.getStiffness().getDisplayValue()}">Stiffness
+        </td>
         <td th:width="50"></td>
         <td>
             <a th:href="@{/admin/info_equipment/snowboard_boots/edit/{id}(id=${oneSnowboardBoots.getId()})}">
@@ -50,7 +64,6 @@
 <a href="/admin/info_equipment/snowboard_boots/add_new">
     <button>Add new Snowboard Boots</button>
 </a>
-
 
 </body>
 </html>

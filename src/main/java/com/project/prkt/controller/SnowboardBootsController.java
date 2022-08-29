@@ -65,4 +65,13 @@ public class SnowboardBootsController {
         snowboardBootsService.deleteFromDatabase(id);
         return "redirect:/admin/info_equipment/snowboard_boots";
     }
+
+//    ----- Search by name -----
+    @GetMapping("/search_by_name")
+    public String showSnowboardBootsByPartOfName(Model model, @RequestParam("search") String search) {
+        model.addAttribute("snowboardBootsByName", snowboardBootsService.findByPartOfName(search));
+        return "snowboard_boots/search_results";
+    }
+
+
 }

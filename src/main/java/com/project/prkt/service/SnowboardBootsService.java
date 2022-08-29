@@ -63,4 +63,9 @@ public class SnowboardBootsService {
     public void deleteFromDatabase(Long id) {
         snowboardBootsRepository.deleteById(id);
     }
+
+//    ----- Search by name -----
+    public List<SnowboardBoots> findByPartOfName(String search) {
+        return snowboardBootsRepository.findByNameContaining(search);
+    }
 }

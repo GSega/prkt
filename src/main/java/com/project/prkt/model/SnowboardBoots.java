@@ -1,7 +1,6 @@
 package com.project.prkt.model;
 
 import javax.persistence.*;
-import javax.validation.constraints.*;
 import java.util.Objects;
 
 @Entity
@@ -64,7 +63,6 @@ public class SnowboardBoots extends Equipment {
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "sequence")
     private Long id;
 
-    @NotEmpty(message = "Name should not be empty")
     @javax.validation.constraints.Size(min = 3, max = 30, message = "Name should contain between 3 and 30 characters")
     private String name;
     private boolean available;
