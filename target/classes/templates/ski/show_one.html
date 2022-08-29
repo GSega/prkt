@@ -8,9 +8,37 @@
 выбранные лыжи:<br>
 <div>
     <p th:text="${oneSki.toString()}">
-        this won`t be seen if th works well
+        this won`t be seen if th: works well
     </p>
 
+</div>
+
+<div>
+    <table>
+        <tr>
+            <td> Параметр </td> <td> Значение </td>
+        </tr>
+        <tr>
+            <td> ID </td>   <td th:text="${oneSki.getId()}">  </td>
+        </tr>
+        <tr>
+            <td> Название </td>   <td th:text="${oneSki.getName()}"> </td>
+        </tr>
+        <tr>
+            <td> Размер </td>   <td th:text="${oneSki.getSize()}"> </td>
+        </tr>
+        <tr>
+            <td> Занятость </td>   <td th:text="${oneSki.isAvailable()}"> </td>
+        </tr>
+        <tr>
+            <td> Состояние </td>   <td th:text="${oneSki.getCondition()}"> </td>
+        </tr>
+        <tr>
+            <td> Жесткость </td>   <td th:text="${oneSki.getStiffness()}"> </td>
+        </tr>
+
+
+    </table>
 </div>
 
 <body>

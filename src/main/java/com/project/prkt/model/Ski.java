@@ -1,6 +1,5 @@
 package com.project.prkt.model;
 
-import org.springframework.stereotype.Service;
 
 import javax.persistence.*;
 import java.util.Objects;
@@ -9,11 +8,12 @@ import java.util.Objects;
 @Table
 public class Ski extends Equipment{
     public enum Stiffness {
+        UNKNOWN("Н.У."),
         SOFT("мягкие"),
         MEDIUM ("средней жесткости"),
         HARD("жесткие");
 
-        private String displayValue;
+        private final String displayValue;
         Stiffness(String displayValue){
             this.displayValue = displayValue;
         }
@@ -22,16 +22,18 @@ public class Ski extends Equipment{
             return displayValue;
         }
     }
-    //public enum Size {SOFT, MEDIUM, HARD} //вряд ли будет полезно делать Size через enum
+    //public enum Size {} //вряд ли будет полезно делать Size через enum
     @Id
     @SequenceGenerator(name = "sequence", sequenceName = "sequence", allocationSize = 1)
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "sequence")
     private Long id;
+    /*@javax.validation.constraints.Size(min = 3, max = 30, message = "Имя должно содержать от 3 до 30 символов")*/
     private String name;
     private boolean available;
     private EquipmentCondition condition;
+    /*@NotEmpty(message = "Размер не может быть пустым")*/
     private String size; //пишем руками.  размер лыж - это цифры от 80 до 200
-    private Ski.Stiffness stiffness;
+    private Stiffness stiffness;
 
     public Ski() {
     }

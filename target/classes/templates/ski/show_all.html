@@ -7,12 +7,36 @@
 <body>
 fck <br>
 список всех лыж
-<div th:each="oneSki : ${allSki}">  <!--создаем переменную oneSki $вкладываем в нее поочереди элементы
+<!--<div th:each="oneSki : ${allSki}">  &lt;!&ndash;создаем переменную oneSki $вкладываем в нее поочереди элементы
                                     из списка под ключом "allSki" из модели метода showAllSki
-    @создаем ссылку {значение} которой $вкладывается из метода "oneSki.getId()"-->
+    @создаем ссылку {значение} которой $вкладывается из метода "oneSki.getId()"&ndash;&gt;
         <a th:href="@{/admin/info_equipment/ski/{id}(id=${oneSki.getId()})}" th:text="${oneSki.getName}">
-                                                                    <!--текст ссылки $вкладываем из имени текущего элемента-->
+                                                                    &lt;!&ndash;текст ссылки $вкладываем из имени текущего элемента&ndash;&gt;
             this text will be replaced by "th:text" </a>
+</div>-->
+
+<div>
+    <table  border="1" >
+        <tr>
+            <th> ID </th> <th> Название </th> <th> Ростовка </th> <th> Занятость </th> <th> Состояние </th> <th> Жесткость </th> <th> edit </th> <th> delete</th>
+        </tr>
+        <tr th:each="oneSki : ${allSki}">
+            <td th:text="${oneSki.getId()}"> id</td>
+            <td th:text="${oneSki.getName()}"> name</td>
+            <td th:text="${oneSki.getSize()}"> size </td>
+            <td th:text="${oneSki.isAvailable()} ? 'свободно' : 'катается'"> avlbl </td>
+            <td th:text="${oneSki.getCondition().getDisplayValue()}"> cond </td>
+            <td th:text="${oneSki.getStiffness().getDisplayValue()}"> stffns </td>
+            <td>
+                <a th:href="@{/admin/info_equipment/ski/edit/{id}(id=${oneSki.getId()})}"> <button> изменить </button> </a>
+            </td>
+            <td>
+                <form th:method="DELETE" th:action="@{/admin/info_equipment/ski/{id}(id=${oneSki.getId()})}"> <input type="submit" value="УДАЛИТЬ"> </form>
+            </td>
+        </tr>
+
+    </table>
+
 </div>
 
 <div>

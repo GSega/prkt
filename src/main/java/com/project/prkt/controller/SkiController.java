@@ -8,7 +8,6 @@ import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
-import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 
 @Controller
@@ -35,62 +34,39 @@ public class SkiController {
 
     @GetMapping("/add_new")
     public String addNewSki(Model model) {
-       model.addAttribute("newSki", new Ski());
+       model.addAttribute("ski", new Ski());
        return "ski/add_new";
     }
     @PostMapping()
-    public String sendNewSkiToDatabase(@ModelAttribute("ski") Ski ski){
+    public String sendNewSkiToDatabase(@ModelAttribute("ski") Ski ski) {
+
         skiService.addToDatabase(ski);
         return "redirect:/admin/info_equipment/ski/";
     }
 
-    @GetMapping("/{id}/edit")
+    @GetMapping("/edit/{id}")
     public String edit(@PathVariable("id") Long id,  Model model){
-        model.addAttribute("skiToEdit", skiService.findById(id));
+        model.addAttribute("ski", skiService.findById(id));
 
         return "ski/edit";
     }
 
     @PatchMapping("/{id}")
     public String edit(@PathVariable("id") Long id, @ModelAttribute("ski") Ski ski){
+
         skiService.updateById(id, ski);
-        return null;
+        return "redirect:/admin/info_equipment/ski";
     }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-/*
-    @PutMapping("/update")
-    public void updateSnowboardBootsAvailableById(Long id, @ModelAttribute("available") boolean available) {
-        skiService.updateAvailableById(id, available);
-    }
-
-    @DeleteMapping("/addNew")
-    public void deleteSnowboardBoots(Long id) {
+    @DeleteMapping("/{id}")
+    public String delete(@PathVariable("id") Long id){
         skiService.deleteFromDatabase(id);
+        return "redirect:/admin/info_equipment/ski/";
     }
 
 
 
-    @PostMapping()
-    public String addNewSkiToDatabase(@ModelAttribute("ski") @Valid Ski ski, BindingResult bindingResult) {
-        if (bindingResult.hasErrors()) {
-            return "snowboard_boots/add_new";
-        }
-        skiService.addToDatabase(ski);
-        return "redirect:/admin/info_equipment/snowboard_boots";
-    }*/
+
 
 }
 
