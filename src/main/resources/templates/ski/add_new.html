@@ -4,12 +4,18 @@
     <meta charset="UTF-8">
     <title>Добавление Лыж</title>
 </head>
-<body>
 
-<form th:method="POST" th:action="@{/admin/info_equipment/ski/add_new}" th:object="${newSki}">
-    <label for="name"> Name </label>
+<!--кнопка submit сделает POST на адрес из action object из getmapping /add_new
+th:type text - ввод текста, поле field-->
+
+<form th:method="POST" th:action="@{/admin/info_equipment/ski}" th:object="${newSki}">
+    <label for="name"> Название </label>
     <input th:type="text" th:field="*{name}" id="name"/>
-    <input type="submit" value="сохранить"/>
+        <br>
+    <label for="size"> Ростовка </label>
+    <input th:type="text" th:field="*{size}" id="size"/>
+        <br>
+    <input type="submit" value="сохранить"/> <!--ахуеть это кнопка формы -->
 
 </form>
 

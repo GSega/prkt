@@ -31,9 +31,14 @@ public class SkiService {
         skiRepository.save(ski);
     }
 
-    public void updateAvailableById(Long id, boolean available){
-        Ski skiToBeUpdated = findById(id); // так вроде тож должно сработать
-        skiToBeUpdated.setAvailable(available);
+    public void updateById(Long id, Ski updatedSki){
+        Ski skiToBeUpdated = findById(id);
+        skiToBeUpdated.setName(updatedSki.getName());
+        skiToBeUpdated.setAvailable(updatedSki.isAvailable());
+        skiToBeUpdated.setSize(updatedSki.getSize());
+        skiToBeUpdated.setStiffness(updatedSki.getStiffness());
+        skiToBeUpdated.setCondition(updatedSki.getCondition());
+        skiRepository.save(skiToBeUpdated);
     }
     public void updateCondition(Long id, EquipmentCondition equipmentCondition){
         Ski skiToBeUpdated = findById(id);

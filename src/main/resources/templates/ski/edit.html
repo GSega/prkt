@@ -1,10 +1,20 @@
-<!DOCTYPE html>
-<html lang="en">
+!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title>Edit Ski</title>
 </head>
 <body>
+<form th:method="PATCH"
+      th:action="@{/admin/info_equipment/ski/{id}(id=${skiToEdit.getId()})}"
+      th:object="${skiToEdit}">
+    <label for="name"> Название </label>
+    <input th:type="text" th:field="*{name}" id="name"/>
+    <br>
+    <label for="size"> Ростовка </label>
+    <input th:type="text" th:field="*{size}" id="size"/>
+    <br>
+    <input type="submit" value="обновить"/>
 
 </body>
 </html>

@@ -1,10 +1,18 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title>One Ski</title>
 </head>
-<body>
 
+выбранные лыжи:<br>
+<div>
+    <p th:text="${oneSki.toString()}">
+        this won`t be seen if th works well
+    </p>
+
+</div>
+
+<body>
 </body>
 </html>

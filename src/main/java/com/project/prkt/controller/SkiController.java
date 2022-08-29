@@ -41,8 +41,32 @@ public class SkiController {
     @PostMapping()
     public String sendNewSkiToDatabase(@ModelAttribute("ski") Ski ski){
         skiService.addToDatabase(ski);
-        return "redirect:/admin/info_equipment/ski";
+        return "redirect:/admin/info_equipment/ski/";
     }
+
+    @GetMapping("/{id}/edit")
+    public String edit(@PathVariable("id") Long id,  Model model){
+        model.addAttribute("skiToEdit", skiService.findById(id));
+
+        return "ski/edit";
+    }
+
+    @PatchMapping("/{id}")
+    public String edit(@PathVariable("id") Long id, @ModelAttribute("ski") Ski ski){
+        skiService.updateById(id, ski);
+        return null;
+    }
+
+
+
+
+
+
+
+
+
+
+
 
 
 
