@@ -1,0 +1,12 @@
+com/project/prkt/PrktApplication.class
+com/project/prkt/model/Snowboard$Arch.class
+com/project/prkt/configuration/ApplicationConfig.class
+com/project/prkt/model/TypesOfEquipment.class
+com/project/prkt/model/EquipmentCondition.class
+com/project/prkt/repository/SnowboardRepository.class
+com/project/prkt/model/Snowboard$BindingSize.class
+com/project/prkt/service/SnowboardService.class
+com/project/prkt/controller/SnowboardController.class
+com/project/prkt/model/Snowboard$Stiffness.class
+com/project/prkt/model/Equipment.class
+com/project/prkt/model/Snowboard.class
