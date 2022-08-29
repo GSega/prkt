@@ -73,5 +73,4 @@ public class SnowboardBootsController {
         return "snowboard_boots/search_results";
     }
 
-
 }

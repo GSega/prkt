@@ -9,5 +9,6 @@ import java.util.List;
 @Repository
 public interface SnowboardBootsRepository extends JpaRepository<SnowboardBoots, Long> {
 
+    //    ----- Search by name -----
     List<SnowboardBoots> findByNameContaining(String search);
 }
