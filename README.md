@@ -5,13 +5,15 @@
 - Spring Core
 - Spring Boot
 - Spring MVC
-- Spring JPA / Hibernate (?)
+- Spring JPA
 - RESTful API (?)
+- Maven
 - PostgreSQL
 - HTML, Thymeleaf
 - Git
 
 ### Software:
+- Java 17
 - JDK 18.0.1
 - Spring Framework 5.3.22
 - Spring Boot 2.7.3
