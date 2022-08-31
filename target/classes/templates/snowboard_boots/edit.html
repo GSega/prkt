@@ -6,8 +6,10 @@
 </head>
 <body th:align="center">
 
+<!--Header-->
 <h1 th:text="#{edit.header}">Edit information</h1>
 
+<!--Input parameters-->
 <form th:method="PATCH"
       th:action="@{/admin/info_equipment/snowboard_boots/{id}(id=${snowboardBoots.getId()})}"
       th:object="${snowboardBoots}">
@@ -25,8 +27,8 @@
             <td th:text="#{edit.field.available}"></td>
             <td>
                 <select th:field="*{available}">
-                    <option th:value="1">available</option>
-                    <option th:value="0">not available</option>
+                    <option th:value="1" th:text="#{available.true}">available</option>
+                    <option th:value="0" th:text="#{available.false}">not available</option>
                 </select>
             </td>
         </tr>
@@ -35,7 +37,8 @@
             <td>
                 <select name="condition">
                     <option th:each="i : ${T(com.project.prkt.model.EquipmentCondition).values()}"
-                            th:value="${i}" th:text="${i}"></option>
+                            th:value="${i.name()}"
+                            th:text="#{${'equipment_condition.' + i}}"></option>
                 </select></td>
         </tr>
         <tr>
@@ -43,7 +46,7 @@
             <td>
                 <select name="size">
                     <option th:each="i : ${T(com.project.prkt.model.SnowboardBoots.Size).values()}"
-                            th:value="${i}" th:text="${i.displayValue}"></option>
+                            th:value="${i.name}" th:text="#{${'size.' + i}}"></option>
                 </select>
             </td>
         </tr>
@@ -52,7 +55,8 @@
             <td>
                 <select name="stiffness">
                     <option th:each="i : ${T(com.project.prkt.model.SnowboardBoots.Stiffness).values()}"
-                            th:value="${i}" th:text="${i}"></option>
+                            th:value="${i.name}"
+                            th:text="#{${'stiffness.' + i}}"></option>
                 </select>
             </td>
         </tr>

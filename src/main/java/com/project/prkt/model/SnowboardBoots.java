@@ -2,59 +2,53 @@ package com.project.prkt.model;
 
 import javax.persistence.*;
 import java.util.Objects;
+import java.util.ResourceBundle;
 
 @Entity
 @Table
 public class SnowboardBoots extends Equipment {
     public enum Stiffness {
-        SOFT("soft"),
-        MEDIUM("medium"),
-        HARD("hard");
+        UNKNOWN(),
+        SOFT(),
+        MEDIUM(),
+        HARD();
 
-        private final String displayValue;
+        private static final ResourceBundle resourceBundle = ResourceBundle.getBundle("snowboard_boots_messages");
 
-        Stiffness(String displayValue) {
-            this.displayValue = displayValue;
-        }
-
-        public String getDisplayValue() {
-            return displayValue;
+        public String toString() {
+            return resourceBundle.getString("snowboard_boots.stiffness." + name());
         }
     }
 
     public enum Size {
-        RU36_EU37_MM235("RU36/EU37/235mm"),
-        RU34_EU35_MM240("RU34/EU35/240mm"),
-        RU37_EU38_MM245("RU37/EU38/245mm"),
-        RU38_EU39_MM250("RU38/EU39/250mm"),
-        RU39_EU40_MM255("RU39/EU40/255mm"),
-        RU40_EU41_MM260("RU40/EU41/260mm"),
-        RU41_EU42_MM265("RU41/EU42/265mm"),
-        RU415_EU425_MM275("RU41.5/EU42.5/275mm"),
-        RU42_EU43_MM275("RU42/EU43/275mm"),
-        RU425_EU435_MM280("RU42.5/EU43.5/280mm"),
-        RU43_EU44_MM285("RU43/EU44/285mm"),
-        RU44_EU45_MM290("RU44/EU45/290mm"),
-        RU45_EU46_MM300("RU45/EU46/300mm"),
-        RU46_EU47_MM310("RU46/EU47/310mm"),
-        DETSK26_MM165("Junior 26/165mm"),
-        DETSK28_MM175("Junior 28/175mm"),
-        DETSK30_MM185("Junior 30/185mm"),
-        DETSK31_MM195("Junior 31/195mm"),
-        DETSK32_MM205("Junior 32/205mm"),
-        DETSK33_MM210("Junior 33/210mm"),
-        DETSK34_MM215("Junior 34/215mm"),
-        DETSK35_MM225("Junior 35/225mm"),
-        OTHER("Other");
+        OTHER,
+        RU36_EU37_MM235,
+        RU34_EU35_MM240,
+        RU37_EU38_MM245,
+        RU38_EU39_MM250,
+        RU39_EU40_MM255,
+        RU40_EU41_MM260,
+        RU41_EU42_MM265,
+        RU415_EU425_MM275,
+        RU42_EU43_MM275,
+        RU425_EU435_MM280,
+        RU43_EU44_MM285,
+        RU44_EU45_MM290,
+        RU45_EU46_MM300,
+        RU46_EU47_MM310,
+        JUNIOR26_MM165,
+        JUNIOR28_MM175,
+        JUNIOR30_MM185,
+        JUNIOR31_MM195,
+        JUNIOR32_MM205,
+        JUNIOR33_MM210,
+        JUNIOR34_MM215,
+        JUNIOR35_MM225;
 
-        private final String displayValue;
+        private final static ResourceBundle resourceBundle = ResourceBundle.getBundle("snowboard_boots_messages");
 
-        Size(String displayValue) {
-            this.displayValue = displayValue;
-        }
-
-        public String getDisplayValue() {
-            return displayValue;
+        public String toString() {
+            return resourceBundle.getString("snowboard_boots.size." + name());
         }
     }
 
@@ -62,7 +56,7 @@ public class SnowboardBoots extends Equipment {
     @SequenceGenerator(name = "sequence", sequenceName = "sequence", allocationSize = 1)
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "sequence")
     private Long id;
-    @javax.validation.constraints.Size(min = 3, max = 30, message = "Name should contain between 3 and 30 characters")
+    @javax.validation.constraints.Size(min = 3, max = 30, message = "{message.snowboard_boots.invalid_name}") //ResourceBundle
     private String name;
     private boolean available;
     private EquipmentCondition condition;
@@ -150,8 +144,8 @@ public class SnowboardBoots extends Equipment {
                 "id: " + id +
                 ", name: " + name +
                 ", available: " + (available ? "available" : "not available") +
-                ", condition: " + condition.getDisplayValueEn() +
-                ", size: " + size.getDisplayValue() +
-                ", stiffness: " + stiffness.getDisplayValue();
+                ", condition: " + condition.toString() +
+                ", size: " + size.toString() +
+                ", stiffness: " + stiffness.toString();
     }
 }

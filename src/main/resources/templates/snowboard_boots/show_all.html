@@ -1,81 +1,3 @@
-<!--<!DOCTYPE html>-->
-<!--<html lang="en" xmlns:th="http://www.thymeleaf.org">-->
-<!--<head>-->
-<!--    <meta charset="UTF-8">-->
-<!--    <title>List of SnowboardBoots</title>-->
-<!--</head>-->
-<!--<body th:align="center">-->
-
-<!--<h1>List of Snowboard Boots</h1>-->
-
-<!--<form method="GET"-->
-<!--      th:action="@{/admin/info_equipment/snowboard_boots/search_by_name}">-->
-
-<!--    <input th:type="text" name="search" th:value="${search}" placeholder="Input name: "/>-->
-
-<!--    <input type="submit" value="Search"/>-->
-<!--</form>-->
-
-<!--<br/>-->
-
-<!--<table th:align="center"-->
-<!--       th:border=1 th:rules="rows"-->
-<!--       th:cellpadding="5">-->
-<!--    <tr>-->
-<!--        <th>-->
-<!--            <a th:href="@{'/admin/info_equipment/snowboard_boots/sort?parameter=id&sortDirection=' + ${reverseSortDirection}}">Id</a>-->
-<!--        </th>-->
-<!--        <th>-->
-<!--            <a th:href="@{'/admin/info_equipment/snowboard_boots/sort?parameter=name&sortDirection=' + ${reverseSortDirection}}">Name</a>-->
-<!--        </th>-->
-<!--        <th>-->
-<!--            <a th:href="@{'/admin/info_equipment/snowboard_boots/sort?parameter=available&sortDirection=' + ${reverseSortDirection}}">Available</a>-->
-<!--        </th>-->
-<!--        <th>-->
-<!--            <a th:href="@{'/admin/info_equipment/snowboard_boots/sort?parameter=condition&sortDirection=' + ${reverseSortDirection}}">Condition</a>-->
-<!--        </th>-->
-<!--        <th>-->
-<!--            <a th:href="@{'/admin/info_equipment/snowboard_boots/sort?parameter=size&sortDirection=' + ${reverseSortDirection}}">Size</a>-->
-<!--        </th>-->
-<!--        <th>-->
-<!--            <a th:href="@{'/admin/info_equipment/snowboard_boots/sort?parameter=stiffness&sortDirection=' + ${reverseSortDirection}}">Stiffness</a>-->
-<!--        </th>-->
-<!--        <th></th>-->
-<!--    </tr>-->
-<!--    <tr th:each="oneSnowboardBoots : ${allSnowboardBoots}">-->
-<!--        <td th:text="${oneSnowboardBoots.getId()}">Id</td>-->
-<!--        <td th:align="left"-->
-<!--            th:text="${oneSnowboardBoots.getName()}">Name-->
-<!--        </td>-->
-<!--        <td th:text="${oneSnowboardBoots.isAvailable()} ? 'available' : 'not available'">Available</td>-->
-<!--        <td th:text="${oneSnowboardBoots.getCondition().getDisplayValue()}">Condition</td>-->
-<!--        <td th:text="${oneSnowboardBoots.getSize().getDisplayValue()}">Size</td>-->
-<!--        <td th:text="${oneSnowboardBoots.getStiffness().getDisplayValue()}">Stiffness</td>-->
-<!--        <td th:width="50"></td>-->
-<!--        <td>-->
-<!--            <a th:href="@{/admin/info_equipment/snowboard_boots/edit/{id}(id=${oneSnowboardBoots.getId()})}">-->
-<!--                <button>Edit</button>-->
-<!--            </a>-->
-<!--        </td>-->
-<!--        <td>-->
-<!--            <form th:method="DELETE"-->
-<!--                  th:action="@{/admin/info_equipment/snowboard_boots/{id}(id=${oneSnowboardBoots.getId()})}">-->
-<!--                <input type="submit" value="Delete"/>-->
-<!--            </form>-->
-<!--        </td>-->
-<!--    </tr>-->
-<!--</table>-->
-
-<!--<br/>-->
-
-<!--<a href="/admin/info_equipment/snowboard_boots/add_new">-->
-<!--    <button>Add new Snowboard Boots</button>-->
-<!--</a>-->
-
-<!--</body>-->
-<!--</html>-->
-
-
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
@@ -143,10 +65,14 @@
         <td th:align="left"
             th:text="${oneSnowboardBoots.getName()}">Name
         </td>
-        <td th:text="${oneSnowboardBoots.isAvailable()} ? 'available' : 'not available'">Available</td>
-        <td th:text="${oneSnowboardBoots.getCondition().getDisplayValueEn()}">Condition</td>
-        <td th:text="${oneSnowboardBoots.getSize().getDisplayValue()}">Size</td>
-        <td th:text="${oneSnowboardBoots.getStiffness().getDisplayValue()}">Stiffness</td>
+        <td th:text="${oneSnowboardBoots.isAvailable()} ? #{available.true} : #{available.false}">Available</td>
+        <!--выше обрати внимание - #{available.true} написано без th:text=-->
+        <!--я так понял, потому что здесь подразумевается text-->
+        <td th:text="#{${'equipment_condition.' + oneSnowboardBoots.getCondition()}}"
+        >Condition
+        </td>
+        <td th:text="#{${'size.' + oneSnowboardBoots.getSize()}}">Size</td>
+        <td th:text="#{${'stiffness.' + oneSnowboardBoots.getStiffness()}}">Stiffness</td>
         <td th:width="50"></td>
         <td>
             <a th:href="@{/admin/info_equipment/snowboard_boots/edit/{id}(id=${oneSnowboardBoots.getId()})}">
