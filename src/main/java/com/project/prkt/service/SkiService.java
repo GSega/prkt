@@ -4,6 +4,7 @@ import com.project.prkt.model.EquipmentCondition;
 import com.project.prkt.model.Ski;
 import com.project.prkt.repository.SkiRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -40,17 +41,19 @@ public class SkiService {
         skiToBeUpdated.setCondition(updatedSki.getCondition());
         skiRepository.save(skiToBeUpdated);
     }
-    public void updateCondition(Long id, EquipmentCondition equipmentCondition){
-        Ski skiToBeUpdated = findById(id);
-        skiToBeUpdated.setCondition(equipmentCondition);
-    }
 
     public void deleteFromDatabase(Long id) {
         skiRepository.deleteById(id);
     }
 
-    // public void updateName
-    // public void updateStiffness
-    // public void updateSize
 
+    public List<Ski> sortAllByParameter(String parameter, String sortDirection) { //parameter - имя поля по которому сортируем
+        //в пеерменную типа sort надо положить инф о поле и направлении сортировки.ниже сравнивается направление с константой ASC и  записыватся в виде
+        //Sort.by(поле по которому сортируем).ascending() или Sort.by(поле по которому сортируем).ascending()
+        Sort sort = sortDirection.equalsIgnoreCase(Sort.Direction.ASC.name()) ? Sort.by(parameter).ascending() : Sort.by(parameter).descending();
+        return skiRepository.findAll(sort);
+    }
+    public List<Ski> findByPartOfName(String search) {
+        return skiRepository.findByNameContaining(search);
+    }
 }

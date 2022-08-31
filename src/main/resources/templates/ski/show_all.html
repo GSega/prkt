@@ -18,7 +18,14 @@ fck <br>
 <div>
     <table  border="1" >
         <tr>
-            <th> ID </th> <th> Название </th> <th> Ростовка </th> <th> Занятость </th> <th> Состояние </th> <th> Жесткость </th> <th> edit </th> <th> delete</th>
+            <th> <a th:href="@{'/admin/info_equipment/ski/sort?parameter=id&sortDirection=' + ${reverseSortDirection}}"> ID </a> </th>
+            <th> Название </th>
+            <th> Ростовка </th>
+            <th> Занятость </th>
+            <th> Состояние </th>
+            <th> Жесткость </th>
+            <th> edit </th>
+            <th> delete</th>
         </tr>
         <tr th:each="oneSki : ${allSki}">
             <td th:text="${oneSki.getId()}"> id</td>

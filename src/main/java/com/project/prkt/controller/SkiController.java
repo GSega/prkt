@@ -62,7 +62,20 @@ public class SkiController {
         return "redirect:/admin/info_equipment/ski/";
     }
 
+    @GetMapping("/search_by_name")
+    public String showSnowboardBootsByPartOfName(Model model, @RequestParam("search") String search) {
+        model.addAttribute("snowboardBootsByName", skiService.findByPartOfName(search));
+        return "ski/search";
+    }
 
+    //    ----- Sorts -----
+    @GetMapping("/sort")
+    public String sortAllByParameter(@RequestParam("parameter") String parameter,
+                                     @RequestParam("sortDirection") String sortDirection, Model model) {
+        model.addAttribute("reverseSortDirection", sortDirection.equals("asc") ? "desc" : "asc");
+        model.addAttribute("allSki", skiService.sortAllByParameter(parameter, sortDirection));
+        return "ski/show_all";
+    }
 
 
 
