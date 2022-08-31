@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title th:text="#{search.title}">Search Results</title>
+</head>
+<body th:align="center">
+
+<h1 th:text="#{search.header}">Search results</h1>
+
+<table th:align="center"
+       th:border=1 th:rules="rows"
+       th:cellpadding="5">
+    <tr>
+        <th th:text="#{search.table.header.id}">Id</th>
+        <th th:text="#{search.table.header.name}">Name</th>
+        <th th:text="#{search.table.header.available}">Available</th>
+        <th th:text="#{search.table.header.condition}">Condition</th>
+        <th th:text="#{search.table.header.size}">Size</th>
+        <th th:text="#{search.table.header.stiffness}">Stiffness</th>
+        <th></th>
+    </tr>
+    <tr th:each="oneSnowboardBoots : ${snowboardBootsByName}">
+        <td th:text="${oneSnowboardBoots.getId()}">Id</td>
+        <td th:align="left"
+            th:text="${oneSnowboardBoots.getName()}">Name
+        </td>
+        <td th:text="${oneSnowboardBoots.isAvailable()} ? 'available' : 'not available'">Available</td>
+        <td th:text="${oneSnowboardBoots.getCondition().getDisplayValueEn()}">Condition</td>
+        <td th:text="${oneSnowboardBoots.getSize().getDisplayValue()}">Size</td>
+        <td th:text="${oneSnowboardBoots.getStiffness().getDisplayValue()}">Stiffness</td>
+        <td th:width="50"></td>
+        <td>
+            <a th:href="@{/admin/info_equipment/snowboard_boots/edit/{id}(id=${oneSnowboardBoots.getId()})}">
+                <button th:text="#{search.table.button.edit}"></button>
+            </a>
+        </td>
+        <td>
+            <form th:method="DELETE"
+                  th:action="@{/admin/info_equipment/snowboard_boots/{id}(id=${oneSnowboardBoots.getId()})}">
+                <input type="submit" th:value="#{search.table.button.delete}"/>
+            </form>
+        </td>
+    </tr>
+</table>
+
+</body>
+</html>
