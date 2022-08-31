@@ -1,0 +1,9 @@
+com\project\prkt\repository\SkiRepository.class
+com\project\prkt\model\TypesOfEquipment.class
+com\project\prkt\model\Ski.class
+com\project\prkt\PrktApplication.class
+com\project\prkt\model\Equipment.class
+com\project\prkt\model\EquipmentCondition.class
+com\project\prkt\model\Ski$Stiffness.class
+com\project\prkt\controller\SkiController.class
+com\project\prkt\service\SkiService.class

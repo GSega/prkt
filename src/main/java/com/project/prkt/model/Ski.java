@@ -91,11 +91,11 @@ public class Ski extends Equipment{
         this.stiffness = stiffness;
     }
 
-    @Override
+    /*@Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (!(o instanceof Ski ski)) return false;
-        return available == ski.available && id.equals(ski.id) && Objects.equals(name, ski.name) && condition == ski.condition && Objects.equals(size, ski.size) && stiffness == ski.stiffness;
+        return available == ski.available && id.equals(ski.id) && name.equals(ski.name) && condition == ski.condition && size.equals(ski.size) && stiffness == ski.stiffness;
     }
 
     @Override
@@ -113,5 +113,5 @@ public class Ski extends Equipment{
                 ", size='" + size + '\'' +
                 ", stiffness=" + stiffness +
                 '}';
-    }
+    }*/
 }
