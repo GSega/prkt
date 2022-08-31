@@ -5,10 +5,8 @@ import com.project.prkt.service.SkiService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
-import javax.validation.Valid;
 
 @Controller
 @RequestMapping("/admin/info_equipment/ski")
@@ -26,11 +24,11 @@ public class SkiController {
         return "ski/show_all";
     }
 
-    @GetMapping("/{id}")
+  /*  @GetMapping("/{id}")
     public String showOneSki(@PathVariable("id") Long id, Model model) {
         model.addAttribute("oneSki", skiService.findById(id));
         return "ski/show_one";
-    }
+    }*/
 
     @GetMapping("/add_new")
     public String addNewSki(Model model) {
