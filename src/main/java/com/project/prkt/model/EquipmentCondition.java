@@ -9,7 +9,7 @@ public enum EquipmentCondition {
     BROKEN,
     SERVICE;
 
-    private static final ResourceBundle resourceBundle = ResourceBundle.getBundle("snowboard_boots_messages");
+    private static final ResourceBundle resourceBundle = ResourceBundle.getBundle("equipment_condition");
 
     public String toString() {
         return resourceBundle.getString("equipment_condition." + name());

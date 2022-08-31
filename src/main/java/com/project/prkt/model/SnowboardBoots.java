@@ -13,7 +13,7 @@ public class SnowboardBoots extends Equipment {
         MEDIUM(),
         HARD();
 
-        private static final ResourceBundle resourceBundle = ResourceBundle.getBundle("snowboard_boots_messages");
+        private static final ResourceBundle resourceBundle = ResourceBundle.getBundle("snowboard_boots");
 
         public String toString() {
             return resourceBundle.getString("snowboard_boots.stiffness." + name());
@@ -45,7 +45,7 @@ public class SnowboardBoots extends Equipment {
         JUNIOR34_MM215,
         JUNIOR35_MM225;
 
-        private final static ResourceBundle resourceBundle = ResourceBundle.getBundle("snowboard_boots_messages");
+        private final static ResourceBundle resourceBundle = ResourceBundle.getBundle("snowboard_boots");
 
         public String toString() {
             return resourceBundle.getString("snowboard_boots.size." + name());
@@ -56,7 +56,7 @@ public class SnowboardBoots extends Equipment {
     @SequenceGenerator(name = "sequence", sequenceName = "sequence", allocationSize = 1)
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "sequence")
     private Long id;
-    @javax.validation.constraints.Size(min = 3, max = 30, message = "{message.snowboard_boots.invalid_name}") //ResourceBundle
+    @javax.validation.constraints.Size(min = 3, max = 30, message = "{snowboard_boots.message.invalid_name}")
     private String name;
     private boolean available;
     private EquipmentCondition condition;

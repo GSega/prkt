@@ -10,8 +10,12 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 
+/**
+ * @author Nikolai Khriapov
+ */
+
 @Controller
-@RequestMapping("/admin/info_equipment/snowboard_boots")
+@RequestMapping("/admin/info-equipment/snowboard-boots")
 public class SnowboardBootsController {
 
     private final SnowboardBootsService snowboardBootsService;
@@ -21,68 +25,69 @@ public class SnowboardBootsController {
         this.snowboardBootsService = snowboardBootsService;
     }
 
-//    ----- Show all -----
+//    ----- show all -----
     @GetMapping()
     public String showAllSnowboardBoots(Model model) {
-        model.addAttribute("allSnowboardBoots", snowboardBootsService.findAll());
+        model.addAttribute("allSnowboardBoots", snowboardBootsService.showAllSnowboardBoots());
         return "snowboard_boots/show_all";
     }
 
-//    ----- Add new -----
-    @GetMapping("/add_new")
-    public String addNewSnowboardBoots(Model model) {
-        model.addAttribute("snowboardBoots", new SnowboardBoots());
+//    ----- add new -----
+    @GetMapping("/add-new")
+    public String createNewSnowboardBoots(Model model) {
+        model.addAttribute("newSnowboardBoots", new SnowboardBoots());
         return "snowboard_boots/add_new";
     }
 
     @PostMapping()
-    public String addNewSnowboardBootsToDatabase(@ModelAttribute("snowboardBoots") @Valid SnowboardBoots snowboardBoots,
+    public String addNewSnowboardBootsToDB(@ModelAttribute("newSnowboardBoots") @Valid SnowboardBoots snowboardBoots,
                                                  BindingResult bindingResult) {
         if (bindingResult.hasErrors()) {
             return "snowboard_boots/add_new";
         }
-        snowboardBootsService.addToDatabase(snowboardBoots);
-        return "redirect:/admin/info_equipment/snowboard_boots";
+        snowboardBootsService.addNewSnowboardBootsToDB(snowboardBoots);
+        return "redirect:/admin/info-equipment/snowboard-boots";
     }
 
-//    ----- Edit -----
+//    ----- edit -----
     @GetMapping("/edit/{id}")
     public String showOneSnowboardBoots(@PathVariable("id") Long id, Model model) {
-        model.addAttribute("snowboardBoots", snowboardBootsService.findById(id));
+        model.addAttribute("snowboardBootsToUpdate", snowboardBootsService.showOneSnowboardBootsById(id));
         return "snowboard_boots/edit";
     }
 
     @PatchMapping("/{id}")
-    public String updateSnowboardBootsById(@PathVariable Long id,
-                                           @ModelAttribute("snowboardBoots") @Valid SnowboardBoots snowboardBoots,
+    public String updateSnowboardBoots(@PathVariable("id") Long id,
+                                           @ModelAttribute("snowboardBootsToUpdate") @Valid SnowboardBoots updatedSnowboardBoots,
                                            BindingResult bindingResult) {
         if (bindingResult.hasErrors()) {
             return "snowboard_boots/edit";
         }
-        snowboardBootsService.updateById(id, snowboardBoots);
-        return "redirect:/admin/info_equipment/snowboard_boots";
+        snowboardBootsService.updateSnowboardBootsById(id, updatedSnowboardBoots);
+        return "redirect:/admin/info-equipment/snowboard-boots";
     }
 
-//    ----- Delete -----
+//    ----- delete -----
     @DeleteMapping("/{id}")
     public String deleteSnowboardBoots(@PathVariable("id") Long id) {
-        snowboardBootsService.deleteFromDatabase(id);
-        return "redirect:/admin/info_equipment/snowboard_boots";
+        snowboardBootsService.deleteSnowboardBootsById(id);
+        return "redirect:/admin/info-equipment/snowboard-boots";
     }
 
-//    ----- Search by name -----
-    @GetMapping("/search_by_name")
-    public String showSnowboardBootsByPartOfName(Model model, @RequestParam("search") String search) {
-        model.addAttribute("snowboardBootsByName", snowboardBootsService.findByPartOfName(search));
+//    ----- search -----
+    @GetMapping("/search-by-name")
+    public String showSnowboardBootsByPartOfName(@RequestParam("partOfName") String partOfName, Model model) {
+        model.addAttribute("snowboardBootsByPartOfName", snowboardBootsService.showSnowboardBootsByPartOfName(partOfName));
         return "snowboard_boots/search";
     }
 
-//    ----- Sorts -----
+//    ----- sorts -----
     @GetMapping("/sort")
-    public String sortAllByParameter(@RequestParam("parameter") String parameter,
-                                  @RequestParam("sortDirection") String sortDirection, Model model) {
+    public String sortAllSnowboardBootsByParameter(@RequestParam("parameter") String parameter,
+                                                   @RequestParam("sortDirection") String sortDirection,
+                                                   Model model) {
         model.addAttribute("reverseSortDirection", sortDirection.equals("asc") ? "desc" : "asc");
-        model.addAttribute("allSnowboardBoots", snowboardBootsService.sortAllByParameter(parameter, sortDirection));
+        model.addAttribute("allSnowboardBoots", snowboardBootsService.sortAllSnowboardBootsByParameter(parameter, sortDirection));
         return "snowboard_boots/show_all";
     }
 }
