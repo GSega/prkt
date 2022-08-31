@@ -1,4 +1,4 @@
-package com.project.prkt.config;
+package com.project.prkt.configuration;
 
 import org.springframework.context.MessageSource;
 import org.springframework.context.annotation.Bean;
