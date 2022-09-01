@@ -1,4 +1,4 @@
 -------------------------------------------------------------------------------
 Test set: com.project.prkt.PrktApplicationTests
 -------------------------------------------------------------------------------
-Tests run: 1, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 11.831 s - in com.project.prkt.PrktApplicationTests
+Tests run: 1, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 9.942 s - in com.project.prkt.PrktApplicationTests
