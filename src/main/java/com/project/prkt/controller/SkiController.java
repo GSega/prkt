@@ -77,7 +77,11 @@ public class SkiController {
         return "ski/show_all";
     }
 
-
+    @GetMapping("/search_by_name")
+    public String skiByPartOfName(Model model, @RequestParam("search") String search) {
+        model.addAttribute("skiByName", skiService.findByPartOfName(search));
+        return "ski/search";
+    }
 
 }
 

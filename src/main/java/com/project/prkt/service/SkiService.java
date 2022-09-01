@@ -24,7 +24,7 @@ public class SkiService {
         return skiRepository.findAll();
     }
 
-    public Ski findById(Long id){ // шо за пустые скобочи и стрелочка такие?
+    public Ski findById(Long id){ // в лямбду пока тупо верим. разберемся позже
         return skiRepository.findById(id).orElseThrow(() -> new IllegalStateException("лыжи с id=" + id + "не найдены"));
     }
 
