@@ -3,6 +3,7 @@ D:\prokat app project\prkt\src\main\java\com\project\prkt\repository\SkiReposito
 D:\prokat app project\prkt\src\main\java\com\project\prkt\model\Equipment.java
 D:\prokat app project\prkt\src\main\java\com\project\prkt\model\Ski.java
 D:\prokat app project\prkt\src\main\java\com\project\prkt\PrktApplication.java
+D:\prokat app project\prkt\src\main\java\com\project\prkt\configuration\ApplicationConfig.java
 D:\prokat app project\prkt\src\main\java\com\project\prkt\model\TypesOfEquipment.java
 D:\prokat app project\prkt\src\main\java\com\project\prkt\model\EquipmentCondition.java
 D:\prokat app project\prkt\src\main\java\com\project\prkt\controller\SkiController.java
