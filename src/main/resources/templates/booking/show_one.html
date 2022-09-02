@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title th:text="#{booking.show_one.title}">?????</title>
+</head>
+<body th:align="center">
+
+<!--Header-->
+<h1 th:text="#{booking.show_one.header}">?????</h1>
+
+<!--Input parameters-->
+<form th:method="POST"
+      th:action="@{/client/booking}"
+      th:object="${foundBooking}">
+
+    <table th:align="center" style="text-align:left"
+           th:cellpadding="2">
+        <tr>
+            <td th:text="#{booking.show_one.field.id}">?????</td>
+            <td th:text="*{id}"></td>
+        </tr>
+        <tr>
+            <td th:text="#{booking.show_one.field.booking_surname}">?????</td>
+            <td th:text="*{bookingSurname}"></td>
+        </tr>
+        <tr>
+            <td th:text="#{booking.show_one.field.phone1}">?????</td>
+            <td th:text="*{phone1}"></td>
+        </tr>
+        <tr>
+            <td th:text="#{booking.show_one.field.phone2}">?????</td>
+            <td th:text="*{phone2}"></td>
+        </tr>
+        <tr>
+            <td th:text="#{booking.show_one.field.date_of_arrival}">?????</td>
+            <td type="datetime-local" th:text="*{dateOfArrival}"/>?????</td>
+        </tr>
+        <tr>
+            <td th:text="#{booking.show_one.field.date_of_return}">?????</td>
+            <td type="datetime-local" th:text="*{dateOfReturn}"/>?????</td>
+        </tr>
+    </table>
+</form>
+
+<br/>
+
+<!--Return to "booking/show_all"-->
+<a href="/client/booking">
+    <button th:text="#{booking.show_one.button.return}">?????</button>
+</a>
+
+</body>
+</html>

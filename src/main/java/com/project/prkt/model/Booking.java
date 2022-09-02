@@ -1,5 +1,7 @@
 package com.project.prkt.model;
 
+import org.springframework.format.annotation.DateTimeFormat;
+
 import javax.persistence.*;
 import java.util.Date;
 import java.util.HashSet;
@@ -19,14 +21,29 @@ public class Booking {
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "sequence")
     private Long id;
     private String bookingSurname;
-    private String phone1;
+    private String phone1; // validation for different formats
     private String phone2;
-    private String dateOfArrival;
-    private String dateOfReturn;
-//    private List<Rider> listOfRiders;
+    @Temporal(TemporalType.TIMESTAMP)
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
+    private Date dateOfArrival;
+    @Temporal(TemporalType.TIMESTAMP)
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
+    private Date dateOfReturn;
     @OneToMany(mappedBy = "booking")
     @Column(name = "list_of_snowboards")
     private List<Snowboard> listOfSnowboards;
+
+    public Booking() {
+    }
+
+    public Booking(String bookingSurname, String phone1, String phone2, Date dateOfArrival, Date dateOfReturn, List<Snowboard> listOfSnowboards) {
+        this.bookingSurname = bookingSurname;
+        this.phone1 = phone1;
+        this.phone2 = phone2;
+        this.dateOfArrival = dateOfArrival;
+        this.dateOfReturn = dateOfReturn;
+        this.listOfSnowboards = listOfSnowboards;
+    }
 
     public Long getId() {
         return id;
@@ -56,19 +73,19 @@ public class Booking {
         this.phone2 = phone2;
     }
 
-    public String getDateOfArrival() {
+    public Date getDateOfArrival() {
         return dateOfArrival;
     }
 
-    public void setDateOfArrival(String dateOfArrival) {
+    public void setDateOfArrival(Date dateOfArrival) {
         this.dateOfArrival = dateOfArrival;
     }
 
-    public String getDateOfReturn() {
+    public Date getDateOfReturn() {
         return dateOfReturn;
     }
 
-    public void setDateOfReturn(String dateOfReturn) {
+    public void setDateOfReturn(Date dateOfReturn) {
         this.dateOfReturn = dateOfReturn;
     }
 
@@ -82,5 +99,16 @@ public class Booking {
 
     public void addToListOfSnowboards(Snowboard snowboard) {
         this.listOfSnowboards.add(snowboard);
+    }
+
+    @Override
+    public String toString() {
+        return "Booking -> " +
+                "id: " + id +
+                ", bookingSurname: " + bookingSurname +
+                ", phone1: " + phone1 +
+                ", phone2: " + phone2 +
+                ", dateOfArrival: " + dateOfArrival +
+                ", dateOfReturn: " + dateOfReturn;
     }
 }

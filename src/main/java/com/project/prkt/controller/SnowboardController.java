@@ -58,8 +58,8 @@ public class SnowboardController {
 
     @PatchMapping("/{id}")
     public String updateSnowboard(@PathVariable("id") Long id,
-                                @ModelAttribute("oneSnowboard") @Valid Snowboard updatedSnowboard,
-                                BindingResult bindingResult) {
+                                  @ModelAttribute("oneSnowboard") @Valid Snowboard updatedSnowboard,
+                                  BindingResult bindingResult) {
         if (bindingResult.hasErrors()) {
             return "snowboard/edit";
         }

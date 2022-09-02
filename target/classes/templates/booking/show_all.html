@@ -18,16 +18,16 @@
 <br/>
 
 <!--Search-->
-<!--<form th:method="GET"-->
-<!--      th:action="@{/admin/info-equipment/snowboard/search-by-name}">-->
+<form th:method="GET"
+      th:action="@{/client/booking/search}">
 
-<!--    <input th:type="text" th:name="partOfName"-->
-<!--           th:placeholder="#{snowboard.show_all.search_placeholder}" style="width:200px"/>-->
+    <input th:type="text" th:name="parameter"
+           th:placeholder="#{booking.show_all.search_placeholder}" style="width:200px"/>
 
-<!--    <input type="submit" th:value="#{snowboard.show_all.search_button}"/>-->
-<!--</form>-->
+    <input type="submit" th:value="#{booking.show_all.search_button}"/>
+</form>
 
-<!--<br/><br/>-->
+<br/><br/>
 
 <!--Table-->
 <table th:align="center"
@@ -35,10 +35,12 @@
        th:cellpadding="5">
     <tr>
         <th>
-            <a th:text="#{booking.show_all.table.header.id}">?????</a>
+            <a th:href="@{'/client/booking/sort?parameter=id&sortDirection=' + ${reverseSortDirection}}"
+               th:text="#{booking.show_all.table.header.id}">?????</a>
         </th>
         <th>
-            <a th:text="#{booking.show_all.table.header.booking_surname}">?????</a>
+            <a th:href="@{'/client/booking/sort?parameter=bookingSurname&sortDirection=' + ${reverseSortDirection}}"
+               th:text="#{booking.show_all.table.header.booking_surname}">?????</a>
         </th>
         <th>
             <a th:text="#{booking.show_all.table.header.phone1}">?????</a>
@@ -47,10 +49,12 @@
             <a th:text="#{booking.show_all.table.header.phone2}">?????</a>
         </th>
         <th>
-            <a th:text="#{booking.show_all.table.header.date_of_arrival}">?????</a>
+            <a th:href="@{'/client/booking/sort?parameter=dateOfArrival&sortDirection=' + ${reverseSortDirection}}"
+               th:text="#{booking.show_all.table.header.date_of_arrival}">?????</a>
         </th>
         <th>
-            <a th:text="#{booking.show_all.table.header.date_of_return}">?????</a>
+            <a th:href="@{'/client/booking/sort?parameter=dateOfReturn&sortDirection=' + ${reverseSortDirection}}"
+               th:text="#{booking.show_all.table.header.date_of_return}">?????</a>
         </th>
         <th></th>
     </tr>
@@ -61,19 +65,24 @@
         </td>
         <td th:text="${oneBooking.getPhone1()}">?????</td>
         <td th:text="${oneBooking.getPhone2()}">?????</td>
-        <td th:text="${oneBooking.getDateOfArrival()}">?????</td>
-        <td th:text="${oneBooking.getDateOfReturn()}">?????</td>
+        <td th:text="${#dates.format(oneBooking.getDateOfArrival(), 'dd MMM yyyy HH:mm')}"></td>
+        <td th:text="${#dates.format(oneBooking.getDateOfReturn(), 'dd MMM yyyy HH:mm')}"></td>
         <td th:width="50"></td>
-<!--        <td>-->
-<!--            <a th:href="@{/admin/info-equipment/snowboard/edit/{id}(id=${oneSnowboard.getId()})}">-->
-<!--                <button th:text="#{snowboard.show_all.table.button.edit}">?????</button>-->
-<!--            </a>-->
-<!--        </td>-->
-<!--        <td>-->
-<!--            <form th:method="DELETE" th:action="@{/admin/info-equipment/snowboard/{id}(id=${oneSnowboard.getId()})}">-->
-<!--                <input type="submit" th:value="#{snowboard.show_all.table.button.delete}"/>-->
-<!--            </form>-->
-<!--        </td>-->
+        <td>
+            <form th:method="GET" th:action="@{/client/booking/view/{id}(id=${oneBooking.getId()})}">
+                <input type="submit" th:value="#{booking.show_all.table.button.view}"/>
+            </form>
+        </td>
+        <td>
+            <form th:method="GET" th:action="@{/client/booking/edit/{id}(id=${oneBooking.getId()})}">
+                <input type="submit" th:value="#{booking.show_all.table.button.edit}"/>
+            </form>
+        </td>
+        <td>
+            <form th:method="DELETE" th:action="@{/client/booking/{id}(id=${oneBooking.getId()})}">
+                <input type="submit" th:value="#{booking.show_all.table.button.delete}"/>
+            </form>
+        </td>
     </tr>
 </table>
 

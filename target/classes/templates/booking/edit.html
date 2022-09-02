@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title th:text="#{booking.edit.title}">?????</title>
+</head>
+<body th:align="center">
+
+<!--Header-->
+<h1 th:text="#{booking.edit.header}">?????</h1>
+
+<!--Input parameters-->
+<form th:method="PATCH"
+      th:action="@{/client/booking/{id}(id=${bookingToUpdate.getId()})}"
+      th:object="${bookingToUpdate}">
+
+    <table th:align="center" style="text-align:left"
+           th:cellpadding="2">
+        <tr>
+            <td th:text="#{booking.edit.field.booking_surname}">?????</td>
+            <td><input type="text" th:field="*{bookingSurname}"/></td>
+        </tr>
+        <tr>
+            <td th:text="#{booking.edit.field.phone1}">?????</td>
+            <td><input type="text" th:field="*{phone1}"/></td>
+        </tr>
+        <tr>
+            <td th:text="#{booking.edit.field.phone2}">?????</td>
+            <td><input type="text" th:field="*{phone2}"/></td>
+        </tr>
+        <tr>
+            <td th:text="#{booking.edit.field.date_of_arrival}">?????</td>
+            <td><input type="datetime-local" th:field="*{dateOfArrival}"/></td>
+        </tr>
+        <tr>
+            <td th:text="#{booking.edit.field.date_of_return}">?????</td>
+            <td><input type="datetime-local" th:field="*{dateOfReturn}"/></td>
+        </tr>
+    </table>
+
+    <br/>
+
+    <input type="submit" th:value="#{booking.edit.button.save}"/>
+</form>
+
+<br/>
+
+<!--Return to "booking/show_all"-->
+<a href="/client/booking">
+    <button th:text="#{booking.edit.button.return}">?????</button>
+</a>
+
+</body>
+</html>
