@@ -41,8 +41,8 @@
     </td>
     <td th:text="${oneBooking.getPhone1()}">?????</td>
     <td th:text="${oneBooking.getPhone2()}">?????</td>
-    <td th:text="${#dates.format(oneBooking.getDateOfArrival(), 'dd MMM yyyy HH:mm')}"></td>
-    <td th:text="${#dates.format(oneBooking.getDateOfReturn(), 'dd MMM yyyy HH:mm')}"></td>
+    <td th:text="${#dates.format(oneBooking.getDateOfArrival(), 'dd MMM yyyy')}"></td>
+    <td th:text="${#dates.format(oneBooking.getDateOfReturn(), 'dd MMM yyyy')}"></td>
     <td th:width="50"></td>
     <td>
       <form th:method="GET" th:action="@{/client/booking/view/{id}(id=${oneBooking.getId()})}">

@@ -35,20 +35,23 @@
         <tr>
             <td th:text="#{snowboard_boots.edit.field.condition}">?????</td>
             <td>
-                <select name="condition">         <!-- name is needed, otherwise won't display properly in the table -->
+                <select th:field="*{condition}">         <!-- name is needed, otherwise won't display properly in the table -->
                                                   <!-- must be named as the class field (camelCase) -->
                     <option th:each="i : ${T(com.project.prkt.model.EquipmentCondition).values()}"
                             th:value="${i.name()}"
-                            th:text="#{${'equipment_condition.' + i}}">?????
+                            th:text="#{${'equipment_condition.' + i}}"
+                            th:selected="${snowboardBootsToUpdate.getCondition()}">?????
                     </option>
                 </select></td>
         </tr>
         <tr>
             <td th:text="#{snowboard_boots.edit.field.size}">?????</td>
             <td>
-                <select name="size">
+                <select th:field="*{size}">
                     <option th:each="i : ${T(com.project.prkt.model.SnowboardBoots.Size).values()}"
-                            th:value="${i.name}" th:text="#{${'snowboard_boots.size.' + i}}">?????
+                            th:value="${i.name}"
+                            th:text="#{${'snowboard_boots.size.' + i}}"
+                            th:selected="${snowboardBootsToUpdate.getSize()}">?????
                     </option>
                 </select>
             </td>
@@ -56,10 +59,11 @@
         <tr>
             <td th:text="#{snowboard_boots.edit.field.stiffness}">?????</td>
             <td>
-                <select name="stiffness">
+                <select th:field="*{stiffness}">
                     <option th:each="i : ${T(com.project.prkt.model.SnowboardBoots.Stiffness).values()}"
                             th:value="${i.name}"
-                            th:text="#{${'snowboard_boots.stiffness.' + i}}">?????
+                            th:text="#{${'snowboard_boots.stiffness.' + i}}"
+                            th:selected="${snowboardBootsToUpdate.getStiffness()}">?????
                     </option>
                 </select>
             </td>

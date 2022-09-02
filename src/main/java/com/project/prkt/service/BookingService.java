@@ -8,7 +8,6 @@ import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 /**
@@ -35,20 +34,30 @@ public class BookingService {
         bookingRepository.save(booking);
     }
 
+    public void addNewSnowboardToBooking(Long id, Snowboard snowboard) {
+        Booking bookingToBeUpdated = bookingRepository.findById(id).orElseThrow(() ->
+                new IllegalStateException("Booking with id = " + id + " not found!"));
+        bookingToBeUpdated.addToListOfSnowboards(snowboard);
+        bookingRepository.save(bookingToBeUpdated);
+        System.out.println("Snowboards: " + bookingToBeUpdated.getListOfSnowboards().size());
+    }
+
     // ----- edit -----
     public Booking showOneBookingById(Long id) {
         return bookingRepository.findById(id).orElseThrow(() ->
                 new IllegalStateException("Booking with id = " + id + " not found!"));
     }
 
-    public void updateBookingById(Long id, Booking updatedBooking) {
-        Booking bookingToBeUpdated = showOneBookingById(id);
+    public void updateBookingById(Long bookingToBeUpdatedId, Booking updatedBooking, Snowboard updatedSnowboard) {
+        Booking bookingToBeUpdated = showOneBookingById(bookingToBeUpdatedId);
 
         bookingToBeUpdated.setBookingSurname(updatedBooking.getBookingSurname());
         bookingToBeUpdated.setPhone1(updatedBooking.getPhone1());
         bookingToBeUpdated.setPhone2(updatedBooking.getPhone2());
         bookingToBeUpdated.setDateOfArrival(updatedBooking.getDateOfArrival());
         bookingToBeUpdated.setDateOfReturn(updatedBooking.getDateOfReturn());
+        bookingToBeUpdated.getListOfSnowboards().clear();
+        bookingToBeUpdated.addToListOfSnowboards(updatedSnowboard);
 
         bookingRepository.save(bookingToBeUpdated);
     }

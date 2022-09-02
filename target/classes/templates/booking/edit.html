@@ -11,8 +11,8 @@
 
 <!--Input parameters-->
 <form th:method="PATCH"
-      th:action="@{/client/booking/{id}(id=${bookingToUpdate.getId()})}"
-      th:object="${bookingToUpdate}">
+      th:action="@{/admin/info-booking/edit/{id}(id=${bookingToBeUpdated.getId()})}"
+      th:object="${bookingToBeUpdated}">
 
     <table th:align="center" style="text-align:left"
            th:cellpadding="2">
@@ -30,11 +30,29 @@
         </tr>
         <tr>
             <td th:text="#{booking.edit.field.date_of_arrival}">?????</td>
-            <td><input type="datetime-local" th:field="*{dateOfArrival}"/></td>
+            <td><input type="date" th:field="*{dateOfArrival}"/></td>
         </tr>
         <tr>
             <td th:text="#{booking.edit.field.date_of_return}">?????</td>
-            <td><input type="datetime-local" th:field="*{dateOfReturn}"/></td>
+            <td><input type="date" th:field="*{dateOfReturn}"/></td>
+        </tr>
+        <tr>
+            <td th:text="Snowboard">?????</td>
+            <td>
+                <select name="newSnowboardId">
+                    <option value="">I don't need this shit</option>
+                    <option th:each="i : ${allSnowboards}"
+                            th:value="${i.getId}"
+                            th:text="${i.getId()} + ' ' +
+                            ${i.getName()} + ' ' +
+                            #{${'equipment_condition.' + i.getCondition()}} + ' ' +
+                            ${i.getSize()} + ' ' +
+                            #{${'snowboard.stiffness.' + i.getStiffness()}} + ' ' +
+                            #{${'snowboard.arch.' + i.getArch()}} + ' ' +
+                            ${i.getBindingSize()}">
+                    </option>
+                </select>
+            </td>
         </tr>
     </table>
 
@@ -46,7 +64,7 @@
 <br/>
 
 <!--Return to "booking/show_all"-->
-<a href="/client/booking">
+<a href="/admin/info-booking">
     <button th:text="#{booking.edit.button.return}">?????</button>
 </a>
 

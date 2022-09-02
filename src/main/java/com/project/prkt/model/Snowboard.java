@@ -3,7 +3,8 @@ package com.project.prkt.model;
 import javax.persistence.*;
 import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
-import java.util.Objects;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.ResourceBundle;
 
 /**
@@ -12,7 +13,6 @@ import java.util.ResourceBundle;
 
 @Entity
 @Table
-@Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)
 public class Snowboard extends Equipment {
     enum Stiffness {
         UNKNOWN,
@@ -56,19 +56,19 @@ public class Snowboard extends Equipment {
     private String name;
     private boolean available;
     private EquipmentCondition condition;
-    @Pattern(regexp="(1[0-6][0-9]|170)([w|W]?)", message = "{snowboard.message.invalid_size}")
+    @Pattern(regexp = "(1[0-6][0-9]|170)([w|W]?)", message = "{snowboard.message.invalid_size}")
     private String size;
     private Stiffness stiffness;
     private Arch arch;
     private BindingSize bindingSize;
-    @ManyToOne
-    @JoinColumn(name = "snowboard_booking_id")
-    private Booking booking;
+    //    @JoinColumn(name = "bookingId")
+    @ManyToMany(mappedBy = "listOfSnowboards")
+    private List<Booking> listOfBookings;
 
-    public Snowboard() {}
+    public Snowboard() {
+    }
 
-    public Snowboard(String name, Boolean available, EquipmentCondition condition, String size,
-                     Stiffness stiffness, Arch arch, BindingSize bindingSize) {
+    public Snowboard(String name, boolean available, EquipmentCondition condition, String size, Stiffness stiffness, Arch arch, BindingSize bindingSize, List<Booking> listOfBookings) {
         this.name = name;
         this.available = available;
         this.condition = condition;
@@ -76,6 +76,7 @@ public class Snowboard extends Equipment {
         this.stiffness = stiffness;
         this.arch = arch;
         this.bindingSize = bindingSize;
+        this.listOfBookings = listOfBookings;
     }
 
     public Long getId() {
@@ -138,17 +139,19 @@ public class Snowboard extends Equipment {
         this.bindingSize = bindingSize;
     }
 
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        Snowboard snowboard = (Snowboard) o;
-        return available == snowboard.available && id.equals(snowboard.id) && name.equals(snowboard.name) && condition == snowboard.condition && size.equals(snowboard.size) && stiffness == snowboard.stiffness && arch == snowboard.arch && bindingSize == snowboard.bindingSize;
+    public List<Booking> getListOfBookings() {
+        return listOfBookings;
     }
 
-    @Override
-    public int hashCode() {
-        return Objects.hash(id, name, available, condition, size, stiffness, arch, bindingSize);
+    public void setListOfBookings(List<Booking> listOfBookings) {
+        this.listOfBookings = listOfBookings;
+    }
+
+    public void addToListOfBookings(Booking booking) {
+        if (listOfBookings == null) {
+            listOfBookings = new ArrayList<>();
+        }
+        this.listOfBookings.add(booking);
     }
 
     @Override

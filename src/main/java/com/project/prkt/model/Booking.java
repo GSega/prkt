@@ -3,10 +3,7 @@ package com.project.prkt.model;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
-import java.util.Date;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 
 /**
  * @author Nikolai Khriapov
@@ -23,14 +20,19 @@ public class Booking {
     private String bookingSurname;
     private String phone1; // validation for different formats
     private String phone2;
-    @Temporal(TemporalType.TIMESTAMP)
+    @Temporal(TemporalType.DATE)
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     private Date dateOfArrival;
-    @Temporal(TemporalType.TIMESTAMP)
+    @Temporal(TemporalType.DATE)
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     private Date dateOfReturn;
-    @OneToMany(mappedBy = "booking")
-    @Column(name = "list_of_snowboards")
+    //    @OneToMany(mappedBy = "booking", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @ManyToMany
+    @JoinTable(
+            name = "booking_snowboard",
+            joinColumns = @JoinColumn(name = "booking_id"),
+            inverseJoinColumns = @JoinColumn(name = "snowboard_id")
+    )
     private List<Snowboard> listOfSnowboards;
 
     public Booking() {
@@ -98,6 +100,9 @@ public class Booking {
     }
 
     public void addToListOfSnowboards(Snowboard snowboard) {
+        if (listOfSnowboards == null) {
+            listOfSnowboards = new ArrayList<>();
+        }
         this.listOfSnowboards.add(snowboard);
     }
 

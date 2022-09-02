@@ -1,8 +1,8 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
-  <meta charset="UTF-8">
-  <title th:text="#{booking.add_new.title}">?????</title>
+    <meta charset="UTF-8">
+    <title th:text="#{booking.add_new.title}">?????</title>
 </head>
 <body th:align="center">
 
@@ -11,43 +11,61 @@
 
 <!--Input parameters-->
 <form th:method="POST"
-      th:action="@{/client/booking}"
-      th:object="${newBooking}">
+      th:object="${newBooking}"
+      th:action="@{/admin/info-booking/}">
 
-  <table th:align="center" style="text-align:left"
-         th:cellpadding="2">
-    <tr>
-      <td th:text="#{booking.add_new.field.booking_surname}">?????</td>
-      <td><input type="text" th:field="*{bookingSurname}"/></td>
-    </tr>
-    <tr>
-      <td th:text="#{booking.add_new.field.phone1}">?????</td>
-      <td><input type="text" th:field="*{phone1}"/></td>
-    </tr>
-    <tr>
-      <td th:text="#{booking.add_new.field.phone2}">?????</td>
-      <td><input type="text" th:field="*{phone2}"/></td>
-    </tr>
-    <tr>
-      <td th:text="#{booking.add_new.field.date_of_arrival}">?????</td>
-      <td><input type="datetime-local" th:field="*{dateOfArrival}"/></td>
-    </tr>
-    <tr>
-      <td th:text="#{booking.add_new.field.date_of_return}">?????</td>
-      <td><input type="datetime-local" th:field="*{dateOfReturn}"/></td>
-    </tr>
-  </table>
+    <table th:align="center" style="text-align:left"
+           th:cellpadding="2">
+        <tr>
+            <td th:text="#{booking.add_new.field.booking_surname}">?????</td>
+            <td><input type="text" th:field="*{bookingSurname}"/></td>
+        </tr>
+        <tr>
+            <td th:text="#{booking.add_new.field.phone1}">?????</td>
+            <td><input type="text" th:field="*{phone1}"/></td>
+        </tr>
+        <tr>
+            <td th:text="#{booking.add_new.field.phone2}">?????</td>
+            <td><input type="text" th:field="*{phone2}"/></td>
+        </tr>
+        <tr>
+            <td th:text="#{booking.add_new.field.date_of_arrival}">?????</td>
+            <td><input type="date" th:field="*{dateOfArrival}"/></td>
+        </tr>
+        <tr>
+            <td th:text="#{booking.add_new.field.date_of_return}">?????</td>
+            <td><input type="date" th:field="*{dateOfReturn}"/></td>
+        </tr>
+        <tr>
+            <td th:text="Snowboards">?????</td>
+            <td>
+                <select name="newSnowboardId">
+                    <option value="0">I don't need this shit</option>
+                    <option th:each="i : ${allSnowboards}"
+                            th:value="${i.getId()}"
+                            th:text="${i.getId()} + ' ' +
+                            ${i.getName()} + ' ' +
+                            #{${'equipment_condition.' + i.getCondition()}} + ' ' +
+                            ${i.getSize()} + ' ' +
+                            #{${'snowboard.stiffness.' + i.getStiffness()}} + ' ' +
+                            #{${'snowboard.arch.' + i.getArch()}} + ' ' +
+                            ${i.getBindingSize()}">
+                    </option>
+                </select>
+            </td>
+        </tr>
+    </table>
 
-  <br/>
+    <br/>
 
-  <input type="submit" th:value="#{booking.add_new.button.create}"/>
+    <input type="submit" th:value="#{booking.add_new.button.create}"/>
 </form>
 
 <br/>
 
 <!--Return to "booking/show_all"-->
-<a href="/client/booking">
-  <button th:text="#{booking.add_new.button.return}">?????</button>
+<a href="/admin/info-booking">
+    <button th:text="#{booking.add_new.button.return}">?????</button>
 </a>
 
 </body>
