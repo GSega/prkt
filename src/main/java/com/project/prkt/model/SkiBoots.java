@@ -12,6 +12,7 @@ public class SkiBoots extends Equipment {
         SOFT(),
         MEDIUM(),
         HARD(),
+        /* uncomment after adding to resource bundles
         s40(),
         s50(),
         s60(),
@@ -19,6 +20,7 @@ public class SkiBoots extends Equipment {
         s80(),
         s90(),
         s100(),
+        */
     }
 
     public enum Size {
@@ -47,25 +49,17 @@ public class SkiBoots extends Equipment {
     @SequenceGenerator(name = "sequence", sequenceName = "sequence", allocationSize = 1)
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "sequence")
     private Long id;
-    @javax.validation.constraints.Size(min = 3, max = 30, message = "{snowboard_boots.message.invalid_name}")
+    @javax.validation.constraints.Size(min = 3, max = 30, message = "{ski_boots.message.invalid_name}")
     private String name;
     private boolean available;
     private EquipmentCondition condition;
-    private SnowboardBoots.Size size;
-    private SnowboardBoots.Stiffness stiffness;
-
-    public SkiBoots(String name, boolean available, EquipmentCondition condition, SnowboardBoots.Size size, SnowboardBoots.Stiffness stiffness) {
-        this.name = name;
-        this.available = available;
-        this.condition = condition;
-        this.size = size;
-        this.stiffness = stiffness;
-    }
+    private SkiBoots.Size size;
+    private SkiBoots.Stiffness stiffness;
 
     public SkiBoots() {
     }
 
-    //below are getter for id field and getters and setters for thr rest of fields
+    //below are getter for id field and getters and setters for the rest of the fields
     //and standard equals, hashCode, toString
 
     public Long getId() {
@@ -96,19 +90,19 @@ public class SkiBoots extends Equipment {
         this.condition = condition;
     }
 
-    public SnowboardBoots.Size getSize() {
+    public SkiBoots.Size getSize() {
         return size;
     }
 
-    public void setSize(SnowboardBoots.Size size) {
+    public void setSize(SkiBoots.Size size) {
         this.size = size;
     }
 
-    public SnowboardBoots.Stiffness getStiffness() {
+    public SkiBoots.Stiffness getStiffness() {
         return stiffness;
     }
 
-    public void setStiffness(SnowboardBoots.Stiffness stiffness) {
+    public void setStiffness(SkiBoots.Stiffness stiffness) {
         this.stiffness = stiffness;
     }
 
