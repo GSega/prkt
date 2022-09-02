@@ -2,24 +2,61 @@ package com.project.prkt.model;
 
 import javax.persistence.*;
 import java.util.Objects;
-
-/*
- * specify values for "enum Size" - DONE
- */
+import java.util.ResourceBundle;
 
 @Entity
 @Table
 public class SnowboardBoots extends Equipment {
-    public enum Stiffness {SOFT, MEDIUM, HARD}
-    public enum Size {RU36_EU37_MM235, RU34_EU35_MM240, RU37_EU38_MM245, RU38_EU39_MM250,
-                        RU39_EU40_MM255, RU40_EU41_MM260, RU41_EU42_MM265, RU415_EU425_MM275,
-                        RU42_EU43_MM275, RU425_EU435_MM280, RU43_EU44_MM285, RU44_EU45_MM290,
-                        RU45_EU46_MM300, RU46_EU47_MM310, DETSK26_MM165, DETSK28_MM175,
-                        DETSK30_MM185, DETSK31_MM195, DETSK32_MM205, DETSK33_MM210, DETSK34_MM215,
-                        DETSK35_MM225}
+    public enum Stiffness {
+        UNKNOWN(),
+        SOFT(),
+        MEDIUM(),
+        HARD();
+
+        private static final ResourceBundle resourceBundle = ResourceBundle.getBundle("snowboard_boots");
+
+        public String toString() {
+            return resourceBundle.getString("snowboard_boots.stiffness." + name());
+        }
+    }
+
+    public enum Size {
+        OTHER,
+        RU36_EU37_MM235,
+        RU34_EU35_MM240,
+        RU37_EU38_MM245,
+        RU38_EU39_MM250,
+        RU39_EU40_MM255,
+        RU40_EU41_MM260,
+        RU41_EU42_MM265,
+        RU415_EU425_MM275,
+        RU42_EU43_MM275,
+        RU425_EU435_MM280,
+        RU43_EU44_MM285,
+        RU44_EU45_MM290,
+        RU45_EU46_MM300,
+        RU46_EU47_MM310,
+        JUNIOR26_MM165,
+        JUNIOR28_MM175,
+        JUNIOR30_MM185,
+        JUNIOR31_MM195,
+        JUNIOR32_MM205,
+        JUNIOR33_MM210,
+        JUNIOR34_MM215,
+        JUNIOR35_MM225;
+
+        private final static ResourceBundle resourceBundle = ResourceBundle.getBundle("snowboard_boots");
+
+        public String toString() {
+            return resourceBundle.getString("snowboard_boots.size." + name());
+        }
+    }
 
     @Id
+    @SequenceGenerator(name = "sequence", sequenceName = "sequence", allocationSize = 1)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "sequence")
     private Long id;
+    @javax.validation.constraints.Size(min = 3, max = 30, message = "{snowboard_boots.message.invalid_name}")
     private String name;
     private boolean available;
     private EquipmentCondition condition;
@@ -107,8 +144,8 @@ public class SnowboardBoots extends Equipment {
                 "id: " + id +
                 ", name: " + name +
                 ", available: " + (available ? "available" : "not available") +
-                ", condition: " + condition +
-                ", size: " + size +
-                ", stiffness: " + stiffness;
+                ", condition: " + condition.toString() +
+                ", size: " + size.toString() +
+                ", stiffness: " + stiffness.toString();
     }
 }

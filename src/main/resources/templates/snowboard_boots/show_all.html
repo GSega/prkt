@@ -2,17 +2,96 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>List of SnowboardBoots</title>
+    <title th:text="#{snowboard_boots.show_all.title}">?????</title>
 </head>
-<body>
+<body th:align="center">
 
-In progress...
+<!--Header-->
+<h1 th:text="#{snowboard_boots.show_all.header}">?????</h1>
+
+<!--Language-->
+<p>
+    <a th:href="@{/admin/info-equipment/snowboard-boots(lang=ru)}" th:text="Русский">?????</a>
+    <a th:href="@{/admin/info-equipment/snowboard-boots(lang=en)}" th:text="English">?????</a>
+</p>
+
+<br/>
+
+<!--Search-->
+<form th:method="GET"
+      th:action="@{/admin/info-equipment/snowboard-boots/search-by-name}">
+
+    <input th:type="text" name="partOfName"
+           th:placeholder="#{snowboard_boots.show_all.search_placeholder}" style="width:200px"/>                                                                      <!--field width-->
+
+    <input type="submit" th:value="#{snowboard_boots.show_all.search_button}"/>
+</form>
+
 <br/><br/>
 
-<div th:each="oneSnowboardBoots : ${allSnowboardBoots}">
-    <a th:href="@{/admin/info_equipment/snowboard_boots/{id}(id=${oneSnowboardBoots.getId()})}"
-       th:text="${oneSnowboardBoots.toString()}" ></a>
-</div>
+<!--Table-->
+<table th:align="center"
+       th:border=1 th:rules="rows"
+       th:cellpadding="5">
+    <tr>
+        <th>
+            <a th:href="@{'/admin/info-equipment/snowboard-boots/sort?parameter=id&sortDirection=' + ${reverseSortDirection}}"
+               th:text="#{snowboard_boots.show_all.table.header.id}">?????</a>
+        </th>
+        <th>
+            <a th:href="@{'/admin/info-equipment/snowboard-boots/sort?parameter=name&sortDirection=' + ${reverseSortDirection}}"
+               th:text="#{snowboard_boots.show_all.table.header.name}">?????</a>
+        </th>
+        <th>
+            <a th:href="@{'/admin/info-equipment/snowboard-boots/sort?parameter=available&sortDirection=' + ${reverseSortDirection}}"
+               th:text="#{snowboard_boots.show_all.table.header.available}">?????</a>
+        </th>
+        <th>
+            <a th:href="@{'/admin/info-equipment/snowboard-boots/sort?parameter=condition&sortDirection=' + ${reverseSortDirection}}"
+               th:text="#{snowboard_boots.show_all.table.header.condition}">?????</a>
+        </th>
+        <th>
+            <a th:href="@{'/admin/info-equipment/snowboard-boots/sort?parameter=size&sortDirection=' + ${reverseSortDirection}}"
+               th:text="#{snowboard_boots.show_all.table.header.size}">?????</a>
+        </th>
+        <th>
+            <a th:href="@{'/admin/info-equipment/snowboard-boots/sort?parameter=stiffness&sortDirection=' + ${reverseSortDirection}}"
+               th:text="#{snowboard_boots.show_all.table.header.stiffness}">?????</a>
+        </th>
+        <th></th>
+    </tr>
+    <tr th:each="oneSnowboardBoots : ${allSnowboardBoots}">
+        <td th:text="${oneSnowboardBoots.getId()}">?????</td>
+        <td th:align="left"
+            th:text="${oneSnowboardBoots.getName()}">?????
+        </td>
+        <td th:text="${oneSnowboardBoots.isAvailable()} ? #{snowboard_boots.available.true} : #{snowboard_boots.available.false}">?????</td>
+        <!--выше обрати внимание - #{available.true} написано без th:text=-->
+        <!--я так понял, потому что здесь подразумевается text-->
+        <td th:text="#{${'equipment_condition.' + oneSnowboardBoots.getCondition()}}">?????</td>
+        <td th:text="#{${'snowboard_boots.size.' + oneSnowboardBoots.getSize()}}">?????</td>
+        <td th:text="#{${'snowboard_boots.stiffness.' + oneSnowboardBoots.getStiffness()}}">?????</td>
+        <td th:width="50"></td>
+        <td>
+            <a th:href="@{/admin/info-equipment/snowboard-boots/edit/{id}(id=${oneSnowboardBoots.getId()})}">
+                <button th:text="#{snowboard_boots.show_all.table.button.edit}">?????</button>
+            </a>
+        </td>
+        <td>
+            <form th:method="DELETE"
+                  th:action="@{/admin/info-equipment/snowboard-boots/{id}(id=${oneSnowboardBoots.getId()})}">
+                <input type="submit" th:value="#{snowboard_boots.show_all.table.button.delete}"/>
+            </form>
+        </td>
+    </tr>
+</table>
+
+<br/>
+
+<!--Add new-->
+<a href="/admin/info-equipment/snowboard-boots/add-new">
+    <button th:text="#{snowboard_boots.show_all.button.add_new}">?????</button>
+</a>
 
 </body>
 </html>
