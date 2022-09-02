@@ -35,7 +35,8 @@
         <tr>
             <td th:text="#{snowboard_boots.edit.field.condition}">?????</td>
             <td>
-                <select name="condition">
+                <select name="condition">         <!-- name is needed, otherwise won't display properly in the table -->
+                                                  <!-- must be named as the class field (camelCase) -->
                     <option th:each="i : ${T(com.project.prkt.model.EquipmentCondition).values()}"
                             th:value="${i.name()}"
                             th:text="#{${'equipment_condition.' + i}}">?????
