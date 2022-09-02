@@ -70,8 +70,7 @@ public class SnowboardBoots extends Equipment {
     public SnowboardBoots() {
     }
 
-    public SnowboardBoots(Long id, String name, boolean available, EquipmentCondition condition, Size size, Stiffness stiffness) {
-        this.id = id;
+    public SnowboardBoots(String name, boolean available, EquipmentCondition condition, Size size, Stiffness stiffness) {
         this.name = name;
         this.available = available;
         this.condition = condition;

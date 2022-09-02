@@ -12,7 +12,8 @@ import java.util.ResourceBundle;
 
 @Entity
 @Table
-public class Snowboard {
+@Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)
+public class Snowboard extends Equipment {
     enum Stiffness {
         UNKNOWN,
         SOFT,
@@ -60,12 +61,14 @@ public class Snowboard {
     private Stiffness stiffness;
     private Arch arch;
     private BindingSize bindingSize;
+    @ManyToOne
+    @JoinColumn(name = "snowboard_booking_id")
+    private Booking booking;
 
     public Snowboard() {}
 
-    public Snowboard(Long id, String name, Boolean available, EquipmentCondition condition, String size,
+    public Snowboard(String name, Boolean available, EquipmentCondition condition, String size,
                      Stiffness stiffness, Arch arch, BindingSize bindingSize) {
-        this.id = id;
         this.name = name;
         this.available = available;
         this.condition = condition;
