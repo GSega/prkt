@@ -25,14 +25,14 @@ public class SnowboardBootsController {
         this.snowboardBootsService = snowboardBootsService;
     }
 
-//    ----- show all -----
+    // ----- show all -----
     @GetMapping()
     public String showAllSnowboardBoots(Model model) {
         model.addAttribute("allSnowboardBoots", snowboardBootsService.showAllSnowboardBoots());
         return "snowboard_boots/show_all";
     }
 
-//    ----- add new -----
+    // ----- add new -----
     @GetMapping("/add-new")
     public String createNewSnowboardBoots(Model model) {
         model.addAttribute("newSnowboardBoots", new SnowboardBoots());
@@ -41,7 +41,7 @@ public class SnowboardBootsController {
 
     @PostMapping()
     public String addNewSnowboardBootsToDB(@ModelAttribute("newSnowboardBoots") @Valid SnowboardBoots snowboardBoots,
-                                                 BindingResult bindingResult) {
+                                           BindingResult bindingResult) {
         if (bindingResult.hasErrors()) {
             return "snowboard_boots/add_new";
         }
@@ -49,7 +49,7 @@ public class SnowboardBootsController {
         return "redirect:/admin/info-equipment/snowboard-boots";
     }
 
-//    ----- edit -----
+    // ----- edit -----
     @GetMapping("/edit/{id}")
     public String showOneSnowboardBoots(@PathVariable("id") Long id, Model model) {
         model.addAttribute("snowboardBootsToUpdate", snowboardBootsService.showOneSnowboardBootsById(id));
@@ -58,8 +58,8 @@ public class SnowboardBootsController {
 
     @PatchMapping("/{id}")
     public String updateSnowboardBoots(@PathVariable("id") Long id,
-                                           @ModelAttribute("snowboardBootsToUpdate") @Valid SnowboardBoots updatedSnowboardBoots,
-                                           BindingResult bindingResult) {
+                                       @ModelAttribute("snowboardBootsToUpdate") @Valid SnowboardBoots updatedSnowboardBoots,
+                                       BindingResult bindingResult) {
         if (bindingResult.hasErrors()) {
             return "snowboard_boots/edit";
         }
@@ -67,27 +67,28 @@ public class SnowboardBootsController {
         return "redirect:/admin/info-equipment/snowboard-boots";
     }
 
-//    ----- delete -----
+    // ----- delete -----
     @DeleteMapping("/{id}")
     public String deleteSnowboardBoots(@PathVariable("id") Long id) {
         snowboardBootsService.deleteSnowboardBootsById(id);
         return "redirect:/admin/info-equipment/snowboard-boots";
     }
 
-//    ----- search -----
+    // ----- search -----
     @GetMapping("/search-by-name")
     public String showSnowboardBootsByPartOfName(@RequestParam("partOfName") String partOfName, Model model) {
         model.addAttribute("snowboardBootsByPartOfName", snowboardBootsService.showSnowboardBootsByPartOfName(partOfName));
         return "snowboard_boots/search";
     }
 
-//    ----- sorts -----
+    // ----- sort -----
     @GetMapping("/sort")
     public String sortAllSnowboardBootsByParameter(@RequestParam("parameter") String parameter,
                                                    @RequestParam("sortDirection") String sortDirection,
                                                    Model model) {
         model.addAttribute("reverseSortDirection", sortDirection.equals("asc") ? "desc" : "asc");
         model.addAttribute("allSnowboardBoots", snowboardBootsService.sortAllSnowboardBootsByParameter(parameter, sortDirection));
+        // the above attributeName must be the same as in method "showAllSnowboardBoots"
         return "snowboard_boots/show_all";
     }
 }

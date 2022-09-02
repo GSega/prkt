@@ -11,7 +11,7 @@
 
 <!--Table-->
 <table th:align="center"
-       th:border=1 th:rules="rows"
+       th:border="1" th:rules="rows"
        th:cellpadding="5">
     <tr>
         <th th:text="#{snowboard_boots.search.table.header.id}">?????</th>
@@ -38,8 +38,7 @@
             </a>
         </td>
         <td>
-            <form th:method="DELETE"
-                  th:action="@{/admin/info-equipment/snowboard-boots/{id}(id=${oneSnowboardBoots.getId()})}">
+            <form th:method="DELETE" th:action="@{/admin/info-equipment/snowboard-boots/{id}(id=${oneSnowboardBoots.getId()})}">
                 <input type="submit" th:value="#{snowboard_boots.search.table.button.delete}"/>
             </form>
         </td>

@@ -8,6 +8,10 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 
+/**
+ * @author Nikolai Khriapov
+ */
+
 @Service
 public class SnowboardBootsService {
 

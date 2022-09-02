@@ -43,8 +43,8 @@ public class ApplicationConfig implements WebMvcConfigurer {
         ReloadableResourceBundleMessageSource messageSource = new ReloadableResourceBundleMessageSource();
         messageSource.setBasenames(
                 "classpath:/equipment_condition",
-                "classpath:/snowboard_boots"
-                // add more, in needed
+                "classpath:/snowboard_boots",
+                "classpath:/snowboard"
         );
         messageSource.setDefaultEncoding("UTF-8");
         return messageSource;

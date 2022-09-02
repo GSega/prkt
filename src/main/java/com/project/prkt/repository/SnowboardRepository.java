@@ -1,6 +1,6 @@
 package com.project.prkt.repository;
 
-import com.project.prkt.model.SnowboardBoots;
+import com.project.prkt.model.Snowboard;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
@@ -11,11 +11,11 @@ import java.util.List;
  */
 
 @Repository
-public interface SnowboardBootsRepository extends JpaRepository<SnowboardBoots, Long> {
+public interface SnowboardRepository extends JpaRepository<Snowboard, Long> {
 
     // ----- show all -----
-    List<SnowboardBoots> findAllByOrderById();
+    List<Snowboard> findAllByOrderById();
 
     // ----- search -----
-    List<SnowboardBoots> findAllByNameContaining(String search);
+    List<Snowboard> findAllByNameContaining(String partOfName);
 }
