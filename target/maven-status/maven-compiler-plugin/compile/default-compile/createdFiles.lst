@@ -1,2 +1,6 @@
-com\project\prkt\model\Rider.class
+com\project\prkt\controller\RiderController.class
+com\project\prkt\service\RiderService.class
 com\project\prkt\model\Rider$Size.class
+com\project\prkt\model\Rider$Sex.class
+com\project\prkt\repository\RiderRepository.class
+com\project\prkt\model\Rider.class
