@@ -17,6 +17,10 @@
     <table th:align="center" style="text-align:left"
            th:cellpadding="2">
         <tr>
+            <td th:text="#{booking.edit.field.id}">?????</td>
+            <td th:text="*{id}">?????</td>
+        </tr>
+        <tr>
             <td th:text="#{booking.edit.field.booking_surname}">?????</td>
             <td><input type="text" th:field="*{bookingSurname}"/></td>
         </tr>
@@ -36,24 +40,6 @@
             <td th:text="#{booking.edit.field.date_of_return}">?????</td>
             <td><input type="date" th:field="*{dateOfReturn}"/></td>
         </tr>
-        <tr>
-            <td th:text="Snowboard">?????</td>
-            <td>
-                <select name="newSnowboardId">
-                    <option value="">I don't need this shit</option>
-                    <option th:each="i : ${allSnowboards}"
-                            th:value="${i.getId}"
-                            th:text="${i.getId()} + ' ' +
-                            ${i.getName()} + ' ' +
-                            #{${'equipment_condition.' + i.getCondition()}} + ' ' +
-                            ${i.getSize()} + ' ' +
-                            #{${'snowboard.stiffness.' + i.getStiffness()}} + ' ' +
-                            #{${'snowboard.arch.' + i.getArch()}} + ' ' +
-                            ${i.getBindingSize()}">
-                    </option>
-                </select>
-            </td>
-        </tr>
     </table>
 
     <br/>
@@ -62,6 +48,54 @@
 </form>
 
 <br/>
+
+<!--List of Riders-->
+<span th:if="${bookingToBeUpdated.getListOfRiders().size() > 0}">
+    <table th:align="center"
+           th:border="1" th:rules="rows"
+           th:cellpadding="5">
+        <tr>
+            <th><a th:text="#{booking.edit.table.header.id}">?????</a></th>
+            <th><a th:text="#{booking.edit.table.header.name}">?????</a></th>
+            <th><a th:text="#{booking.edit.table.header.sex}">?????</a></th>
+            <th><a th:text="#{booking.edit.table.header.height}">?????</a></th>
+            <th><a th:text="#{booking.edit.table.header.weight}">?????</a></th>
+            <th><a th:text="#{booking.edit.table.header.foot}">?????</a></th>
+            <th></th>
+        </tr>
+        <tr th:each="oneRider : ${bookingToBeUpdated.getListOfRiders()}">
+            <td th:text="${oneRider.getId()}">?????</td>
+            <td th:text="${oneRider.getName()}" th:align="left">?????</td>
+            <td th:text="${oneRider.getSex()}">?????</td>
+            <td th:text="${oneRider.getHeight()}">?????</td>
+            <td th:text="${oneRider.getWeight()}">?????</td>
+            <td th:text="${oneRider.getFoot()}">?????</td>
+            <td th:width="50"></td>
+            <td>
+                <a>
+                </a>
+            </td>
+            <td>
+                <a>
+                    <button style="color:red" th:text="#{booking.edit.table.button.edit}">?????</button>
+                </a>
+            </td>
+            <td>
+                <a th:href="@{'/admin/info-booking/edit/remove?bid=' + ${bookingToBeUpdated.getId()} + '&rid=' + ${oneRider.getId()}}">
+                    <button th:text="#{booking.edit.table.button.remove}">?????</button>
+                </a>
+            </td>
+        </tr>
+    </table>
+</span>
+<span th:unless="${bookingToBeUpdated.getListOfRiders().size() > 0}">Riders not found<br/></span>
+
+<br/>
+
+<button style="color:red" th:text="#{booking.edit.button.add_new}">?????</button>
+<button style="color:red" th:text="#{booking.edit.button.add_existing}">?????</button>
+
+<br/><br/>
 
 <!--Return to "booking/show_all"-->
 <a href="/admin/info-booking">

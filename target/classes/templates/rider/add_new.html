@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>new Rider</title>
+</head>
+<body>
+<form th:method="POST"
+      th:action="@{/client/booking-rider/add}"
+      th:object="${newRider}">
+    <table>
+        <tr>
+            <td> Имя </td>
+            <td> <input th:type="text" th:field="*{name}"/> </td>
+        </tr>
+
+        <tr>
+            <td> Пол </td>
+            <td><select name="sex">
+                <option th:each="s : ${T(com.project.prkt.model.Rider.Sex).values()}"
+                        th:value="${s}" th:text="${s}"> sex should be here
+                </option>
+            </select>
+            </td>
+        </tr>
+
+        <tr>
+            <td> Рост </td>
+            <td><input th:type="text" th:field="*{height}"/></td>
+        </tr>
+
+        <tr>
+            <td> Вес </td>
+            <td><input th:type="text" th:field="*{weight}"/></td>
+        </tr>
+
+        <tr>
+            <td> Размер ноги </td>
+            <td><select name="foot">
+                <option th:each="f : ${T(com.project.prkt.model.Rider.Size).values()}"
+                        th:value="${f}" th:text="${f}"> foot size should be here
+                </option>
+            </select>
+            </td>
+        </tr>
+        <tr>
+            <td> fck</td>
+            <td><select name="equipmentNeeded">
+                <option th:each="r : ${T(com.project.prkt.model.TypesOfEquipment).values()}"
+                        th:value="${r}" th:text="${r}"> equip needed
+                </option>
+            </select>
+        </tr>
+        <tr>
+            <td> fckn sht</td>
+            <td>
+                <div th:each="equip : ${T(com.project.prkt.model.TypesOfEquipment).values()}">
+                    <input th:field="*{equipmentNeededIds}" type="checkbox" th:value="${equip}" />
+                    <span th:text="${equip.name()}">INGREDIENT</span><br />
+                </div>
+
+            </td>
+        </tr>
+
+
+    </table>
+
+    <input type="submit" value="сохранить"/>
+</form>
+
+</body>
+</html>

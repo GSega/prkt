@@ -11,15 +11,15 @@
 
 <!--Language-->
 <p>
-    <a th:href="@{/client/booking(lang=ru)}" th:text="Русский">?????</a>
-    <a th:href="@{/client/booking(lang=en)}" th:text="English">?????</a>
+    <a th:href="@{/admin/info-booking(lang=ru)}" th:text="Русский">?????</a>
+    <a th:href="@{/admin/info-booking(lang=en)}" th:text="English">?????</a>
 </p>
 
 <br/>
 
 <!--Search-->
 <form th:method="GET"
-      th:action="@{/client/booking/search}">
+      th:action="@{/admin/info-booking/search}">
 
     <input th:type="text" th:name="parameter"
            th:placeholder="#{booking.show_all.search_placeholder}" style="width:200px"/>
@@ -35,24 +35,24 @@
        th:cellpadding="5">
     <tr>
         <th>
-            <a th:href="@{'/client/booking/sort?parameter=id&sortDirection=' + ${reverseSortDirection}}"
+            <a th:href="@{'/admin/info-booking/sort?parameter=id&sortDirection=' + ${reverseSortDirection}}"
                th:text="#{booking.show_all.table.header.id}">?????</a>
         </th>
         <th>
-            <a th:href="@{'/client/booking/sort?parameter=bookingSurname&sortDirection=' + ${reverseSortDirection}}"
+            <a th:href="@{'/admin/info-booking/sort?parameter=bookingSurname&sortDirection=' + ${reverseSortDirection}}"
                th:text="#{booking.show_all.table.header.booking_surname}">?????</a>
         </th>
         <th><a th:text="#{booking.show_all.table.header.phone1}">?????</a></th>
         <th><a th:text="#{booking.show_all.table.header.phone2}">?????</a></th>
         <th>
-            <a th:href="@{'/client/booking/sort?parameter=dateOfArrival&sortDirection=' + ${reverseSortDirection}}"
+            <a th:href="@{'/admin/info-booking/sort?parameter=dateOfArrival&sortDirection=' + ${reverseSortDirection}}"
                th:text="#{booking.show_all.table.header.date_of_arrival}">?????</a>
         </th>
         <th>
-            <a th:href="@{'/client/booking/sort?parameter=dateOfReturn&sortDirection=' + ${reverseSortDirection}}"
+            <a th:href="@{'/admin/info-booking/sort?parameter=dateOfReturn&sortDirection=' + ${reverseSortDirection}}"
                th:text="#{booking.show_all.table.header.date_of_return}">?????</a>
         </th>
-        <th><a th:text="#{booking.show_all.table.header.number_of_snowboards}">?????</a></th>
+        <th><a th:text="#{booking.show_all.table.header.number_of_riders}">?????</a></th>
         <th></th>
     </tr>
     <tr th:each="oneBooking : ${allBookings}">
@@ -64,18 +64,8 @@
         <td th:text="${oneBooking.getPhone2()}">?????</td>
         <td th:text="${#dates.format(oneBooking.getDateOfArrival(), 'dd MMM yyyy')}"></td>
         <td th:text="${#dates.format(oneBooking.getDateOfReturn(), 'dd MMM yyyy')}"></td>
-        <td th:text="${oneBooking.getListOfSnowboards().size()}">?????</td>
+        <td th:text="${oneBooking.getListOfRiders().size()}">?????</td>
         <td th:width="50"></td>
-<!--        <td>-->
-<!--            <form th:method="GET" th:action="@{/client/booking/{id}(id=${oneBooking.getId()})}">-->
-<!--                <input type="submit" th:value="#{booking.show_all.table.button.add_snowboard}"/>-->
-<!--            </form>-->
-<!--        </td>-->
-        <td>
-            <form th:method="GET" th:action="@{/admin/info-booking/show-one/{id}(id=${oneBooking.getId()})}">
-                <input type="submit" th:value="#{booking.show_all.table.button.view}"/>
-            </form>
-        </td>
         <td>
             <form th:method="GET" th:action="@{/admin/info-booking/edit/{id}(id=${oneBooking.getId()})}">
                 <input type="submit" th:value="#{booking.show_all.table.button.edit}"/>
@@ -94,6 +84,16 @@
 <!--Add new-->
 <a href="/admin/info-booking/add-new">
     <button th:text="#{booking.show_all.button.add_new}">?????</button>
+</a>
+
+<!--Show bookings for today-->
+<a href="/admin/show-today">
+    <button style="color:red">Bookings for today</button>
+</a>
+
+<!--Show bookings for tomorrow-->
+<a href="/admin/show-tomorrow">
+    <button style="color:red">Bookings for tomorrow</button>
 </a>
 
 </body>

@@ -1,6 +1,7 @@
 package com.project.prkt.model;
 
 import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
@@ -42,6 +43,8 @@ public class Rider {
     private Integer height;
     private Integer weight;
     private Size foot;
+    @ManyToMany(mappedBy = "listOfRiders")
+    private List<Booking> listOfBookings;
     //показали какой класс в коллекции и кактой то fetch хз что это
     @ElementCollection(targetClass = TypesOfEquipment.class, fetch = FetchType.EAGER)
     //назвали колонку. в базе появилась types_of_eqipment вместо кэмел кейса
@@ -56,6 +59,10 @@ public class Rider {
         equipmentNeeded.add(TypesOfEquipment.SKI);
     } //захардкодил что б было чему в бд записыватсья
 */
+
+    public Long getId() {
+        return id;
+    }
 
     public String getName() {
         return name;
@@ -103,6 +110,21 @@ public class Rider {
 
     public void setEquipmentNeededIds(List<TypesOfEquipment> equipmentNeededIds) {
         this.equipmentNeededIds = equipmentNeededIds;
+    }
+
+    public List<Booking> getListOfBookings() {
+        return listOfBookings;
+    }
+
+    public void setListOfBookings(List<Booking> listOfBookings) {
+        this.listOfBookings = listOfBookings;
+    }
+
+    public void addToListOfBookings(Booking booking) {
+        if (listOfBookings == null) {
+            listOfBookings = new ArrayList<>();
+        }
+        this.listOfBookings.add(booking);
     }
 
     @Override

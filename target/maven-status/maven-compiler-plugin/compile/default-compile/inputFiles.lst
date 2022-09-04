@@ -1,4 +1,5 @@
 /Users/Nikolai/Documents/JavaWorkspaces/MyWorkspace/prkt/src/main/java/com/project/prkt/repository/SnowboardRepository.java
+/Users/Nikolai/Documents/JavaWorkspaces/MyWorkspace/prkt/src/main/java/com/project/prkt/repository/RiderRepository.java
 /Users/Nikolai/Documents/JavaWorkspaces/MyWorkspace/prkt/src/main/java/com/project/prkt/controller/SnowboardController.java
 /Users/Nikolai/Documents/JavaWorkspaces/MyWorkspace/prkt/src/main/java/com/project/prkt/model/Equipment.java
 /Users/Nikolai/Documents/JavaWorkspaces/MyWorkspace/prkt/src/main/java/com/project/prkt/configuration/ApplicationConfig.java
@@ -8,10 +9,14 @@
 /Users/Nikolai/Documents/JavaWorkspaces/MyWorkspace/prkt/src/main/java/com/project/prkt/model/EquipmentCondition.java
 /Users/Nikolai/Documents/JavaWorkspaces/MyWorkspace/prkt/src/main/java/com/project/prkt/controller/BookingController.java
 /Users/Nikolai/Documents/JavaWorkspaces/MyWorkspace/prkt/src/main/java/com/project/prkt/repository/SnowboardBootsRepository.java
+/Users/Nikolai/Documents/JavaWorkspaces/MyWorkspace/prkt/src/main/java/com/project/prkt/controller/AdminHomeController.java
 /Users/Nikolai/Documents/JavaWorkspaces/MyWorkspace/prkt/src/main/java/com/project/prkt/PrktApplication.java
 /Users/Nikolai/Documents/JavaWorkspaces/MyWorkspace/prkt/src/main/java/com/project/prkt/model/Snowboard.java
 /Users/Nikolai/Documents/JavaWorkspaces/MyWorkspace/prkt/src/main/java/com/project/prkt/service/SnowboardService.java
 /Users/Nikolai/Documents/JavaWorkspaces/MyWorkspace/prkt/src/main/java/com/project/prkt/repository/BookingRepository.java
+/Users/Nikolai/Documents/JavaWorkspaces/MyWorkspace/prkt/src/main/java/com/project/prkt/service/RiderService.java
 /Users/Nikolai/Documents/JavaWorkspaces/MyWorkspace/prkt/src/main/java/com/project/prkt/service/BookingService.java
 /Users/Nikolai/Documents/JavaWorkspaces/MyWorkspace/prkt/src/main/java/com/project/prkt/model/SnowboardBoots.java
+/Users/Nikolai/Documents/JavaWorkspaces/MyWorkspace/prkt/src/main/java/com/project/prkt/controller/RiderController.java
+/Users/Nikolai/Documents/JavaWorkspaces/MyWorkspace/prkt/src/main/java/com/project/prkt/model/Rider.java
 /Users/Nikolai/Documents/JavaWorkspaces/MyWorkspace/prkt/src/main/java/com/project/prkt/model/TypesOfEquipment.java

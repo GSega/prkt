@@ -18,6 +18,4 @@ public interface SnowboardRepository extends JpaRepository<Snowboard, Long> {
 
     // ----- search -----
     List<Snowboard> findAllByNameContaining(String partOfName);
-
-//    void findSnowboardByBooking(Long id);
 }

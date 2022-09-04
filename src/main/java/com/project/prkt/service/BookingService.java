@@ -1,13 +1,14 @@
 package com.project.prkt.service;
 
 import com.project.prkt.model.Booking;
-import com.project.prkt.model.Snowboard;
+import com.project.prkt.model.Rider;
 import com.project.prkt.repository.BookingRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -24,31 +25,35 @@ public class BookingService {
         this.bookingRepository = bookingRepository;
     }
 
-    // ----- show all -----
+    // ----- show all bookings -----
     public List<Booking> showAllBookings() {
         return bookingRepository.findAllByOrderById();
     }
 
-    // ----- add new -----
+    // ----- add new booking -----
     public void addNewBookingToDB(Booking booking) {
         bookingRepository.save(booking);
     }
 
-    public void addNewSnowboardToBooking(Long id, Snowboard snowboard) {
-        Booking bookingToBeUpdated = bookingRepository.findById(id).orElseThrow(() ->
-                new IllegalStateException("Booking with id = " + id + " not found!"));
-        bookingToBeUpdated.addToListOfSnowboards(snowboard);
-        bookingRepository.save(bookingToBeUpdated);
-        System.out.println("Snowboards: " + bookingToBeUpdated.getListOfSnowboards().size());
+    // ----- delete booking -----
+    public void deleteBookingById(Long id) {
+        bookingRepository.deleteById(id);
     }
 
-    // ----- edit -----
+    public void addNewRiderToBooking(Long id, Rider rider) {
+        Booking bookingToBeUpdated = bookingRepository.findById(id).orElseThrow(() ->
+                new IllegalStateException("Booking with id = " + id + " not found!"));
+        bookingToBeUpdated.addToListOfRiders(rider);
+        bookingRepository.save(bookingToBeUpdated);
+    }
+
+    // ----- edit booking info -----
     public Booking showOneBookingById(Long id) {
         return bookingRepository.findById(id).orElseThrow(() ->
                 new IllegalStateException("Booking with id = " + id + " not found!"));
     }
 
-    public void updateBookingById(Long bookingToBeUpdatedId, Booking updatedBooking, Snowboard updatedSnowboard) {
+    public void updateBookingById(Long bookingToBeUpdatedId, Booking updatedBooking) {
         Booking bookingToBeUpdated = showOneBookingById(bookingToBeUpdatedId);
 
         bookingToBeUpdated.setBookingSurname(updatedBooking.getBookingSurname());
@@ -56,15 +61,21 @@ public class BookingService {
         bookingToBeUpdated.setPhone2(updatedBooking.getPhone2());
         bookingToBeUpdated.setDateOfArrival(updatedBooking.getDateOfArrival());
         bookingToBeUpdated.setDateOfReturn(updatedBooking.getDateOfReturn());
-        bookingToBeUpdated.getListOfSnowboards().clear();
-        bookingToBeUpdated.addToListOfSnowboards(updatedSnowboard);
 
         bookingRepository.save(bookingToBeUpdated);
     }
 
-    // ----- delete -----
-    public void deleteBookingById(Long id) {
-        bookingRepository.deleteById(id);
+    //// ----- edit booking info / edit rider in booking -----
+    //// ----- edit booking info / remove rider from booking -----
+    public void removeRiderFromBooking(Booking bookingToBeUpdated, Rider riderToBeRemoved) {
+        bookingToBeUpdated.getListOfRiders().remove(riderToBeRemoved);
+        bookingRepository.save(bookingToBeUpdated);
+    }
+
+    //// ----- edit booking info / add rider to booking -----
+    public void addExistingRiderToBooking(Booking bookingToBeUpdated, Rider riderToBoAdded) {
+        bookingToBeUpdated.getListOfRiders().add(riderToBoAdded);
+        bookingRepository.save(bookingToBeUpdated);
     }
 
     // ----- search -----
@@ -93,5 +104,10 @@ public class BookingService {
         Sort sort = sortDirection.equalsIgnoreCase(Sort.Direction.ASC.name()) ?
                 Sort.by(parameter).ascending() : Sort.by(parameter).descending();
         return bookingRepository.findAll(sort);
+    }
+
+    // ----- show bookings for the date
+    public List<Booking> showBookingsForTheDate(Date date) {
+        return bookingRepository.findByDateOfArrival(date);
     }
 }

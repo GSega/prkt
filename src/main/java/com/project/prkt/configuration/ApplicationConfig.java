@@ -42,11 +42,12 @@ public class ApplicationConfig implements WebMvcConfigurer {
     public MessageSource messageSource() {
         ReloadableResourceBundleMessageSource messageSource = new ReloadableResourceBundleMessageSource();
         messageSource.setBasenames(
+                "classpath:/admin",
                 "classpath:/booking",
                 "classpath:/equipment_condition",
-                "classpath:/snowboard_boots",
-                "classpath:/snowboard"
-        );
+                "classpath:/snowboard",
+                "classpath:/snowboard_boots"
+                );
         messageSource.setDefaultEncoding("UTF-8");
         return messageSource;
     }

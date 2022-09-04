@@ -1,8 +1,9 @@
 package com.project.prkt.controller;
 
 import com.project.prkt.model.Booking;
+import com.project.prkt.model.Rider;
 import com.project.prkt.service.BookingService;
-import com.project.prkt.service.SnowboardService;
+import com.project.prkt.service.RiderService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -19,17 +20,17 @@ import javax.validation.Valid;
 public class BookingController {
 
     private final BookingService bookingService;
-    private final SnowboardService snowboardService;
+    private final RiderService riderService;
 
     @Autowired
-    public BookingController(BookingService bookingService, SnowboardService snowboardService) {
+    public BookingController(BookingService bookingService, RiderService riderService) {
         this.bookingService = bookingService;
-        this.snowboardService = snowboardService;
+        this.riderService = riderService;
     }
 
-    // ----- show all -----
+    // ----- show all bookings -----
     @GetMapping()
-    public String snowAllBookings(Model model) {
+    public String showAllBookings(Model model) {
         model.addAttribute("allBookings", bookingService.showAllBookings());
         return "booking/show_all";
     }
@@ -38,67 +39,72 @@ public class BookingController {
     @GetMapping("/add-new")
     public String createNewBooking(Model model) {
         model.addAttribute("newBooking", new Booking());
-        model.addAttribute("allSnowboards", snowboardService.showAllSnowboards());
+        model.addAttribute("allRiders", riderService.showAllRiders());
         return "booking/add_new";
     }
 
     @PostMapping()
     public String addNewBookingToDB(@ModelAttribute("newBooking") Booking newBooking,
-                                    @ModelAttribute("newSnowboardId") Long newSnowboardId) {
-        if (newSnowboardId != 0) {
-            newBooking.addToListOfSnowboards(snowboardService.showOneSnowboardById(newSnowboardId));
+                                    @ModelAttribute("newRiderId") Long newRiderId) {
+        if (newRiderId != 0) {
+            newBooking.addToListOfRiders(riderService.showOneRiderById(newRiderId));
         }
         bookingService.addNewBookingToDB(newBooking);
-        return "redirect:/admin/info-booking";
+        return "redirect:/client/booking-rider/new-rider?id=" + newBooking.getId(); // change to admin/rider/add-new
     }
 
-
-    // ----- edit -----
-    @GetMapping("/edit/{id}")
-    public String showOneBooking(@PathVariable("id") Long id, Model model) {
-        model.addAttribute("bookingToBeUpdated", bookingService.showOneBookingById(id));
-        model.addAttribute("allSnowboards", snowboardService.showAllSnowboards());
-        return "booking/edit";
-    }
-
-    @PatchMapping("/edit/{id}")
-    public String updateBookingById(@PathVariable("id") Long bookingToBeUpdatedId,
-                                    @ModelAttribute("oneBooking") @Valid Booking updatedBooking,
-                                    @ModelAttribute("newSnowboardId") Long newSnowboardId) {
-        bookingService.updateBookingById(bookingToBeUpdatedId, updatedBooking, snowboardService.showOneSnowboardById(newSnowboardId));
-        return "redirect:/admin/info-booking";
-    }
-
-    // ----- delete -----
+    // ----- delete booking -----
     @DeleteMapping("/{id}")
     public String deleteBooking(@PathVariable("id") Long id) {
         bookingService.deleteBookingById(id);
         return "redirect:/admin/info-booking";
     }
 
-    // ----- show_one -----
-    @GetMapping("/show-one/{id}")
-    public String showOneBookingById(@PathVariable("id") Long id, Model model) {
-        model.addAttribute("bookingFound", bookingService.showOneBookingById(id));
-        return "booking/show_one";
+    // ----- edit booking info -----
+    @GetMapping("/edit/{id}")
+    public String showOneBooking(@PathVariable("id") Long id, Model model) {
+        model.addAttribute("bookingToBeUpdated", bookingService.showOneBookingById(id));
+        model.addAttribute("allRiders", riderService.showAllRiders());
+        model.addAttribute("riderToBeAddedId", 0);
+        return "booking/edit";
     }
-//
-//    // ----- search -----
-//    @GetMapping("/search")
-//    public String searchBookingsByParameter(@RequestParam("parameter") String parameter, Model model) {
-//        model.addAttribute("bookingsByParameter", bookingService.showBookingsByParameter(parameter));
-//        return "booking/search";
-//    }
-//
-//    // ----- sort -----
-//    @GetMapping("/sort")
-//    public String sortBookingsByParameter(@RequestParam("parameter") String parameter,
-//                                          @RequestParam("sortDirection") String sortDirection,
-//                                          Model model) {
-//        model.addAttribute("reverseSortDirection", sortDirection.equals("asc") ? "desc" : "asc");
-//        model.addAttribute("allBookings", bookingService.sortAllBookingsByParameter(parameter, sortDirection));
-//        return "booking/show_all";
-//    }
+
+    @PatchMapping("/edit/{id}")
+    public String updateBookingById(@PathVariable("id") Long bookingToBeUpdatedId,
+                                    @ModelAttribute("oneBooking") @Valid Booking updatedBooking) {
+        bookingService.updateBookingById(bookingToBeUpdatedId, updatedBooking);
+        return "redirect:/admin/info-booking/edit/{id}";
+    }
+
+    //// ----- edit booking info / edit rider in booking -----
+    //// ----- edit booking info / remove rider from booking -----
+    @GetMapping("/edit/remove")
+    public String removeRiderFromBooking(@RequestParam("bid") Long bookingToBeUpdatedId,
+                                         @RequestParam("rid") Long riderToBeRemovedId) {
+        Booking bookingToBeUpdated = bookingService.showOneBookingById(bookingToBeUpdatedId);
+        Rider riderToBoUpdated = riderService.showOneRiderById(riderToBeRemovedId);
+        bookingService.removeRiderFromBooking(bookingToBeUpdated, riderToBoUpdated);
+        return "redirect:/admin/info-booking/edit/" + bookingToBeUpdatedId;
+    }
+
+    //// ----- edit booking info / add existing rider to booking -----
+
+    // ----- search -----
+    @GetMapping("/search")
+    public String searchBookingsByParameter(@RequestParam("parameter") String parameter, Model model) {
+        model.addAttribute("bookingsByParameter", bookingService.showBookingsByParameter(parameter));
+        return "booking/search";
+    }
+
+    // ----- sort -----
+    @GetMapping("/sort")
+    public String sortBookingsByParameter(@RequestParam("parameter") String parameter,
+                                          @RequestParam("sortDirection") String sortDirection,
+                                          Model model) {
+        model.addAttribute("reverseSortDirection", sortDirection.equals("asc") ? "desc" : "asc");
+        model.addAttribute("allBookings", bookingService.sortAllBookingsByParameter(parameter, sortDirection));
+        return "booking/show_all";
+    }
 
 
 }

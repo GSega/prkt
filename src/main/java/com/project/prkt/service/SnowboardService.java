@@ -68,8 +68,4 @@ public class SnowboardService {
                 Sort.by(parameter).ascending() : Sort.by(parameter).descending();
         return snowboardRepository.findAll(sort);
     }
-
-//    public void setBooking(Long snowboardId, Booking booking) {
-//        showOneSnowboardById(snowboardId).setBooking(booking);
-//    }
 }

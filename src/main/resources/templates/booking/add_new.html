@@ -12,7 +12,7 @@
 <!--Input parameters-->
 <form th:method="POST"
       th:object="${newBooking}"
-      th:action="@{/admin/info-booking/}">
+      th:action="@{/admin/info-booking}">
 
     <table th:align="center" style="text-align:left"
            th:cellpadding="2">
@@ -35,24 +35,6 @@
         <tr>
             <td th:text="#{booking.add_new.field.date_of_return}">?????</td>
             <td><input type="date" th:field="*{dateOfReturn}"/></td>
-        </tr>
-        <tr>
-            <td th:text="Snowboards">?????</td>
-            <td>
-                <select name="newSnowboardId">
-                    <option value="0">I don't need this shit</option>
-                    <option th:each="i : ${allSnowboards}"
-                            th:value="${i.getId()}"
-                            th:text="${i.getId()} + ' ' +
-                            ${i.getName()} + ' ' +
-                            #{${'equipment_condition.' + i.getCondition()}} + ' ' +
-                            ${i.getSize()} + ' ' +
-                            #{${'snowboard.stiffness.' + i.getStiffness()}} + ' ' +
-                            #{${'snowboard.arch.' + i.getArch()}} + ' ' +
-                            ${i.getBindingSize()}">
-                    </option>
-                </select>
-            </td>
         </tr>
     </table>
 

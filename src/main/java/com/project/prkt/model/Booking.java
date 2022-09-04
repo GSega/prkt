@@ -29,22 +29,22 @@ public class Booking {
     //    @OneToMany(mappedBy = "booking", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     @ManyToMany
     @JoinTable(
-            name = "booking_snowboard",
+            name = "booking_rider",
             joinColumns = @JoinColumn(name = "booking_id"),
-            inverseJoinColumns = @JoinColumn(name = "snowboard_id")
+            inverseJoinColumns = @JoinColumn(name = "rider_id")
     )
-    private List<Snowboard> listOfSnowboards;
+    private List<Rider> listOfRiders;
 
     public Booking() {
     }
 
-    public Booking(String bookingSurname, String phone1, String phone2, Date dateOfArrival, Date dateOfReturn, List<Snowboard> listOfSnowboards) {
+    public Booking(String bookingSurname, String phone1, String phone2, Date dateOfArrival, Date dateOfReturn, List<Rider> listOfRiders) {
         this.bookingSurname = bookingSurname;
         this.phone1 = phone1;
         this.phone2 = phone2;
         this.dateOfArrival = dateOfArrival;
         this.dateOfReturn = dateOfReturn;
-        this.listOfSnowboards = listOfSnowboards;
+        this.listOfRiders = listOfRiders;
     }
 
     public Long getId() {
@@ -91,19 +91,19 @@ public class Booking {
         this.dateOfReturn = dateOfReturn;
     }
 
-    public List<Snowboard> getListOfSnowboards() {
-        return listOfSnowboards;
+    public List<Rider> getListOfRiders() {
+        return listOfRiders;
     }
 
-    public void setListOfSnowboards(List<Snowboard> listOfSnowboards) {
-        this.listOfSnowboards = listOfSnowboards;
+    public void setListOfRiders(List<Rider> listOfRiders) {
+        this.listOfRiders = listOfRiders;
     }
 
-    public void addToListOfSnowboards(Snowboard snowboard) {
-        if (listOfSnowboards == null) {
-            listOfSnowboards = new ArrayList<>();
+    public void addToListOfRiders(Rider rider) {
+        if (listOfRiders == null) {
+            listOfRiders = new ArrayList<>();
         }
-        this.listOfSnowboards.add(snowboard);
+        this.listOfRiders.add(rider);
     }
 
     @Override

@@ -40,56 +40,48 @@
             <td th:text="#{booking.show_one.field.date_of_return}">?????</td>
             <td th:text="${#dates.format(bookingFound.dateOfReturn, 'dd MMM yyyy')}"></td>
         </tr>
-        <tr>
-            <td th:text="Snowboards">?????</td>
-            <td th:text="${bookingFound.getListOfSnowboards()}"></td>
-        </tr>
     </table>
+
 </form>
 
 <br/>
 
-<!--List of Snowboards-->
+<!--List of Riders-->
+<span th:if="${bookingFound.getListOfRiders().size() > 0}">
 <table th:align="center"
        th:border="1" th:rules="rows"
        th:cellpadding="5">
     <tr>
-        <th><a th:text="#{snowboard.show_all.table.header.id}">?????</a></th>
-        <th><a th:text="#{snowboard.show_all.table.header.name}">?????</a></th>
-        <th><a th:text="#{snowboard.show_all.table.header.available}">?????</a></th>
-        <th><a th:text="#{snowboard.show_all.table.header.condition}">?????</a></th>
-        <th><a th:text="#{snowboard.show_all.table.header.size}">?????</a></th>
-        <th><a th:text="#{snowboard.show_all.table.header.stiffness}">?????</a></th>
-        <th><a th:text="#{snowboard.show_all.table.header.arch}">?????</a></th>
-        <th><a th:text="#{snowboard.show_all.table.header.binding_size}">?????</a></th>
+        <th><a th:text="#{rider.show_all.table.header.id}">?????</a></th>
+        <th><a th:text="#{rider.show_all.table.header.name}">?????</a></th>
+        <th><a th:text="#{rider.show_all.table.header.sex}">?????</a></th>
+        <th><a th:text="#{rider.show_all.table.header.height}">?????</a></th>
+        <th><a th:text="#{rider.show_all.table.header.weight}">?????</a></th>
+        <th><a th:text="#{rider.show_all.table.header.foot}">?????</a></th>
         <th></th>
     </tr>
-    <tr th:each="oneSnowboard : ${bookingFound.getListOfSnowboards()}">
-        <td th:text="${oneSnowboard.getId()}">?????</td>
-        <td th:align="left"
-            th:text="${oneSnowboard.getName()}">?????
-        </td>
-        <td th:text="${oneSnowboard.isAvailable()} ? #{snowboard.available.true} : #{snowboard.available.false}">?????</td>
-        <!--notice that - #{snowboard_boots.available.true} is written without th:text=-->
-        <!--probably because a String is already expected-->
-        <td th:text="#{${'equipment_condition.' + oneSnowboard.getCondition()}}">?????</td>
-        <td th:text="${oneSnowboard.getSize()}">?????</td>
-        <td th:text="#{${'snowboard.stiffness.' + oneSnowboard.getStiffness()}}">?????</td>
-        <td th:text="#{${'snowboard.arch.' + oneSnowboard.getArch()}}">?????</td>
-        <td th:text="${oneSnowboard.getBindingSize()}">?????</td>
+    <tr th:each="oneRider : ${bookingFound.getListOfRiders()}">
+        <td th:text="${oneRider.getId()}">?????</td>
+        <td th:text="${oneRider.getName()}" th:align="left">?????</td>
+        <td th:text="${oneRider.getSex()}">?????</td>
+        <td th:text="${oneRider.getHeight()}">?????</td>
+        <td th:text="${oneRider.getWeight()}">?????</td>
+        <td th:text="${oneRider.getFoot()}">?????</td>
         <td th:width="50"></td>
-<!--        <td>-->
-<!--            <a th:href="@{/admin/info-equipment/snowboard/edit/{id}(id=${oneSnowboard.getId()})}">-->
-<!--                <button th:text="#{snowboard.show_all.table.button.edit}">?????</button>-->
-<!--            </a>-->
-<!--        </td>-->
-<!--        <td>-->
-<!--            <form th:method="DELETE" th:action="@{/admin/info-equipment/snowboard/{id}(id=${oneSnowboard.getId()})}">-->
-<!--                <input type="submit" th:value="#{snowboard.show_all.table.button.delete}"/>-->
-<!--            </form>-->
-<!--        </td>-->
+        <!--        <td>-->
+        <!--            <a th:href="@{/admin/info-equipment/rider/edit/{id}(id=${oneRider.getId()})}">-->
+        <!--                <button th:text="#{rider.show_all.table.button.edit}">?????</button>-->
+        <!--            </a>-->
+        <!--        </td>-->
+        <!--        <td>-->
+        <!--            <form th:method="DELETE" th:action="@{/admin/info-equipment/rider/{id}(id=${oneRider.getId()})}">-->
+        <!--                <input type="submit" th:value="#{rider.show_all.table.button.delete}"/>-->
+        <!--            </form>-->
+        <!--        </td>-->
     </tr>
 </table>
+    </span>
+<span th:unless="${bookingFound.getListOfRiders().size() > 0}">Riders not found<br/></span>
 
 <br/>
 

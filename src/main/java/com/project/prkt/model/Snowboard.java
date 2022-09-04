@@ -3,8 +3,6 @@ package com.project.prkt.model;
 import javax.persistence.*;
 import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.ResourceBundle;
 
 /**
@@ -61,14 +59,11 @@ public class Snowboard extends Equipment {
     private Stiffness stiffness;
     private Arch arch;
     private BindingSize bindingSize;
-    //    @JoinColumn(name = "bookingId")
-    @ManyToMany(mappedBy = "listOfSnowboards")
-    private List<Booking> listOfBookings;
 
     public Snowboard() {
     }
 
-    public Snowboard(String name, boolean available, EquipmentCondition condition, String size, Stiffness stiffness, Arch arch, BindingSize bindingSize, List<Booking> listOfBookings) {
+    public Snowboard(String name, boolean available, EquipmentCondition condition, String size, Stiffness stiffness, Arch arch, BindingSize bindingSize) {
         this.name = name;
         this.available = available;
         this.condition = condition;
@@ -76,7 +71,6 @@ public class Snowboard extends Equipment {
         this.stiffness = stiffness;
         this.arch = arch;
         this.bindingSize = bindingSize;
-        this.listOfBookings = listOfBookings;
     }
 
     public Long getId() {
@@ -137,21 +131,6 @@ public class Snowboard extends Equipment {
 
     public void setBindingSize(BindingSize bindingSize) {
         this.bindingSize = bindingSize;
-    }
-
-    public List<Booking> getListOfBookings() {
-        return listOfBookings;
-    }
-
-    public void setListOfBookings(List<Booking> listOfBookings) {
-        this.listOfBookings = listOfBookings;
-    }
-
-    public void addToListOfBookings(Booking booking) {
-        if (listOfBookings == null) {
-            listOfBookings = new ArrayList<>();
-        }
-        this.listOfBookings.add(booking);
     }
 
     @Override

@@ -1,8 +1,8 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
-  <meta charset="UTF-8">
-  <title th:text="#{booking.search.title}">?????</title>
+    <meta charset="UTF-8">
+    <title th:text="#{booking.search.title}">?????</title>
 </head>
 <body th:align="center">
 
@@ -13,60 +13,55 @@
 <table th:align="center"
        th:border="1" th:rules="rows"
        th:cellpadding="5">
-  <tr>
-    <th>
-      <a th:text="#{booking.search.table.header.id}">?????</a>
-    </th>
-    <th>
-      <a th:text="#{booking.search.table.header.booking_surname}">?????</a>
-    </th>
-    <th>
-      <a th:text="#{booking.search.table.header.phone1}">?????</a>
-    </th>
-    <th>
-      <a th:text="#{booking.search.table.header.phone2}">?????</a>
-    </th>
-    <th>
-      <a th:text="#{booking.search.table.header.date_of_arrival}">?????</a>
-    </th>
-    <th>
-      <a th:text="#{booking.search.table.header.date_of_return}">?????</a>
-    </th>
-    <th></th>
-  </tr>
-  <tr th:each="oneBooking : ${bookingsByParameter}">
-    <td th:text="${oneBooking.getId()}">?????</td>
-    <td th:align="left"
-        th:text="${oneBooking.getBookingSurname()}">?????
-    </td>
-    <td th:text="${oneBooking.getPhone1()}">?????</td>
-    <td th:text="${oneBooking.getPhone2()}">?????</td>
-    <td th:text="${#dates.format(oneBooking.getDateOfArrival(), 'dd MMM yyyy')}"></td>
-    <td th:text="${#dates.format(oneBooking.getDateOfReturn(), 'dd MMM yyyy')}"></td>
-    <td th:width="50"></td>
-    <td>
-      <form th:method="GET" th:action="@{/client/booking/view/{id}(id=${oneBooking.getId()})}">
-        <input type="submit" th:value="#{booking.search.table.button.view}"/>
-      </form>
-    </td>
-    <td>
-      <form th:method="GET" th:action="@{/client/booking/edit/{id}(id=${oneBooking.getId()})}">
-        <input type="submit" th:value="#{booking.search.table.button.edit}"/>
-      </form>
-    </td>
-    <td>
-      <form th:method="DELETE" th:action="@{/client/booking/{id}(id=${oneBooking.getId()})}">
-        <input type="submit" th:value="#{booking.search.table.button.delete}"/>
-      </form>
-    </td>
-  </tr>
+    <tr>
+        <th>
+            <a th:text="#{booking.search.table.header.id}">?????</a>
+        </th>
+        <th>
+            <a th:text="#{booking.search.table.header.booking_surname}">?????</a>
+        </th>
+        <th>
+            <a th:text="#{booking.search.table.header.phone1}">?????</a>
+        </th>
+        <th>
+            <a th:text="#{booking.search.table.header.phone2}">?????</a>
+        </th>
+        <th>
+            <a th:text="#{booking.search.table.header.date_of_arrival}">?????</a>
+        </th>
+        <th>
+            <a th:text="#{booking.search.table.header.date_of_return}">?????</a>
+        </th>
+        <th></th>
+    </tr>
+    <tr th:each="oneBooking : ${bookingsByParameter}">
+        <td th:text="${oneBooking.getId()}">?????</td>
+        <td th:align="left"
+            th:text="${oneBooking.getBookingSurname()}">?????
+        </td>
+        <td th:text="${oneBooking.getPhone1()}">?????</td>
+        <td th:text="${oneBooking.getPhone2()}">?????</td>
+        <td th:text="${#dates.format(oneBooking.getDateOfArrival(), 'dd MMM yyyy')}"></td>
+        <td th:text="${#dates.format(oneBooking.getDateOfReturn(), 'dd MMM yyyy')}"></td>
+        <td th:width="50"></td>
+        <td>
+            <form th:method="GET" th:action="@{/admin/info-booking/edit/{id}(id=${oneBooking.getId()})}">
+                <input type="submit" th:value="#{booking.search.table.button.edit}"/>
+            </form>
+        </td>
+        <td>
+            <form th:method="DELETE" th:action="@{/admin/info-booking/{id}(id=${oneBooking.getId()})}">
+                <input type="submit" th:value="#{booking.search.table.button.delete}"/>
+            </form>
+        </td>
+    </tr>
 </table>
 
 <br/>
 
 <!--Return to "booking/show_all"-->
-<a href="/client/booking">
-  <button th:text="#{booking.search.button.return}">?????</button>
+<a href="/admin/info-booking">
+    <button th:text="#{booking.search.button.return}">?????</button>
 </a>
 
 </body>
