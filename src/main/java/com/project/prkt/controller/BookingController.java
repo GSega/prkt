@@ -21,10 +21,12 @@ public class BookingController {
     private final BookingService bookingService;
     private final SnowboardService snowboardService;
 
+
     @Autowired
     public BookingController(BookingService bookingService, SnowboardService snowboardService) {
         this.bookingService = bookingService;
         this.snowboardService = snowboardService;
+
     }
 
     // ----- show all -----
