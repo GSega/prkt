@@ -31,17 +31,12 @@ public class AdminHomeController {
     public String showAdminMainPage(){
         return "admin/main_page";
     }
+
+    // hyperlink to equipment
     @GetMapping("/info-equipment")
     public String showEqipmentChoisepage(){
         return "admin/info_equipment";
     }
-
-    // hyperlink to bookings
-    // hyperlink to equipment + view
-    // hyperlink to clients
-    // hyperlink to riders
-
-
 
     // ----- orders for today -----
     @GetMapping("/show-today")

@@ -26,6 +26,7 @@ public class Booking {
     @Temporal(TemporalType.DATE)
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     private Date dateOfReturn;
+
     private boolean completed;
     @ManyToMany
     @JoinTable(
@@ -93,13 +94,13 @@ public class Booking {
         this.dateOfReturn = dateOfReturn;
     }
 
-    public boolean isCompleted() {
+   public boolean isCompleted() {
         return completed;
     }
 
-    public void setCompleted(boolean completed) {
-        this.completed = completed;
-    }
+   public void setCompleted(boolean completed) {
+       this.completed = completed;
+   }
 
     public List<Rider> getListOfRiders() {
         return listOfRiders;

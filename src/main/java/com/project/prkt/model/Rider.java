@@ -3,7 +3,9 @@ package com.project.prkt.model;
 import javax.persistence.*;
 import java.util.List;
 import java.util.Objects;
-
+/**
+ * @author Sergei Gavrilov
+ */
 @Entity
 //@Table
 public class Rider {

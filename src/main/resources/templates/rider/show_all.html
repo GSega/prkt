@@ -18,8 +18,8 @@
     </tr>
 
 <tr th:each="oneRider : ${allRiders}">
-    <td th:text="${oneRider.getId()}"> id</td>
-    <td th:text="${oneRider.getName()}"> name</td>
+    <td th:text="${oneRider.getId()}"> id </td>
+    <td th:text="${oneRider.getName()}"> name </td>
     <td th:text="${oneRider.getHeight()}"> Height </td>
     <td th:text="${oneRider.getWeight()}"> Weight </td>
     <td th:text="${oneRider.getSex()}"> Sex </td>
@@ -28,7 +28,7 @@
         <a th:href="@{/admin/info-riders/edit/{id}(id=${oneRider.getId()})}"> <button> изменить </button> </a>
     </td>
     <td>
-        <form th:method="DELETE" th:action="@{/admin/info-riders/edit/{id}(id=${oneRider.getId()})}"> <input type="submit" value="УДАЛИТЬ"> </form>
+        <form th:method="DELETE" th:action="@{/admin/info-riders/{id}(id=${oneRider.getId()})}"> <input type="submit" value="УДАЛИТЬ"> </form>
     </td>
 
 </tr>

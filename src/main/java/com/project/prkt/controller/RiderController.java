@@ -8,6 +8,10 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+/**
+ * @author Sergei Gavrilov
+ */
+
 @Controller
 @RequestMapping("/admin/info-riders")
 public class RiderController {
@@ -38,8 +42,9 @@ public class RiderController {
 
     //delete
     @DeleteMapping("/{id}")
-    public void deleteRider(@PathVariable("id") Long id) {
+    public String deleteRider(@PathVariable("id") Long id) {
         riderService.deleteRiderById(id);
+        return "redirect:/admin/info-riders"; //вроде потом надо void сдеалть
     }
 
     //show all
@@ -51,17 +56,17 @@ public class RiderController {
     }
 
     //edit
-    @GetMapping("/edit")
-    public String showOneRider(@RequestParam("id") Long id, Model model) {
+    @GetMapping("/edit/{id}")
+    public String showOneRider(@PathVariable("id") Long id, Model model) {
         model.addAttribute("riderToBeUpdated", riderService.showOneRiderById(id));
         return "rider/edit";
     }
 
     @PatchMapping("/edit/{id}")
     public String updateRiderById(@PathVariable("id") Long riderToBeUpdatedId,
-                                  @ModelAttribute("oneUpdatedRider") Rider oneUpdatedRider) {
+                                  @ModelAttribute("riderToBeUpdated") Rider oneUpdatedRider) {
         riderService.updateRiderById(riderToBeUpdatedId, oneUpdatedRider);
-        return "redirect: /admin/info-rider";
+        return "redirect:/admin/info-riders";
     }
 
 }

@@ -10,18 +10,22 @@
       th:action="@{/admin/info-riders/edit/{id}(id=${riderToBeUpdated.getId()})}"
       th:object="${riderToBeUpdated}">
   <table>
+                                              <!--name-->
     <tr>
       <td> Имя </td>
       <td>
         <input type="text" th:field="*{name}" id="name"> </td>
     </tr>
-
+                                              <!--sex-->
     <tr>
       <td> Пол </td>
-      <td><select name="sex">
-        <option th:each="s : ${T(com.project.prkt.model.Rider.Sex).values()}"
-                th:value="${s}" th:text="${s}"> sex should be here
-        </option>
+      <td>
+        <select th:field="*{sex}">
+          <option th:each="s : ${T(com.project.prkt.model.Rider.Sex).values()}"
+                th:value="${s}"
+                th:text="${s}"
+                th:selected="${riderToBeUpdated.getSex()}"> sex should be here
+          </option>
       </select>
       </td>
     </tr>
@@ -35,57 +39,47 @@
       <td> Вес </td>
       <td><input type="text" th:field="*{weight}"/></td>
     </tr>
-
+                                            <!--foot size-->
     <tr>
-      <td> Размер ноги </td>
-      <td><select name="foot">
-        <option th:each="f : ${T(com.project.prkt.model.Rider.Size).values()}"
-                th:value="${f}" th:text="${f}"> foot size should be here
-        </option>
-      </select>
+      <td>
+        Размер ноги
+      </td>
+      <td>
+        <select name="foot">
+          <option th:each="f : ${T(com.project.prkt.model.Rider.Size).values()}"
+                  th:value="${f}" th:text="${f}"
+                  th:selected="${riderToBeUpdated.getFoot()}"> foot size should be here
+          </option>
+        </select>
       </td>
     </tr>
-    <!--<tr>
-      <td> fck</td>
-      <td><select name="equipmentNeeded">
-        <option th:each="r : ${T(com.project.prkt.model.TypesOfEquipment).values()}"
-                th:value="${r}"
-                th:text="${r}"
-                th:selected="${riderToBeUpdated.getEquipmentNeeded()}"> equip needed
-        </option>
-      </select>
-    </tr>-->
+                                     <!--previous equipment set-->
     <tr>
-      <td> fckn sht</td>
       <td>
-        <!---->
-        <span th:each="oneFromNeeded : ${riderToBeUpdated.getEquipmentNeededIds()}">
-            <span th:each="oneFromEnum : ${T(com.project.prkt.model.TypesOfEquipment).values()}">
-
-              <div th:if="${oneFromNeeded.name()}==${oneFromEnum.name()}">
-                   <input field="*{equipmentNeededIds}"
-                          type="checkbox"
-                          th:value="${oneFromEnum}"
-                          th:checked="checked"
-                          th:text="${oneFromEnum.name()}">  checked00000 </input> </div>
-
-              <div th:unless="${oneFromNeeded.name()}==${oneFromEnum.name()}">
-                <input field="*{equipmentNeededIds}"
-                      type="checkbox"
-                      th:value="${oneFromEnum}"
-                       th:text="${oneFromEnum.name()}">  ??? </input>   </div>
-
-            </span>
-        </span>
-          <!--<input field="*{equipmentNeededIds}"
-                 type="checkbox"
-                 th:value="${equip}"/>
-                &lt;!&ndash; th:checked="${equipmentNeededId}"&ndash;&gt;
-          <div th:if="${riderToBeUpdated.getEquipmentNeededIds()}"></div>
-          <div th:unless ></div>
-           <span  th:text="${equip.name()}">EQUIP</span><br />
-        </span>-->
+        список оборудования <br> выбранного ранее:
       </td>
+      <td>
+          <span th:each="oneFromNeeded : ${riderToBeUpdated.getEquipmentNeededIds()}">
+              <a th:text="${oneFromNeeded.name}" ></a><br>
+          </span>
+      </td>
+    </tr>
+                              <!-- new checkbox set for equipment-->
+    <tr>
+        <td>
+            новый список <br> оборудования:
+        </td>
+        <td>
+            <div th:each="oneFromEnum : ${T(com.project.prkt.model.TypesOfEquipment).values()}">
+
+               <input field="*{equipmentNeededIds}"
+                     type="checkbox"
+                     th:value="${oneFromEnum}"
+                     th:text="${oneFromEnum.name()}">  checked
+               </input>
+
+            </div>
+        </td>
     </tr>
 
 
@@ -98,6 +92,10 @@
 <form th:method="GET"
       th:action="@{/admin/info-booking}">
   <input type="submit" value="выйти в список броней">
+</form>
+<form th:method="GET"
+      th:action="@{/admin/info-booking/edit}">
+    <input type="submit" value="выйти в текущий заказ">
 </form>
 
 
