@@ -31,6 +31,10 @@ public class AdminHomeController {
     public String showAdminMainPage(){
         return "admin/main_page";
     }
+    @GetMapping("/info-equipment")
+    public String showEqipmentChoisepage(){
+        return "admin/info_equipment";
+    }
 
     // hyperlink to bookings
     // hyperlink to equipment
