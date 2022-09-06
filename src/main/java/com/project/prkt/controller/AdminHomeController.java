@@ -29,7 +29,7 @@ public class AdminHomeController {
     // add "index" or "home" view
 
     // hyperlink to bookings
-    // hyperlink to equipment
+    // hyperlink to equipment + view
     // hyperlink to clients
     // hyperlink to riders
 

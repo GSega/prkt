@@ -53,6 +53,10 @@
                th:text="#{booking.show_all.table.header.date_of_return}">?????</a>
         </th>
         <th><a th:text="#{booking.show_all.table.header.number_of_riders}">?????</a></th>
+        <th>
+            <a th:href="@{'/admin/info-booking/sort?parameter=completed&sortDirection=' + ${reverseSortDirection}}"
+               th:text="#{booking.show_all.table.header.completed}">?????</a>
+        </th>
         <th></th>
     </tr>
     <tr th:each="oneBooking : ${allBookings}">
@@ -65,6 +69,7 @@
         <td th:text="${#dates.format(oneBooking.getDateOfArrival(), 'dd MMM yyyy')}"></td>
         <td th:text="${#dates.format(oneBooking.getDateOfReturn(), 'dd MMM yyyy')}"></td>
         <td th:text="${oneBooking.getListOfRiders().size()}">?????</td>
+        <td th:text="${oneBooking.isCompleted()}">?????</td>
         <td th:width="50"></td>
         <td>
             <form th:method="GET" th:action="@{/admin/info-booking/edit/{id}(id=${oneBooking.getId()})}">

@@ -26,7 +26,7 @@ public class Booking {
     @Temporal(TemporalType.DATE)
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     private Date dateOfReturn;
-    //    @OneToMany(mappedBy = "booking", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    private boolean completed;
     @ManyToMany
     @JoinTable(
             name = "booking_rider",
@@ -38,12 +38,14 @@ public class Booking {
     public Booking() {
     }
 
-    public Booking(String bookingSurname, String phone1, String phone2, Date dateOfArrival, Date dateOfReturn, List<Rider> listOfRiders) {
+    public Booking(String bookingSurname, String phone1, String phone2, Date dateOfArrival,
+                   Date dateOfReturn, boolean completed, List<Rider> listOfRiders) {
         this.bookingSurname = bookingSurname;
         this.phone1 = phone1;
         this.phone2 = phone2;
         this.dateOfArrival = dateOfArrival;
         this.dateOfReturn = dateOfReturn;
+        this.completed = completed;
         this.listOfRiders = listOfRiders;
     }
 
@@ -91,12 +93,16 @@ public class Booking {
         this.dateOfReturn = dateOfReturn;
     }
 
-    public List<Rider> getListOfRiders() {
-        return listOfRiders;
+    public boolean isCompleted() {
+        return completed;
     }
 
-    public void setListOfRiders(List<Rider> listOfRiders) {
-        this.listOfRiders = listOfRiders;
+    public void setCompleted(boolean completed) {
+        this.completed = completed;
+    }
+
+    public List<Rider> getListOfRiders() {
+        return listOfRiders;
     }
 
     public void addToListOfRiders(Rider rider) {
@@ -108,12 +114,15 @@ public class Booking {
 
     @Override
     public String toString() {
-        return "Booking -> " +
-                "id: " + id +
-                ", bookingSurname: " + bookingSurname +
-                ", phone1: " + phone1 +
-                ", phone2: " + phone2 +
-                ", dateOfArrival: " + dateOfArrival +
-                ", dateOfReturn: " + dateOfReturn;
+        return "Booking{" +
+                "id=" + id +
+                ", bookingSurname='" + bookingSurname +
+                ", phone1='" + phone1 +
+                ", phone2='" + phone2 +
+                ", dateOfArrival=" + dateOfArrival +
+                ", dateOfReturn=" + dateOfReturn +
+                ", completed=" + completed +
+                ", listOfRiders=" + listOfRiders +
+                '}';
     }
 }

@@ -44,6 +44,7 @@ public class ApplicationConfig implements WebMvcConfigurer {
         messageSource.setBasenames(
                 "classpath:/admin",
                 "classpath:/booking",
+                "classpath:/client",
                 "classpath:/equipment_condition",
                 "classpath:/snowboard",
                 "classpath:/snowboard_boots"
