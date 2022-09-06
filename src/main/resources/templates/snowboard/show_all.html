@@ -11,15 +11,15 @@
 
 <!--Language-->
 <p>
-    <a th:href="@{/admin_ru.properties/info-equipment/snowboard(lang=ru)}" th:text="Русский">?????</a>
-    <a th:href="@{/admin_ru.properties/info-equipment/snowboard(lang=en)}" th:text="English">?????</a>
+    <a th:href="@{/admin/info-equipment/snowboard(lang=ru)}" th:text="Русский">?????</a>
+    <a th:href="@{/admin/info-equipment/snowboard(lang=en)}" th:text="English">?????</a>
 </p>
 
 <br/>
 
 <!--Search-->
 <form th:method="GET"
-      th:action="@{/admin_ru.properties/info-equipment/snowboard/search-by-name}">
+      th:action="@{/admi/info-equipment/snowboard/search-by-name}">
 
     <input th:type="text" th:name="partOfName"
            th:placeholder="#{snowboard.show_all.search_placeholder}" style="width:200px"/>
@@ -83,12 +83,12 @@
         <td th:text="${oneSnowboard.getBindingSize()}">?????</td>
         <td th:width="50"></td>
         <td>
-            <a th:href="@{/admin_ru.properties/info-equipment/snowboard/edit/{id}(id=${oneSnowboard.getId()})}">
+            <a th:href="@{/admin/info-equipment/snowboard/edit/{id}(id=${oneSnowboard.getId()})}">
                 <button th:text="#{snowboard.show_all.table.button.edit}">?????</button>
             </a>
         </td>
         <td>
-            <form th:method="DELETE" th:action="@{/admin_ru.properties/info-equipment/snowboard/{id}(id=${oneSnowboard.getId()})}">
+            <form th:method="DELETE" th:action="@{/admin/info-equipment/snowboard/{id}(id=${oneSnowboard.getId()})}">
                 <input type="submit" th:value="#{snowboard.show_all.table.button.delete}"/>
             </form>
         </td>
@@ -98,7 +98,7 @@
 <br/>
 
 <!--Add new-->
-<a href="/admin_ru.properties/info-equipment/snowboard/add-new">
+<a href="/admin/info-equipment/snowboard/add-new">
     <button th:text="#{snowboard.show_all.button.add_new}">?????</button>
 </a>
 

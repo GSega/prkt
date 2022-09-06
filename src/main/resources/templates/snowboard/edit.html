@@ -11,7 +11,7 @@
 
 <!--Input parameters-->
 <form th:method="PATCH"
-      th:action="@{/admin_ru.properties/info-equipment/snowboard/{id}(id=${snowboardToUpdate.getId()})}"
+      th:action="@{/admin/info-equipment/snowboard/{id}(id=${snowboardToUpdate.getId()})}"
       th:object="${snowboardToUpdate}">
 
     <table th:align="center" style="text-align:left"
@@ -98,7 +98,7 @@
 <br/>
 
 <!--Return to "snowboard/show_all"-->
-<a href="/admin_ru.properties/info-equipment/snowboard/">
+<a href="/admin/info-equipment/snowboard/">
     <button th:text="#{snowboard.edit.button.return}">?????</button>
 </a>
 

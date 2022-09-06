@@ -11,7 +11,7 @@
 
 <!--Input parameters-->
 <form th:method="POST"
-      th:action="@{/admin_ru.properties/info-equipment/snowboard}"
+      th:action="@{/admin/info-equipment/snowboard}"
       th:object="${newSnowboard}">
 
     <table th:align="center" style="text-align:left"
@@ -94,7 +94,7 @@
 <br/>
 
 <!--Return to "snowboard/show_all"-->
-<a href="/admin_ru.properties/info-equipment/snowboard/">
+<a href="/admin/info-equipment/snowboard/">
     <button th:text="#{snowboard.add_new.button.return}">?????</button>
 </a>
 

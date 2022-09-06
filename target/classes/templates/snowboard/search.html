@@ -37,12 +37,12 @@
         <td th:text="${oneSnowboard.getBindingSize()}">?????</td>
         <td th:width="50"></td>
         <td>
-            <a th:href="@{/admin_ru.properties/info-equipment/snowboard/edit/{id}(id=${oneSnowboard.getId()})}">
+            <a th:href="@{/admin/info-equipment/snowboard/edit/{id}(id=${oneSnowboard.getId()})}">
                 <button th:text="#{snowboard.search.table.button.edit}">?????</button>
             </a>
         </td>
         <td>
-            <form th:method="DELETE" th:action="@{/admin_ru.properties/info-equipment/snowboard/{id}(id=${oneSnowboard.getId()})}">
+            <form th:method="DELETE" th:action="@{/admin/info-equipment/snowboard/{id}(id=${oneSnowboard.getId()})}">
                 <input type="submit" th:value="#{snowboard.search.table.button.delete}"/>
             </form>
         </td>
@@ -52,7 +52,7 @@
 <br/>
 
 <!--Return to "snowboard/show_all"-->
-<a href="/admin_ru.properties/info-equipment/snowboard/">
+<a href="/admin/info-equipment/snowboard/">
     <button th:text="#{snowboard.search.button.return}">?????</button>
 </a>
 

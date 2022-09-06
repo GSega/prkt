@@ -61,32 +61,35 @@
             <th><a th:text="#{booking.edit.table.header.height}">?????</a></th>
             <th><a th:text="#{booking.edit.table.header.weight}">?????</a></th>
             <th><a th:text="#{booking.edit.table.header.foot}">?????</a></th>
+            <th><a th:text="#{booking.edit.table.header.equipment}">?????</a></th>
             <th></th>
         </tr>
-        <tr th:each="oneRider : ${bookingToBeUpdated.getListOfRiders()}">
+        <tr style="vertical-align:top"
+            th:each="oneRider : ${bookingToBeUpdated.getListOfRiders()}">
             <td th:text="${oneRider.getId()}">?????</td>
             <td th:text="${oneRider.getName()}" th:align="left">?????</td>
             <td th:text="${oneRider.getSex()}">?????</td>
             <td th:text="${oneRider.getHeight()}">?????</td>
             <td th:text="${oneRider.getWeight()}">?????</td>
             <td th:text="${oneRider.getFoot()}">?????</td>
-            <td th:width="50"></td>
-            <td>
-                <a>
-                </a>
+            <td th:align="left">
+                <span th:each="oneEquipmentId : ${oneRider.getEquipmentNeededIds()}">
+                    <div th:text="${oneEquipmentId.name()}">?????</div>
+                </span>
             </td>
+            <td th:width="50"></td>
             <td>
                 <a>
                     <button style="color:red" th:text="#{booking.edit.table.button.edit}">?????</button>
                 </a>
             </td>
-            <td>
+            <td th:align="left">
                 <a th:href="@{'/admin/info-booking/edit/remove?bid=' + ${bookingToBeUpdated.getId()} + '&rid=' + ${oneRider.getId()}}">
                     <button th:text="#{booking.edit.table.button.remove}">?????</button>
                 </a>
             </td>
         </tr>
-</table>
+    </table>
 </span>
 <span th:unless="${bookingToBeUpdated.getListOfRiders().size() > 0}">Riders not found<br/></span>
 

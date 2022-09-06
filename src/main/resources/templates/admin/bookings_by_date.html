@@ -9,7 +9,7 @@
 <!--Header-->
 <h1 th:text="#{admin.bookings_by_date.header} + ' ' + ${#dates.format(date, 'dd MMM yyyy')}">?????</h1>
 
-<!--Table-->
+<!--Table 1-->
 <table th:align="center"
        th:border="1" th:rules="rows"
        th:cellpadding="5">
@@ -25,9 +25,7 @@
     </tr>
     <tr th:each="oneBooking : ${bookingsForTheDate}">
         <td th:text="${oneBooking.getId()}">?????</td>
-        <td th:align="left"
-            th:text="${oneBooking.getBookingSurname()}">?????
-        </td>
+        <td th:text="${oneBooking.getBookingSurname()}" th:align="left">?????</td>
         <td th:text="${oneBooking.getPhone1()}">?????</td>
         <td th:text="${oneBooking.getPhone2()}">?????</td>
         <td th:text="${#dates.format(oneBooking.getDateOfArrival(), 'dd MMM yyyy')}"></td>
@@ -35,24 +33,79 @@
         <td th:text="${oneBooking.getListOfRiders().size()}">?????</td>
         <td th:width="50"></td>
         <td>
-            <form th:method="GET" th:action="@{/admin_ru.properties/info-booking/edit/{id}(id=${oneBooking.getId()})}">
+            <form th:method="GET"
+                  th:action="@{/admin/info-booking/edit/{id}(id=${oneBooking.getId()})}">
                 <input type="submit" th:value="#{booking.search.table.button.edit}"/>
             </form>
         </td>
         <td>
-            <form th:method="DELETE" th:action="@{/admin_ru.properties/info-booking/{id}(id=${oneBooking.getId()})}">
+            <form th:method="DELETE"
+                  th:action="@{/admin/info-booking/{id}(id=${oneBooking.getId()})}">
                 <input type="submit" th:value="#{booking.search.table.button.delete}"/>
             </form>
         </td>
     </tr>
+    <br/>
 </table>
 
 <br/>
 
-<!--Return to "booking/show_all"-->
 <a href="/admin">
     <button th:text="#{booking.search.button.return}">?????</button>
 </a>
 
 </body>
 </html>
+
+
+
+<!--Table 2-->
+<!--<table th:align="center"-->
+<!--       th:border="1" th:rules="rows"-->
+<!--       th:cellpadding="5">-->
+<!--    <span th:each="oneBooking : ${bookingsForTheDate}">-->
+<!--    <tr th:align="left" style="vertical-align:top">-->
+<!--        <td>-->
+<!--            <div th:text="'Бронь на фамилию: ' + ${oneBooking.getBookingSurname()}">?????</div>-->
+<!--            <div th:text="'Телефон 1: ' + ${oneBooking.getPhone1()}">?????</div>-->
+<!--            <div th:text="'Телефон 2: ' + ${oneBooking.getPhone2()}">?????</div>-->
+<!--            <div th:text="'Дата прибытия: ' + ${oneBooking.getDateOfArrival()}">?????</div>-->
+<!--            <div th:text="'Дата возврата: ' + ${oneBooking.getDateOfReturn()}">?????</div>-->
+<!--        </td>-->
+<!--        <td th:if="${oneBooking.getListOfRiders().size() > 0}">-->
+<!--            <div th:text="${oneBooking.getListOfRiders().get(0).getName()}" th:align="left">?????</div>-->
+<!--            <div th:text="'Рост: ' + ${oneBooking.getListOfRiders().get(0).getHeight()}">?????</div>-->
+<!--            <div th:text="'Вес: ' + ${oneBooking.getListOfRiders().get(0).getWeight()}">?????</div>-->
+<!--            <div th:text="'Размер ноги: ' + ${oneBooking.getListOfRiders().get(0).getFoot()}">?????</div>-->
+<!--            <div th:text="'Оборудование:'"></div>-->
+<!--        </td>-->
+<!--        <td th:if="${oneBooking.getListOfRiders().size() > 0}">-->
+<!--            <span th:each="i : ${oneBooking.getListOfRiders().get(0).getEquipmentNeededIds()}">-->
+<!--                <div th:text="${i.name()}" th:align="left">?????</div>-->
+<!--            </span>-->
+<!--        </td>-->
+<!--    </tr>-->
+<!--    <span th:if="${oneBooking.getListOfRiders().size() > 1}">-->
+<!--        <tr th:align="left" style="vertical-align:top"-->
+<!--            th:each="i : ${oneBooking.getListOfRiders()}">-->
+<!--            <td></td>-->
+<!--            <td>-->
+<!--                <div th:text="${i.getName()}" th:align="left">?????</div>-->
+<!--                <div th:text="'Рост: ' + ${i.getHeight()}">?????</div>-->
+<!--                <div th:text="'Вес: ' + ${i.getWeight()}">?????</div>-->
+<!--                <div th:text="'Размер ноги: ' + ${i.getFoot()}">?????</div>-->
+<!--                <div th:text="'Оборудование:'"></div>-->
+<!--            </td>-->
+<!--            <td>-->
+<!--                <span th:each="i : ${i.getEquipmentNeededIds()}">-->
+<!--                    <div th:text="${i.name()}" th:align="left">?????</div>-->
+<!--                </span>-->
+<!--            </td>-->
+<!--        </tr>-->
+<!--    </span>-->
+<!--        </span>-->
+<!--</table>-->
+
+<!--<br/>-->
+
+<!--Return to "booking/show_all"-->

@@ -112,21 +112,6 @@ public class Rider {
         this.equipmentNeededIds = equipmentNeededIds;
     }
 
-    public List<Booking> getListOfBookings() {
-        return listOfBookings;
-    }
-
-    public void setListOfBookings(List<Booking> listOfBookings) {
-        this.listOfBookings = listOfBookings;
-    }
-
-    public void addToListOfBookings(Booking booking) {
-        if (listOfBookings == null) {
-            listOfBookings = new ArrayList<>();
-        }
-        this.listOfBookings.add(booking);
-    }
-
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
