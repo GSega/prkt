@@ -9,8 +9,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
-import javax.validation.Valid;
-
 /**
  * @author Nikolai Khriapov
  */
@@ -39,18 +37,13 @@ public class BookingController {
     @GetMapping("/add-new")
     public String createNewBooking(Model model) {
         model.addAttribute("newBooking", new Booking());
-        model.addAttribute("allRiders", riderService.showAllRiders());
         return "booking/add_new";
     }
 
     @PostMapping()
-    public String addNewBookingToDB(@ModelAttribute("newBooking") Booking newBooking,
-                                    @ModelAttribute("newRiderId") Long newRiderId) {
-        if (newRiderId != 0) {
-            newBooking.addToListOfRiders(riderService.showOneRiderById(newRiderId));
-        }
+    public String addNewBookingToDB(@ModelAttribute("newBooking") Booking newBooking) {
         bookingService.addNewBookingToDB(newBooking);
-        return "redirect:/client/booking-rider/new-rider?id=" + newBooking.getId(); // change to admin/rider/add-new
+        return "redirect:/admin/info-riders/add-new?id=" + newBooking.getId();
     }
 
     // ----- delete booking -----

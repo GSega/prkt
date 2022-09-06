@@ -6,7 +6,7 @@
 </head>
 <body>
 <form th:method="POST"
-      th:action="@{/admin/info-riders/add}"
+      th:action="@{'/admin/info-riders/add?id=' + ${bookingId}}"
       th:object="${newRider}">
     <table>
         <tr>

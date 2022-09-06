@@ -80,7 +80,9 @@
             <td th:width="50"></td>
             <td>
                 <a>
-                    <button style="color:red" th:text="#{booking.edit.table.button.edit}">?????</button>
+                    <a th:href="'/admin/info-riders/edit?id=' + ${oneRider.getId()}">
+                        <button style="color:red" th:text="#{booking.edit.table.button.edit}">?????</button>
+                    </a>
                 </a>
             </td>
             <td th:align="left">

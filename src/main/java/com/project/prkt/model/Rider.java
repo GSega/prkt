@@ -1,7 +1,6 @@
 package com.project.prkt.model;
 
 import javax.persistence.*;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
@@ -54,10 +53,6 @@ public class Rider {
     //указали имя дочерней таблицы и имя колонки которая будет связывать основнйо класс и дочернюю коллекцию
     @CollectionTable(name="riderTypesOfEquipment", joinColumns= {@JoinColumn(name="rider_id")})
     private List<TypesOfEquipment> equipmentNeededIds;
-
-    public Long getId() {
-        return id;
-    }
 
     public Long getId() {
         return id;
