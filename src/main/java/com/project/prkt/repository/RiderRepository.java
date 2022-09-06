@@ -9,13 +9,8 @@ import java.util.List;
 @Repository
 public interface RiderRepository extends JpaRepository<Rider, Long> {
 
-
-
-
-
-
-    // for work with the Booking classes
-
-    // ----- show all -----
     List<Rider> findAllByOrderById();
+
+
+
 }

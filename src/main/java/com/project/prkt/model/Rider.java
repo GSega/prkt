@@ -47,18 +47,17 @@ public class Rider {
     private List<Booking> listOfBookings;
     //показали какой класс в коллекции и кактой то fetch хз что это
     @ElementCollection(targetClass = TypesOfEquipment.class, fetch = FetchType.EAGER)
+
     //назвали колонку. в базе появилась types_of_eqipment вместо кэмел кейса
     //@Column(name="typesOfEquipment", nullable=false)
+
     //указали имя дочерней таблицы и имя колонки которая будет связывать основнйо класс и дочернюю коллекцию
     @CollectionTable(name="riderTypesOfEquipment", joinColumns= {@JoinColumn(name="rider_id")})
     private List<TypesOfEquipment> equipmentNeededIds;
-    //в итоге в базе появились таблица rider (класс помечен @Table),
-    //появилсь таблица rider_types_of_equipment с колонками rider_id (соединена с rider_id) и types_of_equipment
-    /*{
-        equipmentNeeded.add(TypesOfEquipment.JACKET);
-        equipmentNeeded.add(TypesOfEquipment.SKI);
-    } //захардкодил что б было чему в бд записыватсья
-*/
+
+    public Long getId() {
+        return id;
+    }
 
     public Long getId() {
         return id;

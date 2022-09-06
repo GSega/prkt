@@ -1,8 +1,6 @@
 package com.project.prkt.model;
 
 public enum TypesOfEquipment {
-
-
     SNOWBOARD,
     SKI,
     SNOWBOARD_BOOTS,

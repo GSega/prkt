@@ -19,20 +19,29 @@ public class RiderService {
         riderRepository.save(rider);
     }
 
+    public void deleteRiderById(Long id){
+        riderRepository.deleteById(id);
+    }
 
-
-
-
-    // for work with the Booking classes
-
-    // ----- show all -----
-    public List<Rider> showAllRiders() {
+    public List<Rider> showAllRiders(){
         return riderRepository.findAllByOrderById();
     }
 
-    // ----- edit -----
-    public Rider showOneRiderById(Long id) {
-        return riderRepository.findById(id).orElseThrow(() ->
-                new IllegalStateException("Snowboard with id = " + id + " not found!"));
+    //edit
+    public Rider showOneRiderById(Long id){
+        return riderRepository.findById(id).orElseThrow(()->
+                new IllegalStateException("Rider with id = " + id + " not found!"));
+    }
+
+    public void updateRiderById(Long riderToBeUpdatedIid, Rider updatedRider){
+        Rider riderToBeUpdated = showOneRiderById(riderToBeUpdatedIid);
+
+        riderToBeUpdated.setName(updatedRider.getName());
+        riderToBeUpdated.setFoot(updatedRider.getFoot());
+        riderToBeUpdated.setSex(updatedRider.getSex());
+        riderToBeUpdated.setHeight(updatedRider.getHeight());
+        riderToBeUpdated.setWeight(updatedRider.getWeight());
+
+        riderRepository.save(riderToBeUpdated);
     }
 }
