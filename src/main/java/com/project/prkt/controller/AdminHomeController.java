@@ -27,6 +27,10 @@ public class AdminHomeController {
     }
 
     // add "index" or "home" view
+    @GetMapping()
+    public String showAdminMainPage(){
+        return "admin/main_page";
+    }
 
     // hyperlink to bookings
     // hyperlink to equipment
