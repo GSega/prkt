@@ -58,7 +58,7 @@ public class BookingController {
     public String showOneBooking(@PathVariable("id") Long id, Model model) {
         model.addAttribute("bookingToBeUpdated", bookingService.showOneBookingById(id));
         model.addAttribute("allRiders", riderService.showAllRiders());
-        model.addAttribute("riderToBeAddedId", 0);
+        model.addAttribute("existingRiderToBeAddedId", new Rider()); // костыль: нужен Id, но положить Id можем только в объект класса
         return "booking/edit";
     }
 
@@ -86,14 +86,24 @@ public class BookingController {
     //// ----- edit booking info / remove rider from booking -----
     @GetMapping("/edit/remove")
     public String removeRiderFromBooking(@RequestParam("bid") Long bookingToBeUpdatedId,
-                                         @RequestParam("rid") Long riderToBeRemovedId) {
+                                         @RequestParam("rid") Long riderToBeRemovedId,
+                                         Model model) {
         Booking bookingToBeUpdated = bookingService.showOneBookingById(bookingToBeUpdatedId);
         Rider riderToBoUpdated = riderService.showOneRiderById(riderToBeRemovedId);
         bookingService.removeRiderFromBooking(bookingToBeUpdated, riderToBoUpdated);
+        model.addAttribute("allRiders", riderService.showAllRiders());
         return "redirect:/admin/info-booking/edit/" + bookingToBeUpdatedId;
     }
 
     //// ----- edit booking info / add existing rider to booking -----
+    @PatchMapping("/edit/add-existing-rider/{bid}")
+    public String addExistingRiderToBooking(@PathVariable("bid") Long bookingToBeUpdatedId,
+                                            @ModelAttribute("existingRiderToBeAddedId") Rider existingRiderToBeAddedId) {
+        Rider existingRiderToBeAdded = riderService.showOneRiderById(Long.parseLong(existingRiderToBeAddedId.getName())); // костыль: поэтому кладем Id в *{name) (в Id не можем, он автоматически генерируется)
+        Booking bookingToBeUpdated = bookingService.showOneBookingById(bookingToBeUpdatedId);
+        bookingService.addExistingRiderToBooking(bookingToBeUpdated, existingRiderToBeAdded);
+        return "redirect:/admin/info-booking/edit/" + bookingToBeUpdatedId;
+    }
 
     // ----- search -----
     @GetMapping("/search")

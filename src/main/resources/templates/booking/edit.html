@@ -1,9 +1,5 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
-<head>
-    <meta charset="UTF-8">
-    <title th:text="#{booking.edit.title}">?????</title>
-</head>
 <body th:align="center">
 
 <!--Header-->
@@ -97,8 +93,27 @@
 
 <br/>
 
-<a th:href="@{'/admin/info-riders/add-new?id=' + ${bookingToBeUpdated.getId()}}"><button th:text="#{booking.edit.button.add_new}">?????</button> </a>
-<button style="color:red" th:text="#{booking.edit.button.add_existing}">?????</button>
+<!--Add existing Rider to Booking (через костыль – потом исправить)-->
+<form th:method="PATCH"
+      th:action="@{/admin/info-booking/edit/add-existing-rider/{id}(id=${bookingToBeUpdated.getId()})}"
+      th:object="${existingRiderToBeAddedId}">
+
+    <select th:field="*{name}">
+        <option th:each="oneRider : ${allRiders}"
+                th:value="${oneRider.getId()}"
+                th:text="${oneRider.getName()}">?????
+        </option>
+    </select>
+
+    <input type="submit" th:value="#{booking.edit.button.add_existing}"/>
+</form>
+
+<br/>
+
+<!--Add new rider-->
+<a th:href="@{'/admin/info-riders/add-new?id=' + ${bookingToBeUpdated.getId()}}">
+    <button th:text="#{booking.edit.button.add_new}">?????</button>
+</a>
 
 <br/><br/>
 
