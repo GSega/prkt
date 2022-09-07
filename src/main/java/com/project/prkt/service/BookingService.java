@@ -1,6 +1,7 @@
 package com.project.prkt.service;
 
 import com.project.prkt.model.Booking;
+import com.project.prkt.model.Client;
 import com.project.prkt.model.Rider;
 import com.project.prkt.repository.BookingRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,6 +32,14 @@ public class BookingService {
     }
 
     // ----- add new booking -----
+    public void addNewClientInfoToNewBooking(Booking newBooking, Client newClient) {
+        newBooking.setBookingSurname(newClient.getSurname());
+        newBooking.setPhone1(newClient.getPhone1());
+        newBooking.setPhone2(newClient.getPhone2());
+        newBooking.setDateOfArrival(newClient.getDateOfArrival());
+        newBooking.setDateOfReturn(newClient.getDateOfReturn());
+    }
+
     public void addNewBookingToDB(Booking booking) {
         bookingRepository.save(booking);
     }
@@ -109,5 +118,18 @@ public class BookingService {
     // ----- show bookings for the date
     public List<Booking> showBookingsForTheDate(Date date) {
         return bookingRepository.findByDateOfArrival(date);
+    }
+
+    // ----- show incomplete bookings -----
+    public List<Booking> showAllIncompleteBookings() {
+        return bookingRepository.findAllByCompletedFalse();
+    }
+
+    // ----- mark booking completed -----
+    public void markBookingCompleted(Long bookingId) {
+        Booking bookingToChangeCompleted = bookingRepository.findById(bookingId).orElseThrow(() ->
+                new IllegalStateException("Booking with id = " + bookingId + " not found!"));
+        bookingToChangeCompleted.setCompleted(bookingToChangeCompleted.isCompleted() ? false : true);
+        bookingRepository.save(bookingToChangeCompleted);
     }
 }

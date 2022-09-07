@@ -87,7 +87,7 @@
             </td>
             <td th:align="left">
                 <a th:href="@{'/admin/info-booking/edit/remove?bid=' + ${bookingToBeUpdated.getId()} + '&rid=' + ${oneRider.getId()}}">
-                    <button style="color:red" th:text="#{booking.edit.table.button.remove}">?????</button>
+                    <button th:text="#{booking.edit.table.button.remove}">?????</button>
                 </a>
             </td>
         </tr>
@@ -102,9 +102,14 @@
 
 <br/><br/>
 
-<!--Return to "booking/show_all"-->
+<!--Return to "admin/info-booking"-->
 <a href="/admin/info-booking">
-    <button th:text="#{booking.edit.button.return}">?????</button>
+    <button th:text="#{booking.edit.button.go_to_bookings}">?????</button>
+</a>
+
+<!--Return to "admin/"-->
+<a href="/admin">
+    <button th:text="#{booking.edit.button.go_to_main}">?????</button>
 </a>
 
 </body>

@@ -1,8 +1,10 @@
 package com.project.prkt.controller;
 
 import com.project.prkt.model.Booking;
+import com.project.prkt.model.Client;
 import com.project.prkt.model.Rider;
 import com.project.prkt.service.BookingService;
+import com.project.prkt.service.ClientService;
 import com.project.prkt.service.RiderService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -18,11 +20,13 @@ import org.springframework.web.bind.annotation.*;
 public class BookingController {
 
     private final BookingService bookingService;
+    private final ClientService clientService;
     private final RiderService riderService;
 
     @Autowired
-    public BookingController(BookingService bookingService, RiderService riderService) {
+    public BookingController(BookingService bookingService, ClientService clientService, RiderService riderService) {
         this.bookingService = bookingService;
+        this.clientService = clientService;
         this.riderService = riderService;
     }
 
@@ -36,21 +40,17 @@ public class BookingController {
     // ----- add new booking -----
     @GetMapping("/add-new")
     public String createNewBooking(Model model) {
-        model.addAttribute("newBooking", new Booking());
+        model.addAttribute("newClient", new Client());
         return "booking/add_new";
     }
 
     @PostMapping()
-    public String addNewBookingToDB(@ModelAttribute("newBooking") Booking newBooking) {
+    public String addNewClientAndBookingToDB(@ModelAttribute("newClient") Client newClient) {
+        clientService.addNewClientToDB(newClient);
+        Booking newBooking = new Booking();
+        bookingService.addNewClientInfoToNewBooking(newBooking, newClient);
         bookingService.addNewBookingToDB(newBooking);
         return "redirect:/admin/info-riders/add-new?id=" + newBooking.getId();
-    }
-
-    // ----- delete booking -----
-    @DeleteMapping("/{id}")
-    public String deleteBooking(@PathVariable("id") Long id) {
-        bookingService.deleteBookingById(id);
-        return "redirect:/admin/info-booking";
     }
 
     // ----- edit booking info -----
@@ -69,7 +69,20 @@ public class BookingController {
         return "redirect:/admin/info-booking/edit/{id}";
     }
 
-    //// ----- edit booking info / edit rider in booking -----
+    // ----- mark booking completed -----
+    @GetMapping("/change-booking-completed/{id}")
+    public String changeBookingCompleted(@PathVariable("id") Long bookingId) {
+        bookingService.markBookingCompleted(bookingId);
+        return "redirect:/admin/info-booking";
+    }
+
+    // ----- delete booking -----
+    @DeleteMapping("/{id}")
+    public String deleteBooking(@PathVariable("id") Long id) {
+        bookingService.deleteBookingById(id);
+        return "redirect:/admin/info-booking";
+    }
+
     //// ----- edit booking info / remove rider from booking -----
     @GetMapping("/edit/remove")
     public String removeRiderFromBooking(@RequestParam("bid") Long bookingToBeUpdatedId,

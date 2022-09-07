@@ -11,14 +11,14 @@
 
 <!--Input parameters-->
 <form th:method="POST"
-      th:object="${newBooking}"
+      th:object="${newClient}"
       th:action="@{/admin/info-booking}">
 
     <table th:align="center" style="text-align:left"
            th:cellpadding="2">
         <tr>
             <td th:text="#{booking.add_new.field.booking_surname}">?????</td>
-            <td><input type="text" th:field="*{bookingSurname}"/></td>
+            <td><input type="text" th:field="*{surname}"/></td>
         </tr>
         <tr>
             <td th:text="#{booking.add_new.field.phone1}">?????</td>
@@ -45,9 +45,14 @@
 
 <br/>
 
-<!--Return to "booking/show_all"-->
+<!--Return to "admin/info-booking"-->
 <a href="/admin/info-booking">
-    <button th:text="#{booking.add_new.button.return}">?????</button>
+    <button th:text="#{booking.add_new.button.go_to_bookings}">?????</button>
+</a>
+
+<!--Return to "admin/"-->
+<a href="/admin">
+    <button th:text="#{booking.add_new.button.go_to_main}">?????</button>
 </a>
 
 </body>

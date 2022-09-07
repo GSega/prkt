@@ -4,8 +4,7 @@ import com.project.prkt.service.BookingService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.Calendar;
 import java.util.Date;
@@ -26,19 +25,20 @@ public class AdminHomeController {
         this.bookingService = bookingService;
     }
 
-    // add "index" or "home" view
+    // admin home page
     @GetMapping()
-    public String showAdminMainPage(){
+    public String showAdminMainPage(Model model) {
+        model.addAttribute("allBookings", bookingService.showAllIncompleteBookings());
         return "admin/main_page";
     }
 
     // hyperlink to equipment
     @GetMapping("/info-equipment")
-    public String showEqipmentChoisepage(){
+    public String showEquipmentChoicePage() {
         return "admin/info_equipment";
     }
 
-    // ----- orders for today -----
+    // ----- bookings for today -----
     @GetMapping("/show-today")
     public String showBookingsForToday(Model model) {
         Date today = new Date();
@@ -47,7 +47,7 @@ public class AdminHomeController {
         return "admin/bookings_by_date";
     }
 
-    // ----- orders for tomorrow -----
+    // ----- bookings for tomorrow -----
     @GetMapping("/show-tomorrow")
     public String showBookingsForTomorrow(Model model) {
         Calendar c = Calendar.getInstance();
@@ -58,5 +58,19 @@ public class AdminHomeController {
         model.addAttribute("date", tomorrow);
         model.addAttribute("bookingsForTheDate", bookingService.showBookingsForTheDate(tomorrow));
         return "admin/bookings_by_date";
+    }
+
+    // ----- mark booking completed -----
+    @GetMapping("/change-booking-completed/{id}")
+    public String changeBookingCompleted(@PathVariable("id") Long bookingId) {
+        bookingService.markBookingCompleted(bookingId);
+        return "redirect:/admin";
+    }
+
+    // ----- delete booking -----
+    @DeleteMapping("/delete-booking/{id}")
+    public String deleteBooking(@PathVariable("id") Long id) {
+        bookingService.deleteBookingById(id);
+        return "redirect:/admin";
     }
 }

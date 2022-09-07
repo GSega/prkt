@@ -69,8 +69,18 @@
         <td th:text="${#dates.format(oneBooking.getDateOfArrival(), 'dd MMM yyyy')}"></td>
         <td th:text="${#dates.format(oneBooking.getDateOfReturn(), 'dd MMM yyyy')}"></td>
         <td th:text="${oneBooking.getListOfRiders().size()}">?????</td>
-        <td th:text="${oneBooking.isCompleted()}">?????</td>
+        <td th:text="${oneBooking.isCompleted() ? '+' : '–'}">?????</td>
         <td th:width="50"></td>
+        <td>
+            <form th:method="GET" th:action="@{/admin/info-booking/change-booking-completed/{id}(id=${oneBooking.getId()})}">
+                <span th:if="${oneBooking.isCompleted() == false}">
+                    <input type="submit" th:value="#{booking.main_page.table.button.mark_completed}"/>
+                </span>
+                <span th:unless="${oneBooking.isCompleted() == false}">
+                    <input type="submit" th:value="#{booking.main_page.table.button.mark_uncompleted}"/>
+                </span>
+            </form>
+        </td>
         <td>
             <form th:method="GET" th:action="@{/admin/info-booking/edit/{id}(id=${oneBooking.getId()})}">
                 <input type="submit" th:value="#{booking.show_all.table.button.edit}"/>
@@ -91,14 +101,11 @@
     <button th:text="#{booking.show_all.button.add_new}">?????</button>
 </a>
 
-<!--Show bookings for today-->
-<a href="/admin/show-today">
-    <button style="color:red">Bookings for today</button>
-</a>
+<br/><br/>
 
-<!--Show bookings for tomorrow-->
-<a href="/admin/show-tomorrow">
-    <button style="color:red">Bookings for tomorrow</button>
+<!--Return-->
+<a href="/admin">
+    <button th:text="#{booking.show_all.button.return}">?????</button>
 </a>
 
 </body>
