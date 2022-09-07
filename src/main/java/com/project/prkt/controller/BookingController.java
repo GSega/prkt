@@ -64,7 +64,8 @@ public class BookingController {
 
     @PatchMapping("/edit/{id}")
     public String updateBookingById(@PathVariable("id") Long bookingToBeUpdatedId,
-                                    @ModelAttribute("oneBooking") Booking updatedBooking) {
+                                    @ModelAttribute("oneBooking") Booking updatedBooking,
+                                    @ModelAttribute("bookingToBeUpdated") Model model){
         bookingService.updateBookingById(bookingToBeUpdatedId, updatedBooking);
         return "redirect:/admin/info-booking/edit/{id}";
     }

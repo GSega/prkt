@@ -94,7 +94,7 @@
   <input type="submit" value="выйти в список броней">
 </form>
 <form th:method="GET"
-      th:action="@{/admin/info-booking/edit}">
+      th:action="@{/admin/info-booking/edit/{id}(id=${bookingId})}">
     <input type="submit" value="выйти в текущий заказ">
 </form>
 
