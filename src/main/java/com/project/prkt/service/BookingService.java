@@ -83,6 +83,11 @@ public class BookingService {
 
     //// ----- edit booking info / add rider to booking -----
     public void addExistingRiderToBooking(Booking bookingToBeUpdated, Rider riderToBoAdded) {
+        for (Rider oneRider : bookingToBeUpdated.getListOfRiders()) {
+            if (oneRider.getId().equals(riderToBoAdded.getId())) {
+                return;
+            }
+        }
         bookingToBeUpdated.getListOfRiders().add(riderToBoAdded);
         bookingRepository.save(bookingToBeUpdated);
     }
@@ -122,7 +127,7 @@ public class BookingService {
 
     // ----- show incomplete bookings -----
     public List<Booking> showAllIncompleteBookings() {
-        return bookingRepository.findAllByCompletedFalse();
+        return bookingRepository.findAllByCompletedFalseOrderByDateOfArrivalAsc();
     }
 
     // ----- mark booking completed -----

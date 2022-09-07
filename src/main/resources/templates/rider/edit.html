@@ -7,7 +7,7 @@
 
 <body>
 <form th:method="PATCH"
-      th:action="@{/admin/info-riders/edit/{id}(id=${riderToBeUpdated.getId()})}"
+      th:action="@{/admin/info-riders/edit/{id}(id=${idOfRider})}"
       th:object="${riderToBeUpdated}">
   <table>
                                               <!--name-->
@@ -72,11 +72,10 @@
         <td>
             <div th:each="oneFromEnum : ${T(com.project.prkt.model.TypesOfEquipment).values()}">
 
-               <input field="*{equipmentNeededIds}"
+               <input th:field="*{equipmentNeededIds}"
                      type="checkbox"
-                     th:value="${oneFromEnum}"
-                     th:text="${oneFromEnum.name()}">  checked
-               </input>
+                     th:value="${oneFromEnum}"/>
+                <span th:text="${oneFromEnum.name()}">  checked </span>
 
             </div>
         </td>

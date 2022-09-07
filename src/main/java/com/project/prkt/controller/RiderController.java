@@ -56,12 +56,14 @@ public class RiderController {
     }
 
     //edit
-    @GetMapping("/edit/{id}") //добавить параметры ?bookingid=
-    public String showOneRider(@PathVariable("id") Long id,
-                               @RequestParam("bookingid") Long bookingId,
+    @GetMapping("/edit") //во view к адресу добавлен параметр ?id=...&bookingid=...
+    public String showOneRider(@RequestParam("id") Long id,
+                               @RequestParam(value = "bookingid", required = false) Long bookingId,
                                Model model) {
         model.addAttribute("riderToBeUpdated", riderService.showOneRiderById(id));
         model.addAttribute("bookingId", bookingId);
+        model.addAttribute("idOfRider", id);
+        //добавить <input hidden...> во вбюшку rider/edit ???
         return "rider/edit";
     }
 
@@ -69,7 +71,11 @@ public class RiderController {
     public String updateRiderById(@PathVariable("id") Long riderToBeUpdatedId,
                                   @ModelAttribute("riderToBeUpdated") Rider oneUpdatedRider) {
         riderService.updateRiderById(riderToBeUpdatedId, oneUpdatedRider);
-        return "redirect:/admin/info-riders";
+
+        return "redirect:/admin/info-booking"; //пусть пока туда летит. void почемуто крашит метод
+
+
     }
 
 }
+

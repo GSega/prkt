@@ -43,6 +43,7 @@ public class RiderService {
         riderToBeUpdated.setSex(updatedRider.getSex());
         riderToBeUpdated.setHeight(updatedRider.getHeight());
         riderToBeUpdated.setWeight(updatedRider.getWeight());
+        riderToBeUpdated.setEquipmentNeededIds(updatedRider.getEquipmentNeededIds());
 
         riderRepository.save(riderToBeUpdated);
     }

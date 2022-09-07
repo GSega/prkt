@@ -48,7 +48,10 @@
             <td> fckn sht</td>
             <td>
                 <div th:each="equip : ${T(com.project.prkt.model.TypesOfEquipment).values()}">
-                    <input th:field="*{equipmentNeededIds}" type="checkbox" th:value="${equip}" />
+
+                    <input th:field="*{equipmentNeededIds}"
+                           type="checkbox"
+                           th:value="${equip}" />
                     <span th:text="${equip.name()}">INGREDIENT</span><br />
                 </div>
 
