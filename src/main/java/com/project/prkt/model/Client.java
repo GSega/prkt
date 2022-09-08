@@ -1,9 +1,7 @@
 package com.project.prkt.model;
 
-import org.springframework.format.annotation.DateTimeFormat;
-
 import javax.persistence.*;
-import java.util.Date;
+import javax.validation.constraints.*;
 
 /**
  * @author Nikolai Khriapov
@@ -16,25 +14,21 @@ public class Client {
     @SequenceGenerator(name = "sequence", sequenceName = "sequence", allocationSize = 1)
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "sequence")
     private Long id;
+    @NotEmpty(message = "{client.message.invalid_surname}")
     private String surname;
+    @Pattern(regexp = "[\\d]\\([\\d]{3}\\)[\\d]{3}-[\\d]{2}-[\\d]{2}", message = "{client.message.invalid_phone_number}")
     private String phone1;
     private String phone2;
-    @Temporal(TemporalType.DATE)
-    @DateTimeFormat(pattern = "yyyy-MM-dd")
-    private Date dateOfArrival;
-    @Temporal(TemporalType.DATE)
-    @DateTimeFormat(pattern = "yyyy-MM-dd")
-    private Date dateOfReturn;
+    @OneToOne(mappedBy = "client")
+    private Booking booking;
 
     public Client() {
     }
 
-    public Client(String surname, String phone1, String phone2, Date dateOfArrival, Date dateOfReturn) {
+    public Client(String surname, String phone1, String phone2) {
         this.surname = surname;
         this.phone1 = phone1;
         this.phone2 = phone2;
-        this.dateOfArrival = dateOfArrival;
-        this.dateOfReturn = dateOfReturn;
     }
 
     public Long getId() {
@@ -63,21 +57,5 @@ public class Client {
 
     public void setPhone2(String phone2) {
         this.phone2 = phone2;
-    }
-
-    public Date getDateOfArrival() {
-        return dateOfArrival;
-    }
-
-    public void setDateOfArrival(Date dateOfArrival) {
-        this.dateOfArrival = dateOfArrival;
-    }
-
-    public Date getDateOfReturn() {
-        return dateOfReturn;
-    }
-
-    public void setDateOfReturn(Date dateOfReturn) {
-        this.dateOfReturn = dateOfReturn;
     }
 }

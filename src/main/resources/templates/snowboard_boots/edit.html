@@ -2,6 +2,7 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
+    <meta name="author" content="Nikolai Khriapov">
     <title th:text="#{snowboard_boots.edit.title}">?????</title>
 </head>
 <body th:align="center">
@@ -11,7 +12,7 @@
 
 <!--Input parameters-->
 <form th:method="PATCH"
-      th:action="@{/admin/info-equipment/snowboard-boots/{id}(id=${snowboardBootsToUpdate.getId()})}"
+      th:action="@{/admin/info-equipment/snowboard-boots/edit/{id}(id=${id})}"
       th:object="${snowboardBootsToUpdate}">
 
     <table th:align="center" style="text-align:left"

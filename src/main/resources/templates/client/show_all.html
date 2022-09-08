@@ -2,6 +2,7 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
   <meta charset="UTF-8">
+  <meta name="author" content="Nikolai Khriapov">
   <title th:text="#{client.show_all.title}">?????</title>
 </head>
 <body th:align="center">
@@ -50,14 +51,6 @@
       <a th:href="@{'/admin/info-clients/sort?parameter=phone2&sortDirection=' + ${reverseSortDirection}}"
          th:text="#{client.show_all.table.header.phone2}">?????</a>
     </th>
-    <th>
-      <a th:href="@{'/admin/info-clients/sort?parameter=dateOfArrival&sortDirection=' + ${reverseSortDirection}}"
-         th:text="#{client.show_all.table.header.date_of_arrival}">?????</a>
-    </th>
-    <th>
-      <a th:href="@{'/admin/info-clients/sort?parameter=dateOfReturn&sortDirection=' + ${reverseSortDirection}}"
-         th:text="#{client.show_all.table.header.date_of_return}">?????</a>
-    </th>
     <th></th>
   </tr>
   <tr th:each="oneClient : ${allClients}">
@@ -67,8 +60,6 @@
     </td>
     <td th:text="${oneClient.getPhone1()}">?????</td>
     <td th:text="${oneClient.getPhone2()}">?????</td>
-    <td th:text="${#dates.format(oneClient.getDateOfArrival(), 'dd MMM yyyy')}">?????</td>
-    <td th:text="${#dates.format(oneClient.getDateOfReturn(), 'dd MMM yyyy')}">?????</td>
     <td th:width="50"></td>
     <td>
       <a th:href="@{/admin/info-clients/edit/{id}(id=${oneClient.getId()})}">

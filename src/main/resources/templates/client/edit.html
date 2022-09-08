@@ -2,6 +2,7 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
+    <meta name="author" content="Nikolai Khriapov">
     <title th:text="#{client.edit.title}">?????</title>
 </head>
 <body th:align="center">
@@ -11,7 +12,7 @@
 
 <!--Input parameters-->
 <form th:method="PATCH"
-      th:action="@{/admin/info-clients/{id}(id=${clientToUpdate.getId()})}"
+      th:action="@{/admin/info-clients/edit/{id}(id=${id})}"
       th:object="${clientToUpdate}">
 
     <table th:align="center" style="text-align:left"
@@ -20,31 +21,19 @@
             <td th:text="#{client.edit.field.surname}">?????</td>
             <td>
                 <input type="text" th:field="*{surname}"/>
+                <div style="color:red" th:if="${#fields.hasErrors('surname')}" th:errors="*{surname}">?????</div>
             </td>
         </tr>
         <tr>
             <td th:text="#{client.edit.field.phone1}">?????</td>
             <td>
-                <input type="text" th:field="*{phone1}"/>
+                <input type="text" th:field="*{phone1}" placeholder="X(XXX)XXX-XX-XX"/>
+                <div style="color:red" th:if="${#fields.hasErrors('phone1')}" th:errors="*{phone1}">?????</div>
             </td>
         </tr>
         <tr>
             <td th:text="#{client.edit.field.phone2}">?????</td>
-            <td>
-                <input type="text" th:field="*{phone2}"/>
-            </td>
-        </tr>
-        <tr>
-            <td th:text="#{client.edit.field.date_of_arrival}">?????</td>
-            <td>
-                <input type="date" th:field="*{dateOfArrival}"/>
-            </td>
-        </tr>
-        <tr>
-            <td th:text="#{client.edit.field.date_of_return}">?????</td>
-            <td>
-                <input type="date" th:field="*{dateOfReturn}"/>
-            </td>
+            <td><input type="text" th:field="*{phone2}" placeholder="X(XXX)XXX-XX-XX"/></td>
         </tr>
     </table>
 

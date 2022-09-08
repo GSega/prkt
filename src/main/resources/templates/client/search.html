@@ -2,6 +2,7 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
   <meta charset="UTF-8">
+  <meta name="author" content="Nikolai Khriapov">
   <title th:text="#{client.search.title}">?????</title>
 </head>
 <body th:align="center">
@@ -18,8 +19,6 @@
     <th th:text="#{client.search.table.header.surname}">?????</th>
     <th th:text="#{client.search.table.header.phone1}">?????</th>
     <th th:text="#{client.search.table.header.phone2}">?????</th>
-    <th th:text="#{client.search.table.header.date_of_arrival}">?????</th>
-    <th th:text="#{client.search.table.header.date_of_return}">?????</th>
     <th></th>
   </tr>
   <tr th:each="oneClient : ${clientsBySearch}">
@@ -29,9 +28,6 @@
     </td>
     <td th:text="${oneClient.getPhone1()}">?????</td>
     <td th:text="${oneClient.getPhone2()}">?????</td>
-    <td th:text="${#dates.format(oneClient.getDateOfArrival(), 'dd MMM yyyy')}">?????</td>
-    <td th:text="${#dates.format(oneClient.getDateOfReturn(), 'dd MMM yyyy')}">?????</td>
-
     <td th:width="50"></td>
     <td>
       <a th:href="@{/admin/info-clients/edit/{id}(id=${oneClient.getId()})}">

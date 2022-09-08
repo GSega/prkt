@@ -2,6 +2,7 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
+    <meta name="author" content="Nikolai Khriapov">
     <title th:text="#{booking.search.title}">?????</title>
 </head>
 <body th:align="center">
@@ -18,7 +19,7 @@
             <a th:text="#{booking.search.table.header.id}">?????</a>
         </th>
         <th>
-            <a th:text="#{booking.search.table.header.booking_surname}">?????</a>
+            <a th:text="#{booking.search.table.header.client}">?????</a>
         </th>
         <th>
             <a th:text="#{booking.search.table.header.phone1}">?????</a>
@@ -37,10 +38,10 @@
     <tr th:each="oneBooking : ${bookingsByParameter}">
         <td th:text="${oneBooking.getId()}">?????</td>
         <td th:align="left"
-            th:text="${oneBooking.getBookingSurname()}">?????
+            th:text="${oneBooking.getClient().getSurname()}">?????
         </td>
-        <td th:text="${oneBooking.getPhone1()}">?????</td>
-        <td th:text="${oneBooking.getPhone2()}">?????</td>
+        <td th:text="${oneBooking.getClient().getPhone1()}">?????</td>
+        <td th:text="${oneBooking.getClient().getPhone2()}">?????</td>
         <td th:text="${#dates.format(oneBooking.getDateOfArrival(), 'dd MMM yyyy')}"></td>
         <td th:text="${#dates.format(oneBooking.getDateOfReturn(), 'dd MMM yyyy')}"></td>
         <td th:width="50"></td>

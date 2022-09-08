@@ -2,6 +2,7 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
+    <meta name="author" content="Nikolai Khriapov">
     <title th:text="#{booking.add_new.title}">?????</title>
 </head>
 <body th:align="center">
@@ -11,30 +12,42 @@
 
 <!--Input parameters-->
 <form th:method="POST"
-      th:object="${newClient}"
+      th:object="${newClientAndNewBookingInfo}"
       th:action="@{/admin/info-booking}">
 
     <table th:align="center" style="text-align:left"
            th:cellpadding="2">
         <tr>
-            <td th:text="#{booking.add_new.field.booking_surname}">?????</td>
-            <td><input type="text" th:field="*{surname}"/></td>
+            <td th:text="#{booking.add_new.field.client}">?????</td>
+            <td>
+                <input type="text" th:field="*{surname}"/>
+                <div style="color:red" th:if="${#fields.hasErrors('surname')}" th:errors="*{surname}">?????</div>
+            </td>
         </tr>
         <tr>
             <td th:text="#{booking.add_new.field.phone1}">?????</td>
-            <td><input type="text" th:field="*{phone1}"/></td>
+            <td>
+                <input type="text" th:field="*{phone1}" placeholder="X(XXX)XXX-XX-XX"/>
+                <div style="color:red" th:if="${#fields.hasErrors('phone1')}" th:errors="*{phone1}">?????</div>
+            </td>
         </tr>
         <tr>
             <td th:text="#{booking.add_new.field.phone2}">?????</td>
-            <td><input type="text" th:field="*{phone2}"/></td>
+            <td><input type="text" th:field="*{phone2}" placeholder="X(XXX)XXX-XX-XX"/></td>
         </tr>
         <tr>
             <td th:text="#{booking.add_new.field.date_of_arrival}">?????</td>
-            <td><input type="date" th:field="*{dateOfArrival}"/></td>
+            <td>
+                <input type="date" th:field="*{dateOfArrival}"/>
+                <div style="color:red" th:if="${#fields.hasErrors('dateOfArrival')}" th:errors="*{dateOfArrival}">?????</div>
+            </td>
         </tr>
         <tr>
             <td th:text="#{booking.add_new.field.date_of_return}">?????</td>
-            <td><input type="date" th:field="*{dateOfReturn}"/></td>
+            <td>
+                <input type="date" th:field="*{dateOfReturn}"/>
+                <div style="color:red" th:if="${#fields.hasErrors('dateOfReturn')}" th:errors="*{dateOfReturn}">?????</div>
+            </td>
         </tr>
     </table>
 

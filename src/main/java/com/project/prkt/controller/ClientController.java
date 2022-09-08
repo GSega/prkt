@@ -4,7 +4,10 @@ import com.project.prkt.model.Client;
 import com.project.prkt.service.ClientService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
+
+import javax.validation.Valid;
 
 /**
  * @author Nikolai Khriapov
@@ -35,7 +38,10 @@ public class ClientController {
     }
 
     @PostMapping()
-    public String addNewClientToDB(@ModelAttribute("newClient") Client client) {
+    public String addNewClientToDB(@ModelAttribute("newClient") @Valid Client client, BindingResult bindingResult) {
+        if (bindingResult.hasErrors()) {
+            return "client/add_new";
+        }
         clientService.addNewClientToDB(client);
         return "redirect:/admin/info-clients";
     }
@@ -43,12 +49,19 @@ public class ClientController {
     // ----- edit -----
     @GetMapping("/edit/{id}")
     public String showOneClient(@PathVariable("id") Long id, Model model) {
+        model.addAttribute("id", id);
         model.addAttribute("clientToUpdate", clientService.showOneClientById(id));
         return "client/edit";
     }
 
-    @PatchMapping("/{id}")
-    public String updateClient(@PathVariable("id") Long id, @ModelAttribute("oneClient") Client updatedClient) {
+    @PatchMapping("/edit/{id}")
+    public String updateClient(@PathVariable("id") Long id, @ModelAttribute("clientToUpdate") @Valid Client updatedClient,
+                               BindingResult bindingResult, Model model) {
+        if (bindingResult.hasErrors()) {
+            model.addAttribute("id", id);
+            model.addAttribute("clientToUpdate", updatedClient);
+            return "client/edit";
+        }
         clientService.updateClientById(id, updatedClient);
         return "redirect:/admin/info-clients";
     }
