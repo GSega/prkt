@@ -57,7 +57,7 @@ public class RiderController {
 
     //edit
     @GetMapping("/edit") //во view к адресу добавлен параметр ?id=...&bookingid=...
-    public String showOneRider(@RequestParam("id") Long id,
+    public String showOneRider(@RequestParam(value = "id") Long id,
                                @RequestParam(value = "bookingid", required = false) Long bookingId,
                                Model model) {
         model.addAttribute("riderToBeUpdated", riderService.showOneRiderById(id));
@@ -69,7 +69,8 @@ public class RiderController {
 
     @PatchMapping("/edit/{id}")
     public String updateRiderById(@PathVariable("id") Long riderToBeUpdatedId,
-                                  @ModelAttribute("riderToBeUpdated") Rider oneUpdatedRider) {
+                                  @ModelAttribute("riderToBeUpdated") Rider oneUpdatedRider,
+                                  @ModelAttribute("bookingId") Long bookingId) {
         riderService.updateRiderById(riderToBeUpdatedId, oneUpdatedRider);
 
         return "redirect:/admin/info-booking"; //пусть пока туда летит. void почемуто крашит метод
