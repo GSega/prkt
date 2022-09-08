@@ -90,8 +90,6 @@ public class BookingController {
             model.addAttribute("clientAndBookingInfoToBeUpdated", updatedClientAndBookingInfo);
             model.addAttribute("allRiders", riderService.showAllRiders());
             model.addAttribute("existingRiderToBeAddedId", new Rider()); // костыль: нужен Id, но положить Id можем только в объект класса
-            System.out.println(updatedClientAndBookingInfo);
-
             return "booking/edit";
         }
         Booking bookingToBeUpdated = bookingService.showOneBookingById(bookingToBeUpdatedId);
