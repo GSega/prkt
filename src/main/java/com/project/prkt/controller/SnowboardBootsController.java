@@ -52,15 +52,18 @@ public class SnowboardBootsController {
     // ----- edit -----
     @GetMapping("/edit/{id}")
     public String showOneSnowboardBoots(@PathVariable("id") Long id, Model model) {
+        model.addAttribute("id", id);
         model.addAttribute("snowboardBootsToUpdate", snowboardBootsService.showOneSnowboardBootsById(id));
         return "snowboard_boots/edit";
     }
 
-    @PatchMapping("/{id}")
+    @PatchMapping("/edit/{id}")
     public String updateSnowboardBoots(@PathVariable("id") Long id,
                                        @ModelAttribute("snowboardBootsToUpdate") @Valid SnowboardBoots updatedSnowboardBoots,
-                                       BindingResult bindingResult) {
+                                       BindingResult bindingResult, Model model) {
         if (bindingResult.hasErrors()) {
+            model.addAttribute("id", id);
+            model.addAttribute("snowboardBootsToUpdate", updatedSnowboardBoots);
             return "snowboard_boots/edit";
         }
         snowboardBootsService.updateSnowboardBootsById(id, updatedSnowboardBoots);

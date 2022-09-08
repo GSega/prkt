@@ -33,11 +33,7 @@ public class BookingService {
 
     // ----- add new booking -----
     public void addNewClientInfoToNewBooking(Booking newBooking, Client newClient) {
-        newBooking.setBookingSurname(newClient.getSurname());
-        newBooking.setPhone1(newClient.getPhone1());
-        newBooking.setPhone2(newClient.getPhone2());
-        newBooking.setDateOfArrival(newClient.getDateOfArrival());
-        newBooking.setDateOfReturn(newClient.getDateOfReturn());
+        newBooking.setClient(newClient);
     }
 
     public void addNewBookingToDB(Booking booking) {
@@ -64,13 +60,9 @@ public class BookingService {
 
     public void updateBookingById(Long bookingToBeUpdatedId, Booking updatedBooking) {
         Booking bookingToBeUpdated = showOneBookingById(bookingToBeUpdatedId);
-
-        bookingToBeUpdated.setBookingSurname(updatedBooking.getBookingSurname());
-        bookingToBeUpdated.setPhone1(updatedBooking.getPhone1());
-        bookingToBeUpdated.setPhone2(updatedBooking.getPhone2());
+        bookingToBeUpdated.setClient(updatedBooking.getClient());
         bookingToBeUpdated.setDateOfArrival(updatedBooking.getDateOfArrival());
         bookingToBeUpdated.setDateOfReturn(updatedBooking.getDateOfReturn());
-
         bookingRepository.save(bookingToBeUpdated);
     }
 
@@ -95,18 +87,11 @@ public class BookingService {
     // ----- search -----
     public List<Booking> showBookingsByParameter(String parameter) {
         List<Booking> searchResult = new ArrayList<>();
-        for (Booking oneBooking : bookingRepository.findAllByBookingSurnameContaining(parameter)) {
-            if (!searchResult.contains(oneBooking)) {
-                searchResult.add(oneBooking);
-            }
-        }
-        for (Booking oneBooking : bookingRepository.findAllByPhone1Containing(parameter)) {
-            if (!searchResult.contains(oneBooking)) {
-                searchResult.add(oneBooking);
-            }
-        }
-        for (Booking oneBooking : bookingRepository.findAllByPhone2Containing(parameter)) {
-            if (!searchResult.contains(oneBooking)) {
+        List<Booking> allBookings = bookingRepository.findAll();
+        for (Booking oneBooking : allBookings) {
+            if (oneBooking.getClient().getSurname().toLowerCase().contains(parameter.toLowerCase()) ||
+                    oneBooking.getClient().getPhone1().contains(parameter) ||
+                    oneBooking.getClient().getPhone2().contains(parameter)) {
                 searchResult.add(oneBooking);
             }
         }

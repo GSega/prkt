@@ -1,5 +1,10 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="author" content="Nikolai Khriapov">
+    <title th:text="#{booking.edit.title}">?????</title>
+</head>
 <body th:align="center">
 
 <!--Header-->
@@ -7,22 +12,28 @@
 
 <!--Input parameters-->
 <form th:method="PATCH"
-      th:action="@{/admin/info-booking/edit/{id}(id=${bookingToBeUpdated.getId()})}"
-      th:object="${bookingToBeUpdated}">
+      th:action="@{/admin/info-booking/edit/{id}(id=${id})}"
+      th:object="${clientAndBookingInfoToBeUpdated}">
 
     <table th:align="center" style="text-align:left"
            th:cellpadding="2">
         <tr>
             <td th:text="#{booking.edit.field.id}">?????</td>
-            <td th:text="*{id}">?????</td>
+            <td th:text="${id}">?????</td>
         </tr>
         <tr>
-            <td th:text="#{booking.edit.field.booking_surname}">?????</td>
-            <td><input type="text" th:field="*{bookingSurname}"/></td>
+            <td th:text="#{booking.edit.field.client}">?????</td>
+            <td>
+                <input type="text" th:field="*{surname}"/>
+                <div style="color:red" th:if="${#fields.hasErrors('surname')}" th:errors="*{surname}">?????</div>
+            </td>
         </tr>
         <tr>
             <td th:text="#{booking.edit.field.phone1}">?????</td>
-            <td><input type="text" th:field="*{phone1}"/></td>
+            <td>
+                <input type="text" th:field="*{phone1}"/>
+                <div style="color:red" th:if="${#fields.hasErrors('phone1')}" th:errors="*{phone1}">?????</div>
+            </td>
         </tr>
         <tr>
             <td th:text="#{booking.edit.field.phone2}">?????</td>
@@ -30,11 +41,17 @@
         </tr>
         <tr>
             <td th:text="#{booking.edit.field.date_of_arrival}">?????</td>
-            <td><input type="date" th:field="*{dateOfArrival}"/></td>
+            <td>
+                <input type="date" th:field="*{dateOfArrival}"/>
+                <div style="color:red" th:if="${#fields.hasErrors('dateOfArrival')}" th:errors="*{dateOfArrival}">?????</div>
+            </td>
         </tr>
         <tr>
             <td th:text="#{booking.edit.field.date_of_return}">?????</td>
-            <td><input type="date" th:field="*{dateOfReturn}"/></td>
+            <td>
+                <input type="date" th:field="*{dateOfReturn}"/>
+                <div style="color:red" th:if="${#fields.hasErrors('dateOfReturn')}" th:errors="*{dateOfReturn}">?????</div>
+            </td>
         </tr>
     </table>
 
@@ -46,7 +63,7 @@
 <br/>
 
 <!--List of Riders-->
-<span th:if="${bookingToBeUpdated.getListOfRiders().size() > 0}">
+<span th:if="${clientAndBookingInfoToBeUpdated.getListOfRiders().size() > 0}">
     <table th:align="center"
            th:border="1" th:rules="rows"
            th:cellpadding="5">
@@ -61,7 +78,7 @@
             <th></th>
         </tr>
         <tr style="vertical-align:top"
-            th:each="oneRider : ${bookingToBeUpdated.getListOfRiders()}">
+            th:each="oneRider : ${clientAndBookingInfoToBeUpdated.getListOfRiders()}">
             <td th:text="${oneRider.getId()}">?????</td>
             <td th:text="${oneRider.getName()}" th:align="left">?????</td>
             <td th:text="${oneRider.getSex()}">?????</td>
@@ -76,26 +93,26 @@
             <td th:width="50"></td>
             <td>
                 <a>
-                    <a th:href="'/admin/info-riders/edit?id='  + ${oneRider.getId()} + '&bookingid=' + ${bookingToBeUpdated.getId()}">  <!--добавить букинг айди в '?bookingid=' + ${bookingToBeUpdated.getId()}  -->
+                    <a th:href="'/admin/info-riders/edit?id=' + ${oneRider.getId()} + '&bookingid=' + ${clientAndBookingInfoToBeUpdated.getBookingNumber()}">  <!--добавить букинг айди в '?bookingid=' + ${bookingToBeUpdated.getId()}  -->
                         <button th:text="#{booking.edit.table.button.edit}">?????</button>
                     </a>
                 </a>
             </td>
             <td th:align="left">
-                <a th:href="@{'/admin/info-booking/edit/remove?bid=' + ${bookingToBeUpdated.getId()} + '&rid=' + ${oneRider.getId()}}">
+                <a th:href="@{'/admin/info-booking/edit/remove?bid=' + ${clientAndBookingInfoToBeUpdated.getBookingNumber()} + '&rid=' + ${oneRider.getId()}}">
                     <button th:text="#{booking.edit.table.button.remove}">?????</button>
                 </a>
             </td>
         </tr>
     </table>
 </span>
-<span th:unless="${bookingToBeUpdated.getListOfRiders().size() > 0}">Riders not found<br/></span>
+<span th:unless="${clientAndBookingInfoToBeUpdated.getListOfRiders().size() > 0}">Riders not found<br/></span>
 
 <br/>
 
 <!--Add existing Rider to Booking (через костыль – потом исправить)-->
 <form th:method="PATCH"
-      th:action="@{/admin/info-booking/edit/add-existing-rider/{id}(id=${bookingToBeUpdated.getId()})}"
+      th:action="@{/admin/info-booking/edit/add-existing-rider/{id}(id=${clientAndBookingInfoToBeUpdated.getBookingNumber()})}"
       th:object="${existingRiderToBeAddedId}">
 
     <select th:field="*{name}">
@@ -111,7 +128,7 @@
 <br/>
 
 <!--Add new rider-->
-<a th:href="@{'/admin/info-riders/add-new?id=' + ${bookingToBeUpdated.getId()}}">
+<a th:href="@{'/admin/info-riders/add-new?id=' + ${clientAndBookingInfoToBeUpdated.getBookingNumber()}}">
     <button th:text="#{booking.edit.button.add_new}">?????</button>
 </a>
 

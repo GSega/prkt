@@ -2,6 +2,7 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
+    <meta name="author" content="Nikolai Khriapov">
     <title th:text="#{snowboard.edit.title}">?????</title>
 </head>
 <body th:align="center">
@@ -11,7 +12,7 @@
 
 <!--Input parameters-->
 <form th:method="PATCH"
-      th:action="@{/admin/info-equipment/snowboard/{id}(id=${snowboardToUpdate.getId()})}"
+      th:action="@{/admin/info-equipment/snowboard/edit/{id}(id=${id})}"
       th:object="${snowboardToUpdate}">
 
     <table th:align="center" style="text-align:left"
@@ -35,8 +36,7 @@
         <tr>
             <td th:text="#{snowboard.edit.field.condition}">?????</td>
             <td>
-                <select th:field="*{condition}">         <!-- name is needed, otherwise won't display properly in the table -->
-                                                  <!-- must be named as the class field (camelCase) -->
+                <select th:field="*{condition}">
                     <option th:each="i : ${T(com.project.prkt.model.EquipmentCondition).values()}"
                             th:value="${i.name()}"
                             th:text="#{${'equipment_condition.' + i}}"

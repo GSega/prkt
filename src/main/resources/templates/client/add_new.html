@@ -1,8 +1,9 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
-  <meta charset="UTF-8">
-  <title th:text="#{client.add_new.title}">?????</title>
+    <meta charset="UTF-8">
+    <meta name="author" content="Nikolai Khriapov">
+    <title th:text="#{client.add_new.title}">?????</title>
 </head>
 <body th:align="center">
 
@@ -14,51 +15,41 @@
       th:action="@{/admin/info-clients}"
       th:object="${newClient}">
 
-  <table th:align="center" style="text-align:left"
-         th:cellpadding="2">
-    <tr>
-      <td th:text="#{client.add_new.field.surname}">?????</td>
-      <td>
-        <input type="text" th:field="*{surname}"/>
-      </td>
-    </tr>
-    <tr>
-      <td th:text="#{client.add_new.field.phone1}">?????</td>
-      <td>
-        <input type="text" th:field="*{phone1}"/>
-      </td>
-    </tr>
-    <tr>
-      <td th:text="#{client.add_new.field.phone2}">?????</td>
-      <td>
-        <input type="text" th:field="*{phone2}"/>
-      </td>
-    </tr>
-    <tr>
-      <td th:text="#{client.add_new.field.date_of_arrival}">?????</td>
-      <td>
-        <input type="date" th:field="*{dateOfArrival}"/>
-      </td>
-    </tr>
-    <tr>
-      <td th:text="#{client.add_new.field.date_of_return}">?????</td>
-      <td>
-        <input type="date" th:field="*{dateOfReturn}"/>
-      </td>
-    </tr>
-    <tr></tr>
-  </table>
+    <table th:align="center" style="text-align:left"
+           th:cellpadding="2">
+        <tr>
+            <td th:text="#{client.add_new.field.surname}">?????</td>
+            <td>
+                <input type="text" th:field="*{surname}"/>
+                <div style="color:red" th:if="${#fields.hasErrors('surname')}" th:errors="*{surname}">?????</div>
+            </td>
+        </tr>
+        <tr>
+            <td th:text="#{client.add_new.field.phone1}">?????</td>
+            <td>
+                <input type="text" th:field="*{phone1}" placeholder="X(XXX)XXX-XX-XX"/>
+                <div style="color:red" th:if="${#fields.hasErrors('phone1')}" th:errors="*{phone1}">?????</div>
+            </td>
+        </tr>
+        <tr>
+            <td th:text="#{client.add_new.field.phone2}">?????</td>
+            <td>
+                <input type="text" th:field="*{phone2}" placeholder="X(XXX)XXX-XX-XX"/>
+            </td>
+        </tr>
+        <tr></tr>
+    </table>
 
-  <br/>
+    <br/>
 
-  <input type="submit" th:value="#{client.add_new.button.create}"/>
+    <input type="submit" th:value="#{client.add_new.button.create}"/>
 </form>
 
 <br/>
 
 <!--Return to "client/show_all"-->
 <a href="/admin/info-clients">
-  <button th:text="#{client.add_new.button.return}">?????</button>
+    <button th:text="#{client.add_new.button.return}">?????</button>
 </a>
 
 </body>

@@ -69,8 +69,8 @@ public class RiderController {
 
     @PatchMapping("/edit/{id}")
     public String updateRiderById(@PathVariable("id") Long riderToBeUpdatedId,
-                                  @ModelAttribute("riderToBeUpdated") Rider oneUpdatedRider,
-                                  @ModelAttribute("bookingId") Long bookingId) {
+                                  @ModelAttribute("riderToBeUpdated") Rider oneUpdatedRider
+                                 /* @ModelAttribute("bookingId") Long bookingId) */){
         riderService.updateRiderById(riderToBeUpdatedId, oneUpdatedRider);
 
         return "redirect:/admin/info-booking"; //пусть пока туда летит. void почемуто крашит метод

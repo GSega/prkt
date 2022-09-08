@@ -43,8 +43,6 @@ public class ClientService {
         clientToBeUpdated.setSurname(updatedClient.getSurname());
         clientToBeUpdated.setPhone1(updatedClient.getPhone1());
         clientToBeUpdated.setPhone2(updatedClient.getPhone2());
-        clientToBeUpdated.setDateOfArrival(updatedClient.getDateOfArrival());
-        clientToBeUpdated.setDateOfReturn(updatedClient.getDateOfReturn());
 
         clientRepository.save(clientToBeUpdated);
     }
@@ -57,18 +55,11 @@ public class ClientService {
     // ----- search -----
     public List<Client> showClientsBySearch(String search) {
         List<Client> searchResult = new ArrayList<>();
-        for (Client oneClient : clientRepository.findAllBySurnameContaining(search)) {
-            if (!searchResult.contains(oneClient)) {
-                searchResult.add(oneClient);
-            }
-        }
-        for (Client oneClient : clientRepository.findAllByPhone1Containing(search)) {
-            if (!searchResult.contains(oneClient)) {
-                searchResult.add(oneClient);
-            }
-        }
-        for (Client oneClient : clientRepository.findAllByPhone2Containing(search)) {
-            if (!searchResult.contains(oneClient)) {
+        List<Client> allClients = clientRepository.findAll();
+        for (Client oneClient : allClients) {
+            if (oneClient.getSurname().toLowerCase().contains(search.toLowerCase()) ||
+                    oneClient.getPhone1().contains(search) ||
+                    oneClient.getPhone2().contains(search)) {
                 searchResult.add(oneClient);
             }
         }

@@ -3,6 +3,7 @@ package com.project.prkt.model;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
+import javax.validation.constraints.*;
 import java.util.*;
 
 /**
@@ -17,16 +18,17 @@ public class Booking {
     @SequenceGenerator(name = "sequence", sequenceName = "sequence", allocationSize = 1)
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "sequence")
     private Long id;
-    private String bookingSurname;
-    private String phone1; // validation for different formats
-    private String phone2;
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "client_id")
+    private Client client;
     @Temporal(TemporalType.DATE)
     @DateTimeFormat(pattern = "yyyy-MM-dd")
+    @NotNull(message = "{client.message.invalid_date}")
     private Date dateOfArrival;
     @Temporal(TemporalType.DATE)
     @DateTimeFormat(pattern = "yyyy-MM-dd")
+    @NotNull(message = "{client.message.invalid_date}")
     private Date dateOfReturn;
-
     private boolean completed;
     @ManyToMany
     @JoinTable(
@@ -39,43 +41,22 @@ public class Booking {
     public Booking() {
     }
 
-    public Booking(String bookingSurname, String phone1, String phone2, Date dateOfArrival,
-                   Date dateOfReturn, boolean completed, List<Rider> listOfRiders) {
-        this.bookingSurname = bookingSurname;
-        this.phone1 = phone1;
-        this.phone2 = phone2;
+    public Booking(Client client, Date dateOfArrival, Date dateOfReturn) {
+        this.client = client;
         this.dateOfArrival = dateOfArrival;
         this.dateOfReturn = dateOfReturn;
-        this.completed = completed;
-        this.listOfRiders = listOfRiders;
     }
 
     public Long getId() {
         return id;
     }
 
-    public String getBookingSurname() {
-        return bookingSurname;
+    public Client getClient() {
+        return client;
     }
 
-    public void setBookingSurname(String bookingSurname) {
-        this.bookingSurname = bookingSurname;
-    }
-
-    public String getPhone1() {
-        return phone1;
-    }
-
-    public void setPhone1(String phone1) {
-        this.phone1 = phone1;
-    }
-
-    public String getPhone2() {
-        return phone2;
-    }
-
-    public void setPhone2(String phone2) {
-        this.phone2 = phone2;
+    public void setClient(Client client) {
+        this.client = client;
     }
 
     public Date getDateOfArrival() {
@@ -94,13 +75,13 @@ public class Booking {
         this.dateOfReturn = dateOfReturn;
     }
 
-   public boolean isCompleted() {
+    public boolean isCompleted() {
         return completed;
     }
 
-   public void setCompleted(boolean completed) {
-       this.completed = completed;
-   }
+    public void setCompleted(boolean completed) {
+        this.completed = completed;
+    }
 
     public List<Rider> getListOfRiders() {
         return listOfRiders;
@@ -111,19 +92,5 @@ public class Booking {
             listOfRiders = new ArrayList<>();
         }
         this.listOfRiders.add(rider);
-    }
-
-    @Override
-    public String toString() {
-        return "Booking{" +
-                "id=" + id +
-                ", bookingSurname='" + bookingSurname +
-                ", phone1='" + phone1 +
-                ", phone2='" + phone2 +
-                ", dateOfArrival=" + dateOfArrival +
-                ", dateOfReturn=" + dateOfReturn +
-                ", completed=" + completed +
-                ", listOfRiders=" + listOfRiders +
-                '}';
     }
 }

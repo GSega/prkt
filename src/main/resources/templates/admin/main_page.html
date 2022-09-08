@@ -2,7 +2,9 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>Admmin main</title>
+    <meta name="author" content="Sergei Gavrilov">
+    <meta name="author" content="Nikolai Khriapov">
+    <title>Admin</title>
 </head>
 
 <body th:align="center"
@@ -72,9 +74,9 @@
     </tr>
     <tr th:each="oneBooking : ${allBookings}">
         <td th:text="${oneBooking.getId()}">?????</td>
-        <td th:text="${oneBooking.getBookingSurname()}" th:align="left">?????</td>
-        <td th:text="${oneBooking.getPhone1()}">?????</td>
-        <td th:text="${oneBooking.getPhone2()}">?????</td>
+        <td th:text="${oneBooking.getClient().getSurname()}" th:align="left">?????</td>
+        <td th:text="${oneBooking.getClient().getPhone1()}">?????</td>
+        <td th:text="${oneBooking.getClient().getPhone2()}">?????</td>
         <td th:text="${#dates.format(oneBooking.getDateOfArrival(), 'dd MMM yyyy')}"></td>
         <td th:text="${#dates.format(oneBooking.getDateOfReturn(), 'dd MMM yyyy')}"></td>
         <td th:text="${oneBooking.getListOfRiders().size()}">?????</td>
@@ -82,7 +84,6 @@
         <td>
             <form th:method="GET" th:action="@{/admin/change-booking-completed/{id}(id=${oneBooking.getId()})}">
                     <input type="submit" th:value="#{admin.main_page.table.button.mark_completed}"/>
-                </span>
             </form>
         </td>
         <td>
