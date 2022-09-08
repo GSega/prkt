@@ -93,7 +93,7 @@
             <td th:width="50"></td>
             <td>
                 <a>
-                    <a th:href="'/admin/info-riders/edit/' + ${oneRider.getId()}">
+                    <a th:href="'/admin/info-riders/edit/' + ${oneRider.getId()} + '/?bookingid=' + ${bookingToBeUpdated.getId()}">  <!--добавить букинг айди в '?bookingid=' + ${bookingToBeUpdated.getId()}  -->
                         <button th:text="#{booking.edit.table.button.edit}">?????</button>
                     </a>
                 </a>

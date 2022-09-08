@@ -56,9 +56,12 @@ public class RiderController {
     }
 
     //edit
-    @GetMapping("/edit/{id}")
-    public String showOneRider(@PathVariable("id") Long id, Model model) {
+    @GetMapping("/edit/{id}") //добавить параметры ?bookingid=
+    public String showOneRider(@PathVariable("id") Long id,
+                               @RequestParam("bookingid") Long bookingId,
+                               Model model) {
         model.addAttribute("riderToBeUpdated", riderService.showOneRiderById(id));
+        model.addAttribute("bookingId", bookingId);
         return "rider/edit";
     }
 
