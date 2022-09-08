@@ -44,7 +44,10 @@ public class ApplicationConfig implements WebMvcConfigurer {
         messageSource.setBasenames(
                 "classpath:/equipment_condition",
                 "classpath:/snowboard_boots",
-                "classpath:/snowboard"
+                "classpath:/snowboard",
+                "classpath:/ski",
+                "classpath:/ski_boots"
+
         );
         messageSource.setDefaultEncoding("UTF-8");
         return messageSource;

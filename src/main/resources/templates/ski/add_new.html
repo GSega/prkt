@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title th:text="#{ski.add_new.title}">Добавление Лыж</title>
+</head>
+
+<body>
+<h1 th:text="#{ski.add_new.title}"/>
+
+<form th:method="POST"
+      th:action="@{/admin/info_equipment/ski}"
+      th:object="${ski}">
+    <table>
+        <tr>
+            <td> Параметр</td>
+            <td> Значение</td>
+        </tr>
+        <tr>
+            <td> Название</td>
+            <td><input th:type="text" th:field="*{name}"/>
+
+            </td>
+        </tr>
+
+        <tr>
+            <td><label for="size"> Ростовка </label></td>
+            <td><input th:type="text" th:field="*{size}" id="size"/>
+
+            </td>
+        </tr>
+
+        <tr>
+            <td> Доступность</td>
+            <td>
+                <select name="available" th:field="*{available}">
+                    <option th:value="1">свободно</option>
+                    <option th:value="0">катается</option>
+                </select>
+            </td>
+        </tr>
+
+        <tr>
+            <td> Состояние</td>
+            <td><select name="condition">
+                <option th:each="i : ${T(com.project.prkt.model.EquipmentCondition).values()}"
+                        th:value="${i}" th:text="${i.getDisplayValue()}"> condition should be here
+                </option>
+            </select>
+            </td>
+        </tr>
+
+        <tr>
+            <td> Жесткость</td>
+            <td>
+                <select name="stiffness">
+                    <option th:each="y : ${T(com.project.prkt.model.Ski.Stiffness).values()}"
+                            th:value="${y}" th:text="${y.getDisplayValue()}"> stiffness should be here
+                    </option>
+                </select>
+            </td>
+        </tr>
+
+        <!--<label for="size"> Ростовка </label>
+        <input th:type="text" th:field="*{size}" id="size2"/>
+        <div style="color:#9a0a0a" th:if="${#fields.hasErrors('size')}" th:errors="*{size}">Size error</div>
+
+    -->
+
+    </table>
+    <input type="submit" value="сохранить"/> <!--ахуеть это кнопка формы -->
+</form>
+
+</body>
+</html>

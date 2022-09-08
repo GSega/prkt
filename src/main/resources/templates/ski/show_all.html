@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title th:text="#{ski.show_all.title}">  </title>
+</head>
+<body>
+
+<h1 th:text="#{ski.show_all.h1}"> Cпск всех лыж </h1>
+
+
+<div>
+    <table  border="1" >
+        <tr>
+            <th> <a th:href="@{'/admin/info_equipment/ski/sort?parameter=id&sortDirection=' + ${reverseSortDirection}}" th:text="#{ski.show_all.table.header.id}" ></a> </th>
+            <th> <a th:href="@{'/admin/info_equipment/ski/sort?parameter=id&sortDirection=' + ${reverseSortDirection}}" th:text="#{ski.show_all.table.header.name}" ></a> </th>
+            <th> <a th:href="@{'/admin/info_equipment/ski/sort?parameter=id&sortDirection=' + ${reverseSortDirection}}" th:text="#{ski.show_all.table.header.rostovka}"></a> </th>
+            <th> <a th:href="@{'/admin/info_equipment/ski/sort?parameter=id&sortDirection=' + ${reverseSortDirection}}" th:text="#{ski.show_all.table.header.free}"> </a> </th>
+            <th> <a th:href="@{'/admin/info_equipment/ski/sort?parameter=id&sortDirection=' + ${reverseSortDirection}}" th:text="#{ski.show_all.table.header.condition}" ></a> </th>
+            <th> <a th:href="@{'/admin/info_equipment/ski/sort?parameter=id&sortDirection=' + ${reverseSortDirection}}" th:text="#{ski.show_all.table.header.stiffness}" ></a> </th>
+            <th> <a th:text="#{ski.show_all.table.header.edit}"/>edit </th>
+            <th> <a th:text="#{ski.show_all.table.header.delete}"/> delete</th>
+        </tr>
+        <tr th:each="oneSki : ${allSki}">
+            <td th:text="${oneSki.getId()}"> id</td>
+            <td th:text="${oneSki.getName()}"> name</td>
+            <td th:text="${oneSki.getSize()}"> size </td>
+            <td th:text="${oneSki.isAvailable()} ? #{ski.show_all.table.available.true} : #{ski.show_all.table.available.false}"> avlblty </td>
+            <td th:text="${oneSki.getCondition().name()}"> cond </td>
+            <td th:text="${oneSki.getStiffness().name()}"> stffns </td>
+            <td>
+                <a th:href="@{/admin/info_equipment/ski/edit/{id}(id=${oneSki.getId()})}"> <button th:text="#{ski.show_all.table.header.edit}"> изменить </button> </a>
+            </td>
+            <td>
+                <form th:method="DELETE" th:action="@{/admin/info_equipment/ski/{id}(id=${oneSki.getId()})}"> <input type="submit" th:value="#{ski.show_all.table.header.delete}"> </form>
+            </td>
+        </tr>
+
+    </table>
+
+</div>
+
+<div>
+    <a href="/admin/info_equipment/ski/add_new"><button>добавить новые лыжи</button></a>
+</div>
+</body>
+</html>
