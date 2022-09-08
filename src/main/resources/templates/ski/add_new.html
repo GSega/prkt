@@ -13,35 +13,35 @@
       th:object="${ski}">
     <table>
         <tr>
-            <td> Параметр</td>
-            <td> Значение</td>
+            <td th:text="#{ski.add_new.table.header.param}"> Параметр</td>
+            <td th:text="#{ski.add_new.table.header.input}"> Значение</td>
         </tr>
         <tr>
-            <td> Название</td>
+            <td th:text="#{ski.add_new.table.name}"> Название</td>
             <td><input th:type="text" th:field="*{name}"/>
 
             </td>
         </tr>
 
         <tr>
-            <td><label for="size"> Ростовка </label></td>
+            <td th:text="#{ski.add_new.table.rostovka}"><label for="size"> Ростовка </label></td>
             <td><input th:type="text" th:field="*{size}" id="size"/>
 
             </td>
         </tr>
 
         <tr>
-            <td> Доступность</td>
+            <td th:text="#{ski.add_new.table.available}"> Доступность</td>
             <td>
                 <select name="available" th:field="*{available}">
-                    <option th:value="1">свободно</option>
-                    <option th:value="0">катается</option>
+                    <option th:value="1"><a th:text="#{ski.add_new.table.available.true}"/>свободно</option>
+                    <option th:value="0"><a th:text="#{ski.add_new.table.available.false}"/>катается</option>
                 </select>
             </td>
         </tr>
 
         <tr>
-            <td> Состояние</td>
+            <td th:text="#{ski.add_new.table.condition}"> Состояние</td>
             <td><select name="condition">
                 <option th:each="i : ${T(com.project.prkt.model.EquipmentCondition).values()}"
                         th:value="${i}" th:text="${i.getDisplayValue()}"> condition should be here
@@ -51,7 +51,7 @@
         </tr>
 
         <tr>
-            <td> Жесткость</td>
+            <td th:text="#{ski.add_new.table.stiffness}"> Жесткость</td>
             <td>
                 <select name="stiffness">
                     <option th:each="y : ${T(com.project.prkt.model.Ski.Stiffness).values()}"
@@ -68,7 +68,7 @@
     -->
 
     </table>
-    <input type="submit" value="сохранить"/> <!--ахуеть это кнопка формы -->
+    <input type="submit" th:value="#{ski.add_new.table.savebutton}"/> <!--ахуеть это кнопка формы -->
 </form>
 
 </body>

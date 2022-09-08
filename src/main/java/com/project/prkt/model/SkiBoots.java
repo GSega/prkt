@@ -1,6 +1,8 @@
 package com.project.prkt.model;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 import java.util.Objects;
 
 @Entity
@@ -49,7 +51,7 @@ public class SkiBoots extends Equipment {
     @SequenceGenerator(name = "sequence", sequenceName = "sequence", allocationSize = 1)
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "sequence")
     private Long id;
-    @javax.validation.constraints.Size(min = 3, max = 30, message = "{ski_boots.message.invalid_name}")
+    @javax.validation.constraints.Size(min = 2, max = 30, message = "Name Should be 2-30 symbols")
     private String name;
     private boolean available;
     private EquipmentCondition condition;

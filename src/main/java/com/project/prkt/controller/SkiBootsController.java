@@ -4,7 +4,10 @@ import com.project.prkt.model.SkiBoots;
 import com.project.prkt.service.SkiBootsService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
+
+import javax.validation.Valid;
 
 
 @Controller
@@ -43,8 +46,11 @@ public class SkiBootsController {
     //edit. save to db
     @PatchMapping("/{id}")
     public String updateSkiBoots(@PathVariable("id") Long id,
-                                 @ModelAttribute("skiBootsToUpdate")SkiBoots updatedSkiBoots) {
-
+                                 @ModelAttribute("skiBootsToUpdate") @Valid SkiBoots updatedSkiBoots,
+                                 BindingResult bindingResult) {
+        if (bindingResult.hasErrors()){
+            return "ski_boots/edit";
+        }
         skiBootsService.updateSkiBootsById(id, updatedSkiBoots);
         return "redirect:/admin/info-equipment/ski-boots";
     }
