@@ -5,7 +5,10 @@ import com.project.prkt.service.SkiService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
+
+import javax.validation.Valid;
 
 
 @Controller
@@ -36,7 +39,11 @@ public class SkiController {
        return "ski/add_new";
     }
     @PostMapping()
-    public String sendNewSkiToDatabase(@ModelAttribute("ski") Ski ski) {
+    public String sendNewSkiToDatabase(@ModelAttribute("ski") @Valid Ski ski,
+                                       BindingResult bindingResult) {
+        if (bindingResult.hasErrors()){
+            return "ski/add_new";
+        }
 
         skiService.addToDatabase(ski);
         return "redirect:/admin/info_equipment/ski/";
@@ -50,8 +57,12 @@ public class SkiController {
     }
 
     @PatchMapping("/{id}")
-    public String edit(@PathVariable("id") Long id, @ModelAttribute("ski") Ski ski){
-
+    public String edit(@PathVariable("id") Long id,
+                       @ModelAttribute("ski") @Valid Ski ski,
+                       BindingResult bindingResult){
+        if (bindingResult.hasErrors()){
+            return "ski/edit";
+        }
         skiService.updateById(id, ski);
         return "redirect:/admin/info_equipment/ski";
     }

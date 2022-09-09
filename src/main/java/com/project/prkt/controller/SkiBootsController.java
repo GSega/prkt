@@ -32,7 +32,11 @@ public class SkiBootsController {
     }
     //add new. save to db
     @PostMapping()
-    public String addNewSkiBootsToDB(@ModelAttribute("newSkiBoots") SkiBoots skiBoots) {
+    public String addNewSkiBootsToDB(@ModelAttribute("newSkiBoots") @Valid SkiBoots skiBoots,
+                                     BindingResult bindingResult) {
+        if (bindingResult.hasErrors()){
+            return "ski_boots/add_new";
+        }
         skiBootsService.addNewSkiBootsToDB(skiBoots);
         return "redirect:/admin/info-equipment/ski-boots";
     }

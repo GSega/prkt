@@ -2,6 +2,7 @@ package com.project.prkt.model;
 
 
 import javax.persistence.*;
+import javax.validation.constraints.NotEmpty;
 import java.util.Objects;
 
 @Entity
@@ -27,11 +28,11 @@ public class Ski extends Equipment{
     @SequenceGenerator(name = "sequence", sequenceName = "sequence", allocationSize = 1)
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "sequence")
     private Long id;
-    /*@javax.validation.constraints.Size(min = 3, max = 30, message = "Имя должно содержать от 3 до 30 символов")*/
+    @javax.validation.constraints.Size(min = 3, max = 30, message = "Имя должно содержать от 3 до 30 символов")
     private String name;
     private boolean available;
     private EquipmentCondition condition;
-    /*@NotEmpty(message = "Размер не может быть пустым")*/
+    @NotEmpty(message = "Размер не может быть пустым")
     private String size; //пишем руками.  размер лыж - это цифры от 80 до 200
     private Stiffness stiffness;
 

@@ -51,7 +51,7 @@ public class SkiBoots extends Equipment {
     @SequenceGenerator(name = "sequence", sequenceName = "sequence", allocationSize = 1)
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "sequence")
     private Long id;
-    @javax.validation.constraints.Size(min = 2, max = 30, message = "Name Should be 2-30 symbols")
+    @javax.validation.constraints.Size(min = 3, max = 30, message = "Name Should be 3-30 symbols")
     private String name;
     private boolean available;
     private EquipmentCondition condition;

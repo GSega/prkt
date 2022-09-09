@@ -17,13 +17,13 @@
         <tr>
             <td th:text="#{ski.edit.table.name}"> <label for="name"> Название </label> </td>
             <td> <input type="text" th:field="*{name}" id="name"/> <!--тут не надо th на атрибуте type-->
-                <!--<div style="color:#9a0a0a" th:if="${#fields.hasErrors('name')}" th:errors="*{name}">Name error</div>-->
+                <div style="color:#9a0a0a" th:if="${#fields.hasErrors('name')}" th:errors="*{name}">Name error</div>
             </td>
         </tr>
         <tr>
             <td  th:text="#{ski.edit.table.rostovka}"> <label for="size"> Ростовка </label> </td>
             <td> <input type="text" th:field="*{size}" id="size"/> <!--тут не надо th на атрибуте type-->
-                <!--<div style="color:#9a0a0a" th:if="${#fields.hasErrors('size')}" th:errors="*{size}">Size error</div>-->
+                <div style="color:#9a0a0a" th:if="${#fields.hasErrors('size')}" th:errors="*{size}">Name error</div>
             </td>
         </tr>
         <tr>
@@ -38,7 +38,7 @@
             <td  th:text="#{ski.edit.table.condition}"> состояние </td>
             <td> <select name="condition">
                         <option th:each="i : ${T(com.project.prkt.model.EquipmentCondition).values()}"
-                                th:value="${i}" th:text="${i.getDisplayValue()}" > condition should be here </option>
+                                th:value="${i}" th:text="${i}" > condition should be here </option>
                 </select>
             </td>
         </tr>
