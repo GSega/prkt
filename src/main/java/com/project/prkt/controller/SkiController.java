@@ -59,8 +59,11 @@ public class SkiController {
     @PatchMapping("/{id}")
     public String edit(@PathVariable("id") Long id,
                        @ModelAttribute("ski") @Valid Ski ski,
-                       BindingResult bindingResult){
+                       BindingResult bindingResult,
+                       Model model){
         if (bindingResult.hasErrors()){
+            model.addAttribute("id", id);
+            model.addAttribute("ski", ski);
             return "ski/edit";
         }
         skiService.updateById(id, ski);
