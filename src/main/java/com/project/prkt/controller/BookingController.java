@@ -54,12 +54,12 @@ public class BookingController {
         if (bindingResult.hasErrors()) {
             return "booking/add_new";
         }
-        Client newClient = new Client(newClientAndNewBookingInfo.getSurname(), newClientAndNewBookingInfo.getPhone1(), newClientAndNewBookingInfo.getPhone2());
+        Client newClient = new Client(newClientAndNewBookingInfo.getSurname(),
+                newClientAndNewBookingInfo.getPhone1(), newClientAndNewBookingInfo.getPhone2());
         clientService.addNewClientToDB(newClient);
         Booking newBooking = new Booking();
-        newBooking.setDateOfArrival(newClientAndNewBookingInfo.getDateOfArrival());
-        newBooking.setDateOfReturn(newClientAndNewBookingInfo.getDateOfReturn());
-        bookingService.addNewClientInfoToNewBooking(newBooking, newClient);
+        bookingService.addNewBookingInfoToNewBooking(newBooking, newClient,
+                newClientAndNewBookingInfo.getDateOfArrival(), newClientAndNewBookingInfo.getDateOfReturn());
         bookingService.addNewBookingToDB(newBooking);
         return "redirect:/admin/info-riders/add-new?id=" + newBooking.getId();
     }
@@ -69,13 +69,14 @@ public class BookingController {
     public String showOneBooking(@PathVariable("id") Long bookingToBeUpdatedId, Model model) {
         Booking bookingToBeUpdated = bookingService.showOneBookingById(bookingToBeUpdatedId);
         Client clientToBeUpdated = bookingToBeUpdated.getClient();
+
         BookingCreationRequest clientAndBookingInfoToBeUpdated = new BookingCreationRequest(
                 clientToBeUpdated.getId(), bookingToBeUpdatedId, clientToBeUpdated.getSurname(),
                 clientToBeUpdated.getPhone1(), clientToBeUpdated.getPhone2(), bookingToBeUpdated.getDateOfArrival(),
-                bookingToBeUpdated.getDateOfReturn(), bookingToBeUpdated.getListOfRiders());
+                bookingToBeUpdated.getDateOfReturn(), bookingToBeUpdated.getListOfRiders(), 0L);
+
         model.addAttribute("clientAndBookingInfoToBeUpdated", clientAndBookingInfoToBeUpdated);
         model.addAttribute("allRiders", riderService.showAllRiders());
-        model.addAttribute("existingRiderToBeAddedId", new Rider()); // костыль: нужен Id, но положить Id можем только в объект класса
         return "booking/edit";
     }
 
@@ -83,13 +84,11 @@ public class BookingController {
     public String updateBookingById(@PathVariable("id") Long bookingToBeUpdatedId,
                                     @ModelAttribute("clientAndBookingInfoToBeUpdated") @Valid BookingCreationRequest updatedClientAndBookingInfo,
                                     BindingResult bindingResult, Model model) {
-        System.out.println(updatedClientAndBookingInfo);
         if (bindingResult.hasErrors()) {
             model.addAttribute("id", bookingToBeUpdatedId);
             updatedClientAndBookingInfo.setListOfRiders(bookingService.showOneBookingById(bookingToBeUpdatedId).getListOfRiders());
             model.addAttribute("clientAndBookingInfoToBeUpdated", updatedClientAndBookingInfo);
             model.addAttribute("allRiders", riderService.showAllRiders());
-            model.addAttribute("existingRiderToBeAddedId", new Rider()); // костыль: нужен Id, но положить Id можем только в объект класса
             return "booking/edit";
         }
         Booking bookingToBeUpdated = bookingService.showOneBookingById(bookingToBeUpdatedId);
@@ -97,8 +96,6 @@ public class BookingController {
         clientService.updateClientById(bookingToBeUpdated.getClient().getId(), new Client(updatedClientAndBookingInfo.getSurname(),
                 updatedClientAndBookingInfo.getPhone1(), updatedClientAndBookingInfo.getPhone2()));
 
-        Booking updatedBooking = bookingService.showOneBookingById(bookingToBeUpdatedId);
-        updatedBooking.setDateOfReturn(updatedClientAndBookingInfo.getDateOfReturn());
         bookingService.updateBookingById(bookingToBeUpdatedId, new Booking(bookingToBeUpdated.getClient(),
                 updatedClientAndBookingInfo.getDateOfArrival(), updatedClientAndBookingInfo.getDateOfReturn()));
         return "redirect:/admin/info-booking/edit/{id}";
@@ -133,8 +130,8 @@ public class BookingController {
     //// ----- edit booking info / add existing rider to booking -----
     @PatchMapping("/edit/add-existing-rider/{bid}")
     public String addExistingRiderToBooking(@PathVariable("bid") Long bookingToBeUpdatedId,
-                                            @ModelAttribute("existingRiderToBeAddedId") Rider existingRiderToBeAddedId) {
-        Rider existingRiderToBeAdded = riderService.showOneRiderById(Long.parseLong(existingRiderToBeAddedId.getName())); // костыль: поэтому кладем Id в *{name) (в Id не можем, он автоматически генерируется)
+                                            @ModelAttribute("clientAndBookingInfoToBeUpdated") BookingCreationRequest clientAndBookingInfoToBeUpdated) {
+        Rider existingRiderToBeAdded = riderService.showOneRiderById(clientAndBookingInfoToBeUpdated.getExistingRiderToBeAddedId());
         Booking bookingToBeUpdated = bookingService.showOneBookingById(bookingToBeUpdatedId);
         bookingService.addExistingRiderToBooking(bookingToBeUpdated, existingRiderToBeAdded);
         return "redirect:/admin/info-booking/edit/" + bookingToBeUpdatedId;

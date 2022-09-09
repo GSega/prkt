@@ -32,8 +32,10 @@ public class BookingService {
     }
 
     // ----- add new booking -----
-    public void addNewClientInfoToNewBooking(Booking newBooking, Client newClient) {
+    public void addNewBookingInfoToNewBooking(Booking newBooking, Client newClient, Date dateOfArrival, Date dateOfReturn) {
         newBooking.setClient(newClient);
+        newBooking.setDateOfArrival(dateOfArrival);
+        newBooking.setDateOfReturn(dateOfReturn);
     }
 
     public void addNewBookingToDB(Booking booking) {

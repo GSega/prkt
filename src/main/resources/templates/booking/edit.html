@@ -113,9 +113,9 @@
 <!--Add existing Rider to Booking (через костыль – потом исправить)-->
 <form th:method="PATCH"
       th:action="@{/admin/info-booking/edit/add-existing-rider/{id}(id=${clientAndBookingInfoToBeUpdated.getBookingNumber()})}"
-      th:object="${existingRiderToBeAddedId}">
+      th:object="${clientAndBookingInfoToBeUpdated}">
 
-    <select th:field="*{name}">
+    <select th:field="*{existingRiderToBeAddedId}">
         <option th:each="oneRider : ${allRiders}"
                 th:value="${oneRider.getId()}"
                 th:text="${oneRider.getName()}">?????
