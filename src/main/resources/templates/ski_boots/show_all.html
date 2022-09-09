@@ -68,9 +68,9 @@
         <td th:text="${oneSkiBoots.isAvailable()} ? #{ski_boots.available.true} : #{ski_boots.available.false}">?????</td>
         <!--notice that - #{ski_boots.available.true} is written without th:text=-->
         <!--probably because a String is already expected-->
-        <td th:text="#{${'equipment_condition.' + oneSkiBoots.getCondition()}}">?????</td>
-        <td th:text="#{${'ski_boots.size.' + oneSkiBoots.getSize()}}">?????</td>
-        <td th:text="#{${'ski_boots.stiffness.' + oneSkiBoots.getStiffness()}}">?????</td>
+        <td th:text="${oneSkiBoots.getCondition()}">?????</td>
+        <td th:text="${oneSkiBoots.getSize()}">?????</td>
+        <td th:text="${oneSkiBoots.getStiffness()}">?????</td>
         <td th:width="50"></td>
         <td>
             <a th:href="@{/admin/info-equipment/ski-boots/edit/{id}(id=${oneSkiBoots.getId()})}">

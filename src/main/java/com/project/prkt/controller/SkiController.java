@@ -32,7 +32,7 @@ public class SkiController {
         model.addAttribute("oneSki", skiService.findById(id));
         return "ski/show_one";
     }*/
-
+            //add new
     @GetMapping("/add_new")
     public String addNewSki(Model model) {
        model.addAttribute("ski", new Ski());
@@ -41,47 +41,46 @@ public class SkiController {
     @PostMapping()
     public String sendNewSkiToDatabase(@ModelAttribute("ski") @Valid Ski ski,
                                        BindingResult bindingResult) {
-        if (bindingResult.hasErrors()){
+        /*if (bindingResult.hasErrors()){
             return "ski/add_new";
-        }
+        }*/
 
         skiService.addToDatabase(ski);
         return "redirect:/admin/info_equipment/ski/";
     }
-
+                // edit
     @GetMapping("/edit/{id}")
     public String edit(@PathVariable("id") Long id,  Model model){
         model.addAttribute("ski", skiService.findById(id));
+        model.addAttribute("id", id);
 
         return "ski/edit";
     }
 
-    @PatchMapping("/{id}")
+    @PatchMapping("/edit/{id}")
     public String edit(@PathVariable("id") Long id,
                        @ModelAttribute("ski") @Valid Ski ski,
                        BindingResult bindingResult,
                        Model model){
+        System.out.println("im above ");
         if (bindingResult.hasErrors()){
             model.addAttribute("id", id);
             model.addAttribute("ski", ski);
             return "ski/edit";
         }
+        System.out.println("я below проверкой");
         skiService.updateById(id, ski);
-        return "redirect:/admin/info_equipment/ski";
+        System.out.println("я after saving сохранения");
+        return "redirect:/admin/info_equipment/ski/";
     }
-
+            // delete
     @DeleteMapping("/{id}")
     public String delete(@PathVariable("id") Long id){
         skiService.deleteFromDatabase(id);
         return "redirect:/admin/info_equipment/ski/";
     }
 
-   /* @GetMapping("/search_by_name")
-    public String showSnowboardBootsByPartOfName(Model model, @RequestParam("search") String search) {
-        model.addAttribute("snowboardBootsByName", skiService.findByPartOfName(search));
-        return "ski/search";
-    }
-*/
+
     //    ----- Sorts -----
     @GetMapping("/sort")
     public String sortAllByParameter(@RequestParam("parameter") String parameter,

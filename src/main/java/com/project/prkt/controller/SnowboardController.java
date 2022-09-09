@@ -49,6 +49,7 @@ public class SnowboardController {
         return "redirect:/admin/info-equipment/snowboard";
     }
 
+
     // ----- edit -----
     @GetMapping("/edit/{id}")
     public String showOneSnowboard(@PathVariable("id") Long id, Model model) {

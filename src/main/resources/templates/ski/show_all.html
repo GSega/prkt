@@ -26,8 +26,8 @@
             <td th:text="${oneSki.getName()}"> name</td>
             <td th:text="${oneSki.getSize()}"> size </td>
             <td th:text="${oneSki.isAvailable()} ? #{ski.show_all.table.available.true} : #{ski.show_all.table.available.false}"> avlblty </td>
-            <td th:text="${oneSki.getCondition().name()}"> cond </td>
-            <td th:text="${oneSki.getStiffness().name()}"> stffns </td>
+            <td th:text="${oneSki.getCondition()}"> cond </td>
+            <td th:text="${oneSki.getStiffness()}"> stffns </td>
             <td>
                 <a th:href="@{/admin/info_equipment/ski/edit/{id}(id=${oneSki.getId()})}"> <button th:text="#{ski.show_all.table.header.edit}"> изменить </button> </a>
             </td>
