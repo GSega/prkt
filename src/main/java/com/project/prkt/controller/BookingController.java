@@ -72,10 +72,9 @@ public class BookingController {
         BookingCreationRequest clientAndBookingInfoToBeUpdated = new BookingCreationRequest(
                 clientToBeUpdated.getId(), bookingToBeUpdatedId, clientToBeUpdated.getSurname(),
                 clientToBeUpdated.getPhone1(), clientToBeUpdated.getPhone2(), bookingToBeUpdated.getDateOfArrival(),
-                bookingToBeUpdated.getDateOfReturn(), bookingToBeUpdated.getListOfRiders());
+                bookingToBeUpdated.getDateOfReturn(), bookingToBeUpdated.getListOfRiders(), 0L);
         model.addAttribute("clientAndBookingInfoToBeUpdated", clientAndBookingInfoToBeUpdated);
         model.addAttribute("allRiders", riderService.showAllRiders());
-        model.addAttribute("existingRiderToBeAddedId", new Rider()); // костыль: нужен Id, но положить Id можем только в объект класса
         return "booking/edit";
     }
 
@@ -83,13 +82,11 @@ public class BookingController {
     public String updateBookingById(@PathVariable("id") Long bookingToBeUpdatedId,
                                     @ModelAttribute("clientAndBookingInfoToBeUpdated") @Valid BookingCreationRequest updatedClientAndBookingInfo,
                                     BindingResult bindingResult, Model model) {
-        System.out.println(updatedClientAndBookingInfo);
         if (bindingResult.hasErrors()) {
             model.addAttribute("id", bookingToBeUpdatedId);
             updatedClientAndBookingInfo.setListOfRiders(bookingService.showOneBookingById(bookingToBeUpdatedId).getListOfRiders());
             model.addAttribute("clientAndBookingInfoToBeUpdated", updatedClientAndBookingInfo);
             model.addAttribute("allRiders", riderService.showAllRiders());
-            model.addAttribute("existingRiderToBeAddedId", new Rider()); // костыль: нужен Id, но положить Id можем только в объект класса
             return "booking/edit";
         }
         Booking bookingToBeUpdated = bookingService.showOneBookingById(bookingToBeUpdatedId);
@@ -133,8 +130,8 @@ public class BookingController {
     //// ----- edit booking info / add existing rider to booking -----
     @PatchMapping("/edit/add-existing-rider/{bid}")
     public String addExistingRiderToBooking(@PathVariable("bid") Long bookingToBeUpdatedId,
-                                            @ModelAttribute("existingRiderToBeAddedId") Rider existingRiderToBeAddedId) {
-        Rider existingRiderToBeAdded = riderService.showOneRiderById(Long.parseLong(existingRiderToBeAddedId.getName())); // костыль: поэтому кладем Id в *{name) (в Id не можем, он автоматически генерируется)
+                                            @ModelAttribute("clientAndBookingInfoToBeUpdated") BookingCreationRequest clientAndBookingInfoToBeUpdated) {
+        Rider existingRiderToBeAdded = riderService.showOneRiderById(clientAndBookingInfoToBeUpdated.getExistingRiderToBeAddedId());
         Booking bookingToBeUpdated = bookingService.showOneBookingById(bookingToBeUpdatedId);
         bookingService.addExistingRiderToBooking(bookingToBeUpdated, existingRiderToBeAdded);
         return "redirect:/admin/info-booking/edit/" + bookingToBeUpdatedId;

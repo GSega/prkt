@@ -27,11 +27,13 @@ public class BookingCreationRequest {
     @NotNull(message = "{client.message.invalid_date}")
     private Date dateOfReturn;
     private List<Rider> listOfRiders;
+    private Long existingRiderToBeAddedId;
 
     public BookingCreationRequest() {
     }
 
-    public BookingCreationRequest(Long clientNumber, Long bookingNumber, String surname, String phone1, String phone2, Date dateOfArrival, Date dateOfReturn, List<Rider> listOfRiders) {
+    public BookingCreationRequest(Long clientNumber, Long bookingNumber, String surname, String phone1, String phone2,
+                                  Date dateOfArrival, Date dateOfReturn, List<Rider> listOfRiders, Long existingRiderToBeAddedId) {
         this.clientNumber = clientNumber;
         this.bookingNumber = bookingNumber;
         this.surname = surname;
@@ -40,6 +42,7 @@ public class BookingCreationRequest {
         this.dateOfArrival = dateOfArrival;
         this.dateOfReturn = dateOfReturn;
         this.listOfRiders = listOfRiders;
+        this.existingRiderToBeAddedId = existingRiderToBeAddedId;
     }
 
     public Long getClientNumber() {
@@ -106,17 +109,11 @@ public class BookingCreationRequest {
         this.listOfRiders = listOfRiders;
     }
 
-    @Override
-    public String toString() {
-        return "BookingCreationRequest{" +
-                "clientNumber=" + clientNumber +
-                ", bookingNumber=" + bookingNumber +
-                ", surname='" + surname + '\'' +
-                ", phone1='" + phone1 + '\'' +
-                ", phone2='" + phone2 + '\'' +
-                ", dateOfArrival=" + dateOfArrival +
-                ", dateOfReturn=" + dateOfReturn +
-                ", listOfRiders=" + listOfRiders +
-                '}';
+    public Long getExistingRiderToBeAddedId() {
+        return existingRiderToBeAddedId;
+    }
+
+    public void setExistingRiderToBeAddedId(Long existingRiderToBeAddedId) {
+        this.existingRiderToBeAddedId = existingRiderToBeAddedId;
     }
 }

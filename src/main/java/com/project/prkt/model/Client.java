@@ -2,6 +2,7 @@ package com.project.prkt.model;
 
 import javax.persistence.*;
 import javax.validation.constraints.*;
+import java.util.List;
 
 /**
  * @author Nikolai Khriapov
@@ -19,8 +20,8 @@ public class Client {
     @Pattern(regexp = "[\\d]\\([\\d]{3}\\)[\\d]{3}-[\\d]{2}-[\\d]{2}", message = "{client.message.invalid_phone_number}")
     private String phone1;
     private String phone2;
-    @OneToOne(mappedBy = "client")
-    private Booking booking;
+    @OneToMany(mappedBy = "client")
+    private List<Booking> listOfBookings;
 
     public Client() {
     }
