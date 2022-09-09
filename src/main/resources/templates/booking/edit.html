@@ -117,7 +117,7 @@
 
     <select th:field="*{existingRiderToBeAddedId}">
         <option th:each="oneRider : ${allRiders}"
-                th:value="${oneRider.getId()}"
+                th:value="${oneRider.getId().toString()}"
                 th:text="${oneRider.getName()}">?????
         </option>
     </select>
