@@ -4,6 +4,7 @@ import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import java.util.Objects;
+import java.util.ResourceBundle;
 
 @Entity
 @Table
@@ -14,15 +15,19 @@ public class SkiBoots extends Equipment {
         SOFT(),
         MEDIUM(),
         HARD(),
-        /* uncomment after adding to resource bundles
         s40(),
         s50(),
         s60(),
         s70(),
         s80(),
         s90(),
-        s100(),
-        */
+        s100();
+
+        private final static ResourceBundle resourceBundle = ResourceBundle.getBundle("ski_boots");
+
+        public String toString() {
+            return resourceBundle.getString("ski_boots.stiffness." + name());
+        }
     }
 
     public enum Size {
@@ -37,14 +42,20 @@ public class SkiBoots extends Equipment {
         RU44_EU45_MM295,
         RU45_EU46_MM305,
         RU46_EU47_MM315,
-        JUNIOR26_MM165,
-        JUNIOR28_MM175,
-        JUNIOR30_MM185,
-        JUNIOR31_MM195,
-        JUNIOR32_MM205,
-        JUNIOR33_MM210,
-        JUNIOR34_MM215,
-        JUNIOR35_MM225
+        JUNIOR_26_MM165,
+        JUNIOR_28_MM175,
+        JUNIOR_30_MM185,
+        JUNIOR_31_MM195,
+        JUNIOR_32_MM205,
+        JUNIOR_33_MM210,
+        JUNIOR_34_MM215,
+        JUNIOR_35_MM225;
+
+        private final static ResourceBundle resourceBundle = ResourceBundle.getBundle("ski_boots");
+
+        public String toString() {
+            return resourceBundle.getString("ski_boots.size." + name());
+        }
     }
 
     @Id

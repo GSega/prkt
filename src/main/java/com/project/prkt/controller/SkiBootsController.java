@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.*;
 import javax.validation.Valid;
 
 
-@Controller
+@RestController
 @RequestMapping("/admin/info-equipment/ski-boots")
 public class SkiBootsController {
     private final SkiBootsService skiBootsService;
@@ -23,6 +23,7 @@ public class SkiBootsController {
     public String showAllSkiBoots(Model model){
         model.addAttribute("allSkiBoots", skiBootsService.showAllSkiBoots());
         return "ski_boots/show_all";
+
     }
     //add new. view
     @GetMapping("/add-new")
@@ -51,8 +52,11 @@ public class SkiBootsController {
     @PatchMapping("/{id}")
     public String updateSkiBoots(@PathVariable("id") Long id,
                                  @ModelAttribute("skiBootsToUpdate") @Valid SkiBoots updatedSkiBoots,
-                                 BindingResult bindingResult) {
+                                 BindingResult bindingResult,
+                                 Model model) {
         if (bindingResult.hasErrors()){
+            model.addAttribute("id", id);
+            model.addAttribute("skiBootsToUpdate", updatedSkiBoots);
             return "ski_boots/edit";
         }
         skiBootsService.updateSkiBootsById(id, updatedSkiBoots);

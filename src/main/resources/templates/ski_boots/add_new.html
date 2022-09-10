@@ -49,7 +49,8 @@
             <td>
                 <select name="size">
                     <option th:each="i : ${T(com.project.prkt.model.SkiBoots.Size).values()}"
-                            th:value="${i.name}" th:text="#{${'ski_boots.size.' + i}}">?????
+                            th:value="${i.name()}"
+                            th:text="#{${'ski_boots.size.' + i}}">?????
                     </option>
                 </select>
             </td>
@@ -59,7 +60,7 @@
             <td>
                 <select name="stiffness">
                     <option th:each="i : ${T(com.project.prkt.model.SkiBoots.Stiffness).values()}"
-                            th:value="${i.name}"
+                            th:value="${i.name()}"
                             th:text="#{${'ski_boots.stiffness.' + i}}">?????
                     </option>
                 </select>

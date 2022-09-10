@@ -12,7 +12,7 @@ import javax.validation.Valid;
 
 
 @Controller
-@RequestMapping("/admin/info_equipment/ski")
+@RequestMapping("/admin/info-equipment/ski")
 public class SkiController {
     private final SkiService skiService;
 
@@ -33,20 +33,20 @@ public class SkiController {
         return "ski/show_one";
     }*/
             //add new
-    @GetMapping("/add_new")
+    @GetMapping("/add-new")
     public String addNewSki(Model model) {
        model.addAttribute("ski", new Ski());
        return "ski/add_new";
     }
     @PostMapping()
-    public String sendNewSkiToDatabase(@ModelAttribute("ski") @Valid Ski ski,
+    public String sendNewSkiToDatabase(@Valid @ModelAttribute("ski")  Ski ski,
                                        BindingResult bindingResult) {
-        /*if (bindingResult.hasErrors()){
+        if (bindingResult.hasErrors()) {
             return "ski/add_new";
-        }*/
+        }
 
         skiService.addToDatabase(ski);
-        return "redirect:/admin/info_equipment/ski/";
+        return "redirect:/admin/info-equipment/ski";
     }
                 // edit
     @GetMapping("/edit/{id}")
@@ -57,27 +57,24 @@ public class SkiController {
         return "ski/edit";
     }
 
-    @PatchMapping("/edit/{id}")
+    @PatchMapping("/{id}")
     public String edit(@PathVariable("id") Long id,
                        @ModelAttribute("ski") @Valid Ski ski,
                        BindingResult bindingResult,
                        Model model){
-        System.out.println("im above ");
         if (bindingResult.hasErrors()){
             model.addAttribute("id", id);
             model.addAttribute("ski", ski);
             return "ski/edit";
         }
-        System.out.println("я below проверкой");
         skiService.updateById(id, ski);
-        System.out.println("я after saving сохранения");
-        return "redirect:/admin/info_equipment/ski/";
+        return "redirect:/admin/info-equipment/ski/";
     }
             // delete
     @DeleteMapping("/{id}")
     public String delete(@PathVariable("id") Long id){
         skiService.deleteFromDatabase(id);
-        return "redirect:/admin/info_equipment/ski/";
+        return "redirect:/admin/info-equipment/ski/";
     }
 
 
@@ -90,7 +87,7 @@ public class SkiController {
         return "ski/show_all";
     }
 
-    @GetMapping("/search_by_name")
+    @GetMapping("/search-by-name")
     public String skiByPartOfName(Model model, @RequestParam("search") String search) {
         model.addAttribute("skiByName", skiService.findByPartOfName(search));
         return "ski/search";

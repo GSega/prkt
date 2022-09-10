@@ -2,35 +2,34 @@ package com.project.prkt.model;
 
 
 import javax.persistence.*;
+import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.Size;
 import java.util.ResourceBundle;
 import java.util.Objects;
-import com.project.prkt.model.EquipmentCondition;
+import java.util.ResourceBundle;
 
 @Entity
 @Table
 public class Ski extends Equipment{
     public enum Stiffness {
-        UNKNOWN("Н.У."),
-        SOFT("мягкие"),
-        MEDIUM ("средней жесткости"),
-        HARD("жесткие");
+        UNKNOWN,
+        SOFT,
+        MEDIUM,
+        HARD;
 
-        private final String displayValue;
-        Stiffness(String displayValue){
-            this.displayValue = displayValue;
+        private final static ResourceBundle resourceBundle = ResourceBundle.getBundle("ski");
+
+        public String toString() {
+            return resourceBundle.getString("ski.stiffness." + name());
+        }
         }
 
-        public String getDisplayValue() {
-            return displayValue;
-        }
-    }
-    //public enum Size {} //вряд ли будет полезно делать Size через enum
     @Id
     @SequenceGenerator(name = "sequence", sequenceName = "sequence", allocationSize = 1)
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "sequence")
     private Long id;
-    @Size(min = 3, max = 30, message = "Имя должно содержать от 3 до 30 символов")
+    //@NotEmpty(message = "type something!")
+    @Size(min = 3, max = 30, message = "{ski.message.invalid_name}")
     private String name;
     private boolean available;
     private EquipmentCondition condition;
