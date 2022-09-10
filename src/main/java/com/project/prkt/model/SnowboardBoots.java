@@ -1,7 +1,6 @@
 package com.project.prkt.model;
 
 import javax.persistence.*;
-import java.util.Objects;
 import java.util.ResourceBundle;
 
 /**
@@ -9,7 +8,6 @@ import java.util.ResourceBundle;
  */
 
 @Entity
-@Table
 public class SnowboardBoots extends Equipment {
     public enum Stiffness {
         UNKNOWN(),
@@ -123,28 +121,14 @@ public class SnowboardBoots extends Equipment {
     }
 
     @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        SnowboardBoots that = (SnowboardBoots) o;
-        return id.equals(that.id) && available == that.available &&
-                name.equals(that.name) && condition == that.condition &&
-                size == that.size && stiffness == that.stiffness;
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(id, name, available, condition, size, stiffness);
-    }
-
-    @Override
     public String toString() {
-        return "Snowboard Boots -> " +
-                "id: " + id +
-                ", name: " + name +
-                ", available: " + (available ? "available" : "not available") +
-                ", condition: " + condition.toString() +
-                ", size: " + size.toString() +
-                ", stiffness: " + stiffness.toString();
+        return "SnowboardBoots{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", available=" + available +
+                ", condition=" + condition +
+                ", size=" + size +
+                ", stiffness=" + stiffness +
+                '}';
     }
 }

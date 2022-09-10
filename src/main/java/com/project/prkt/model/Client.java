@@ -59,4 +59,15 @@ public class Client {
     public void setPhone2(String phone2) {
         this.phone2 = phone2;
     }
+
+    @Override
+    public String toString() {
+        return "Client{" +
+                "id=" + id +
+                ", surname='" + surname + '\'' +
+                ", phone1='" + phone1 + '\'' +
+                ", phone2='" + phone2 + '\'' +
+                ", listOfBookings=" + listOfBookings +
+                '}';
+    }
 }

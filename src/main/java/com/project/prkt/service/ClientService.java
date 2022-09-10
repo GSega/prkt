@@ -2,6 +2,7 @@ package com.project.prkt.service;
 
 import com.project.prkt.model.Client;
 import com.project.prkt.repository.ClientRepository;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
@@ -17,6 +18,7 @@ public class ClientService {
 
     private final ClientRepository clientRepository;
 
+    @Autowired
     public ClientService(ClientRepository clientRepository) {
         this.clientRepository = clientRepository;
     }

@@ -10,7 +10,6 @@ import java.util.ResourceBundle;
  */
 
 @Entity
-@Table
 public class Snowboard extends Equipment {
     enum Stiffness {
         UNKNOWN,
@@ -135,14 +134,15 @@ public class Snowboard extends Equipment {
 
     @Override
     public String toString() {
-        return "Snowboard -> " +
-                "id: " + id +
-                ", name: '" + name +
-                ", available: " + (available ? "available" : "not available") +
-                ", condition: " + condition.toString() +
-                ", size: " + size +
-                ", stiffness: " + stiffness.toString() +
-                ", arch: " + arch.toString() +
-                ", bindingSize: " + bindingSize.toString();
+        return "Snowboard{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", available=" + available +
+                ", condition=" + condition +
+                ", size='" + size + '\'' +
+                ", stiffness=" + stiffness +
+                ", arch=" + arch +
+                ", bindingSize=" + bindingSize +
+                '}';
     }
 }

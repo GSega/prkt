@@ -5,19 +5,17 @@
 - Spring Core
 - Spring Boot
 - Spring MVC
-- Spring JPA
-- RESTful API (?)
+- Spring Data JPA
 - Maven
 - PostgreSQL
-- HTML, Thymeleaf
+- Thymeleaf
 - Git
 
 ### Software:
 - Java 17
 - JDK 18.0.1
-- Spring Framework 5.3.22
+- Spring 5.3.22
 - Spring Boot 2.7.3
 - IntelliJ IDEA 2022.2.1
 - PostgreSQL server
-- (Postman)
 - Google Chrome

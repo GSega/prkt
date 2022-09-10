@@ -10,7 +10,6 @@ import java.util.*;
  */
 
 @Entity
-@Table
 public class Booking {
 
     @Id
@@ -89,5 +88,17 @@ public class Booking {
             listOfRiders = new ArrayList<>();
         }
         this.listOfRiders.add(rider);
+    }
+
+    @Override
+    public String toString() {
+        return "Booking{" +
+                "id=" + id +
+                ", client=" + client +
+                ", dateOfArrival=" + dateOfArrival +
+                ", dateOfReturn=" + dateOfReturn +
+                ", completed=" + completed +
+                ", listOfRiders=" + listOfRiders +
+                '}';
     }
 }
