@@ -62,11 +62,13 @@ public class SkiController {
                        @ModelAttribute("ski") @Valid Ski ski,
                        BindingResult bindingResult,
                        Model model){
+        System.out.println("im above ");
         if (bindingResult.hasErrors()){
             model.addAttribute("id", id);
             model.addAttribute("ski", ski);
             return "ski/edit";
         }
+        System.out.println("я below проверкой");
         skiService.updateById(id, ski);
         return "redirect:/admin/info-equipment/ski/";
     }

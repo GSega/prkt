@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <title th:text="#{ski.edit.title}">Edit Ski</title>
 </head>
-<body>
+<body  th:align="center">
 <form th:method="PATCH"
       th:action="@{/admin/info-equipment/ski/{id}(id=${id})}"
       th:object="${ski}">

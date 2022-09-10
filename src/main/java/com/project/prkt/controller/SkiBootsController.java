@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.*;
 import javax.validation.Valid;
 
 
-@RestController
+@Controller
 @RequestMapping("/admin/info-equipment/ski-boots")
 public class SkiBootsController {
     private final SkiBootsService skiBootsService;

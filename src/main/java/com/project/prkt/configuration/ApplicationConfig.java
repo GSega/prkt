@@ -45,7 +45,7 @@ public class ApplicationConfig implements WebMvcConfigurer {
                 "classpath:/equipment_condition",
                 "classpath:/snowboard_boots",
                 "classpath:/snowboard",
-                "classpath:/ski",
+                "classpath:/xski",
                 "classpath:/ski_boots"
 
         );
