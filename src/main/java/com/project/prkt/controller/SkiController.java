@@ -39,14 +39,14 @@ public class SkiController {
        return "ski/add_new";
     }
     @PostMapping()
-    public String sendNewSkiToDatabase(@ModelAttribute("ski") @Valid Ski ski,
+    public String sendNewSkiToDatabase(@Valid @ModelAttribute("ski")  Ski ski,
                                        BindingResult bindingResult) {
-        /*if (bindingResult.hasErrors()){
+        if (bindingResult.hasErrors()) {
             return "ski/add_new";
-        }*/
+        }
 
         skiService.addToDatabase(ski);
-        return "redirect:/admin/info_equipment/ski/";
+        return "redirect:/admin/info_equipment/ski";
     }
                 // edit
     @GetMapping("/edit/{id}")
