@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title th:text="#{ski_boots.show_all.title}">Ski Boots</title>
+</head>
+<body th:align="center">
+
+<!--Header-->
+<h1 th:text="#{ski_boots.show_all.header}">Список всех лыжных ботинок</h1>
+
+<!--Language-->
+<p>
+    <a th:href="@{/admin/info-equipment/ski-boots(lang=ru)}" th:text="Русский">?????</a>
+    <a th:href="@{/admin/info-equipment/ski-boots(lang=en)}" th:text="English">?????</a>
+</p>
+
+<br/>
+
+<!--Search-->
+<form th:method="GET"
+      th:action="@{/admin/info-equipment/ski-boots/search-by-name}">
+
+    <input th:type="text" name="partOfName"
+           th:placeholder="#{ski_boots.show_all.search_placeholder}" style="width:200px"/>
+
+    <input type="submit" th:value="#{ski_boots.show_all.search_button}"/>
+</form>
+
+<br/><br/>
+
+<!--Table-->
+<table th:align="center"
+       th:border="1" th:rules="rows"
+       th:cellpadding="5">
+    <tr>
+        <th>
+            <a th:href="@{'/admin/info-equipment/ski-boots/sort?parameter=id&sortDirection=' + ${reverseSortDirection}}"
+               th:text="#{ski_boots.show_all.table.header.id}">ID</a>
+        </th>
+        <th>
+            <a th:href="@{'/admin/info-equipment/ski-boots/sort?parameter=name&sortDirection=' + ${reverseSortDirection}}"
+               th:text="#{ski_boots.show_all.table.header.name}">Название</a>
+        </th>
+        <th>
+            <a th:href="@{'/admin/info-equipment/ski-boots/sort?parameter=available&sortDirection=' + ${reverseSortDirection}}"
+               th:text="#{ski_boots.show_all.table.header.available}">Доступность</a>
+        </th>
+        <th>
+            <a th:href="@{'/admin/info-equipment/ski-boots/sort?parameter=condition&sortDirection=' + ${reverseSortDirection}}"
+               th:text="#{ski_boots.show_all.table.header.condition}">Состояние</a>
+        </th>
+        <th>
+            <a th:href="@{'/admin/info-equipment/ski-boots/sort?parameter=size&sortDirection=' + ${reverseSortDirection}}"
+               th:text="#{ski_boots.show_all.table.header.size}">Размер</a>
+        </th>
+        <th>
+            <a th:href="@{'/admin/info-equipment/ski-boots/sort?parameter=stiffness&sortDirection=' + ${reverseSortDirection}}"
+               th:text="#{ski_boots.show_all.table.header.stiffness}">Жесткость</a>
+        </th>
+        <th></th>
+    </tr>
+    <tr th:each="oneSkiBoots : ${allSkiBoots}">
+        <td th:text="${oneSkiBoots.getId()}">id</td>
+        <td th:align="left"
+            th:text="${oneSkiBoots.getName()}"> title
+        </td>
+        <td th:text="${oneSkiBoots.isAvailable()} ? #{ski_boots.available.true} : #{ski_boots.available.false}">avlbl</td>
+        <!--notice that - #{ski_boots.available.true} is written without th:text=-->
+        <!--probably because a String is already expected-->
+        <td th:text="#{${'equipment_condition.' + oneSkiBoots.getCondition()}}">cond</td>
+        <td th:text="#{${'ski_boots.size.' + oneSkiBoots.getSize()}}">sie</td>
+        <td th:text="#{${'ski_boots.stiffness.' + oneSkiBoots.getStiffness()}}">stfns</td>
+        <td th:width="50"></td>
+        <td>
+            <a th:href="@{/admin/info-equipment/ski-boots/edit/{id}(id=${oneSkiBoots.getId()})}">
+                <button th:text="#{ski_boots.show_all.table.button.edit}">edit</button>
+            </a>
+        </td>
+        <td>
+            <form th:method="DELETE" th:action="@{/admin/info-equipment/ski-boots/{id}(id=${oneSkiBoots.getId()})}">
+                <input type="submit" th:value="#{ski_boots.show_all.table.button.delete}"/>
+            </form>
+        </td>
+    </tr>
+</table>
+
+<br/>
+
+<!--Add new-->
+<a href="/admin/info-equipment/ski-boots/add-new">
+    <button th:text="#{ski_boots.show_all.button.add_new}">?????</button>
+</a>
+
+</body>
+</html>

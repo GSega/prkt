@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title th:text="#{ski.edit.title}">Edit Ski</title>
+</head>
+<body  th:align="center">
+<form th:method="PATCH"
+      th:action="@{/admin/info-equipment/ski/{id}(id=${id})}"
+      th:object="${ski}">
+
+    <table th:align="center"
+           th:border="1" th:rules="rows"
+           th:cellpadding="5">
+        <tr>
+            <td th:text="#{ski.edit.table.param}"> Параметр </td>
+            <td th:text="#{ski.edit.table.input}"> Значение </td>
+        </tr>
+        <tr>
+            <td th:text="#{ski.edit.table.name}"> <label for="name"> Название </label> </td>
+            <td> <input type="text" th:field="*{name}" id="name"/> <!--тут не надо th на атрибуте type-->
+
+                <div style="color:#9a0a0a" th:if="${#fields.hasErrors('name')}" th:errors="*{name}">Name error</div>
+
+            </td>
+        </tr>
+        <tr>
+            <td  th:text="#{ski.edit.table.rostovka}"> <label for="size"> Ростовка </label> </td>
+            <td> <input type="text" th:field="*{size}" id="size"/> <!--тут не надо th на атрибуте type-->
+            </td>
+        </tr>
+        <tr>
+            <td  th:text="#{ski.edit.table.available}">  доступно </td>
+            <td> <select th:field="*{available}" >
+                        <option th:value="1"> <a th:text="#{ski.edit.table.available.true}"/> свободно</option>
+                        <option th:value="0"> <a th:text="#{ski.edit.table.available.false}"/> катается</option>
+                  </select>
+        </td>
+        </tr>
+        <tr>
+            <td  th:text="#{ski.edit.table.condition}"> состояние </td>
+            <td> <select name="condition">
+                        <option th:each="i : ${T(com.project.prkt.model.EquipmentCondition).values()}"
+                                th:value="${i.name()}"
+                                th:text="#{${'equipment_condition.' + i}}" > condition should be here </option>
+                </select>
+            </td>
+        </tr>
+        <tr>
+            <td  th:text="#{ski.edit.table.stiffness}"> Жесткость </td>
+            <td>
+                <select name = "stiffness">
+                        <option th:each="i : ${T(com.project.prkt.model.Ski.Stiffness).values()}"
+                                th:value="${i.name()}"
+                                th:text="#{${'ski.stiffness.' + i}}"> stiffness should be here </option>
+                </select>
+            </td>
+        </tr>
+
+
+    </table>
+    <input type="submit" th:value="#{ski.edit.table.editbutton}"/>
+</form>
+
+<br/>
+
+<a href="/admin/info-equipment/ski/"> <button th:text="#{ski.edit.button.return}"> return to ski </button></a>
+
+</body>
+</html>
