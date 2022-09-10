@@ -2,6 +2,7 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
+    <meta name="author" content="Nikolai Khriapov">
     <title th:text="#{snowboard.edit.title}">?????</title>
 </head>
 <body th:align="center">
@@ -11,7 +12,7 @@
 
 <!--Input parameters-->
 <form th:method="PATCH"
-      th:action="@{/admin/info-equipment/snowboard/{id}(id=${snowboardToUpdate.getId()})}"
+      th:action="@{/admin/info-equipment/snowboard/edit/{id}(id=${id})}"
       th:object="${snowboardToUpdate}">
 
     <table th:align="center" style="text-align:left"
@@ -35,11 +36,11 @@
         <tr>
             <td th:text="#{snowboard.edit.field.condition}">?????</td>
             <td>
-                <select name="condition">         <!-- name is needed, otherwise won't display properly in the table -->
-                                                  <!-- must be named as the class field (camelCase) -->
+                <select th:field="*{condition}">
                     <option th:each="i : ${T(com.project.prkt.model.EquipmentCondition).values()}"
                             th:value="${i.name()}"
-                            th:text="#{${'equipment_condition.' + i}}">?????
+                            th:text="#{${'equipment_condition.' + i}}"
+                            th:selected="${snowboardToUpdate.getCondition()}">?????
                     </option>
                 </select>
             </td>
@@ -54,10 +55,11 @@
         <tr>
             <td th:text="#{snowboard.edit.field.stiffness}">?????</td>
             <td>
-                <select name="stiffness">
+                <select th:field="*{stiffness}">
                     <option th:each="i : ${T(com.project.prkt.model.Snowboard.Stiffness).values()}"
                             th:value="${i.name()}"
-                            th:text="#{${'snowboard.stiffness.' + i}}">?????
+                            th:text="#{${'snowboard.stiffness.' + i}}"
+                            th:selected="${snowboardToUpdate.getCondition()}">?????
                     </option>
                 </select>
             </td>
@@ -65,10 +67,11 @@
         <tr>
             <td th:text="#{snowboard.edit.field.arch}">?????</td>
             <td>
-                <select name="arch">
+                <select th:field="*{arch}">
                     <option th:each="i : ${T(com.project.prkt.model.Snowboard.Arch).values()}"
                             th:value="${i.name()}"
-                            th:text="#{${'snowboard.arch.' + i}}">?????
+                            th:text="#{${'snowboard.arch.' + i}}"
+                            th:selected="${snowboardToUpdate.getCondition()}">?????
                     </option>
                 </select>
             </td>
@@ -76,10 +79,11 @@
         <tr>
             <td th:text="#{snowboard.edit.field.binding_size}">?????</td>
             <td>
-                <select name="bindingSize">
+                <select th:field="*{bindingSize}">
                     <option th:each="i : ${T(com.project.prkt.model.Snowboard.BindingSize).values()}"
                             th:value="${i}"
-                            th:text="${i}">?????
+                            th:text="${i}"
+                            th:selected="${snowboardToUpdate.getCondition()}">?????
                     </option>
                 </select>
             </td>
@@ -93,9 +97,14 @@
 
 <br/>
 
-<!--Return to "snowboard/show_all"-->
-<a href="/admin/info-equipment/snowboard/">
-    <button th:text="#{snowboard.edit.button.return}">?????</button>
+<!--Return to "/admin/info-equipment/snowboard"-->
+<a href="/admin/info-equipment/snowboard">
+    <button th:text="#{snowboard.edit.button.go_to_snowboards}">?????</button>
+</a>
+
+<!--Return to "/admin"-->
+<a href="/admin">
+    <button th:text="#{snowboard.edit.button.go_to_main}">?????</button>
 </a>
 
 </body>

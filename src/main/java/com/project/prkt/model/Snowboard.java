@@ -3,7 +3,6 @@ package com.project.prkt.model;
 import javax.persistence.*;
 import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
-import java.util.Objects;
 import java.util.ResourceBundle;
 
 /**
@@ -11,8 +10,7 @@ import java.util.ResourceBundle;
  */
 
 @Entity
-@Table
-public class Snowboard {
+public class Snowboard extends Equipment {
     enum Stiffness {
         UNKNOWN,
         SOFT,
@@ -55,17 +53,16 @@ public class Snowboard {
     private String name;
     private boolean available;
     private EquipmentCondition condition;
-    @Pattern(regexp="(1[0-6][0-9]|170)([w|W]?)", message = "{snowboard.message.invalid_size}")
+    @Pattern(regexp = "(1[0-6][0-9]|170)([w|W]?)", message = "{snowboard.message.invalid_size}")
     private String size;
     private Stiffness stiffness;
     private Arch arch;
     private BindingSize bindingSize;
 
-    public Snowboard() {}
+    public Snowboard() {
+    }
 
-    public Snowboard(Long id, String name, Boolean available, EquipmentCondition condition, String size,
-                     Stiffness stiffness, Arch arch, BindingSize bindingSize) {
-        this.id = id;
+    public Snowboard(String name, boolean available, EquipmentCondition condition, String size, Stiffness stiffness, Arch arch, BindingSize bindingSize) {
         this.name = name;
         this.available = available;
         this.condition = condition;
@@ -136,28 +133,16 @@ public class Snowboard {
     }
 
     @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        Snowboard snowboard = (Snowboard) o;
-        return available == snowboard.available && id.equals(snowboard.id) && name.equals(snowboard.name) && condition == snowboard.condition && size.equals(snowboard.size) && stiffness == snowboard.stiffness && arch == snowboard.arch && bindingSize == snowboard.bindingSize;
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(id, name, available, condition, size, stiffness, arch, bindingSize);
-    }
-
-    @Override
     public String toString() {
-        return "Snowboard -> " +
-                "id: " + id +
-                ", name: '" + name +
-                ", available: " + (available ? "available" : "not available") +
-                ", condition: " + condition.toString() +
-                ", size: " + size +
-                ", stiffness: " + stiffness.toString() +
-                ", arch: " + arch.toString() +
-                ", bindingSize: " + bindingSize.toString();
+        return "Snowboard{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", available=" + available +
+                ", condition=" + condition +
+                ", size='" + size + '\'' +
+                ", stiffness=" + stiffness +
+                ", arch=" + arch +
+                ", bindingSize=" + bindingSize +
+                '}';
     }
 }

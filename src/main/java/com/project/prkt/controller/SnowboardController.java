@@ -53,15 +53,18 @@ public class SnowboardController {
     // ----- edit -----
     @GetMapping("/edit/{id}")
     public String showOneSnowboard(@PathVariable("id") Long id, Model model) {
+        model.addAttribute("id", id);
         model.addAttribute("snowboardToUpdate", snowboardService.showOneSnowboardById(id));
         return "snowboard/edit";
     }
 
-    @PatchMapping("/{id}")
+    @PatchMapping("/edit/{id}")
     public String updateSnowboard(@PathVariable("id") Long id,
-                                @ModelAttribute("oneSnowboard") @Valid Snowboard updatedSnowboard,
-                                BindingResult bindingResult) {
+                                  @ModelAttribute("snowboardToUpdate") @Valid Snowboard updatedSnowboard,
+                                  BindingResult bindingResult, Model model) {
         if (bindingResult.hasErrors()) {
+            model.addAttribute("id", id);
+            model.addAttribute("snowboardToUpdate", updatedSnowboard);
             return "snowboard/edit";
         }
         snowboardService.updateSnowboardById(id, updatedSnowboard);
@@ -79,6 +82,7 @@ public class SnowboardController {
     @GetMapping("/search-by-name")
     public String showSnowboardsByPartOfName(@RequestParam("partOfName") String partOfName, Model model) {
         model.addAttribute("snowboardsByPartOfName", snowboardService.showSnowboardsByPartOfName(partOfName));
+        model.addAttribute("partOfName", partOfName);
         return "snowboard/search";
     }
 

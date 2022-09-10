@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="author" content="Sergei Gavrilov">
+    <meta name="author" content="Nikolai Khriapov">
+    <title>Admin</title>
+</head>
+
+<body th:align="center"
+      style="background:peachpuff">
+<h1>Administrator main page</h1>
+здесь будет:<br>
+<nav>
+    <a href="/admin/info-equipment/">
+        <button> Талицы оборудования</button>
+    </a>
+    <a href="/admin/info-clients">
+        <button> Талица о клиентах</button>
+    </a>
+    <a href="/admin/info-riders">
+        <button> Список райдеров</button>
+    </a>
+    <a href="/admin/info-booking">
+        <button> Сведения о заказах</button>
+    </a> <br>
+</nav>
+<hr>
+<br>
+
+<a href="admin/show-today">
+    <button> Заказы на сегодня</button>
+</a>
+<a href="admin/show-tomorrow">
+    <button> Заказы на завтра</button>
+</a> <br>
+<br>
+
+<!--таблица [Неукомплектованные заказы]-->
+
+<!--<table border="1"-->
+<!--       style="background: lemonchiffon"-->
+<!--       th:cellpadding="10">-->
+<!--    <caption>Неукомплектованные заказы</caption>-->
+<!--    <tr>-->
+<!--        <th>ID</th>-->
+<!--        <th>Фамилия</th>-->
+<!--        <th>тел осн</th>-->
+<!--        <th>тел 2</th>-->
+<!--        <th>когода приедут</th>-->
+<!--        <th>на сколько берут</th>-->
+<!--        <th>количество райдеров</th>-->
+<!--    </tr>-->
+<!--    <tr>-->
+
+<!--    </tr>-->
+<!--</table>-->
+
+<!--Таблица с неукомплектованными заказами-->
+<h2 th:text="#{admin.main_page.table.h2}" th:align="center">?????</h2>
+
+<table th:align="center"
+       th:border="1" th:rules="rows"
+       th:cellpadding="5">
+    <tr>
+        <th><a th:text="#{admin.main_page.table.header.id}">?????</a></th>
+        <th><a th:text="#{admin.main_page.table.header.booking_surname}">?????</a></th>
+        <th><a th:text="#{admin.main_page.table.header.phone1}">?????</a></th>
+        <th><a th:text="#{admin.main_page.table.header.phone2}">?????</a></th>
+        <th><a th:text="#{admin.main_page.table.header.date_of_arrival}">?????</a></th>
+        <th><a th:text="#{admin.main_page.table.header.date_of_return}">?????</a></th>
+        <th><a th:text="#{admin.main_page.table.header.number_of_riders}">?????</a></th>
+        <th></th>
+    </tr>
+    <tr th:each="oneBooking : ${allBookings}">
+        <td th:text="${oneBooking.getId()}">?????</td>
+        <td th:text="${oneBooking.getClient().getSurname()}" th:align="left">?????</td>
+        <td th:text="${oneBooking.getClient().getPhone1()}">?????</td>
+        <td th:text="${oneBooking.getClient().getPhone2()}">?????</td>
+        <td th:text="${#dates.format(oneBooking.getDateOfArrival(), 'dd MMM yyyy')}"></td>
+        <td th:text="${#dates.format(oneBooking.getDateOfReturn(), 'dd MMM yyyy')}"></td>
+        <td th:text="${oneBooking.getListOfRiders().size()}">?????</td>
+        <td th:width="50"></td>
+        <td>
+            <form th:method="GET" th:action="@{/admin/change-booking-completed/{id}(id=${oneBooking.getId()})}">
+                    <input type="submit" th:value="#{admin.main_page.table.button.mark_completed}"/>
+            </form>
+        </td>
+        <td>
+            <form th:method="GET" th:action="@{/admin/info-booking/edit/{id}(id=${oneBooking.getId()})}">
+                <input type="submit" th:value="#{admin.main_page.table.button.edit}"/>
+            </form>
+        </td>
+        <td>
+            <form th:method="DELETE" th:action="@{/admin/delete-booking/{id}(id=${oneBooking.getId()})}">
+                <input type="submit" th:value="#{admin.main_page.table.button.delete}"/>
+            </form>
+        </td>
+    </tr>
+</table>
+
+<br/>
+
+<!--Add new booking-->
+<a href="/admin/info-booking/add-new">
+    <button th:text="#{booking.show_all.button.add_new}">?????</button>
+</a>
+
+
+</body>
+</html>
