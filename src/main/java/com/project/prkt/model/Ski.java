@@ -2,10 +2,7 @@ package com.project.prkt.model;
 
 
 import javax.persistence.*;
-import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.Size;
-import java.util.ResourceBundle;
-import java.util.Objects;
 import java.util.ResourceBundle;
 
 @Entity
@@ -90,18 +87,6 @@ public class Ski extends Equipment{
 
     public void setStiffness(Stiffness stiffness) {
         this.stiffness = stiffness;
-    }
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (!(o instanceof Ski ski)) return false;
-        return available == ski.available && id.equals(ski.id) && name.equals(ski.name) && condition == ski.condition && size.equals(ski.size) && stiffness == ski.stiffness;
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(id, name, available, condition, size, stiffness);
     }
 
     @Override

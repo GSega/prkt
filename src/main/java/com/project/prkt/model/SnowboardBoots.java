@@ -1,6 +1,7 @@
 package com.project.prkt.model;
 
 import javax.persistence.*;
+import java.util.List;
 import java.util.ResourceBundle;
 
 /**
@@ -9,6 +10,7 @@ import java.util.ResourceBundle;
 
 @Entity
 public class SnowboardBoots extends Equipment {
+
     public enum Stiffness {
         UNKNOWN(),
         SOFT(),
@@ -64,6 +66,8 @@ public class SnowboardBoots extends Equipment {
     private EquipmentCondition condition;
     private Size size;
     private Stiffness stiffness;
+    @OneToMany(mappedBy = "snowboardBoots")
+    private List<AssignedEquipment> listOfAssignedEquipment;
 
     public SnowboardBoots() {
     }

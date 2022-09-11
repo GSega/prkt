@@ -1,12 +1,14 @@
 package com.project.prkt.service;
 
-import com.project.prkt.model.EquipmentCondition;
+import com.project.prkt.model.Booking;
+import com.project.prkt.model.Rider;
 import com.project.prkt.model.Ski;
 import com.project.prkt.repository.SkiRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
+import java.util.Date;
 import java.util.List;
 
 @Service
@@ -18,19 +20,19 @@ public class SkiService {
         this.skiRepository = skiRepository;
     }
 
-    public List<Ski> findAll(){
+    public List<Ski> findAll() {
         return skiRepository.findAllByOrderById();
     }
 
-    public Ski findById(Long id){ // в лямбду пока тупо верим. разберемся позже
+    public Ski findById(Long id) { // в лямбду пока тупо верим. разберемся позже
         return skiRepository.findById(id).orElseThrow(() -> new IllegalStateException("лыжи с id=" + id + "не найдены"));
     }
 
-    public void addToDatabase(Ski ski){
+    public void addToDatabase(Ski ski) {
         skiRepository.save(ski);
     }
 
-    public void updateById(Long id, Ski updatedSki){
+    public void updateById(Long id, Ski updatedSki) {
         Ski skiToBeUpdated = findById(id);
         skiToBeUpdated.setName(updatedSki.getName());
         skiToBeUpdated.setAvailable(updatedSki.isAvailable());
@@ -51,7 +53,37 @@ public class SkiService {
         Sort sort = sortDirection.equalsIgnoreCase(Sort.Direction.ASC.name()) ? Sort.by(parameter).ascending() : Sort.by(parameter).descending();
         return skiRepository.findAll(sort);
     }
+
     public List<Ski> findByPartOfName(String search) {
         return skiRepository.findByNameContaining(search);
+    }
+
+
+    public Ski showOneSkiById(Long id) {
+        return skiRepository.findById(id).orElseThrow(() -> new IllegalStateException("exception"));
+    }
+
+    public void changeSkiAvailableById(Long skiId) {
+        Ski skiToBeUpdated = showOneSkiById(skiId);
+        skiToBeUpdated.setAvailable(true ? false : true);
+        skiRepository.save(skiToBeUpdated);
+    }
+
+
+
+
+    public List<Ski> showAllAvailableSki(Date dateOfArrival, Date dateOfReturn, List<Booking> allBookings) {
+        List<Ski> listOfAvailableSki = skiRepository.findAll();
+        for (Booking booking : allBookings) {
+            if (((dateOfArrival.after(booking.getDateOfArrival()) || dateOfArrival.equals(booking.getDateOfArrival())) &&
+                    (dateOfArrival.before(booking.getDateOfReturn()) || dateOfArrival.equals(booking.getDateOfReturn()))) ||
+                    ((dateOfReturn.after(booking.getDateOfArrival()) || dateOfReturn.equals(booking.getDateOfArrival())) &&
+                            (dateOfReturn.before(booking.getDateOfReturn()) || dateOfReturn.equals(booking.getDateOfReturn())))) {
+                for (Rider rider : booking.getListOfRiders()) {
+                    listOfAvailableSki.remove(rider.getAssignedEquipment().getSki());
+                }
+            }
+        }
+        return listOfAvailableSki;
     }
 }

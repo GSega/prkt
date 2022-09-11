@@ -3,6 +3,7 @@ package com.project.prkt.model;
 import javax.persistence.*;
 import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
+import java.util.List;
 import java.util.ResourceBundle;
 
 /**
@@ -11,6 +12,7 @@ import java.util.ResourceBundle;
 
 @Entity
 public class Snowboard extends Equipment {
+
     enum Stiffness {
         UNKNOWN,
         SOFT,
@@ -58,6 +60,8 @@ public class Snowboard extends Equipment {
     private Stiffness stiffness;
     private Arch arch;
     private BindingSize bindingSize;
+    @OneToMany(mappedBy = "snowboard")
+    private List<AssignedEquipment> listOfAssignedEquipment;
 
     public Snowboard() {
     }

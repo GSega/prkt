@@ -1,14 +1,13 @@
 package com.project.prkt.service;
 
-import com.project.prkt.model.Booking;
-import com.project.prkt.model.Client;
-import com.project.prkt.model.Rider;
+import com.project.prkt.model.*;
 import com.project.prkt.repository.BookingRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
@@ -42,11 +41,6 @@ public class BookingService {
         bookingRepository.save(booking);
     }
 
-    // ----- delete booking -----
-    public void deleteBookingById(Long id) {
-        bookingRepository.deleteById(id);
-    }
-
     public void addNewRiderToBooking(Long id, Rider rider) {
         Booking bookingToBeUpdated = bookingRepository.findById(id).orElseThrow(() ->
                 new IllegalStateException("Booking with id = " + id + " not found!"));
@@ -60,6 +54,7 @@ public class BookingService {
                 new IllegalStateException("Booking with id = " + id + " not found!"));
     }
 
+    //// ----- edit booking info / edit booking and client info -----
     public void updateBookingById(Long bookingToBeUpdatedId, Booking updatedBooking) {
         Booking bookingToBeUpdated = showOneBookingById(bookingToBeUpdatedId);
         bookingToBeUpdated.setClient(updatedBooking.getClient());
@@ -68,14 +63,7 @@ public class BookingService {
         bookingRepository.save(bookingToBeUpdated);
     }
 
-    //// ----- edit booking info / edit rider in booking -----
-    //// ----- edit booking info / remove rider from booking -----
-    public void removeRiderFromBooking(Booking bookingToBeUpdated, Rider riderToBeRemoved) {
-        bookingToBeUpdated.getListOfRiders().remove(riderToBeRemoved);
-        bookingRepository.save(bookingToBeUpdated);
-    }
-
-    //// ----- edit booking info / add rider to booking -----
+    //// ----- edit booking info / add existing rider to booking -----
     public void addExistingRiderToBooking(Booking bookingToBeUpdated, Rider riderToBoAdded) {
         for (Rider oneRider : bookingToBeUpdated.getListOfRiders()) {
             if (oneRider.getId().equals(riderToBoAdded.getId())) {
@@ -84,6 +72,25 @@ public class BookingService {
         }
         bookingToBeUpdated.getListOfRiders().add(riderToBoAdded);
         bookingRepository.save(bookingToBeUpdated);
+    }
+
+    //// ----- edit booking info / remove rider from booking -----
+    public void removeRiderFromBooking(Booking bookingToBeUpdated, Rider riderToBeRemoved) {
+        bookingToBeUpdated.getListOfRiders().remove(riderToBeRemoved);
+        bookingRepository.save(bookingToBeUpdated);
+    }
+
+    // ----- delete booking -----
+    public void deleteBookingById(Long id) {
+        bookingRepository.deleteById(id);
+    }
+
+    // ----- mark booking completed -----
+    public void markBookingCompleted(Long bookingId) {
+        Booking bookingToChangeCompleted = bookingRepository.findById(bookingId).orElseThrow(() ->
+                new IllegalStateException("Booking with id = " + bookingId + " not found!"));
+        bookingToChangeCompleted.setCompleted(bookingToChangeCompleted.isCompleted() ? false : true);
+        bookingRepository.save(bookingToChangeCompleted);
     }
 
     // ----- search -----
@@ -108,20 +115,50 @@ public class BookingService {
     }
 
     // ----- show bookings for the date
-    public List<Booking> showBookingsForTheDate(Date date) {
-        return bookingRepository.findByDateOfArrival(date);
+    public Date[] getToday() {
+        Calendar c1 = Calendar.getInstance();
+        c1.setTime(new Date());
+
+        c1.set(Calendar.HOUR_OF_DAY, 0);
+        c1.set(Calendar.MINUTE, 0);
+        c1.set(Calendar.SECOND, 0);
+
+        Calendar c2 = Calendar.getInstance();
+        c2.setTime(new Date());
+
+        c2.set(Calendar.HOUR_OF_DAY, 23);
+        c2.set(Calendar.MINUTE, 59);
+        c2.set(Calendar.SECOND, 59);
+
+        return new Date[] {c1.getTime(), c2.getTime()};
+    }
+
+    public Date[] getTomorrow() {
+        Calendar c1 = Calendar.getInstance();
+        c1.setTime(new Date());
+        c1.add(Calendar.DATE, 1);
+
+        c1.set(Calendar.HOUR_OF_DAY, 0);
+        c1.set(Calendar.MINUTE, 0);
+        c1.set(Calendar.SECOND, 0);
+
+        Calendar c2 = Calendar.getInstance();
+        c2.setTime(new Date());
+        c2.add(Calendar.DATE, 1);
+
+        c2.set(Calendar.HOUR_OF_DAY, 23);
+        c2.set(Calendar.MINUTE, 59);
+        c2.set(Calendar.SECOND, 59);
+
+        return new Date[] {c1.getTime(), c2.getTime()};
+    }
+
+    public List<Booking> showBookingsForTheDate(Date dateFrom, Date dateTo) {
+        return bookingRepository.findByDateOfArrivalIsBetween(dateFrom, dateTo);
     }
 
     // ----- show incomplete bookings -----
     public List<Booking> showAllIncompleteBookings() {
         return bookingRepository.findAllByCompletedFalseOrderByDateOfArrivalAsc();
-    }
-
-    // ----- mark booking completed -----
-    public void markBookingCompleted(Long bookingId) {
-        Booking bookingToChangeCompleted = bookingRepository.findById(bookingId).orElseThrow(() ->
-                new IllegalStateException("Booking with id = " + bookingId + " not found!"));
-        bookingToChangeCompleted.setCompleted(bookingToChangeCompleted.isCompleted() ? false : true);
-        bookingRepository.save(bookingToChangeCompleted);
     }
 }

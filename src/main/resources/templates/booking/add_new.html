@@ -36,14 +36,14 @@
         <tr>
             <td th:text="#{booking.add_new.field.date_of_arrival}">?????</td>
             <td>
-                <input type="date" th:field="*{dateOfArrival}"/>
+                <input type="datetime-local" th:field="*{dateOfArrival}"/>
                 <div style="color:red" th:if="${#fields.hasErrors('dateOfArrival')}" th:errors="*{dateOfArrival}">?????</div>
             </td>
         </tr>
         <tr>
             <td th:text="#{booking.add_new.field.date_of_return}">?????</td>
             <td>
-                <input type="date" th:field="*{dateOfReturn}"/>
+                <input type="datetime-local" th:field="*{dateOfReturn}"/>
                 <div style="color:red" th:if="${#fields.hasErrors('dateOfReturn')}" th:errors="*{dateOfReturn}">?????</div>
             </td>
         </tr>

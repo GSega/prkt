@@ -1,8 +1,6 @@
 package com.project.prkt.model;
 
 import javax.persistence.*;
-import javax.validation.constraints.NotNull;
-import java.util.Objects;
 import java.util.ResourceBundle;
 
 @Entity
@@ -116,18 +114,6 @@ public class SkiBoots extends Equipment {
 
     public void setStiffness(SkiBoots.Stiffness stiffness) {
         this.stiffness = stiffness;
-    }
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (!(o instanceof SkiBoots skiBoots)) return false;
-        return available == skiBoots.available && id.equals(skiBoots.id) && name.equals(skiBoots.name) && condition == skiBoots.condition && size == skiBoots.size && stiffness == skiBoots.stiffness;
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(id, name, available, condition, size, stiffness);
     }
 
     @Override

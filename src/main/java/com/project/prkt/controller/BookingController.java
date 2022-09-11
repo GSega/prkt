@@ -1,12 +1,7 @@
 package com.project.prkt.controller;
 
-import com.project.prkt.model.Booking;
-import com.project.prkt.model.BookingCreationRequest;
-import com.project.prkt.model.Client;
-import com.project.prkt.model.Rider;
-import com.project.prkt.service.BookingService;
-import com.project.prkt.service.ClientService;
-import com.project.prkt.service.RiderService;
+import com.project.prkt.model.*;
+import com.project.prkt.service.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -26,12 +21,25 @@ public class BookingController {
     private final BookingService bookingService;
     private final ClientService clientService;
     private final RiderService riderService;
+    private final AssignedEquipmentService assignedEquipmentService;
+    private final SnowboardService snowboardService;
+    private final SnowboardBootsService snowboardBootsService;
+    private final SkiService skiService;
+    private final SkiBootsService skiBootsService;
 
     @Autowired
-    public BookingController(BookingService bookingService, ClientService clientService, RiderService riderService) {
+    public BookingController(BookingService bookingService, ClientService clientService, RiderService riderService,
+                             AssignedEquipmentService assignedEquipmentService, SnowboardService snowboardService,
+                             SnowboardBootsService snowboardBootsService, SkiService skiService,
+                             SkiBootsService skiBootsService) {
         this.bookingService = bookingService;
         this.clientService = clientService;
         this.riderService = riderService;
+        this.assignedEquipmentService = assignedEquipmentService;
+        this.snowboardService = snowboardService;
+        this.snowboardBootsService = snowboardBootsService;
+        this.skiService = skiService;
+        this.skiBootsService = skiBootsService;
     }
 
     // ----- show all bookings -----
@@ -49,13 +57,15 @@ public class BookingController {
     }
 
     @PostMapping()
-    public String addNewClientAndBookingToDB(@ModelAttribute("newClientAndNewBookingInfo") @Valid BookingCreationRequest newClientAndNewBookingInfo,
+    public String addNewClientAndBookingToDB(@ModelAttribute("newClientAndNewBookingInfo")
+                                                 @Valid BookingCreationRequest newClientAndNewBookingInfo,
                                              BindingResult bindingResult) {
         if (bindingResult.hasErrors()) {
             return "booking/add_new";
         }
         Client newClient = new Client(newClientAndNewBookingInfo.getSurname(),
-                newClientAndNewBookingInfo.getPhone1(), newClientAndNewBookingInfo.getPhone2());
+                newClientAndNewBookingInfo.getPhone1(), newClientAndNewBookingInfo.getPhone2()
+        );
         clientService.addNewClientToDB(newClient);
         Booking newBooking = new Booking();
         bookingService.addNewBookingInfoToNewBooking(newBooking, newClient,
@@ -77,9 +87,23 @@ public class BookingController {
 
         model.addAttribute("clientAndBookingInfoToBeUpdated", clientAndBookingInfoToBeUpdated);
         model.addAttribute("allRiders", riderService.showAllRiders());
+
+        model.addAttribute("allSnowboardsAvailable",
+                snowboardService.showAllAvailableSnowboards(bookingToBeUpdated.getDateOfArrival(),
+                bookingToBeUpdated.getDateOfReturn(), bookingService.showAllBookings()));
+        model.addAttribute("allSnowboardBootsAvailable",
+                snowboardBootsService.showAllAvailableSnowboardBoots(bookingToBeUpdated.getDateOfArrival(),
+                        bookingToBeUpdated.getDateOfReturn(), bookingService.showAllBookings()));
+        model.addAttribute("allSkiAvailable",
+                skiService.showAllAvailableSki(bookingToBeUpdated.getDateOfArrival(),
+                        bookingToBeUpdated.getDateOfReturn(), bookingService.showAllBookings()));
+        model.addAttribute("allSkiBootsAvailable",
+                skiBootsService.showAllAvailableSkiBoots(bookingToBeUpdated.getDateOfArrival(),
+                        bookingToBeUpdated.getDateOfReturn(), bookingService.showAllBookings()));
         return "booking/edit";
     }
 
+    //// ----- edit booking info / edit booking and client info -----
     @PatchMapping("/edit/{id}")
     public String updateBookingById(@PathVariable("id") Long bookingToBeUpdatedId,
                                     @ModelAttribute("clientAndBookingInfoToBeUpdated") @Valid BookingCreationRequest updatedClientAndBookingInfo,
@@ -101,29 +125,49 @@ public class BookingController {
         return "redirect:/admin/info-booking/edit/{id}";
     }
 
-    // ----- mark booking completed -----
-    @GetMapping("/change-booking-completed/{id}")
-    public String changeBookingCompleted(@PathVariable("id") Long bookingId) {
-        bookingService.markBookingCompleted(bookingId);
-        return "redirect:/admin/info-booking";
-    }
+    //// ----- edit booking info / assign equipment to riders -----
+    @PatchMapping("/edit/assign-equipment")
+    public String assignEquipmentToOneRider(@RequestParam("bid") Long bookingToBeUpdatedId,
+                                            @RequestParam("rid") Long riderToBeUpdatedId,
+                                            @ModelAttribute("oneRider.assignedEquipment") AssignedEquipment assignedEquipment) {
+        Rider updatedRider = riderService.showOneRiderById(riderToBeUpdatedId);
+        AssignedEquipment newAssignedEquipment = new AssignedEquipment();
 
-    // ----- delete booking -----
-    @DeleteMapping("/{id}")
-    public String deleteBooking(@PathVariable("id") Long id) {
-        bookingService.deleteBookingById(id);
-        return "redirect:/admin/info-booking";
-    }
+        if (assignedEquipment.getSnowboard().getId() != null) {
+            riderService.showOneRiderById(riderToBeUpdatedId).getAssignedEquipment().getSnowboard().setAvailable(true);
+            snowboardService.changeSnowboardAvailableById(assignedEquipment.getSnowboard().getId());
+            Snowboard newSnowboard = snowboardService.showOneSnowboardById(assignedEquipment.getSnowboard().getId());
+            newAssignedEquipment.setSnowboard(newSnowboard);
+        } else {
+            riderService.showOneRiderById(riderToBeUpdatedId).getAssignedEquipment().getSnowboard().setAvailable(true);
+        }
+        if (assignedEquipment.getSnowboardBoots().getId() != null) {
+            riderService.showOneRiderById(riderToBeUpdatedId).getAssignedEquipment().getSnowboardBoots().setAvailable(true);
+            snowboardBootsService.changeSnowboardBootsAvailableById(assignedEquipment.getSnowboardBoots().getId());
+            SnowboardBoots newSnowboardBoots = snowboardBootsService.showOneSnowboardBootsById(assignedEquipment.getSnowboardBoots().getId());
+            newAssignedEquipment.setSnowboardBoots(newSnowboardBoots);
+        } else {
+            riderService.showOneRiderById(riderToBeUpdatedId).getAssignedEquipment().getSnowboardBoots().setAvailable(true);
+        }
+        if (assignedEquipment.getSki().getId() != null) {
+            riderService.showOneRiderById(riderToBeUpdatedId).getAssignedEquipment().getSki().setAvailable(true);
+            skiService.changeSkiAvailableById(assignedEquipment.getSki().getId());
+            Ski newSki = skiService.showOneSkiById(assignedEquipment.getSki().getId());
+            newAssignedEquipment.setSki(newSki);
+        } else {
+            riderService.showOneRiderById(riderToBeUpdatedId).getAssignedEquipment().getSki().setAvailable(true);
+        }
+        if (assignedEquipment.getSki().getId() != null) {
+            riderService.showOneRiderById(riderToBeUpdatedId).getAssignedEquipment().getSkiBoots().setAvailable(true);
+            skiBootsService.changeSkiBootsAvailableById(assignedEquipment.getSkiBoots().getId());
+            SkiBoots newSkiBoots = skiBootsService.showOneSkiBootsById(assignedEquipment.getSkiBoots().getId());
+            newAssignedEquipment.setSkiBoots(newSkiBoots);
+        } else {
+            riderService.showOneRiderById(riderToBeUpdatedId).getAssignedEquipment().getSkiBoots().setAvailable(true);
+        }
 
-    //// ----- edit booking info / remove rider from booking -----
-    @GetMapping("/edit/remove")
-    public String removeRiderFromBooking(@RequestParam("bid") Long bookingToBeUpdatedId,
-                                         @RequestParam("rid") Long riderToBeRemovedId,
-                                         Model model) {
-        Booking bookingToBeUpdated = bookingService.showOneBookingById(bookingToBeUpdatedId);
-        Rider riderToBoUpdated = riderService.showOneRiderById(riderToBeRemovedId);
-        bookingService.removeRiderFromBooking(bookingToBeUpdated, riderToBoUpdated);
-        model.addAttribute("allRiders", riderService.showAllRiders());
+        assignedEquipmentService.addNewAssignedEquipmentToDB(newAssignedEquipment);
+        riderService.assignEquipmentToRider(updatedRider, newAssignedEquipment);
         return "redirect:/admin/info-booking/edit/" + bookingToBeUpdatedId;
     }
 
@@ -135,6 +179,37 @@ public class BookingController {
         Booking bookingToBeUpdated = bookingService.showOneBookingById(bookingToBeUpdatedId);
         bookingService.addExistingRiderToBooking(bookingToBeUpdated, existingRiderToBeAdded);
         return "redirect:/admin/info-booking/edit/" + bookingToBeUpdatedId;
+    }
+
+    //// ----- edit booking info / remove rider from booking -----
+    @GetMapping("/edit/remove")
+    public String removeRiderFromBooking(@RequestParam("bid") Long bookingToBeUpdatedId,
+                                         @RequestParam("rid") Long riderToBeRemovedId, Model model) {
+        Booking bookingToBeUpdated = bookingService.showOneBookingById(bookingToBeUpdatedId);
+        Rider riderToBoUpdated = riderService.showOneRiderById(riderToBeRemovedId);
+
+        riderService.removeAssignedEquipment(riderToBoUpdated);
+
+        bookingService.removeRiderFromBooking(bookingToBeUpdated, riderToBoUpdated);
+        model.addAttribute("allRiders", riderService.showAllRiders());
+        return "redirect:/admin/info-booking/edit/" + bookingToBeUpdatedId;
+    }
+
+    // ----- delete booking -----
+    @DeleteMapping("/{id}")
+    public String deleteBooking(@PathVariable("id") Long id) {
+        for (Rider rider : bookingService.showOneBookingById(id).getListOfRiders()) {
+            riderService.removeAssignedEquipment(rider);
+        }
+        bookingService.deleteBookingById(id);
+        return "redirect:/admin/info-booking";
+    }
+
+    // ----- mark booking completed -----
+    @GetMapping("/change-booking-completed/{id}")
+    public String changeBookingCompleted(@PathVariable("id") Long bookingId) {
+        bookingService.markBookingCompleted(bookingId);
+        return "redirect:/admin/info-booking";
     }
 
     // ----- search -----
@@ -153,6 +228,4 @@ public class BookingController {
         model.addAttribute("allBookings", bookingService.sortAllBookingsByParameter(parameter, sortDirection));
         return "booking/show_all";
     }
-
-
 }

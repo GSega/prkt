@@ -1,11 +1,14 @@
 package com.project.prkt.service;
 
+import com.project.prkt.model.Booking;
+import com.project.prkt.model.Rider;
 import com.project.prkt.model.SkiBoots;
 import com.project.prkt.repository.SkiBootsRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
+import java.util.Date;
 import java.util.List;
 
 @Service
@@ -54,5 +57,30 @@ public class SkiBootsService {
         Sort sort = sortDirection.equalsIgnoreCase(Sort.Direction.ASC.name()) ?
                 Sort.by(parameter).ascending() : Sort.by(parameter).descending();
         return skiBootsRepository.findAll(sort);
+    }
+
+
+
+
+
+    public void changeSkiBootsAvailableById(Long skiBootsId) {
+        SkiBoots skiBootsToBeUpdated = showOneSkiBootsById(skiBootsId);
+        skiBootsToBeUpdated.setAvailable(true ? false : true);
+        skiBootsRepository.save(skiBootsToBeUpdated);
+    }
+
+    public List<SkiBoots> showAllAvailableSkiBoots(Date dateOfArrival, Date dateOfReturn, List<Booking> allBookings) {
+        List<SkiBoots> listOfAvailableSkiBoots = skiBootsRepository.findAll();
+        for (Booking booking : allBookings) {
+            if (((dateOfArrival.after(booking.getDateOfArrival()) || dateOfArrival.equals(booking.getDateOfArrival())) &&
+                    (dateOfArrival.before(booking.getDateOfReturn()) || dateOfArrival.equals(booking.getDateOfReturn()))) ||
+                    ((dateOfReturn.after(booking.getDateOfArrival()) || dateOfReturn.equals(booking.getDateOfArrival())) &&
+                            (dateOfReturn.before(booking.getDateOfReturn()) || dateOfReturn.equals(booking.getDateOfReturn())))) {
+                for (Rider rider : booking.getListOfRiders()) {
+                    listOfAvailableSkiBoots.remove(rider.getAssignedEquipment().getSkiBoots());
+                }
+            }
+        }
+        return listOfAvailableSkiBoots;
     }
 }

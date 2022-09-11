@@ -1,11 +1,15 @@
 package com.project.prkt.service;
 
+import com.project.prkt.model.Booking;
+import com.project.prkt.model.Rider;
 import com.project.prkt.model.Snowboard;
+import com.project.prkt.repository.BookingRepository;
 import com.project.prkt.repository.SnowboardRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -50,6 +54,28 @@ public class SnowboardService {
         snowboardToBeUpdated.setBindingSize(updatedSnowboard.getBindingSize());
 
         snowboardRepository.save(snowboardToBeUpdated);
+    }
+
+    //// ----- edit booking info / assign equipment to riders -----
+    public void changeSnowboardAvailableById(Long snowboardId) {
+        Snowboard snowboardToBeUpdated = showOneSnowboardById(snowboardId);
+        snowboardToBeUpdated.setAvailable(true ? false : true);
+        snowboardRepository.save(snowboardToBeUpdated);
+    }
+
+    public List<Snowboard> showAllAvailableSnowboards(Date dateOfArrival, Date dateOfReturn, List<Booking> allBookings) {
+        List<Snowboard> listOfAvailableSnowboards = snowboardRepository.findAll();
+        for (Booking booking : allBookings) {
+            if (((dateOfArrival.after(booking.getDateOfArrival()) || dateOfArrival.equals(booking.getDateOfArrival())) &&
+                    (dateOfArrival.before(booking.getDateOfReturn()) || dateOfArrival.equals(booking.getDateOfReturn()))) ||
+                    ((dateOfReturn.after(booking.getDateOfArrival()) || dateOfReturn.equals(booking.getDateOfArrival())) &&
+                            (dateOfReturn.before(booking.getDateOfReturn()) || dateOfReturn.equals(booking.getDateOfReturn())))) {
+                for (Rider rider : booking.getListOfRiders()) {
+                    listOfAvailableSnowboards.remove(rider.getAssignedEquipment().getSnowboard());
+                }
+            }
+        }
+        return listOfAvailableSnowboards;
     }
 
     // ----- delete -----

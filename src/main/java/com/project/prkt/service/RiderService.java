@@ -1,5 +1,6 @@
 package com.project.prkt.service;
 
+import com.project.prkt.model.AssignedEquipment;
 import com.project.prkt.model.Rider;
 import com.project.prkt.repository.RiderRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -48,5 +49,22 @@ public class RiderService {
         riderRepository.save(riderToBeUpdated);
     }
 
+    public void assignEquipmentToRider(Rider rider, AssignedEquipment assignedEquipment) {
+        rider.setAssignedEquipment(assignedEquipment);
+        riderRepository.save(rider);
+    }
 
+    public void removeAssignedEquipment(Rider rider) {
+        rider.getAssignedEquipment().getSnowboard().setAvailable(true);
+        rider.getAssignedEquipment().getSnowboardBoots().setAvailable(true);
+        rider.getAssignedEquipment().getSki().setAvailable(true);
+        rider.getAssignedEquipment().getSkiBoots().setAvailable(true);
+
+        rider.getAssignedEquipment().setSnowboard(null);
+        rider.getAssignedEquipment().setSnowboardBoots(null);
+        rider.getAssignedEquipment().setSki(null);
+        rider.getAssignedEquipment().setSkiBoots(null);
+
+        riderRepository.save(rider);
+    }
 }

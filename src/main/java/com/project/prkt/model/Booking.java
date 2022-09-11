@@ -19,11 +19,11 @@ public class Booking {
     @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "client_id")
     private Client client;
-    @Temporal(TemporalType.DATE)
-    @DateTimeFormat(pattern = "yyyy-MM-dd")
+    @Temporal(TemporalType.TIMESTAMP)
+    @DateTimeFormat(pattern = "yyyy-MM-dd'T'HH:mm")
     private Date dateOfArrival;
-    @Temporal(TemporalType.DATE)
-    @DateTimeFormat(pattern = "yyyy-MM-dd")
+    @Temporal(TemporalType.TIMESTAMP)
+    @DateTimeFormat(pattern = "yyyy-MM-dd'T'HH:mm")
     private Date dateOfReturn;
     private boolean completed;
     @ManyToMany
@@ -98,7 +98,7 @@ public class Booking {
                 ", dateOfArrival=" + dateOfArrival +
                 ", dateOfReturn=" + dateOfReturn +
                 ", completed=" + completed +
-                ", listOfRiders=" + listOfRiders +
+                ", listOfRiders=" + Arrays.toString(listOfRiders.toArray()) +
                 '}';
     }
 }

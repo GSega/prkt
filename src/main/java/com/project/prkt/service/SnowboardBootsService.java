@@ -1,11 +1,14 @@
 package com.project.prkt.service;
 
+import com.project.prkt.model.Booking;
+import com.project.prkt.model.Rider;
 import com.project.prkt.model.SnowboardBoots;
 import com.project.prkt.repository.SnowboardBootsRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -48,6 +51,28 @@ public class SnowboardBootsService {
         snowboardBootsToBeUpdated.setStiffness(updatedSnowboardBoots.getStiffness());
 
         snowboardBootsRepository.save(snowboardBootsToBeUpdated);
+    }
+
+    //// ----- edit booking info / assign equipment to riders -----
+    public void changeSnowboardBootsAvailableById(Long snowboardBootsId) {
+        SnowboardBoots snowboardBootsToBeUpdated = showOneSnowboardBootsById(snowboardBootsId);
+        snowboardBootsToBeUpdated.setAvailable(true ? false : true);
+        snowboardBootsRepository.save(snowboardBootsToBeUpdated);
+    }
+
+    public List<SnowboardBoots> showAllAvailableSnowboardBoots(Date dateOfArrival, Date dateOfReturn, List<Booking> allBookings) {
+        List<SnowboardBoots> listOfAvailableSnowboardBoots = snowboardBootsRepository.findAll();
+        for (Booking booking : allBookings) {
+            if (((dateOfArrival.after(booking.getDateOfArrival()) || dateOfArrival.equals(booking.getDateOfArrival())) &&
+                    (dateOfArrival.before(booking.getDateOfReturn()) || dateOfArrival.equals(booking.getDateOfReturn()))) ||
+                    ((dateOfReturn.after(booking.getDateOfArrival()) || dateOfReturn.equals(booking.getDateOfArrival())) &&
+                            (dateOfReturn.before(booking.getDateOfReturn()) || dateOfReturn.equals(booking.getDateOfReturn())))) {
+                for (Rider rider : booking.getListOfRiders()) {
+                    listOfAvailableSnowboardBoots.remove(rider.getAssignedEquipment().getSnowboardBoots());
+                }
+            }
+        }
+        return listOfAvailableSnowboardBoots;
     }
 
     // ----- delete -----

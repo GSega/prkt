@@ -6,7 +6,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.Calendar;
 import java.util.Date;
 
 /**
@@ -41,22 +40,22 @@ public class AdminHomeController {
     // ----- bookings for today -----
     @GetMapping("/show-today")
     public String showBookingsForToday(Model model) {
-        Date today = new Date();
-        model.addAttribute("date", today);
-        model.addAttribute("bookingsForTheDate", bookingService.showBookingsForTheDate(today));
+        Date todayFrom = bookingService.getToday()[0];
+        Date todayTo = bookingService.getToday()[1];
+
+        model.addAttribute("date", todayFrom);
+        model.addAttribute("bookingsForTheDate", bookingService.showBookingsForTheDate(todayFrom, todayTo));
         return "admin/bookings_by_date";
     }
 
     // ----- bookings for tomorrow -----
     @GetMapping("/show-tomorrow")
     public String showBookingsForTomorrow(Model model) {
-        Calendar c = Calendar.getInstance();
-        c.setTime(new Date());
-        c.add(Calendar.DATE, 1);
+        Date tomorrowFrom = bookingService.getTomorrow()[0];
+        Date tomorrowTo = bookingService.getTomorrow()[1];
 
-        Date tomorrow = c.getTime();
-        model.addAttribute("date", tomorrow);
-        model.addAttribute("bookingsForTheDate", bookingService.showBookingsForTheDate(tomorrow));
+        model.addAttribute("date", tomorrowFrom);
+        model.addAttribute("bookingsForTheDate", bookingService.showBookingsForTheDate(tomorrowFrom, tomorrowTo));
         return "admin/bookings_by_date";
     }
 

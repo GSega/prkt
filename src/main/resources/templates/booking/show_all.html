@@ -67,8 +67,8 @@
         </td>
         <td th:text="${oneBooking.getClient().getPhone1()}">?????</td>
         <td th:text="${oneBooking.getClient().getPhone2()}">?????</td>
-        <td th:text="${#dates.format(oneBooking.getDateOfArrival(), 'dd MMM yyyy')}"></td>
-        <td th:text="${#dates.format(oneBooking.getDateOfReturn(), 'dd MMM yyyy')}"></td>
+        <td th:text="${#dates.format(oneBooking.getDateOfArrival(), 'dd MMM yyyy HH:mm')}"></td>
+        <td th:text="${#dates.format(oneBooking.getDateOfReturn(), 'dd MMM yyyy HH:mm')}"></td>
         <td th:text="${oneBooking.getListOfRiders().size()}">?????</td>
         <td th:text="${oneBooking.isCompleted() ? '+' : '–'}">?????</td>
         <td th:width="50"></td>

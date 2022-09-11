@@ -67,7 +67,6 @@ public class Client {
                 ", surname='" + surname + '\'' +
                 ", phone1='" + phone1 + '\'' +
                 ", phone2='" + phone2 + '\'' +
-                ", listOfBookings=" + listOfBookings +
                 '}';
     }
 }

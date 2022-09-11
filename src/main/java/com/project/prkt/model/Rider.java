@@ -55,6 +55,9 @@ public class Rider {
     //указали имя дочерней таблицы и имя колонки которая будет связывать основнйо класс и дочернюю коллекцию
     @CollectionTable(name="riderTypesOfEquipment", joinColumns= {@JoinColumn(name="rider_id")})
     private List<TypesOfEquipment> equipmentNeededIds;
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "assignedEquipment_id", referencedColumnName = "id")
+    private AssignedEquipment assignedEquipment;
 
     public Long getId() {
         return id;
@@ -106,6 +109,17 @@ public class Rider {
 
     public void setEquipmentNeededIds(List<TypesOfEquipment> equipmentNeededIds) {
         this.equipmentNeededIds = equipmentNeededIds;
+    }
+
+    public AssignedEquipment getAssignedEquipment() {
+        if (assignedEquipment == null) {
+            return new AssignedEquipment();
+        }
+        return assignedEquipment;
+    }
+
+    public void setAssignedEquipment(AssignedEquipment assignedEquipment) {
+        this.assignedEquipment = assignedEquipment;
     }
 
     @Override
