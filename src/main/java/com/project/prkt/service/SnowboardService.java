@@ -52,6 +52,13 @@ public class SnowboardService {
         snowboardRepository.save(snowboardToBeUpdated);
     }
 
+    //// ----- edit booking info / assign equipment to riders -----
+    public void changeSnowboardAvailableById(Long snowboardId) {
+        Snowboard snowboardToBeUpdated = showOneSnowboardById(snowboardId);
+        snowboardToBeUpdated.setAvailable(true ? false : true);
+        snowboardRepository.save(snowboardToBeUpdated);
+    }
+
     // ----- delete -----
     public void deleteSnowboardById(Long id) {
         snowboardRepository.deleteById(id);

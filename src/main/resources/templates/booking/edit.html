@@ -43,14 +43,17 @@
             <td th:text="#{booking.edit.field.date_of_arrival}">?????</td>
             <td>
                 <input type="date" th:field="*{dateOfArrival}"/>
-                <div style="color:red" th:if="${#fields.hasErrors('dateOfArrival')}" th:errors="*{dateOfArrival}">?????</div>
+                <div style="color:red" th:if="${#fields.hasErrors('dateOfArrival')}" th:errors="*{dateOfArrival}">
+                    ?????
+                </div>
             </td>
         </tr>
         <tr>
             <td th:text="#{booking.edit.field.date_of_return}">?????</td>
             <td>
                 <input type="date" th:field="*{dateOfReturn}"/>
-                <div style="color:red" th:if="${#fields.hasErrors('dateOfReturn')}" th:errors="*{dateOfReturn}">?????</div>
+                <div style="color:red" th:if="${#fields.hasErrors('dateOfReturn')}" th:errors="*{dateOfReturn}">?????
+                </div>
             </td>
         </tr>
     </table>
@@ -90,7 +93,50 @@
                     <div th:text="${oneEquipmentId.name()}">?????</div>
                 </span>
             </td>
-            <td th:width="50"></td>
+            <form th:method="PATCH"
+                  th:action="@{/admin/info-booking/edit/assign-equipment/{id}(id=${id})}"
+                  th:object="${assignedEquipmentIds}">
+                <td th:align="left">
+                    <span th:each="oneEquipmentId : ${oneRider.getEquipmentNeededIds()}">
+                        <div th:if="${oneEquipmentId.name()} == SNOWBOARD">
+                            <select th:field="*{assignedSnowboardId}">
+                                <option th:each="oneSnowboard : ${allSnowboardsAvailable}"
+                                        th:value="${oneSnowboard.getId()}"
+                                        th:text="${oneSnowboard.getName()}">?????
+                                </option>
+                            </select>
+                        </div>
+                        <div th:if="${oneEquipmentId.name()} == SNOWBOARD_BOOTS">
+                        <select th:field="*{assignedSnowboardBootsId}">
+                            <option th:each="oneSnowboardBoots : ${allSnowboardBootsAvailable}"
+                                    th:value="${oneSnowboardBoots.getId()}"
+                                    th:text="${oneSnowboardBoots.getName()}">?????
+                            </option>
+                        </select>
+                    </div>
+                        <div th:if="${oneEquipmentId.name()} == SKI">
+                        <select th:field="*{assignedSkiId}">
+                            <option th:each="oneSki : ${allSkiAvailable}"
+                                    th:value="${oneSki.getId()}"
+                                    th:text="${oneSki.getName()}">?????
+                            </option>
+                        </select>
+                    </div>
+                        <div th:if="${oneEquipmentId.name()} == SKI_BOOTS">
+                        <select th:field="*{assignedSkiBootsId}">
+                            <option th:each="oneSkiBoots : ${allSkiBootsAvailable}"
+                                    th:value="${oneSkiBoots.getId()}"
+                                    th:text="${oneSkiBoots.getName()}">?????
+                            </option>
+                        </select>
+                    </div>
+                    </span>
+                </td>
+                <td th:width="50"></td>
+                <td>
+                    <input type="submit" th:value="Assign"/>
+                </td>
+            </form>
             <td>
                 <a>
                     <a th:href="'/admin/info-riders/edit?id=' + ${oneRider.getId()} + '&bookingid=' + ${clientAndBookingInfoToBeUpdated.getBookingNumber()}">  <!--добавить букинг айди в '?bookingid=' + ${bookingToBeUpdated.getId()}  -->

@@ -1,12 +1,7 @@
 package com.project.prkt.controller;
 
-import com.project.prkt.model.Booking;
-import com.project.prkt.model.BookingCreationRequest;
-import com.project.prkt.model.Client;
-import com.project.prkt.model.Rider;
-import com.project.prkt.service.BookingService;
-import com.project.prkt.service.ClientService;
-import com.project.prkt.service.RiderService;
+import com.project.prkt.model.*;
+import com.project.prkt.service.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -26,12 +21,22 @@ public class BookingController {
     private final BookingService bookingService;
     private final ClientService clientService;
     private final RiderService riderService;
+    private final SnowboardService snowboardService;
+    private final SnowboardBootsService snowboardBootsService;
+    private final SkiService skiService;
+    private final SkiBootsService skiBootsService;
 
     @Autowired
-    public BookingController(BookingService bookingService, ClientService clientService, RiderService riderService) {
+    public BookingController(BookingService bookingService, ClientService clientService, RiderService riderService,
+                             SnowboardService snowboardService, SnowboardBootsService snowboardBootsService,
+                             SkiService skiService, SkiBootsService skiBootsService) {
         this.bookingService = bookingService;
         this.clientService = clientService;
         this.riderService = riderService;
+        this.snowboardService = snowboardService;
+        this.snowboardBootsService = snowboardBootsService;
+        this.skiService = skiService;
+        this.skiBootsService = skiBootsService;
     }
 
     // ----- show all bookings -----
@@ -77,9 +82,16 @@ public class BookingController {
 
         model.addAttribute("clientAndBookingInfoToBeUpdated", clientAndBookingInfoToBeUpdated);
         model.addAttribute("allRiders", riderService.showAllRiders());
+
+        model.addAttribute("assignedEquipmentIds", new EquipmentAssignmentRequest());
+        model.addAttribute("allSnowboardsAvailable", snowboardService.showAllSnowboards());
+        model.addAttribute("allSnowboardBootsAvailable", snowboardBootsService.showAllSnowboardBoots());
+        model.addAttribute("allSkiAvailable", skiService.findAll());
+        model.addAttribute("allSkiBootsAvailable", skiBootsService.showAllSkiBoots());
         return "booking/edit";
     }
 
+    //// ----- edit booking info / edit booking and client info -----
     @PatchMapping("/edit/{id}")
     public String updateBookingById(@PathVariable("id") Long bookingToBeUpdatedId,
                                     @ModelAttribute("clientAndBookingInfoToBeUpdated") @Valid BookingCreationRequest updatedClientAndBookingInfo,
@@ -101,18 +113,27 @@ public class BookingController {
         return "redirect:/admin/info-booking/edit/{id}";
     }
 
-    // ----- mark booking completed -----
-    @GetMapping("/change-booking-completed/{id}")
-    public String changeBookingCompleted(@PathVariable("id") Long bookingId) {
-        bookingService.markBookingCompleted(bookingId);
-        return "redirect:/admin/info-booking";
+    //// ----- edit booking info / assign equipment to riders -----
+    @PatchMapping("/edit/assign-equipment/{id}")
+    public String assignEquipmentToOneRider(@PathVariable("id") Long bookingToBeUpdatedId,
+                                            @ModelAttribute("assignedEquipmentIds") EquipmentAssignmentRequest assignedEquipment) {
+        if (assignedEquipment.getAssignedSnowboardId() != null) {
+            snowboardService.changeSnowboardAvailableById(assignedEquipment.getAssignedSnowboardId());
+        }
+        if (assignedEquipment.getAssignedSnowboardId() != null) {
+            snowboardBootsService.changeSnowboardBootsAvailableById(assignedEquipment.getAssignedSnowboardBootsId());
+        }
+        return "redirect:/admin/info-booking/edit/{id}";
     }
 
-    // ----- delete booking -----
-    @DeleteMapping("/{id}")
-    public String deleteBooking(@PathVariable("id") Long id) {
-        bookingService.deleteBookingById(id);
-        return "redirect:/admin/info-booking";
+    //// ----- edit booking info / add existing rider to booking -----
+    @PatchMapping("/edit/add-existing-rider/{bid}")
+    public String addExistingRiderToBooking(@PathVariable("bid") Long bookingToBeUpdatedId,
+                                            @ModelAttribute("clientAndBookingInfoToBeUpdated") BookingCreationRequest clientAndBookingInfoToBeUpdated) {
+        Rider existingRiderToBeAdded = riderService.showOneRiderById(clientAndBookingInfoToBeUpdated.getExistingRiderToBeAddedId());
+        Booking bookingToBeUpdated = bookingService.showOneBookingById(bookingToBeUpdatedId);
+        bookingService.addExistingRiderToBooking(bookingToBeUpdated, existingRiderToBeAdded);
+        return "redirect:/admin/info-booking/edit/" + bookingToBeUpdatedId;
     }
 
     //// ----- edit booking info / remove rider from booking -----
@@ -127,14 +148,18 @@ public class BookingController {
         return "redirect:/admin/info-booking/edit/" + bookingToBeUpdatedId;
     }
 
-    //// ----- edit booking info / add existing rider to booking -----
-    @PatchMapping("/edit/add-existing-rider/{bid}")
-    public String addExistingRiderToBooking(@PathVariable("bid") Long bookingToBeUpdatedId,
-                                            @ModelAttribute("clientAndBookingInfoToBeUpdated") BookingCreationRequest clientAndBookingInfoToBeUpdated) {
-        Rider existingRiderToBeAdded = riderService.showOneRiderById(clientAndBookingInfoToBeUpdated.getExistingRiderToBeAddedId());
-        Booking bookingToBeUpdated = bookingService.showOneBookingById(bookingToBeUpdatedId);
-        bookingService.addExistingRiderToBooking(bookingToBeUpdated, existingRiderToBeAdded);
-        return "redirect:/admin/info-booking/edit/" + bookingToBeUpdatedId;
+    // ----- delete booking -----
+    @DeleteMapping("/{id}")
+    public String deleteBooking(@PathVariable("id") Long id) {
+        bookingService.deleteBookingById(id);
+        return "redirect:/admin/info-booking";
+    }
+
+    // ----- mark booking completed -----
+    @GetMapping("/change-booking-completed/{id}")
+    public String changeBookingCompleted(@PathVariable("id") Long bookingId) {
+        bookingService.markBookingCompleted(bookingId);
+        return "redirect:/admin/info-booking";
     }
 
     // ----- search -----

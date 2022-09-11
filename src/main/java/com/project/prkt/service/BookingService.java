@@ -1,8 +1,6 @@
 package com.project.prkt.service;
 
-import com.project.prkt.model.Booking;
-import com.project.prkt.model.Client;
-import com.project.prkt.model.Rider;
+import com.project.prkt.model.*;
 import com.project.prkt.repository.BookingRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Sort;
