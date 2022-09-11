@@ -13,7 +13,7 @@ import org.springframework.web.servlet.i18n.SessionLocaleResolver;
 import java.util.Locale;
 
 @Configuration
-public class ApplicationConfig implements WebMvcConfigurer {
+public class ApplicationConfigI18n implements WebMvcConfigurer {
 
     //    ----- default locale of the application -----
     @Bean

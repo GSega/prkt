@@ -67,9 +67,9 @@
 <!--    <span th:each="oneBooking : ${bookingsForTheDate}">-->
 <!--    <tr th:align="left" style="vertical-align:top">-->
 <!--        <td>-->
-<!--            <div th:text="'Бронь на фамилию: ' + ${oneBooking.getBookingSurname()}">?????</div>-->
-<!--            <div th:text="'Телефон 1: ' + ${oneBooking.getPhone1()}">?????</div>-->
-<!--            <div th:text="'Телефон 2: ' + ${oneBooking.getPhone2()}">?????</div>-->
+<!--            <div th:text="'Бронь на фамилию: ' + ${oneBooking.getClient().getSurname()}">?????</div>-->
+<!--            <div th:text="'Телефон 1: ' + ${oneBooking.getClient().getPhone1()}">?????</div>-->
+<!--            <div th:text="'Телефон 2: ' + ${oneBooking.getClient().getPhone2()}">?????</div>-->
 <!--            <div th:text="'Дата прибытия: ' + ${oneBooking.getDateOfArrival()}">?????</div>-->
 <!--            <div th:text="'Дата возврата: ' + ${oneBooking.getDateOfReturn()}">?????</div>-->
 <!--        </td>-->
@@ -109,4 +109,14 @@
 
 <!--<br/>-->
 
-<!--Return to "booking/show_all"-->
+<!--&lt;!&ndash;Return to "booking/show_all"&ndash;&gt;-->
+
+
+<!--<br/>-->
+
+<!--<a href="/admin">-->
+<!--    <button th:text="#{booking.search.button.return}">?????</button>-->
+<!--</a>-->
+
+<!--</body>-->
+<!--</html>-->
