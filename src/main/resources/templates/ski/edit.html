@@ -5,13 +5,15 @@
     <title th:text="#{ski.edit.title}">Edit Ski</title>
 </head>
 <body  th:align="center">
+
+<h1 th:text="#{ski.edit.title}">?????</h1>
+
 <form th:method="PATCH"
       th:action="@{/admin/info-equipment/ski/{id}(id=${id})}"
       th:object="${ski}">
 
-    <table th:align="center"
-           th:border="1" th:rules="rows"
-           th:cellpadding="5">
+    <table th:align="center" style="text-align:left"
+           th:cellpadding="2">
         <tr>
             <td th:text="#{ski.edit.table.param}"> Параметр </td>
             <td th:text="#{ski.edit.table.input}"> Значение </td>
@@ -32,33 +34,37 @@
         <tr>
             <td  th:text="#{ski.edit.table.available}">  доступно </td>
             <td> <select th:field="*{available}" >
-                        <option th:value="1"> <a th:text="#{ski.edit.table.available.true}"/> свободно</option>
-                        <option th:value="0"> <a th:text="#{ski.edit.table.available.false}"/> катается</option>
+                        <option th:value="1" th:text="#{ski.edit.table.available.true}"></option>
+                        <option th:value="0" th:text="#{ski.edit.table.available.false}"></option>
                   </select>
         </td>
         </tr>
         <tr>
             <td  th:text="#{ski.edit.table.condition}"> состояние </td>
-            <td> <select name="condition">
+            <td> <select th:field="*{condition}">
                         <option th:each="i : ${T(com.project.prkt.model.EquipmentCondition).values()}"
                                 th:value="${i.name()}"
-                                th:text="#{${'equipment_condition.' + i}}" > condition should be here </option>
+                                th:text="#{${'equipment_condition.' + i}}"
+                                th:selected="${ski.getCondition()}"> condition should be here
+                        </option>
                 </select>
             </td>
         </tr>
         <tr>
             <td  th:text="#{ski.edit.table.stiffness}"> Жесткость </td>
             <td>
-                <select name = "stiffness">
+                <select th:field = "*{stiffness}">
                         <option th:each="i : ${T(com.project.prkt.model.Ski.Stiffness).values()}"
                                 th:value="${i.name()}"
-                                th:text="#{${'ski.stiffness.' + i}}"> stiffness should be here </option>
+                                th:text="#{${'ski.stiffness.' + i}}"
+                                th:selected="${ski.getCondition()}"> stiffness should be here </option>
                 </select>
             </td>
         </tr>
 
 
     </table>
+    <br/>
     <input type="submit" th:value="#{ski.edit.table.editbutton}"/>
 </form>
 

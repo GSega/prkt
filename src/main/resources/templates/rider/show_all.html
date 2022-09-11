@@ -5,8 +5,13 @@
     <meta name="author" content="Sergei Gavrilov">
     <title>All riders</title>
 </head>
-<body>
-<table  border="1" >
+<body th:align="center">
+
+<h1>Список райдеров</h1>
+
+<table  th:align="center"
+        th:border="1" th:rules="rows"
+        th:cellpadding="5">
     <tr>
         <th> <a th:href="@{'/admin/info_equipment/ski/sort?parameter=id&sortDirection=' + ${reverseSortDirection}}"> ID </a> </th>
         <th> <a th:href="@{'/admin/info_equipment/ski/sort?parameter=id&sortDirection=' + ${reverseSortDirection}}"> Имя </a> </th>
@@ -14,8 +19,8 @@
         <th> <a th:href="@{'/admin/info_equipment/ski/sort?parameter=id&sortDirection=' + ${reverseSortDirection}}"> Вес </a> </th>
         <th> <a th:href="@{'/admin/info_equipment/ski/sort?parameter=id&sortDirection=' + ${reverseSortDirection}}"> пол </a> </th>
         <th> <a th:href="@{'/admin/info_equipment/ski/sort?parameter=id&sortDirection=' + ${reverseSortDirection}}"> Размер ноги </a> </th>
-        <th> edit </th>
-        <th> delete</th>
+<!--        <th> edit </th>-->
+<!--        <th> delete</th>-->
     </tr>
 
 <tr th:each="oneRider : ${allRiders}">
@@ -29,12 +34,14 @@
         <a th:href="@{'/admin/info-riders/edit?id=' + ${oneRider.getId()}}"> <button> изменить </button> </a>
     </td>
     <td>
-        <form th:method="DELETE" th:action="@{/admin/info-riders/{id}(id=${oneRider.getId()})}"> <input type="submit" value="УДАЛИТЬ"> </form>
+        <form th:method="DELETE" th:action="@{/admin/info-riders/{id}(id=${oneRider.getId()})}"> <input type="submit" value="удалить"> </form>
     </td>
-
 </tr>
 </table>
-
+<br/>
+<div>
+    <a href="/admin"> <button> back to main </button> </a>
+</div>
 
 </body>
 </html>

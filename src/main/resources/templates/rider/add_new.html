@@ -5,11 +5,12 @@
     <meta name="author" content="Sergei Gavrilov">
     <title>new Rider</title>
 </head>
-<body>
+<body  th:align="center">
 <form th:method="POST"
       th:action="@{'/admin/info-riders/add?id=' + ${bookingId}}"
       th:object="${newRider}">
-    <table>
+    <table th:align="center" style="text-align:left"
+           th:cellpadding="2">
         <tr>
             <td> Имя </td>
             <td> <input th:type="text" th:field="*{name}"/> </td>
@@ -62,10 +63,14 @@
 
     </table>
 
+    <br/>
+
     <input type="submit" value="сохранить"/>
 
 </form>
+
 <br>
+
 <form th:method="GET"
       th:action="@{/admin/info-booking}">
     <input type="submit" value="выйти в список броней">

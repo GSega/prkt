@@ -14,6 +14,17 @@
 </p>
 
 <br/>
+<form th:method="GET"
+      th:action="@{/admin/info-equipment/ski-boots/search-by-name}">
+
+    <input th:type="text" name="partOfName"
+           th:placeholder="#{ski.show_all.search_placeholder}" style="width:200px"/>
+
+    <input type="submit" th:value="#{ski.show_all.search_button}"/>
+</form>
+
+<br/>
+<br/>
 
 <div>
     <table  th:align="center"
@@ -32,8 +43,8 @@
                     th:text="#{ski.show_all.table.header.condition}" ></a> </th>
             <th> <a th:href="@{'/admin/info_equipment/ski/sort?parameter=id&sortDirection=' + ${reverseSortDirection}}"
                     th:text="#{ski.show_all.table.header.stiffness}" ></a> </th>
-            <th> <a th:text="#{ski.show_all.table.header.edit}"/> </th>
-            <th> <a th:text="#{ski.show_all.table.header.delete}"/> </th>
+<!--            <th> <a th:text="#{ski.show_all.table.header.edit}"/> </th>-->
+<!--            <th> <a th:text="#{ski.show_all.table.header.delete}"/> </th>-->
         </tr>
         <tr th:each="oneSki : ${allSki}">
             <td th:text="${oneSki.getId()}"> id</td>
@@ -53,9 +64,14 @@
     </table>
 
 </div>
-
+<br/>
 <div>
     <a href="/admin/info-equipment/ski/add-new"><button th:text="#{ski.show_all.button.add_new}">добавить новые лыжи</button></a>
 </div>
+<br/>
+<div>
+    <a href="/admin/info-equipment"> <button th:text="#{ski.show_all.button.back_to_equip}"> back_to_equip</button> </a>
+</div>
+
 </body>
 </html>

@@ -6,11 +6,14 @@
     <title>Edit Rider</title>
 </head>
 
-<body>
+<h1>Изменение данных райдера</h1>
+
+<body th:align="center">
 <form th:method="PATCH"
       th:action="@{/admin/info-riders/edit/{id}(id=${idOfRider})}"
       th:object="${riderToBeUpdated}">
-  <table>
+  <table th:align="center" style="text-align:left"
+         th:cellpadding="2">
                                               <!--name-->
     <tr>
       <td> Имя </td>
@@ -46,7 +49,7 @@
         Размер ноги
       </td>
       <td>
-        <select name="foot">
+        <select th:field="*{foot}">
           <option th:each="f : ${T(com.project.prkt.model.Rider.Size).values()}"
                   th:value="${f}" th:text="${f}"
                   th:selected="${riderToBeUpdated.getFoot()}"> foot size should be here
@@ -55,20 +58,20 @@
       </td>
     </tr>
                                      <!--previous equipment set-->
-    <tr>
-      <td>
-        список оборудования <br> выбранного ранее:
-      </td>
-      <td>
-          <span th:each="oneFromNeeded : ${riderToBeUpdated.getEquipmentNeededIds()}">
-              <a th:text="${oneFromNeeded.name}" ></a><br>
-          </span>
-      </td>
-    </tr>
+<!--    <tr>-->
+<!--      <td>-->
+<!--        список оборудования <br> выбранного ранее:-->
+<!--      </td>-->
+<!--      <td>-->
+<!--          <span th:each="oneFromNeeded : ${riderToBeUpdated.getEquipmentNeededIds()}">-->
+<!--              <a th:text="${oneFromNeeded.name}" ></a><br>-->
+<!--          </span>-->
+<!--      </td>-->
+<!--    </tr>-->
                               <!-- new checkbox set for equipment-->
     <tr>
-        <td>
-            новый список <br> оборудования:
+        <td valign="top">
+            Новый список <br> оборудования:
         </td>
         <td>
             <div th:each="oneFromEnum : ${T(com.project.prkt.model.TypesOfEquipment).values()}">
@@ -81,25 +84,26 @@
             </div>
         </td>
     </tr>
-
-
   </table>
+
+<br/>
 
   <input type="submit" value="сохранить"/>
 
 </form>
+
 <br>
+
 <form th:method="GET"
       th:action="@{/admin/info-booking}">
   <input type="submit" value="выйти в список броней">
 </form>
+
+<br/>
+
 <form th:method="GET"
       th:action="@{/admin/info-booking/edit/{id}(id=${bookingId})}">
     <input type="submit" value="выйти в текущий заказ">
 </form>
-
-
 </body>
-
-
 </html>

@@ -47,4 +47,6 @@ public class RiderService {
 
         riderRepository.save(riderToBeUpdated);
     }
+
+
 }
