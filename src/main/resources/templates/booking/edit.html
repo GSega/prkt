@@ -182,6 +182,48 @@
                                 </span>
                             </select>
                         </div>
+                        <div th:if="${oneEquipmentId.name()} == JACKET">
+                            <select name="jacket">
+                                <span th:if="${oneRider.assignedEquipment.jacket.id} == null">
+                                    <option value="" th:disabled="false" th:selected="selected"></option>
+                                    <option th:each="oneJacket : ${allJacketsAvailable}"
+                                            th:value="${oneJacket.getId()}"
+                                            th:text="${oneJacket.getName()}">?????
+                                    </option>
+                                </span>
+                                <span th:unless="${oneRider.assignedEquipment.jacket.id} == null">
+                                    <option th:value="${oneRider.assignedEquipment.jacket.id}"
+                                            th:text="${oneRider.assignedEquipment.jacket.name}">
+                                    </option>
+                                    <option th:each="oneJacket : ${allJacketsAvailable}"
+                                            th:value="${oneJacket.getId()}"
+                                            th:text="${oneJacket.getName()}">?????
+                                    </option>
+                                    <option value="" th:disabled="false"></option>
+                                </span>
+                            </select>
+                        </div>
+                        <div th:if="${oneEquipmentId.name()} == KNEE_PROTECTION">
+                            <select name="kneeProtection">
+                                <span th:if="${oneRider.assignedEquipment.kneeProtection.id} == null">
+                                    <option value="" th:disabled="false" th:selected="selected"></option>
+                                    <option th:each="oneKneeProtection : ${allKneeProtectionAvailable}"
+                                            th:value="${oneKneeProtection.getId()}"
+                                            th:text="${oneKneeProtection.getName()}">?????
+                                    </option>
+                                </span>
+                                <span th:unless="${oneRider.assignedEquipment.kneeProtection.id} == null">
+                                    <option th:value="${oneRider.assignedEquipment.kneeProtection.id}"
+                                            th:text="${oneRider.assignedEquipment.kneeProtection.name}">
+                                    </option>
+                                    <option th:each="oneKneeProtection : ${allKneeProtectionAvailable}"
+                                            th:value="${oneKneeProtection.getId()}"
+                                            th:text="${oneKneeProtection.getName()}">?????
+                                    </option>
+                                    <option value="" th:disabled="false"></option>
+                                </span>
+                            </select>
+                        </div>
                     </span>
                 </td>
                 <td th:width="50"></td>

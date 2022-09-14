@@ -26,12 +26,15 @@ public class BookingController {
     private final SnowboardBootsService snowboardBootsService;
     private final SkiService skiService;
     private final SkiBootsService skiBootsService;
+    private final JacketService jacketService;
+    private final KneeProtectionService kneeProtectionService;
 
     @Autowired
     public BookingController(BookingService bookingService, ClientService clientService, RiderService riderService,
                              AssignedEquipmentService assignedEquipmentService, SnowboardService snowboardService,
                              SnowboardBootsService snowboardBootsService, SkiService skiService,
-                             SkiBootsService skiBootsService) {
+                             SkiBootsService skiBootsService, JacketService jacketService,
+                             KneeProtectionService kneeProtectionService) {
         this.bookingService = bookingService;
         this.clientService = clientService;
         this.riderService = riderService;
@@ -40,6 +43,8 @@ public class BookingController {
         this.snowboardBootsService = snowboardBootsService;
         this.skiService = skiService;
         this.skiBootsService = skiBootsService;
+        this.jacketService = jacketService;
+        this.kneeProtectionService = kneeProtectionService;
     }
 
     // ----- show all bookings -----
@@ -100,6 +105,12 @@ public class BookingController {
         model.addAttribute("allSkiBootsAvailable",
                 skiBootsService.showAllAvailableSkiBoots(bookingToBeUpdated.getDateOfArrival(),
                         bookingToBeUpdated.getDateOfReturn(), bookingService.showAllBookings()));
+        model.addAttribute("allJacketsAvailable",
+                jacketService.showAllAvailableJackets(bookingToBeUpdated.getDateOfArrival(),
+                        bookingToBeUpdated.getDateOfReturn(), bookingService.showAllBookings()));
+        model.addAttribute("allKneeProtectionAvailable",
+                kneeProtectionService.showAllAvailableKneeProtection(bookingToBeUpdated.getDateOfArrival(),
+                        bookingToBeUpdated.getDateOfReturn(), bookingService.showAllBookings()));
         return "booking/edit";
     }
 
@@ -157,13 +168,29 @@ public class BookingController {
         } else {
             riderService.showOneRiderById(riderToBeUpdatedId).getAssignedEquipment().getSki().setAvailable(true);
         }
-        if (assignedEquipment.getSki().getId() != null) {
+        if (assignedEquipment.getSkiBoots().getId() != null) {
             riderService.showOneRiderById(riderToBeUpdatedId).getAssignedEquipment().getSkiBoots().setAvailable(true);
             skiBootsService.changeSkiBootsAvailableById(assignedEquipment.getSkiBoots().getId());
             SkiBoots newSkiBoots = skiBootsService.showOneSkiBootsById(assignedEquipment.getSkiBoots().getId());
             newAssignedEquipment.setSkiBoots(newSkiBoots);
         } else {
             riderService.showOneRiderById(riderToBeUpdatedId).getAssignedEquipment().getSkiBoots().setAvailable(true);
+        }
+        if (assignedEquipment.getJacket().getId() != null) {
+            riderService.showOneRiderById(riderToBeUpdatedId).getAssignedEquipment().getJacket().setAvailable(true);
+            jacketService.changeJacketAvailableById(assignedEquipment.getJacket().getId());
+            Jacket newJacket = jacketService.showOneJacketById(assignedEquipment.getJacket().getId());
+            newAssignedEquipment.setJacket(newJacket);
+        } else {
+            riderService.showOneRiderById(riderToBeUpdatedId).getAssignedEquipment().getJacket().setAvailable(true);
+        }
+        if (assignedEquipment.getKneeProtection().getId() != null) {
+            riderService.showOneRiderById(riderToBeUpdatedId).getAssignedEquipment().getKneeProtection().setAvailable(true);
+            kneeProtectionService.changeKneeProtectionAvailableById(assignedEquipment.getKneeProtection().getId());
+            KneeProtection newKneeProtection = kneeProtectionService.showOneKneeProtectionById(assignedEquipment.getKneeProtection().getId());
+            newAssignedEquipment.setKneeProtection(newKneeProtection);
+        } else {
+            riderService.showOneRiderById(riderToBeUpdatedId).getAssignedEquipment().getKneeProtection().setAvailable(true);
         }
 
         assignedEquipmentService.addNewAssignedEquipmentToDB(newAssignedEquipment);

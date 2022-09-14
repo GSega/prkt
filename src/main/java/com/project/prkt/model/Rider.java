@@ -53,10 +53,10 @@ public class Rider {
     //@Column(name="typesOfEquipment", nullable=false)
 
     //указали имя дочерней таблицы и имя колонки которая будет связывать основнйо класс и дочернюю коллекцию
-    @CollectionTable(name="riderTypesOfEquipment", joinColumns= {@JoinColumn(name="rider_id")})
+    @CollectionTable(name="rider_types_of_equipment", joinColumns= {@JoinColumn(name="rider_id")})
     private List<TypesOfEquipment> equipmentNeededIds;
     @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "assignedEquipment_id", referencedColumnName = "id")
+    @JoinColumn(name = "assigned_equipment_id", referencedColumnName = "id")
     private AssignedEquipment assignedEquipment;
 
     public Long getId() {
