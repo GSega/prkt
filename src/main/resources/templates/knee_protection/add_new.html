@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="author" content="Nikolai Khriapov">
+    <title th:text="#{knee_protection.add_new.title}">?????</title>
+</head>
+<body th:align="center">
+
+<!--Header-->
+<h1 th:text="#{knee_protection.add_new.header}">?????</h1>
+
+<!--Input parameters-->
+<form th:method="POST"
+      th:action="@{/admin/info-equipment/knee-protection}"
+      th:object="${newKneeProtection}">
+
+    <table th:align="center" style="text-align:left"
+           th:cellpadding="2">
+        <tr>
+            <td th:text="#{knee_protection.add_new.field.name}">?????</td>
+            <td>
+                <input type="text" th:field="*{name}"/>
+                <div style="color:red" th:if="${#fields.hasErrors('name')}" th:errors="*{name}">?????</div>
+            </td>
+        </tr>
+        <tr>
+            <td th:text="#{knee_protection.add_new.field.available}">?????</td>
+            <td>
+                <select th:field="*{available}">
+                    <option th:value="1" th:text="#{knee_protection.available.true}">?????</option>
+                    <option th:value="0" th:text="#{knee_protection.available.false}">?????</option>
+                </select>
+            </td>
+        </tr>
+        <tr>
+            <td th:text="#{knee_protection.add_new.field.condition}">?????</td>
+            <td>
+                <select name="condition">         <!-- name is needed, otherwise won't display properly in the table -->
+                    <!-- must be named as the class field (camelCase) -->
+                    <option th:each="i : ${T(com.project.prkt.model.EquipmentCondition).values()}"
+                            th:value="${i.name()}"
+                            th:text="#{${'equipment_condition.' + i}}">?????
+                    </option>
+                </select>
+            </td>
+        </tr>
+        <tr>
+            <td th:text="#{knee_protection.add_new.field.size}">?????</td>
+            <td>
+                <select name="size">
+                    <option th:each="i : ${T(com.project.prkt.model.KneeProtection.Size).values()}"
+                            th:value="${i.name}"
+                            th:text="${i.name}">?????
+                    </option>
+                </select>
+            </td>
+        </tr>
+    </table>
+
+    <br/>
+
+    <input type="submit" th:value="#{knee_protection.add_new.button.create}"/>
+</form>
+
+<br/>
+
+<!--Return to "knee_protection/show_all"-->
+<a href="/admin/info-equipment/knee-protection/">
+    <button th:text="#{knee_protection.add_new.button.return}">?????</button>
+</a>
+
+</body>
+</html>

@@ -50,7 +50,7 @@
                     <option th:each="i : ${T(com.project.prkt.model.Snowboard.Stiffness).values()}"
                             th:value="${i.name()}"
                             th:text="#{${'snowboard.stiffness.' + i}}"
-                            th:selected="${snowboardToUpdate.getCondition()}">?????
+                            th:selected="${snowboardToUpdate.getStiffness()}">?????
                     </option>
                 </select>
             </td>
@@ -62,7 +62,7 @@
                     <option th:each="i : ${T(com.project.prkt.model.Snowboard.Arch).values()}"
                             th:value="${i.name()}"
                             th:text="#{${'snowboard.arch.' + i}}"
-                            th:selected="${snowboardToUpdate.getCondition()}">?????
+                            th:selected="${snowboardToUpdate.getArch()}">?????
                     </option>
                 </select>
             </td>
@@ -74,7 +74,7 @@
                     <option th:each="i : ${T(com.project.prkt.model.Snowboard.BindingSize).values()}"
                             th:value="${i}"
                             th:text="${i}"
-                            th:selected="${snowboardToUpdate.getCondition()}">?????
+                            th:selected="${snowboardToUpdate.getBindingSize()}">?????
                     </option>
                 </select>
             </td>

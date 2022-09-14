@@ -12,20 +12,32 @@ public class AssignedEquipment {
     private Rider rider;
 
     @ManyToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "snowboard_id")
+    @JoinColumn
     private Snowboard snowboard;
 
     @ManyToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "snowboard_boots_id")
+    @JoinColumn
     private SnowboardBoots snowboardBoots;
 
     @ManyToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "ski_id")
+    @JoinColumn
     private Ski ski;
 
     @ManyToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "ski_boots_id")
+    @JoinColumn
     private SkiBoots skiBoots;
+
+    @ManyToOne(cascade = CascadeType.ALL)
+    @JoinColumn
+    private Jacket jacket;
+
+    @ManyToOne(cascade = CascadeType.ALL)
+    @JoinColumn
+    private KneeProtection kneeProtection;
+
+    @ManyToOne(cascade = CascadeType.ALL)
+    @JoinColumn
+    private ProtectiveShorts protectiveShorts;
 
     public Long getId() {
         return id;
@@ -87,6 +99,39 @@ public class AssignedEquipment {
         this.skiBoots = skiBoots;
     }
 
+    public Jacket getJacket() {
+        if (jacket == null) {
+            return new Jacket();
+        }
+        return jacket;
+    }
+
+    public void setJacket(Jacket jacket) {
+        this.jacket = jacket;
+    }
+
+    public KneeProtection getKneeProtection() {
+        if (kneeProtection == null) {
+            return new KneeProtection();
+        }
+        return kneeProtection;
+    }
+
+    public void setKneeProtection(KneeProtection kneeProtection) {
+        this.kneeProtection = kneeProtection;
+    }
+
+    public ProtectiveShorts getProtectiveShorts() {
+        if (protectiveShorts == null) {
+            return new ProtectiveShorts();
+        }
+        return protectiveShorts;
+    }
+
+    public void setProtectiveShorts(ProtectiveShorts protectiveShorts) {
+        this.protectiveShorts = protectiveShorts;
+    }
+
     @Override
     public String toString() {
         return "AssignedEquipment{" +
@@ -94,6 +139,9 @@ public class AssignedEquipment {
                 ", " + snowboardBoots.toString() +
                 ", " + ski.toString() +
                 ", " + skiBoots.toString() +
+                ", " + jacket.toString() +
+                ", " + kneeProtection.toString() +
+                ", " + protectiveShorts.toString() +
                 '}';
     }
 }
