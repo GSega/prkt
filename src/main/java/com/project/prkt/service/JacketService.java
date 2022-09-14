@@ -81,7 +81,7 @@ public class JacketService {
 
     // ----- search -----
     public List<Jacket> showJacketsByPartOfName(String partOfName) {
-        return jacketRepository.findAllByNameContaining(partOfName);
+        return jacketRepository.findAllByNameContainingIgnoreCase(partOfName);
     }
 
     // ----- sort -----

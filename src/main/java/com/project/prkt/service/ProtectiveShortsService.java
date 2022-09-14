@@ -81,7 +81,7 @@ public class ProtectiveShortsService {
 
     // ----- search -----
     public List<ProtectiveShorts> showProtectiveShortsByPartOfName(String partOfName) {
-        return protectiveShortsRepository.findAllByNameContaining(partOfName);
+        return protectiveShortsRepository.findAllByNameContainingIgnoreCase(partOfName);
     }
 
     // ----- sort -----

@@ -17,5 +17,5 @@ public interface ProtectiveShortsRepository extends JpaRepository<ProtectiveShor
     List<ProtectiveShorts> findAllByOrderById();
 
     // ----- search -----
-    List<ProtectiveShorts> findAllByNameContaining(String partOfName);
+    List<ProtectiveShorts> findAllByNameContainingIgnoreCase(String partOfName);
 }

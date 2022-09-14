@@ -82,7 +82,7 @@ public class SnowboardBootsService {
 
     // ----- search -----
     public List<SnowboardBoots> showSnowboardBootsByPartOfName(String partOfName) {
-        return snowboardBootsRepository.findAllByNameContaining(partOfName);
+        return snowboardBootsRepository.findAllByNameContainingIgnoreCase(partOfName);
     }
 
     // ----- sort -----

@@ -17,5 +17,5 @@ public interface JacketRepository extends JpaRepository<Jacket, Long> {
     List<Jacket> findAllByOrderById();
 
     // ----- search -----
-    List<Jacket> findAllByNameContaining(String partOfName);
+    List<Jacket> findAllByNameContainingIgnoreCase(String partOfName);
 }

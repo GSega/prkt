@@ -17,5 +17,5 @@ public interface KneeProtectionRepository extends JpaRepository<KneeProtection, 
     List<KneeProtection> findAllByOrderById();
 
     // ----- search -----
-    List<KneeProtection> findAllByNameContaining(String partOfName);
+    List<KneeProtection> findAllByNameContainingIgnoreCase(String partOfName);
 }

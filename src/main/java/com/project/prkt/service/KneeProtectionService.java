@@ -81,7 +81,7 @@ public class KneeProtectionService {
 
     // ----- search -----
     public List<KneeProtection> showKneeProtectionByPartOfName(String partOfName) {
-        return kneeProtectionRepository.findAllByNameContaining(partOfName);
+        return kneeProtectionRepository.findAllByNameContainingIgnoreCase(partOfName);
     }
 
     // ----- sort -----

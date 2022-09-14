@@ -3,7 +3,6 @@ package com.project.prkt.service;
 import com.project.prkt.model.Booking;
 import com.project.prkt.model.Rider;
 import com.project.prkt.model.Snowboard;
-import com.project.prkt.repository.BookingRepository;
 import com.project.prkt.repository.SnowboardRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Sort;
@@ -85,7 +84,7 @@ public class SnowboardService {
 
     // ----- search -----
     public List<Snowboard> showSnowboardsByPartOfName(String partOfName) {
-        return snowboardRepository.findAllByNameContaining(partOfName);
+        return snowboardRepository.findAllByNameContainingIgnoreCase(partOfName);
     }
 
     // ----- sort -----

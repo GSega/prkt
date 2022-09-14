@@ -17,5 +17,5 @@ public interface SnowboardRepository extends JpaRepository<Snowboard, Long> {
     List<Snowboard> findAllByOrderById();
 
     // ----- search -----
-    List<Snowboard> findAllByNameContaining(String partOfName);
+    List<Snowboard> findAllByNameContainingIgnoreCase(String partOfName);
 }
