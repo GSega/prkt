@@ -44,10 +44,6 @@
                th:text="#{snowboard_boots.show_all.table.header.name}">?????</a>
         </th>
         <th>
-            <a th:href="@{'/admin/info-equipment/snowboard-boots/sort?parameter=available&sortDirection=' + ${reverseSortDirection}}"
-               th:text="#{snowboard_boots.show_all.table.header.available}">?????</a>
-        </th>
-        <th>
             <a th:href="@{'/admin/info-equipment/snowboard-boots/sort?parameter=condition&sortDirection=' + ${reverseSortDirection}}"
                th:text="#{snowboard_boots.show_all.table.header.condition}">?????</a>
         </th>
@@ -66,9 +62,6 @@
         <td th:align="left"
             th:text="${oneSnowboardBoots.getName()}">?????
         </td>
-        <td th:text="${oneSnowboardBoots.isAvailable()} ? #{snowboard_boots.available.true} : #{snowboard_boots.available.false}">?????</td>
-        <!--notice that - #{snowboard_boots.available.true} is written without th:text=-->
-        <!--probably because a String is already expected-->
         <td th:text="#{${'equipment_condition.' + oneSnowboardBoots.getCondition()}}">?????</td>
         <td th:text="#{${'snowboard_boots.size.' + oneSnowboardBoots.getSize()}}">?????</td>
         <td th:text="#{${'snowboard_boots.stiffness.' + oneSnowboardBoots.getStiffness()}}">?????</td>
