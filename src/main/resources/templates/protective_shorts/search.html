@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <meta name="author" content="Nikolai Khriapov">
+  <title th:text="#{protective_shorts.search.title}">?????</title>
+</head>
+<body th:align="center">
+
+<!--Header-->
+<h1 th:text="#{protective_shorts.search.header}">?????</h1>
+
+<!--Table-->
+<table th:align="center"
+       th:border="1" th:rules="rows"
+       th:cellpadding="5">
+  <tr>
+    <th th:text="#{protective_shorts.search.table.header.id}">?????</th>
+    <th th:text="#{protective_shorts.search.table.header.name}">?????</th>
+    <th th:text="#{protective_shorts.search.table.header.condition}">?????</th>
+    <th th:text="#{protective_shorts.search.table.header.size}">?????</th>
+    <th></th>
+  </tr>
+  <tr th:each="oneProtectiveShorts : ${protectiveShortsByPartOfName}">
+    <td th:text="${oneProtectiveShorts.getId()}">?????</td>
+    <td th:align="left"
+        th:text="${oneProtectiveShorts.getName()}">?????
+    </td>
+    <td th:text="#{${'equipment_condition.' + oneProtectiveShorts.getCondition()}}">?????</td>
+    <td th:text="${oneProtectiveShorts.getSize()}">?????</td>
+    <td th:width="50"></td>
+    <td>
+      <a th:href="@{/admin/info-equipment/protective-shorts/edit/{id}(id=${oneProtectiveShorts.getId()})}">
+        <button th:text="#{protective_shorts.search.table.button.edit}">?????</button>
+      </a>
+    </td>
+    <td>
+      <form th:method="DELETE" th:action="@{/admin/info-equipment/protective-shorts/{id}(id=${oneProtectiveShorts.getId()})}">
+        <input type="submit" th:value="#{protective_shorts.search.table.button.delete}"/>
+      </form>
+    </td>
+  </tr>
+</table>
+
+<br/>
+
+<!--Return to "protective_shorts/show_all"-->
+<a href="/admin/info-equipment/protective-shorts/">
+  <button th:text="#{protective_shorts.search.button.return}">?????</button>
+</a>
+
+</body>
+</html>

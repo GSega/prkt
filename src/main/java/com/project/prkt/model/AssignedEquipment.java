@@ -35,6 +35,10 @@ public class AssignedEquipment {
     @JoinColumn
     private KneeProtection kneeProtection;
 
+    @ManyToOne(cascade = CascadeType.ALL)
+    @JoinColumn
+    private ProtectiveShorts protectiveShorts;
+
     public Long getId() {
         return id;
     }
@@ -117,6 +121,17 @@ public class AssignedEquipment {
         this.kneeProtection = kneeProtection;
     }
 
+    public ProtectiveShorts getProtectiveShorts() {
+        if (protectiveShorts == null) {
+            return new ProtectiveShorts();
+        }
+        return protectiveShorts;
+    }
+
+    public void setProtectiveShorts(ProtectiveShorts protectiveShorts) {
+        this.protectiveShorts = protectiveShorts;
+    }
+
     @Override
     public String toString() {
         return "AssignedEquipment{" +
@@ -126,6 +141,7 @@ public class AssignedEquipment {
                 ", " + skiBoots.toString() +
                 ", " + jacket.toString() +
                 ", " + kneeProtection.toString() +
+                ", " + protectiveShorts.toString() +
                 '}';
     }
 }

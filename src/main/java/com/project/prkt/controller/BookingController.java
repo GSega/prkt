@@ -28,13 +28,14 @@ public class BookingController {
     private final SkiBootsService skiBootsService;
     private final JacketService jacketService;
     private final KneeProtectionService kneeProtectionService;
+    private final ProtectiveShortsService protectiveShortsService;
 
     @Autowired
     public BookingController(BookingService bookingService, ClientService clientService, RiderService riderService,
                              AssignedEquipmentService assignedEquipmentService, SnowboardService snowboardService,
                              SnowboardBootsService snowboardBootsService, SkiService skiService,
                              SkiBootsService skiBootsService, JacketService jacketService,
-                             KneeProtectionService kneeProtectionService) {
+                             KneeProtectionService kneeProtectionService, ProtectiveShortsService protectiveShortsService) {
         this.bookingService = bookingService;
         this.clientService = clientService;
         this.riderService = riderService;
@@ -45,6 +46,7 @@ public class BookingController {
         this.skiBootsService = skiBootsService;
         this.jacketService = jacketService;
         this.kneeProtectionService = kneeProtectionService;
+        this.protectiveShortsService = protectiveShortsService;
     }
 
     // ----- show all bookings -----
@@ -110,6 +112,9 @@ public class BookingController {
                         bookingToBeUpdated.getDateOfReturn(), bookingService.showAllBookings()));
         model.addAttribute("allKneeProtectionAvailable",
                 kneeProtectionService.showAllAvailableKneeProtection(bookingToBeUpdated.getDateOfArrival(),
+                        bookingToBeUpdated.getDateOfReturn(), bookingService.showAllBookings()));
+        model.addAttribute("allProtectiveShortsAvailable",
+                protectiveShortsService.showAllAvailableProtectiveShorts(bookingToBeUpdated.getDateOfArrival(),
                         bookingToBeUpdated.getDateOfReturn(), bookingService.showAllBookings()));
         return "booking/edit";
     }
@@ -191,6 +196,14 @@ public class BookingController {
             newAssignedEquipment.setKneeProtection(newKneeProtection);
         } else {
             riderService.showOneRiderById(riderToBeUpdatedId).getAssignedEquipment().getKneeProtection().setAvailable(true);
+        }
+        if (assignedEquipment.getProtectiveShorts().getId() != null) {
+            riderService.showOneRiderById(riderToBeUpdatedId).getAssignedEquipment().getProtectiveShorts().setAvailable(true);
+            protectiveShortsService.changeProtectiveShortsAvailableById(assignedEquipment.getProtectiveShorts().getId());
+            ProtectiveShorts newProtectiveShorts = protectiveShortsService.showOneProtectiveShortsById(assignedEquipment.getProtectiveShorts().getId());
+            newAssignedEquipment.setProtectiveShorts(newProtectiveShorts);
+        } else {
+            riderService.showOneRiderById(riderToBeUpdatedId).getAssignedEquipment().getProtectiveShorts().setAvailable(true);
         }
 
         assignedEquipmentService.addNewAssignedEquipmentToDB(newAssignedEquipment);

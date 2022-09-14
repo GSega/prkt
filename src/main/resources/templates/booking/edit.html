@@ -80,15 +80,14 @@
             <th><a th:text="#{booking.edit.table.header.equipment}">?????</a></th>
             <th></th>
         </tr>
-        <tr style="vertical-align:top"
-            th:each="oneRider : ${clientAndBookingInfoToBeUpdated.getListOfRiders()}">
-            <td th:text="${oneRider.getId()}">?????</td>
-            <td th:text="${oneRider.getName()}" th:align="left">?????</td>
-            <td th:text="${oneRider.getSex()}">?????</td>
-            <td th:text="${oneRider.getHeight()}">?????</td>
-            <td th:text="${oneRider.getWeight()}">?????</td>
-            <td th:text="${oneRider.getFoot()}">?????</td>
-            <td th:align="left">
+        <tr th:each="oneRider : ${clientAndBookingInfoToBeUpdated.getListOfRiders()}">
+            <td style="vertical-align:top" th:text="${oneRider.getId()}">?????</td>
+            <td style="vertical-align:top" th:text="${oneRider.getName()}" th:align="left">?????</td>
+            <td style="vertical-align:top" th:text="${oneRider.getSex()}">?????</td>
+            <td style="vertical-align:top" th:text="${oneRider.getHeight()}">?????</td>
+            <td style="vertical-align:top" th:text="${oneRider.getWeight()}">?????</td>
+            <td style="vertical-align:top" th:text="${oneRider.getFoot()}">?????</td>
+            <td style="vertical-align:center" th:align="left">
                 <span th:each="oneEquipmentId : ${oneRider.getEquipmentNeededIds()}">
                     <div th:text="${oneEquipmentId.name()}">?????</div>
                 </span>
@@ -96,7 +95,7 @@
             <form th:method="PATCH"
                   th:action="@{'/admin/info-booking/edit/assign-equipment?bid=' + ${id} + '&rid=' + ${oneRider.getId()}}"
                   th:object="${oneRider.assignedEquipment}">
-                <td th:align="left">
+                <td style="vertical-align:center" th:align="left">
                     <span th:each="oneEquipmentId : ${oneRider.getEquipmentNeededIds()}">
                         <div th:if="${oneEquipmentId.name()} == SNOWBOARD">
                             <select name="snowboard">
@@ -224,11 +223,32 @@
                                 </span>
                             </select>
                         </div>
+                        <div th:if="${oneEquipmentId.name()} == PROTECTIVE_SHORTS">
+                            <select name="protectiveShorts">
+                                <span th:if="${oneRider.assignedEquipment.protectiveShorts.id} == null">
+                                    <option value="" th:disabled="false" th:selected="selected"></option>
+                                    <option th:each="oneProtectiveShorts : ${allProtectiveShortsAvailable}"
+                                            th:value="${oneProtectiveShorts.getId()}"
+                                            th:text="${oneProtectiveShorts.getName()}">?????
+                                    </option>
+                                </span>
+                                <span th:unless="${oneRider.assignedEquipment.protectiveShorts.id} == null">
+                                    <option th:value="${oneRider.assignedEquipment.protectiveShorts.id}"
+                                            th:text="${oneRider.assignedEquipment.protectiveShorts.name}">
+                                    </option>
+                                    <option th:each="oneProtectiveShorts : ${allProtectiveShortsAvailable}"
+                                            th:value="${oneProtectiveShorts.getId()}"
+                                            th:text="${oneProtectiveShorts.getName()}">?????
+                                    </option>
+                                    <option value="" th:disabled="false"></option>
+                                </span>
+                            </select>
+                        </div>
                     </span>
                 </td>
                 <td th:width="50"></td>
-                <td>
-                    <input type="submit" th:value="Assign"/>
+                <td style="vertical-align:center">
+                    <input type="submit" th:value="#{booking.edit.table.button.assign}"/>
                 </td>
             </form>
             <td>
