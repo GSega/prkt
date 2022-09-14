@@ -10,14 +10,6 @@
 <!--Header-->
 <h1 th:text="#{snowboard_boots.show_all.header}">?????</h1>
 
-<!--Language-->
-<p>
-    <a th:href="@{/admin/info-equipment/snowboard-boots(lang=ru)}" th:text="Русский">?????</a>
-    <a th:href="@{/admin/info-equipment/snowboard-boots(lang=en)}" th:text="English">?????</a>
-</p>
-
-<br/>
-
 <!--Search-->
 <form th:method="GET"
       th:action="@{/admin/info-equipment/snowboard-boots/search-by-name}">
@@ -28,7 +20,7 @@
     <input type="submit" th:value="#{snowboard_boots.show_all.search_button}"/>
 </form>
 
-<br/><br/>
+<br/>
 
 <!--Table-->
 <table th:align="center"

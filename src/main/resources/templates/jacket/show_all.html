@@ -10,14 +10,6 @@
 <!--Header-->
 <h1 th:text="#{jacket.show_all.header}">?????</h1>
 
-<!--Language-->
-<p>
-    <a th:href="@{/admin/info-equipment/jacket(lang=ru)}" th:text="Русский">?????</a>
-    <a th:href="@{/admin/info-equipment/jacket(lang=en)}" th:text="English">?????</a>
-</p>
-
-<br/>
-
 <!--Search-->
 <form th:method="GET"
       th:action="@{/admin/info-equipment/jacket/search-by-name}">
@@ -28,7 +20,7 @@
     <input type="submit" th:value="#{jacket.show_all.search_button}"/>
 </form>
 
-<br/><br/>
+<br/>
 
 <!--Table-->
 <table th:align="center"
