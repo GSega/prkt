@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="author" content="Nikolai Khriapov">
+    <title th:text="#{jacket.show_all.title}">?????</title>
+</head>
+<body th:align="center">
+
+<!--Header-->
+<h1 th:text="#{jacket.show_all.header}">?????</h1>
+
+<!--Language-->
+<p>
+    <a th:href="@{/admin/info-equipment/jacket(lang=ru)}" th:text="Русский">?????</a>
+    <a th:href="@{/admin/info-equipment/jacket(lang=en)}" th:text="English">?????</a>
+</p>
+
+<br/>
+
+<!--Search-->
+<form th:method="GET"
+      th:action="@{/admin/info-equipment/jacket/search-by-name}">
+
+    <input th:type="text" th:name="partOfName"
+           th:placeholder="#{jacket.show_all.search_placeholder}" style="width:200px"/>
+
+    <input type="submit" th:value="#{jacket.show_all.search_button}"/>
+</form>
+
+<br/><br/>
+
+<!--Table-->
+<table th:align="center"
+       th:border="1" th:rules="rows"
+       th:cellpadding="5">
+    <tr>
+        <th>
+            <a th:href="@{'/admin/info-equipment/jacket/sort?parameter=id&sortDirection=' + ${reverseSortDirection}}"
+               th:text="#{jacket.show_all.table.header.id}">?????</a>
+        </th>
+        <th>
+            <a th:href="@{'/admin/info-equipment/jacket/sort?parameter=name&sortDirection=' + ${reverseSortDirection}}"
+               th:text="#{jacket.show_all.table.header.name}">?????</a>
+        </th>
+        <th>
+            <a th:href="@{'/admin/info-equipment/jacket/sort?parameter=condition&sortDirection=' + ${reverseSortDirection}}"
+               th:text="#{jacket.show_all.table.header.condition}">?????</a>
+        </th>
+        <th>
+            <a th:href="@{'/admin/info-equipment/jacket/sort?parameter=size&sortDirection=' + ${reverseSortDirection}}"
+               th:text="#{jacket.show_all.table.header.size}">?????</a>
+        </th>
+        <th></th>
+    </tr>
+    <tr th:each="oneJacket : ${allJackets}">
+        <td th:text="${oneJacket.getId()}">?????</td>
+        <td th:align="left"
+            th:text="${oneJacket.getName()}">?????
+        </td>
+        <td th:text="#{${'equipment_condition.' + oneJacket.getCondition()}}">?????</td>
+        <td th:text="${oneJacket.getSize()}">?????</td>
+        <td th:width="50"></td>
+        <td>
+            <a th:href="@{/admin/info-equipment/jacket/edit/{id}(id=${oneJacket.getId()})}">
+                <button th:text="#{jacket.show_all.table.button.edit}">?????</button>
+            </a>
+        </td>
+        <td>
+            <form th:method="DELETE" th:action="@{/admin/info-equipment/jacket/{id}(id=${oneJacket.getId()})}">
+                <input type="submit" th:value="#{jacket.show_all.table.button.delete}"/>
+            </form>
+        </td>
+    </tr>
+</table>
+
+<br/>
+
+<!--Add new-->
+<a href="/admin/info-equipment/jacket/add-new">
+    <button th:text="#{jacket.show_all.button.add_new}">?????</button>
+</a>
+
+<br/><br/>
+
+<!--Return-->
+<a href="/admin">
+    <button th:text="#{jacket.show_all.button.return}">?????</button>
+</a>
+
+</body>
+</html>

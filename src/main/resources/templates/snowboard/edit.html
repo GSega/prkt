@@ -25,15 +25,6 @@
             </td>
         </tr>
         <tr>
-            <td th:text="#{snowboard.edit.field.available}">?????</td>
-            <td>
-                <select th:field="*{available}">
-                    <option th:value="1" th:text="#{snowboard.available.true}">?????</option>
-                    <option th:value="0" th:text="#{snowboard.available.false}">?????</option>
-                </select>
-            </td>
-        </tr>
-        <tr>
             <td th:text="#{snowboard.edit.field.condition}">?????</td>
             <td>
                 <select th:field="*{condition}">
@@ -59,7 +50,7 @@
                     <option th:each="i : ${T(com.project.prkt.model.Snowboard.Stiffness).values()}"
                             th:value="${i.name()}"
                             th:text="#{${'snowboard.stiffness.' + i}}"
-                            th:selected="${snowboardToUpdate.getCondition()}">?????
+                            th:selected="${snowboardToUpdate.getStiffness()}">?????
                     </option>
                 </select>
             </td>
@@ -71,7 +62,7 @@
                     <option th:each="i : ${T(com.project.prkt.model.Snowboard.Arch).values()}"
                             th:value="${i.name()}"
                             th:text="#{${'snowboard.arch.' + i}}"
-                            th:selected="${snowboardToUpdate.getCondition()}">?????
+                            th:selected="${snowboardToUpdate.getArch()}">?????
                     </option>
                 </select>
             </td>
@@ -83,7 +74,7 @@
                     <option th:each="i : ${T(com.project.prkt.model.Snowboard.BindingSize).values()}"
                             th:value="${i}"
                             th:text="${i}"
-                            th:selected="${snowboardToUpdate.getCondition()}">?????
+                            th:selected="${snowboardToUpdate.getBindingSize()}">?????
                     </option>
                 </select>
             </td>
