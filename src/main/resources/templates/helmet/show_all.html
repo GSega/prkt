@@ -18,7 +18,7 @@
 <!------------------------search------------------>
 
 <form th:method="GET"
-      th:action="@{/admin/info-equipment/helmet-boots/search-by-name}">
+      th:action="@{/admin/info-equipment/helmet/search-by-name}">
 
   <input th:type="text" name="partOfName"
          th:placeholder="#{helmet.show_all.search_placeholder}" style="width:200px"/>
@@ -35,19 +35,19 @@
          th:cellpadding="5">
     <tr>
       <th>
-        <a th:href="@{'/admin/info_equipment/helmet/sort?parameter=id&sortDirection=' + ${reverseSortDirection}}"
+        <a th:href="@{'/admin/info-equipment/helmet/sort?parameter=id&sortDirection=' + ${reverseSortDirection}}"
            th:text="#{helmet.show_all.table.header.id}"></a></th>
       <th>
-        <a th:href="@{'/admin/info_equipment/helmet/sort?parameter=id&sortDirection=' + ${reverseSortDirection}}"
+        <a th:href="@{'/admin/info-equipment/helmet/sort?parameter=name&sortDirection=' + ${reverseSortDirection}}"
            th:text="#{helmet.show_all.table.header.name}"></a></th>
       <th>
-        <a th:href="@{'/admin/info_equipment/helmet/sort?parameter=id&sortDirection=' + ${reverseSortDirection}}"
+        <a th:href="@{'/admin/info-equipment/helmet/sort?parameter=size&sortDirection=' + ${reverseSortDirection}}"
            th:text="#{helmet.show_all.table.header.size}"></a></th>
       <th>
-        <a th:href="@{'/admin/info_equipment/helmet/sort?parameter=id&sortDirection=' + ${reverseSortDirection}}"
+        <a th:href="@{'/admin/info-equipment/helmet/sort?parameter=available&sortDirection=' + ${reverseSortDirection}}"
            th:text="#{helmet.show_all.table.header.free}"> </a></th>
       <th>
-        <a th:href="@{'/admin/info_equipment/helmet/sort?parameter=id&sortDirection=' + ${reverseSortDirection}}"
+        <a th:href="@{'/admin/info-equipment/helmet/sort?parameter=condition&sortDirection=' + ${reverseSortDirection}}"
            th:text="#{helmet.show_all.table.header.condition}"></a></th>
 
       <!--            <th> <a th:text="#{helmet.show_all.table.header.edit}"/> </th>-->

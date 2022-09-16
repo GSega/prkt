@@ -6,10 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 
@@ -37,6 +34,7 @@ public class HelmetController {
         return "helmet/add_new";
     }
 
+    //----------add new save to db---------
     @PostMapping()
     public String sendNewHelmet(@Valid @ModelAttribute("helmet") Helmet helmet, BindingResult bindingResult) {
         if (bindingResult.hasErrors()) {
@@ -45,4 +43,50 @@ public class HelmetController {
         helmetService.saveHelmetToDB(helmet);
         return "redirect:/admin/info-equipment/helmet";
     }
+
+    //-----------edit page--------
+    @GetMapping("/edit/{id}")
+    public String showOneHelmet (@PathVariable("id") Long id, Model model){
+        model.addAttribute("helmetToUpdate", helmetService.showOneHelmetById(id));
+        model.addAttribute("id", id);
+        return "helmet/edit";
+    }
+    //-------edit patch----------
+    @PatchMapping("/{id}")
+    public String updateHelmet (@PathVariable("id") Long id,
+                                @Valid @ModelAttribute("helmetToBeUpdated") Helmet helmetToBeUpdated,
+                                BindingResult bindingResult,
+                                Model model){
+        if(bindingResult.hasErrors()){
+            model.addAttribute("helmetToUpdate", helmetService.showOneHelmetById(id));
+            model.addAttribute("id", id);
+            return "helmet/edit";
+        }
+        helmetService.updateHelmetById(id, helmetToBeUpdated);
+        return "redirect:/admin/info-equipment/helmet";
+    }
+    // ---------- delete --------
+    @DeleteMapping("/{id}")
+    public String deleteHelmet (@PathVariable("id") Long id){
+        helmetService.deleteHelmetById(id);
+        return "redirect:/admin/info-equipment/helmet";
+    }
+    //-----------sort-------------
+    @GetMapping("/sort")
+    public String sortAllHelmetsByParameter(@RequestParam("parameter") String parameter,
+                                            @RequestParam("sortDirection") String sortDirection,
+                                            Model model) {
+        model.addAttribute("reverseSortDirection", sortDirection.equals("asc") ? "desc" : "asc");
+        model.addAttribute("allHelmet", helmetService.sortAllHelmetsByParameter(parameter, sortDirection));
+        return "helmet/show_all";
+    }
+
+    //------------search---------
+    @GetMapping("/search-by-name")
+    public String showHelmetsByPartOfName(@RequestParam("partOfName") String partOfName, Model model) {
+        model.addAttribute("helmetByPartOfName", helmetService.showHelmetsByPartOfName(partOfName));
+        model.addAttribute("partOfName", partOfName);
+        return "helmet/search";
+    }
+
 }

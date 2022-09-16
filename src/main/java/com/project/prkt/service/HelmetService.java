@@ -5,10 +5,12 @@ import com.project.prkt.model.Helmet;
 import com.project.prkt.model.Rider;
 import com.project.prkt.repository.HelmetRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import java.util.Date;
 import java.util.List;
+
 @Service
 public class HelmetService {
     private final HelmetRepository helmetRepository;
@@ -18,11 +20,11 @@ public class HelmetService {
         this.helmetRepository = helmetRepository;
     }
 
-    public List<Helmet> showAllHelmets(){
+    public List<Helmet> showAllHelmets() {
         return helmetRepository.findAll();
     }
 
-    public void saveHelmetToDB(Helmet helmet){
+    public void saveHelmetToDB(Helmet helmet) {
         helmetRepository.save(helmet);
     }
 
@@ -52,4 +54,31 @@ public class HelmetService {
     }
 
 
+    public Helmet showOneHelmetById(Long id) {
+        return helmetRepository.findById(id).orElseThrow(() ->
+                new IllegalStateException("Helmet with id = " + id + " not found!"));
+    }
+
+    public void updateHelmetById(Long id, Helmet helmetNewInfo) {
+        Helmet helmet = showOneHelmetById(id);
+        helmet.setName(helmetNewInfo.getName());
+        helmet.setAvailable(helmetNewInfo.isAvailable());
+        helmet.setSize(helmetNewInfo.getSize());
+        helmet.setCondition(helmetNewInfo.getCondition());
+        helmetRepository.save(helmet);
+    }
+
+    public void deleteHelmetById(Long id) {
+        helmetRepository.deleteById(id);
+    }
+    //------sort function---------
+    public List<Helmet> sortAllHelmetsByParameter(String parameter, String sortDirection) {
+        Sort sort = sortDirection.equalsIgnoreCase(Sort.Direction.ASC.name()) ?
+                Sort.by(parameter).ascending() : Sort.by(parameter).descending();
+        return helmetRepository.findAll(sort);
+    }
+
+    public List<Helmet> showHelmetsByPartOfName(String partOfName) {
+       return helmetRepository.findAllByNameContainingIgnoreCase(partOfName);
+    }
 }

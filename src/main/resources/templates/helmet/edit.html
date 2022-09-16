@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title th:text="#{helmet.edit.title}">Edit helmet</title>
+</head>
+<body  th:align="center">
+
+<h1 th:text="#{helmet.edit.title}">?????</h1>
+
+<form th:method="PATCH"
+      th:action="@{/admin/info-equipment/helmet/{id}(id=${id})}"
+      th:object="${helmetToUpdate}">
+
+    <table th:align="center" style="text-align:left"
+           th:cellpadding="2">
+        <tr>
+            <td th:text="#{helmet.edit.table.param}"> Параметр </td>
+            <td th:text="#{helmet.edit.table.input}"> Значение </td>
+        </tr>
+        <tr>
+            <td th:text="#{helmet.edit.table.name}"> <label for="name"> Название </label> </td>
+            <td> <input type="text" th:field="*{name}" id="name"/> <!--тут не надо th на атрибуте type-->
+
+                <div style="color:#9a0a0a" th:if="${#fields.hasErrors('name')}" th:errors="*{name}">Name error</div>
+
+            </td>
+        </tr>
+        <tr>
+            <td  th:text="#{helmet.edit.table.size}"> размер </td>
+            <td>
+                <select th:field="*{size}">
+                    <option th:each="s : ${T(com.project.prkt.model.Helmet.Size).values()}"
+                            th:value="${s}"
+                            th:text="${s}"
+                            th:selected="${helmetToUpdate.getSize()}">?????
+                    </option>
+                </select>
+            </td>
+        </tr>
+        <tr>
+            <td  th:text="#{helmet.edit.table.available}">  доступно </td>
+            <td> <select th:field="*{available}" >
+                <option th:value="1" th:text="#{helmet.edit.table.available.true}"></option>
+                <option th:value="0" th:text="#{helmet.edit.table.available.false}"></option>
+            </select>
+            </td>
+        </tr>
+        <tr>
+            <td  th:text="#{helmet.edit.table.condition}"> состояние </td>
+            <td> <select th:field="*{condition}">
+                <option th:each="i : ${T(com.project.prkt.model.EquipmentCondition).values()}"
+                        th:value="${i.name}"
+                        th:text="#{${'equipment_condition.' + i}}"
+                        th:selected="${helmetToUpdate.getCondition()}"> condition should be here
+                </option>
+            </select>
+            </td>
+        </tr>
+
+
+
+    </table>
+    <br/>
+    <input type="submit" th:value="#{helmet.edit.table.editbutton}"/>
+</form>
+
+<br/>
+
+<a href="/admin/info-equipment/helmet/"> <button th:text="#{helmet.edit.button.return}"> return to helmet </button></a>
+
+</body>
+</html>
