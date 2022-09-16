@@ -6,8 +6,9 @@ public enum TypesOfEquipment {
     SNOWBOARD_BOOTS,
     SKI_BOOTS,
     JACKET,
+    PANTS,
     KNEE_PROTECTION,
     PROTECTIVE_SHORTS,
     HELMET,
-    GLOVES
+    GLOVES,
 }

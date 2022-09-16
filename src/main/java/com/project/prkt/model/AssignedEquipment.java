@@ -43,6 +43,17 @@ public class AssignedEquipment {
     @JoinColumn
     private Helmet helmet;
 
+    @ManyToOne(cascade = CascadeType.ALL)
+    @JoinColumn
+    private Pants pants;
+
+    @ManyToOne(cascade = CascadeType.ALL)
+    @JoinColumn
+    private Gloves gloves;
+
+    public AssignedEquipment() {
+    }
+
 
     public Long getId() {
         return id;
@@ -148,16 +159,43 @@ public class AssignedEquipment {
         this.helmet = helmet;
     }
 
+    public Pants getPants() {
+        if(pants == null){
+            return new Pants();
+        }
+        return pants;
+    }
+
+    public void setPants(Pants pants) {
+        this.pants = pants;
+    }
+
+    public Gloves getGloves() {
+        if(gloves == null){
+            return new Gloves();
+        }
+        return gloves;
+    }
+
+    public void setGloves(Gloves gloves) {
+        this.gloves = gloves;
+    }
+
     @Override
     public String toString() {
         return "AssignedEquipment{" +
-                ", " + snowboard.toString() +
-                ", " + snowboardBoots.toString() +
-                ", " + ski.toString() +
-                ", " + skiBoots.toString() +
-                ", " + jacket.toString() +
-                ", " + kneeProtection.toString() +
-                ", " + protectiveShorts.toString() +
+                "id=" + id +
+                ", rider=" + rider +
+                ", snowboard=" + snowboard +
+                ", snowboardBoots=" + snowboardBoots +
+                ", ski=" + ski +
+                ", skiBoots=" + skiBoots +
+                ", jacket=" + jacket +
+                ", kneeProtection=" + kneeProtection +
+                ", protectiveShorts=" + protectiveShorts +
+                ", helmet=" + helmet +
+                ", pants=" + pants +
+                ", gloves=" + gloves +
                 '}';
     }
 }

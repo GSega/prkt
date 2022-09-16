@@ -244,6 +244,73 @@
                                 </span>
                             </select>
                         </div>
+
+                        <div th:if="${oneEquipmentId.name()} == HELMET">
+                            <select name="helmet">
+                                <span th:if="${oneRider.assignedEquipment.helmet.id} == null">
+                                    <option value="" th:disabled="false" th:selected="selected"></option>
+                                    <option th:each="oneHelmet : ${allHelmetsAvailable}"
+                                            th:value="${oneHelmet.getId()}"
+                                            th:text="${oneHelmet.getName()}">?????
+                                    </option>
+                                </span>
+                                <span th:unless="${oneRider.assignedEquipment.helmet.id} == null">
+                                    <option th:value="${oneRider.assignedEquipment.helmet.id}"
+                                            th:text="${oneRider.assignedEquipment.helmet.name}">
+                                    </option>
+                                    <option th:each="oneHelmet : ${allHelmetsAvailable}"
+                                            th:value="${oneHelmet.getId()}"
+                                            th:text="${oneHelmet.getName()}">?????
+                                    </option>
+                                    <option value="" th:disabled="false"></option>
+                                </span>
+                            </select>
+                        </div>
+
+                            <div th:if="${oneEquipmentId.name()} == GLOVES">
+                            <select name="gloves">
+                                <span th:if="${oneRider.assignedEquipment.gloves.id} == null">
+                                    <option value="" th:disabled="false" th:selected="selected"></option>
+                                    <option th:each="oneGloves : ${allGlovesAvailable}"
+                                            th:value="${oneGloves.getId()}"
+                                            th:text="${oneGloves.getName()}">?????
+                                    </option>
+                                </span>
+                                <span th:unless="${oneRider.assignedEquipment.gloves.id} == null">
+                                    <option th:value="${oneRider.assignedEquipment.gloves.id}"
+                                            th:text="${oneRider.assignedEquipment.gloves.name}">
+                                    </option>
+                                    <option th:each="oneGloves : ${allGlovesAvailable}"
+                                            th:value="${oneGloves.getId()}"
+                                            th:text="${oneGloves.getName()}">?????
+                                    </option>
+                                    <option value="" th:disabled="false"></option>
+                                </span>
+                            </select>
+                        </div>
+
+                            <div th:if="${oneEquipmentId.name()} == PANTS">
+                            <select name="pants">
+                                <span th:if="${oneRider.assignedEquipment.pants.id} == null">
+                                    <option value="" th:disabled="false" th:selected="selected"></option>
+                                    <option th:each="onePants : ${allPantsAvailable}"
+                                            th:value="${onePants.getId()}"
+                                            th:text="${onePants.getName()}">?????
+                                    </option>
+                                </span>
+                                <span th:unless="${oneRider.assignedEquipment.pants.id} == null">
+                                    <option th:value="${oneRider.assignedEquipment.pants.id}"
+                                            th:text="${oneRider.assignedEquipment.pants.name}">
+                                    </option>
+                                    <option th:each="onePants : ${allPantsAvailable}"
+                                            th:value="${onePants.getId()}"
+                                            th:text="${onePants.getName()}">?????
+                                    </option>
+                                    <option value="" th:disabled="false"></option>
+                                </span>
+                            </select>
+                        </div>
+
                     </span>
                 </td>
                 <td th:width="50"></td>

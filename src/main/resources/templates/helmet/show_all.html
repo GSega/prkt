@@ -15,8 +15,6 @@
 
 <br/>
 
-<!------------------------search------------------>
-
 <form th:method="GET"
       th:action="@{/admin/info-equipment/helmet/search-by-name}">
 
@@ -50,8 +48,6 @@
         <a th:href="@{'/admin/info-equipment/helmet/sort?parameter=condition&sortDirection=' + ${reverseSortDirection}}"
            th:text="#{helmet.show_all.table.header.condition}"></a></th>
 
-      <!--            <th> <a th:text="#{helmet.show_all.table.header.edit}"/> </th>-->
-      <!--            <th> <a th:text="#{helmet.show_all.table.header.delete}"/> </th>-->
     </tr>
     <tr th:each="oneHelmet : ${allHelmet}">
       <td th:text="${oneHelmet.getId()}"> id</td>

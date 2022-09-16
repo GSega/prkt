@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <title th:text="#{gloves.add_new.title}">title</title>
+</head>
+<body th:align="center">
+
+<h1 th:text="#{gloves.add_new.title}">ttl</h1>
+
+<form th:method="POST"
+      th:action="@{/admin/info-equipment/gloves}"
+      th:object="${newGloves}">
+
+  <table th:align="center" style="text-align:left"
+         th:cellpadding="2">
+    <tr>
+      <td th:text="#{gloves.table.name}">name</td>
+      <td>
+        <input type="text" th:field="*{name}"/>
+        <div style="color:red" th:if="${#fields.hasErrors('name')}" th:errors="*{name}">err</div>
+      </td>
+    </tr>
+    <tr>
+      <td th:text="#{gloves.available}">avlbl</td>
+      <td>
+        <select th:field="*{available}">
+          <option th:value="1" th:text="#{gloves.available.true}">tr</option>
+          <option th:value="0" th:text="#{gloves.available.false}">fls</option>
+        </select>
+      </td>
+    </tr>
+    <tr>
+      <td th:text="#{gloves.table.condition}">cond</td>
+      <td>
+        <select name="condition">
+          <option th:each="i : ${T(com.project.prkt.model.EquipmentCondition).values()}"
+                  th:value="${i.name()}"
+                  th:text="#{${'equipment_condition.' + i}}">cond
+          </option>
+        </select>
+      </td>
+    </tr>
+    <tr>
+      <td th:text="#{gloves.size}">size</td>
+      <td>
+        <select name="size">
+          <option th:each="i : ${T(com.project.prkt.model.Gloves.Size).values()}"
+                  th:value="${i.name}"
+                  th:text="${i.name}">
+          </option>
+        </select>
+      </td>
+    </tr>
+  </table>
+
+  <br/>
+
+  <input type="submit" th:value="#{gloves.button.save}"/>
+</form>
+
+<br/>
+
+<a href="/admin/info-equipment/gloves/">
+  <button th:text="#{gloves.add_new.button.return}">gloves list</button>
+</a>
+
+<br/><br/>
+
+<a href="/admin/info-equipment/">
+  <button th:text="#{gloves.show_all.button.return}">back to equip</button>
+</a>
+<br/><br/>
+<a href="/admin">
+  <button th:text="#{gloves.edit.button.go_to_main}">back to main</button>
+</a>
+</body>
+</html>

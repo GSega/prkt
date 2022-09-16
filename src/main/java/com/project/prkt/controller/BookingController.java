@@ -29,13 +29,16 @@ public class BookingController {
     private final JacketService jacketService;
     private final KneeProtectionService kneeProtectionService;
     private final ProtectiveShortsService protectiveShortsService;
+    private final PantsService pantsService;
+    private final HelmetService helmetService;
+    private final GlovesService glovesService;
 
     @Autowired
     public BookingController(BookingService bookingService, ClientService clientService, RiderService riderService,
                              AssignedEquipmentService assignedEquipmentService, SnowboardService snowboardService,
                              SnowboardBootsService snowboardBootsService, SkiService skiService,
                              SkiBootsService skiBootsService, JacketService jacketService,
-                             KneeProtectionService kneeProtectionService, ProtectiveShortsService protectiveShortsService) {
+                             KneeProtectionService kneeProtectionService, ProtectiveShortsService protectiveShortsService, PantsService pantsService, HelmetService helmetService, GlovesService glovesService) {
         this.bookingService = bookingService;
         this.clientService = clientService;
         this.riderService = riderService;
@@ -47,6 +50,9 @@ public class BookingController {
         this.jacketService = jacketService;
         this.kneeProtectionService = kneeProtectionService;
         this.protectiveShortsService = protectiveShortsService;
+        this.pantsService = pantsService;
+        this.helmetService = helmetService;
+        this.glovesService = glovesService;
     }
 
     // ----- show all bookings -----
@@ -115,6 +121,15 @@ public class BookingController {
                         bookingToBeUpdated.getDateOfReturn(), bookingService.showAllBookings()));
         model.addAttribute("allProtectiveShortsAvailable",
                 protectiveShortsService.showAllAvailableProtectiveShorts(bookingToBeUpdated.getDateOfArrival(),
+                        bookingToBeUpdated.getDateOfReturn(), bookingService.showAllBookings()));
+        model.addAttribute("allGlovesAvailable",
+                glovesService.showAllAvailableGloves(bookingToBeUpdated.getDateOfArrival(),
+                        bookingToBeUpdated.getDateOfReturn(), bookingService.showAllBookings()));
+        model.addAttribute("allPantsAvailable",
+                pantsService.showAllAvailablePants(bookingToBeUpdated.getDateOfArrival(),
+                        bookingToBeUpdated.getDateOfReturn(), bookingService.showAllBookings()));
+        model.addAttribute("allHelmetsAvailable",
+                helmetService.allAvailableHelmets(bookingToBeUpdated.getDateOfArrival(),
                         bookingToBeUpdated.getDateOfReturn(), bookingService.showAllBookings()));
         return "booking/edit";
     }
@@ -204,6 +219,33 @@ public class BookingController {
             newAssignedEquipment.setProtectiveShorts(newProtectiveShorts);
         } else {
             riderService.showOneRiderById(riderToBeUpdatedId).getAssignedEquipment().getProtectiveShorts().setAvailable(true);
+        }
+
+        if(assignedEquipment.getHelmet().getId() != null){
+            riderService.showOneRiderById(riderToBeUpdatedId).getAssignedEquipment().getHelmet().setAvailable(true);
+            helmetService.changeHelmetAvailableById(assignedEquipment.getHelmet().getId());
+            Helmet newHelmet = helmetService.showOneHelmetById(assignedEquipment.getHelmet().getId());
+            newAssignedEquipment.setHelmet(newHelmet);
+        } else {
+            riderService.showOneRiderById(riderToBeUpdatedId).getAssignedEquipment().getHelmet().setAvailable(true);
+        }
+
+        if(assignedEquipment.getPants().getId() != null){
+            riderService.showOneRiderById(riderToBeUpdatedId).getAssignedEquipment().getPants().setAvailable(true);
+            pantsService.changePantsAvailableById(assignedEquipment.getPants().getId());
+            Pants newPants = pantsService.showOneById(assignedEquipment.getPants().getId());
+            newAssignedEquipment.setPants(newPants);
+        } else{
+            riderService.showOneRiderById(riderToBeUpdatedId).getAssignedEquipment().getPants().setAvailable(true);
+        }
+
+        if(assignedEquipment.getGloves().getId() != null){
+            riderService.showOneRiderById(riderToBeUpdatedId).getAssignedEquipment().getGloves().setAvailable(true);
+            glovesService.changeGlovesAvailableById(assignedEquipment.getGloves().getId());
+            Gloves newGloves = glovesService.showOneById(assignedEquipment.getGloves().getId());
+            newAssignedEquipment.setGloves(newGloves);
+        } else{
+            riderService.showOneRiderById(riderToBeUpdatedId).getAssignedEquipment().getPants().setAvailable(true);
         }
 
         assignedEquipmentService.addNewAssignedEquipmentToDB(newAssignedEquipment);

@@ -81,4 +81,11 @@ public class HelmetService {
     public List<Helmet> showHelmetsByPartOfName(String partOfName) {
        return helmetRepository.findAllByNameContainingIgnoreCase(partOfName);
     }
+
+    // ----- assign equipment to riders in booking -----
+    public void changeHelmetAvailableById(Long helmetId) {
+        Helmet helmetToBeUpdated = showOneHelmetById(helmetId);
+        helmetToBeUpdated.setAvailable(true ? false : true);
+        helmetRepository.save(helmetToBeUpdated);
+    }
 }
