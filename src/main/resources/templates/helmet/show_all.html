@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <title th:text="#{helmet.show_all.title}"></title>
+</head>
+<body th:align="center">
+
+<h1 th:text="#{helmet.show_all.h1}"> all helmets list </h1>
+
+<p>
+  <a th:href="@{/admin/info-equipment/helmet(lang=ru)}" th:text="Русский">?????</a>
+  <a th:href="@{/admin/info-equipment/helmet(lang=en)}" th:text="English">?????</a>
+</p>
+
+<br/>
+
+<!------------------------search------------------>
+
+<form th:method="GET"
+      th:action="@{/admin/info-equipment/helmet-boots/search-by-name}">
+
+  <input th:type="text" name="partOfName"
+         th:placeholder="#{helmet.show_all.search_placeholder}" style="width:200px"/>
+
+  <input type="submit" th:value="#{helmet.show_all.search_button}"/>
+</form>
+
+<br/>
+<br/>
+
+<div>
+  <table th:align="center"
+         th:border="1" th:rules="rows"
+         th:cellpadding="5">
+    <tr>
+      <th>
+        <a th:href="@{'/admin/info_equipment/helmet/sort?parameter=id&sortDirection=' + ${reverseSortDirection}}"
+           th:text="#{helmet.show_all.table.header.id}"></a></th>
+      <th>
+        <a th:href="@{'/admin/info_equipment/helmet/sort?parameter=id&sortDirection=' + ${reverseSortDirection}}"
+           th:text="#{helmet.show_all.table.header.name}"></a></th>
+      <th>
+        <a th:href="@{'/admin/info_equipment/helmet/sort?parameter=id&sortDirection=' + ${reverseSortDirection}}"
+           th:text="#{helmet.show_all.table.header.size}"></a></th>
+      <th>
+        <a th:href="@{'/admin/info_equipment/helmet/sort?parameter=id&sortDirection=' + ${reverseSortDirection}}"
+           th:text="#{helmet.show_all.table.header.free}"> </a></th>
+      <th>
+        <a th:href="@{'/admin/info_equipment/helmet/sort?parameter=id&sortDirection=' + ${reverseSortDirection}}"
+           th:text="#{helmet.show_all.table.header.condition}"></a></th>
+
+      <!--            <th> <a th:text="#{helmet.show_all.table.header.edit}"/> </th>-->
+      <!--            <th> <a th:text="#{helmet.show_all.table.header.delete}"/> </th>-->
+    </tr>
+    <tr th:each="oneHelmet : ${allHelmet}">
+      <td th:text="${oneHelmet.getId()}"> id</td>
+      <td th:text="${oneHelmet.getName()}"> name</td>
+      <td th:text="${oneHelmet.getSize()}"> size</td>
+      <td th:text="${oneHelmet.isAvailable()} ? #{helmet.show_all.table.available.true} : #{helmet.show_all.table.available.false}">
+        avlblty
+      </td>
+      <td th:text="#{${'equipment_condition.' + oneHelmet.getCondition()}}"> cond</td>
+      <td>
+        <a th:href="@{/admin/info-equipment/helmet/edit/{id}(id=${oneHelmet.getId()})}">
+          <button th:text="#{helmet.show_all.table.header.edit}"> изменить</button>
+        </a>
+      </td>
+      <td>
+        <form th:method="DELETE" th:action="@{/admin/info-equipment/helmet/{id}(id=${oneHelmet.getId()})}">
+          <input type="submit" th:value="#{helmet.show_all.table.header.delete}"></form>
+      </td>
+    </tr>
+
+  </table>
+
+</div>
+<br/>
+<div>
+  <a href="/admin/info-equipment/helmet/add-new">
+    <button th:text="#{helmet.show_all.button.add_new}">add new helmet button</button>
+  </a>
+</div>
+<br/>
+<div>
+  <a href="/admin/info-equipment">
+    <button th:text="#{helmet.show_all.button.back_to_equip}"> back_to_equip button </button>
+  </a>
+</div>
+
+</body>
+</html>

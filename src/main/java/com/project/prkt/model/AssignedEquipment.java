@@ -39,6 +39,11 @@ public class AssignedEquipment {
     @JoinColumn
     private ProtectiveShorts protectiveShorts;
 
+    @ManyToOne(cascade = CascadeType.ALL)
+    @JoinColumn
+    private Helmet helmet;
+
+
     public Long getId() {
         return id;
     }
@@ -130,6 +135,17 @@ public class AssignedEquipment {
 
     public void setProtectiveShorts(ProtectiveShorts protectiveShorts) {
         this.protectiveShorts = protectiveShorts;
+    }
+
+    public Helmet getHelmet() {
+        if(helmet == null){
+            return new Helmet();
+        }
+        return helmet;
+    }
+
+    public void setHelmet(Helmet helmet) {
+        this.helmet = helmet;
     }
 
     @Override

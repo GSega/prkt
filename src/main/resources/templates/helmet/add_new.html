@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <title th:text="#{helmet.add_new.title}">Добавление Лыж</title>
+</head>
+
+<body  th:align="center">
+<h1 th:text="#{helmet.add_new.title}"/>
+
+<form th:method="POST"
+      th:action="@{/admin/info-equipment/helmet}"
+      th:object="${helmet}">
+  <table th:align="center"
+         th:border="1" th:rules="rows"
+         th:cellpadding="5">
+    <tr>
+      <td th:text="#{helmet.add_new.table.header.param}"> Параметр</td>
+      <td th:text="#{helmet.add_new.table.header.input}"> Значение</td>
+    </tr>
+    <tr>
+      <td th:text="#{helmet.add_new.table.name}"> Название</td>
+      <td><input th:type="text" th:field="*{name}"/>
+
+        <div style="color:#9a0a0a" th:if="${#fields.hasErrors('name')}" th:errors="*{name}">Name error</div>
+
+      </td>
+    </tr>
+
+    <tr>
+      <td th:text="#{helmet.add_new.table.rostovka}"><label for="size"> Ростовка </label></td>
+      <td><input th:type="text" th:field="*{size}" id="size"/>
+      </td>
+    </tr>
+
+    <tr>
+      <td th:text="#{helmet.add_new.table.available}"> Доступность</td>
+      <td>
+        <select name="available" th:field="*{available}">
+          <option th:value="1" th:text="#{helmet.add_new.table.available.true}"></option>
+          <option th:value="0" th:text="#{helmet.add_new.table.available.false}"></option>
+        </select>
+      </td>
+    </tr>
+
+    <tr>
+      <td th:text="#{helmet.add_new.table.condition}"> Состояние</td>
+      <td><select name="condition">
+        <option th:each="i : ${T(com.project.prkt.model.EquipmentCondition).values()}"
+                th:value="${i.name()}"
+                th:text="#{${'equipment_condition.' + i}}"> condition should be here
+        </option>
+      </select>
+      </td>
+    </tr>
+
+    <tr>
+      <td th:text="#{helmet.add_new.table.stiffness}"> Жесткость</td>
+      <td>
+        <select name="stiffness">
+          <option th:each="y : ${T(com.project.prkt.model.helmet.Stiffness).values()}"
+                  th:value="${y.name()}"
+                  th:text="#{${'helmet.stiffness.' + y}}"> stiffness should be here
+          </option>
+        </select>
+      </td>
+    </tr>
+
+    <!--<label for="size"> Ростовка </label>
+    <input th:type="text" th:field="*{size}" id="size2"/>
+    <div style="color:#9a0a0a" th:if="${#fields.hasErrors('size')}" th:errors="*{size}">Size error</div>
+
+-->
+
+  </table>
+  <br/>
+  <input type="submit" th:value="#{helmet.add_new.table.savebutton}"/> <!--ахуеть это кнопка формы -->
+</form>
+
+</body>
+</html>
