@@ -103,16 +103,19 @@
                                     <option value="" th:disabled="false" th:selected="selected"></option>
                                     <option th:each="oneSnowboard : ${allSnowboardsAvailable}"
                                             th:value="${oneSnowboard.getId()}"
-                                            th:text="${oneSnowboard.getName()}">?????
+                                            th:text="#{booking.edit.table.dropdown.size} + ': ' + ${oneSnowboard.getSize()} +
+                                            ', ' + #{booking.edit.table.dropdown.name} + ': ' + ${oneSnowboard.getName()}">?????
                                     </option>
                                 </span>
                                 <span th:unless="${oneRider.assignedEquipment.snowboard.id} == null">
                                     <option th:value="${oneRider.assignedEquipment.snowboard.id}"
-                                            th:text="${oneRider.assignedEquipment.snowboard.name}">
+                                            th:text="#{booking.edit.table.dropdown.size} + ': ' + ${oneRider.assignedEquipment.snowboard.size} +
+                                            ', ' + #{booking.edit.table.dropdown.name} + ': ' + ${oneRider.assignedEquipment.snowboard.name}">?????
                                     </option>
                                     <option th:each="oneSnowboard : ${allSnowboardsAvailable}"
                                             th:value="${oneSnowboard.getId()}"
-                                            th:text="${oneSnowboard.getName()}">?????
+                                            th:text="#{booking.edit.table.dropdown.size} + ': ' + ${oneSnowboard.getSize()} +
+                                            ', ' + #{booking.edit.table.dropdown.name} + ': ' + ${oneSnowboard.getName()}">?????
                                     </option>
                                     <option value="" th:disabled="false"></option>
                                 </span>
@@ -124,16 +127,19 @@
                                     <option value="" th:disabled="false" th:selected="selected"></option>
                                     <option th:each="oneSnowboardBoots : ${allSnowboardBootsAvailable}"
                                             th:value="${oneSnowboardBoots.getId()}"
-                                            th:text="${oneSnowboardBoots.getName()}">?????
+                                            th:text="#{booking.edit.table.dropdown.size} + ': ' + ${oneSnowboardBoots.getSize()} +
+                                            ', ' + #{booking.edit.table.dropdown.name} + ': ' + ${oneSnowboardBoots.getName()}">?????
                                     </option>
                                 </span>
                                 <span th:unless="${oneRider.assignedEquipment.snowboardBoots.id} == null">
                                     <option th:value="${oneRider.assignedEquipment.snowboardBoots.id}"
-                                            th:text="${oneRider.assignedEquipment.snowboardBoots.name}">
+                                            th:text="#{booking.edit.table.dropdown.size} + ': ' + ${oneRider.assignedEquipment.snowboardBoots.size} +
+                                            ', ' + #{booking.edit.table.dropdown.name} + ': ' + ${oneRider.assignedEquipment.snowboardBoots.name}">?????
                                     </option>
                                     <option th:each="oneSnowboardBoots : ${allSnowboardBootsAvailable}"
                                             th:value="${oneSnowboardBoots.getId()}"
-                                            th:text="${oneSnowboardBoots.getName()}">?????
+                                            th:text="#{booking.edit.table.dropdown.size} + ': ' + ${oneSnowboardBoots.getSize()} +
+                                            ', ' + #{booking.edit.table.dropdown.name} + ': ' + ${oneSnowboardBoots.getName()}">?????
                                     </option>
                                     <option value="" th:disabled="false"></option>
                                 </span>
@@ -145,16 +151,21 @@
                                     <option value="" th:disabled="false" th:selected="selected"></option>
                                     <option th:each="oneSki : ${allSkiAvailable}"
                                             th:value="${oneSki.getId()}"
-                                            th:text="${oneSki.getName()}">?????
+                                            th:text="#{booking.edit.table.dropdown.size} + ': ' + ${oneSki.getSize()} +
+                                            ', ' + #{booking.edit.table.dropdown.name} + ': ' + ${oneSki.getName()}">?????
                                     </option>
                                 </span>
                                 <span th:unless="${oneRider.assignedEquipment.ski.id} == null">
                                     <option th:value="${oneRider.assignedEquipment.ski.id}"
+                                            th:text="#{booking.edit.table.dropdown.size} + ': ' + ${oneRider.assignedEquipment.ski.size} +
+                                            ', ' + #{booking.edit.table.dropdown.name} + ': ' + ${oneRider.assignedEquipment.ski.name}">?????
+
                                             th:text="${oneRider.assignedEquipment.ski.name}">
                                     </option>
                                     <option th:each="oneSki : ${allSkiAvailable}"
                                             th:value="${oneSki.getId()}"
-                                            th:text="${oneSki.getName()}">?????
+                                            th:text="#{booking.edit.table.dropdown.size} + ': ' + ${oneSki.getSize()} +
+                                            ', ' + #{booking.edit.table.dropdown.name} + ': ' + ${oneSki.getName()}">?????
                                     </option>
                                     <option value="" th:disabled="false"></option>
                                 </span>
@@ -166,17 +177,20 @@
                                     <option value="" th:disabled="false" th:selected="selected"></option>
                                     <option th:each="oneSkiBoots : ${allSkiBootsAvailable}"
                                             th:value="${oneSkiBoots.getId()}"
-                                            th:text="${oneSkiBoots.getName()}">?????
-                                    </option>
+                                            th:text="#{booking.edit.table.dropdown.size} + ': ' + ${oneSkiBoots.getSize()} +
+                                            ', ' + #{booking.edit.table.dropdown.name} + ': ' + ${oneSkiBoots.getName()}">?????                                    </option>
                                 </span>
                                 <span th:unless="${oneRider.assignedEquipment.skiBoots.id} == null">
                                     <option th:value="${oneRider.assignedEquipment.skiBoots.id}"
+                                            th:text="#{booking.edit.table.dropdown.size} + ': ' + ${oneRider.assignedEquipment.skiBoots.size} +
+                                            ', ' + #{booking.edit.table.dropdown.name} + ': ' + ${oneRider.assignedEquipment.skiBoots.name}">?????
+
                                             th:text="${oneRider.assignedEquipment.skiBoots.name}">
                                     </option>
                                     <option th:each="oneSkiBoots : ${allSkiBootsAvailable}"
                                             th:value="${oneSkiBoots.getId()}"
-                                            th:text="${oneSkiBoots.getName()}">?????
-                                    </option>
+                                            th:text="#{booking.edit.table.dropdown.size} + ': ' + ${oneSkiBoots.getSize()} +
+                                            ', ' + #{booking.edit.table.dropdown.name} + ': ' + ${oneSkiBoots.getName()}">?????                                    </option>
                                     <option value="" th:disabled="false"></option>
                                 </span>
                             </select>
@@ -187,16 +201,19 @@
                                     <option value="" th:disabled="false" th:selected="selected"></option>
                                     <option th:each="oneJacket : ${allJacketsAvailable}"
                                             th:value="${oneJacket.getId()}"
-                                            th:text="${oneJacket.getName()}">?????
+                                            th:text="#{booking.edit.table.dropdown.size} + ': ' + ${oneJacket.getSize()} +
+                                            ', ' + #{booking.edit.table.dropdown.name} + ': ' + ${oneJacket.getName()}">?????
                                     </option>
                                 </span>
                                 <span th:unless="${oneRider.assignedEquipment.jacket.id} == null">
                                     <option th:value="${oneRider.assignedEquipment.jacket.id}"
-                                            th:text="${oneRider.assignedEquipment.jacket.name}">
+                                            th:text="#{booking.edit.table.dropdown.size} + ': ' + ${oneRider.assignedEquipment.jacket.size} +
+                                            ', ' + #{booking.edit.table.dropdown.name} + ': ' + ${oneRider.assignedEquipment.jacket.name}">?????
                                     </option>
                                     <option th:each="oneJacket : ${allJacketsAvailable}"
                                             th:value="${oneJacket.getId()}"
-                                            th:text="${oneJacket.getName()}">?????
+                                            th:text="#{booking.edit.table.dropdown.size} + ': ' + ${oneJacket.getSize()} +
+                                            ', ' + #{booking.edit.table.dropdown.name} + ': ' + ${oneJacket.getName()}">?????
                                     </option>
                                     <option value="" th:disabled="false"></option>
                                 </span>
@@ -208,16 +225,19 @@
                                     <option value="" th:disabled="false" th:selected="selected"></option>
                                     <option th:each="oneKneeProtection : ${allKneeProtectionAvailable}"
                                             th:value="${oneKneeProtection.getId()}"
-                                            th:text="${oneKneeProtection.getName()}">?????
+                                            th:text="#{booking.edit.table.dropdown.size} + ': ' + ${oneKneeProtection.getSize()} +
+                                            ', ' + #{booking.edit.table.dropdown.name} + ': ' + ${oneKneeProtection.getName()}">?????
                                     </option>
                                 </span>
                                 <span th:unless="${oneRider.assignedEquipment.kneeProtection.id} == null">
                                     <option th:value="${oneRider.assignedEquipment.kneeProtection.id}"
-                                            th:text="${oneRider.assignedEquipment.kneeProtection.name}">
+                                            th:text="#{booking.edit.table.dropdown.size} + ': ' + ${oneRider.assignedEquipment.kneeProtection.size} +
+                                            ', ' + #{booking.edit.table.dropdown.name} + ': ' + ${oneRider.assignedEquipment.kneeProtection.name}">?????
                                     </option>
                                     <option th:each="oneKneeProtection : ${allKneeProtectionAvailable}"
                                             th:value="${oneKneeProtection.getId()}"
-                                            th:text="${oneKneeProtection.getName()}">?????
+                                            th:text="#{booking.edit.table.dropdown.size} + ': ' + ${oneKneeProtection.getSize()} +
+                                            ', ' + #{booking.edit.table.dropdown.name} + ': ' + ${oneKneeProtection.getName()}">?????
                                     </option>
                                     <option value="" th:disabled="false"></option>
                                 </span>
@@ -229,16 +249,19 @@
                                     <option value="" th:disabled="false" th:selected="selected"></option>
                                     <option th:each="oneProtectiveShorts : ${allProtectiveShortsAvailable}"
                                             th:value="${oneProtectiveShorts.getId()}"
-                                            th:text="${oneProtectiveShorts.getName()}">?????
+                                            th:text="#{booking.edit.table.dropdown.size} + ': ' + ${oneProtectiveShorts.getSize()} +
+                                            ', ' + #{booking.edit.table.dropdown.name} + ': ' + ${oneProtectiveShorts.getName()}">?????
                                     </option>
                                 </span>
                                 <span th:unless="${oneRider.assignedEquipment.protectiveShorts.id} == null">
                                     <option th:value="${oneRider.assignedEquipment.protectiveShorts.id}"
-                                            th:text="${oneRider.assignedEquipment.protectiveShorts.name}">
+                                            th:text="#{booking.edit.table.dropdown.size} + ': ' + ${oneRider.assignedEquipment.protectiveShorts.size} +
+                                            ', ' + #{booking.edit.table.dropdown.name} + ': ' + ${oneRider.assignedEquipment.protectiveShorts.name}">?????
                                     </option>
                                     <option th:each="oneProtectiveShorts : ${allProtectiveShortsAvailable}"
                                             th:value="${oneProtectiveShorts.getId()}"
-                                            th:text="${oneProtectiveShorts.getName()}">?????
+                                            th:text="#{booking.edit.table.dropdown.size} + ': ' + ${oneProtectiveShorts.getSize()} +
+                                            ', ' + #{booking.edit.table.dropdown.name} + ': ' + ${oneProtectiveShorts.getName()}">?????
                                     </option>
                                     <option value="" th:disabled="false"></option>
                                 </span>
@@ -250,16 +273,19 @@
                                     <option value="" th:disabled="false" th:selected="selected"></option>
                                     <option th:each="oneHelmet : ${allHelmetsAvailable}"
                                             th:value="${oneHelmet.getId()}"
-                                            th:text="${oneHelmet.getName()}">?????
+                                            th:text="#{booking.edit.table.dropdown.size} + ': ' + ${oneHelmet.getSize()} +
+                                            ', ' + #{booking.edit.table.dropdown.name} + ': ' + ${oneHelmet.getName()}">?????
                                     </option>
                                 </span>
                                 <span th:unless="${oneRider.assignedEquipment.helmet.id} == null">
                                     <option th:value="${oneRider.assignedEquipment.helmet.id}"
-                                            th:text="${oneRider.assignedEquipment.helmet.name}">
+                                            th:text="#{booking.edit.table.dropdown.size} + ': ' + ${oneRider.assignedEquipment.helmet.size} +
+                                            ', ' + #{booking.edit.table.dropdown.name} + ': ' + ${oneRider.assignedEquipment.helmet.name}">?????
                                     </option>
                                     <option th:each="oneHelmet : ${allHelmetsAvailable}"
                                             th:value="${oneHelmet.getId()}"
-                                            th:text="${oneHelmet.getName()}">?????
+                                            th:text="#{booking.edit.table.dropdown.size} + ': ' + ${oneHelmet.getSize()} +
+                                            ', ' + #{booking.edit.table.dropdown.name} + ': ' + ${oneHelmet.getName()}">?????
                                     </option>
                                     <option value="" th:disabled="false"></option>
                                 </span>
@@ -271,16 +297,19 @@
                                     <option value="" th:disabled="false" th:selected="selected"></option>
                                     <option th:each="oneGloves : ${allGlovesAvailable}"
                                             th:value="${oneGloves.getId()}"
-                                            th:text="${oneGloves.getName()}">?????
+                                            th:text="#{booking.edit.table.dropdown.size} + ': ' + ${oneGloves.getSize()} +
+                                            ', ' + #{booking.edit.table.dropdown.name} + ': ' + ${oneGloves.getName()}">?????
                                     </option>
                                 </span>
                                 <span th:unless="${oneRider.assignedEquipment.gloves.id} == null">
                                     <option th:value="${oneRider.assignedEquipment.gloves.id}"
-                                            th:text="${oneRider.assignedEquipment.gloves.name}">
+                                            th:text="#{booking.edit.table.dropdown.size} + ': ' + ${oneRider.assignedEquipment.gloves.size} +
+                                            ', ' + #{booking.edit.table.dropdown.name} + ': ' + ${oneRider.assignedEquipment.gloves.name}">?????
                                     </option>
                                     <option th:each="oneGloves : ${allGlovesAvailable}"
                                             th:value="${oneGloves.getId()}"
-                                            th:text="${oneGloves.getName()}">?????
+                                            th:text="#{booking.edit.table.dropdown.size} + ': ' + ${oneGloves.getSize()} +
+                                            ', ' + #{booking.edit.table.dropdown.name} + ': ' + ${oneGloves.getName()}">?????
                                     </option>
                                     <option value="" th:disabled="false"></option>
                                 </span>
@@ -292,16 +321,19 @@
                                     <option value="" th:disabled="false" th:selected="selected"></option>
                                     <option th:each="onePants : ${allPantsAvailable}"
                                             th:value="${onePants.getId()}"
-                                            th:text="${onePants.getName()}">?????
+                                            th:text="#{booking.edit.table.dropdown.size} + ': ' + ${onePants.getSize()} +
+                                            ', ' + #{booking.edit.table.dropdown.name} + ': ' + ${onePants.getName()}">?????
                                     </option>
                                 </span>
                                 <span th:unless="${oneRider.assignedEquipment.pants.id} == null">
                                     <option th:value="${oneRider.assignedEquipment.pants.id}"
-                                            th:text="${oneRider.assignedEquipment.pants.name}">
+                                            th:text="#{booking.edit.table.dropdown.size} + ': ' + ${oneRider.assignedEquipment.pants.size} +
+                                            ', ' + #{booking.edit.table.dropdown.name} + ': ' + ${oneRider.assignedEquipment.pants.name}">?????
                                     </option>
                                     <option th:each="onePants : ${allPantsAvailable}"
                                             th:value="${onePants.getId()}"
-                                            th:text="${onePants.getName()}">?????
+                                            th:text="#{booking.edit.table.dropdown.size} + ': ' + ${onePants.getSize()} +
+                                            ', ' + #{booking.edit.table.dropdown.name} + ': ' + ${onePants.getName()}">?????
                                     </option>
                                     <option value="" th:disabled="false"></option>
                                 </span>

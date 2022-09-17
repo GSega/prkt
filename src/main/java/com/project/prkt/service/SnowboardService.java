@@ -1,6 +1,7 @@
 package com.project.prkt.service;
 
 import com.project.prkt.model.Booking;
+import com.project.prkt.model.EquipmentCondition;
 import com.project.prkt.model.Rider;
 import com.project.prkt.model.Snowboard;
 import com.project.prkt.repository.SnowboardRepository;
@@ -8,7 +9,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.Iterator;
 import java.util.List;
 
 /**
@@ -56,7 +59,18 @@ public class SnowboardService {
 
     //// ----- edit booking info / assign equipment to riders -----
     public List<Snowboard> showAllAvailableSnowboards(Date dateOfArrival, Date dateOfReturn, List<Booking> allBookings) {
-        List<Snowboard> listOfAvailableSnowboards = snowboardRepository.findAll();
+        //get all snowboards
+        List<Snowboard> listOfAvailableSnowboards = snowboardRepository.findAllByOrderBySize();
+        //remove equipment that is broken, in service, or otherwise not ready
+        for (Iterator<Snowboard> iterator = listOfAvailableSnowboards.iterator(); iterator.hasNext(); ) {
+            Snowboard oneSnowboard = iterator.next();
+            if (oneSnowboard.getCondition().equals(EquipmentCondition.BROKEN) ||
+                    oneSnowboard.getCondition().equals(EquipmentCondition.SERVICE) ||
+                    oneSnowboard.getCondition().equals(EquipmentCondition.UNKNOWN)) {
+                iterator.remove();
+            }
+        }
+        //remove already assigned equipment
         for (Booking booking : allBookings) {
             if (((dateOfArrival.after(booking.getDateOfArrival()) || dateOfArrival.equals(booking.getDateOfArrival())) &&
                     (dateOfArrival.before(booking.getDateOfReturn()) || dateOfArrival.equals(booking.getDateOfReturn()))) ||

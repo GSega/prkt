@@ -18,4 +18,7 @@ public interface SnowboardRepository extends JpaRepository<Snowboard, Long> {
 
     // ----- search -----
     List<Snowboard> findAllByNameContainingIgnoreCase(String partOfName);
+
+    //// ----- edit booking info / assign equipment to riders -----
+    List<Snowboard> findAllByOrderBySize();
 }
