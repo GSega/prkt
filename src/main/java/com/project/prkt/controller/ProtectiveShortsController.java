@@ -41,14 +41,13 @@ public class ProtectiveShortsController {
 
     @PostMapping()
     public String addNewProtectiveShortsToDB(@ModelAttribute("newProtectiveShorts") @Valid ProtectiveShorts protectiveShorts,
-                                   BindingResult bindingResult) {
+                                             BindingResult bindingResult) {
         if (bindingResult.hasErrors()) {
             return "protective_shorts/add_new";
         }
         protectiveShortsService.addNewProtectiveShortsToDB(protectiveShorts);
         return "redirect:/admin/info-equipment/protective-shorts";
     }
-
 
     // ----- edit -----
     @GetMapping("/edit/{id}")
@@ -60,8 +59,8 @@ public class ProtectiveShortsController {
 
     @PatchMapping("/edit/{id}")
     public String updateProtectiveShorts(@PathVariable("id") Long id,
-                               @ModelAttribute("protectiveShortsToUpdate") @Valid ProtectiveShorts updatedProtectiveShorts,
-                               BindingResult bindingResult, Model model) {
+                                         @ModelAttribute("protectiveShortsToUpdate") @Valid ProtectiveShorts updatedProtectiveShorts,
+                                         BindingResult bindingResult, Model model) {
         if (bindingResult.hasErrors()) {
             model.addAttribute("id", id);
             model.addAttribute("protectiveShortsToUpdate", updatedProtectiveShorts);
@@ -79,18 +78,17 @@ public class ProtectiveShortsController {
     }
 
     // ----- search -----
-    @GetMapping("/search-by-name")
-    public String showProtectiveShortsByPartOfName(@RequestParam("partOfName") String partOfName, Model model) {
-        model.addAttribute("protectiveShortsByPartOfName", protectiveShortsService.showProtectiveShortsByPartOfName(partOfName));
-        model.addAttribute("partOfName", partOfName);
+    @GetMapping("/search")
+    public String showProtectiveShortsBySearch(@RequestParam("search") String search, Model model) {
+        model.addAttribute("protectiveShortsBySearch", protectiveShortsService.showProtectiveShortsBySearch(search));
         return "protective_shorts/search";
     }
 
     // ----- sort -----
     @GetMapping("/sort")
     public String sortAllProtectiveShortsByParameter(@RequestParam("parameter") String parameter,
-                                            @RequestParam("sortDirection") String sortDirection,
-                                            Model model) {
+                                                     @RequestParam("sortDirection") String sortDirection,
+                                                     Model model) {
         model.addAttribute("reverseSortDirection", sortDirection.equals("asc") ? "desc" : "asc");
         model.addAttribute("allProtectiveShorts", protectiveShortsService.sortAllProtectiveShortsByParameter(parameter, sortDirection));
         return "protective_shorts/show_all";

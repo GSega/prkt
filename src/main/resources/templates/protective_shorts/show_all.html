@@ -12,9 +12,9 @@
 
 <!--Search-->
 <form th:method="GET"
-      th:action="@{/admin/info-equipment/protective-shorts/search-by-name}">
+      th:action="@{/admin/info-equipment/protective-shorts/search}">
 
-    <input th:type="text" th:name="partOfName"
+    <input th:type="text" th:name="search"
            th:placeholder="#{protective_shorts.show_all.search_placeholder}" style="width:200px"/>
 
     <input type="submit" th:value="#{protective_shorts.show_all.search_button}"/>

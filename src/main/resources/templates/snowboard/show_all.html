@@ -12,9 +12,9 @@
 
 <!--Search-->
 <form th:method="GET"
-      th:action="@{/admin/info-equipment/snowboard/search-by-name}">
+      th:action="@{/admin/info-equipment/snowboard/search}">
 
-    <input th:type="text" th:name="partOfName"
+    <input th:type="text" th:name="search"
            th:placeholder="#{snowboard.show_all.search_placeholder}" style="width:200px"/>
 
     <input type="submit" th:value="#{snowboard.show_all.search_button}"/>

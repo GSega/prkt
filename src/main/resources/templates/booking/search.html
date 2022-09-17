@@ -35,7 +35,7 @@
         </th>
         <th></th>
     </tr>
-    <tr th:each="oneBooking : ${bookingsByParameter}">
+    <tr th:each="oneBooking : ${bookingsBySearch}">
         <td th:text="${oneBooking.getId()}">?????</td>
         <td th:align="left"
             th:text="${oneBooking.getClient().getSurname()}">?????

@@ -23,7 +23,7 @@
         <th th:text="#{snowboard.search.table.header.binding_size}">?????</th>
         <th></th>
     </tr>
-    <tr th:each="oneSnowboard : ${snowboardsByPartOfName}">
+    <tr th:each="oneSnowboard : ${snowboardsBySearch}">
         <td th:text="${oneSnowboard.getId()}">?????</td>
         <td th:align="left"
             th:text="${oneSnowboard.getName()}">?????

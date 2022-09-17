@@ -49,7 +49,6 @@ public class SnowboardController {
         return "redirect:/admin/info-equipment/snowboard";
     }
 
-
     // ----- edit -----
     @GetMapping("/edit/{id}")
     public String showOneSnowboard(@PathVariable("id") Long id, Model model) {
@@ -79,10 +78,9 @@ public class SnowboardController {
     }
 
     // ----- search -----
-    @GetMapping("/search-by-name")
-    public String showSnowboardsByPartOfName(@RequestParam("partOfName") String partOfName, Model model) {
-        model.addAttribute("snowboardsByPartOfName", snowboardService.showSnowboardsByPartOfName(partOfName));
-        model.addAttribute("partOfName", partOfName);
+    @GetMapping("/search")
+    public String showSnowboardsBySearch(@RequestParam("search") String search, Model model) {
+        model.addAttribute("snowboardsBySearch", snowboardService.showSnowboardsBySearch(search));
         return "snowboard/search";
     }
 
@@ -93,7 +91,6 @@ public class SnowboardController {
                                                Model model) {
         model.addAttribute("reverseSortDirection", sortDirection.equals("asc") ? "desc" : "asc");
         model.addAttribute("allSnowboards", snowboardService.sortAllSnowboardsByParameter(parameter, sortDirection));
-        // the above attributeName must be the same as in method "showAllSnowboards"
         return "snowboard/show_all";
     }
 }

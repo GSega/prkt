@@ -21,7 +21,7 @@
         <th th:text="#{knee_protection.search.table.header.size}">?????</th>
         <th></th>
     </tr>
-    <tr th:each="oneKneeProtection : ${kneeProtectionByPartOfName}">
+    <tr th:each="oneKneeProtection : ${kneeProtectionBySearch}">
         <td th:text="${oneKneeProtection.getId()}">?????</td>
         <td th:align="left"
             th:text="${oneKneeProtection.getName()}">?????

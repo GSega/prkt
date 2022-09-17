@@ -10,6 +10,10 @@ import javax.validation.constraints.Pattern;
 import java.util.Date;
 import java.util.List;
 
+/**
+ * @author Nikolai Khriapov
+ */
+
 public class BookingCreationRequest {
     private Long clientNumber;
     private Long bookingNumber;

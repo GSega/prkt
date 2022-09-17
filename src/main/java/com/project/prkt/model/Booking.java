@@ -83,18 +83,26 @@ public class Booking {
         return listOfRiders;
     }
 
-    public void addToListOfRiders(Rider rider) {
-        if (listOfRiders == null) {
-            listOfRiders = new ArrayList<>();
-        }
-        this.listOfRiders.add(rider);
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Booking booking = (Booking) o;
+        return completed == booking.completed && Objects.equals(id, booking.id) &&
+                Objects.equals(client, booking.client) && Objects.equals(dateOfArrival, booking.dateOfArrival) &&
+                Objects.equals(dateOfReturn, booking.dateOfReturn) && Objects.equals(listOfRiders, booking.listOfRiders);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, client, dateOfArrival, dateOfReturn, completed, listOfRiders);
     }
 
     @Override
     public String toString() {
         return "Booking{" +
                 "id=" + id +
-                ", client=" + client +
+                ", client=" + client.toString() +
                 ", dateOfArrival=" + dateOfArrival +
                 ", dateOfReturn=" + dateOfReturn +
                 ", completed=" + completed +

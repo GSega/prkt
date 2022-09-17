@@ -51,19 +51,32 @@ public class SnowboardBootsService {
         snowboardBootsRepository.save(snowboardBootsToBeUpdated);
     }
 
+    // ----- delete -----
+    public void deleteSnowboardBootsById(Long id) {
+        snowboardBootsRepository.deleteById(id);
+    }
+
+    // ----- search -----
+    public List<SnowboardBoots> showSnowboardBootsBySearch(String search) {
+        return snowboardBootsRepository.findAllByNameContainingIgnoreCase(search);
+    }
+
+    // ----- sort -----
+    public List<SnowboardBoots> sortAllSnowboardBootsByParameter(String parameter, String sortDirection) {
+        Sort sort = sortDirection.equalsIgnoreCase(Sort.Direction.ASC.name()) ?
+                Sort.by(parameter).ascending() : Sort.by(parameter).descending();
+        return snowboardBootsRepository.findAll(sort);
+    }
+
     //// ----- edit booking info / assign equipment to riders -----
     public List<SnowboardBoots> showAllAvailableSnowboardBoots(Date dateOfArrival, Date dateOfReturn, List<Booking> allBookings) {
         //get all snowboard boots
         List<SnowboardBoots> listOfAvailableSnowboardBoots = snowboardBootsRepository.findAllByOrderBySize();
         //remove equipment that is broken, in service, or otherwise not ready
-        for (Iterator<SnowboardBoots> iterator = listOfAvailableSnowboardBoots.iterator(); iterator.hasNext(); ) {
-            SnowboardBoots oneSnowboardBoots = iterator.next();
-            if (oneSnowboardBoots.getCondition().equals(EquipmentCondition.BROKEN) ||
-                    oneSnowboardBoots.getCondition().equals(EquipmentCondition.SERVICE) ||
-                    oneSnowboardBoots.getCondition().equals(EquipmentCondition.UNKNOWN)) {
-                iterator.remove();
-            }
-        }
+        listOfAvailableSnowboardBoots.removeIf(oneSnowboardBoots ->
+                oneSnowboardBoots.getCondition().equals(EquipmentCondition.BROKEN) ||
+                oneSnowboardBoots.getCondition().equals(EquipmentCondition.SERVICE) ||
+                oneSnowboardBoots.getCondition().equals(EquipmentCondition.UNKNOWN));
         //remove already assigned equipment
         for (Booking booking : allBookings) {
             if (((dateOfArrival.after(booking.getDateOfArrival()) || dateOfArrival.equals(booking.getDateOfArrival())) &&
@@ -76,22 +89,5 @@ public class SnowboardBootsService {
             }
         }
         return listOfAvailableSnowboardBoots;
-    }
-
-    // ----- delete -----
-    public void deleteSnowboardBootsById(Long id) {
-        snowboardBootsRepository.deleteById(id);
-    }
-
-    // ----- search -----
-    public List<SnowboardBoots> showSnowboardBootsByPartOfName(String partOfName) {
-        return snowboardBootsRepository.findAllByNameContainingIgnoreCase(partOfName);
-    }
-
-    // ----- sort -----
-    public List<SnowboardBoots> sortAllSnowboardBootsByParameter(String parameter, String sortDirection) {
-        Sort sort = sortDirection.equalsIgnoreCase(Sort.Direction.ASC.name()) ?
-                Sort.by(parameter).ascending() : Sort.by(parameter).descending();
-        return snowboardBootsRepository.findAll(sort);
     }
 }

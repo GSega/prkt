@@ -78,9 +78,9 @@ public class SnowboardBootsController {
     }
 
     // ----- search -----
-    @GetMapping("/search-by-name")
-    public String showSnowboardBootsByPartOfName(@RequestParam("partOfName") String partOfName, Model model) {
-        model.addAttribute("snowboardBootsByPartOfName", snowboardBootsService.showSnowboardBootsByPartOfName(partOfName));
+    @GetMapping("/search")
+    public String showSnowboardBootsBySearch(@RequestParam("search") String search, Model model) {
+        model.addAttribute("snowboardBootsBySearch", snowboardBootsService.showSnowboardBootsBySearch(search));
         return "snowboard_boots/search";
     }
 
@@ -91,7 +91,6 @@ public class SnowboardBootsController {
                                                    Model model) {
         model.addAttribute("reverseSortDirection", sortDirection.equals("asc") ? "desc" : "asc");
         model.addAttribute("allSnowboardBoots", snowboardBootsService.sortAllSnowboardBootsByParameter(parameter, sortDirection));
-        // the above attributeName must be the same as in method "showAllSnowboardBoots"
         return "snowboard_boots/show_all";
     }
 }

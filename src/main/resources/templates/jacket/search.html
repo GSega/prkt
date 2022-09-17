@@ -21,7 +21,7 @@
         <th th:text="#{jacket.search.table.header.size}">?????</th>
         <th></th>
     </tr>
-    <tr th:each="oneJacket : ${jacketsByPartOfName}">
+    <tr th:each="oneJacket : ${jacketsBySearch}">
         <td th:text="${oneJacket.getId()}">?????</td>
         <td th:align="left"
             th:text="${oneJacket.getName()}">?????

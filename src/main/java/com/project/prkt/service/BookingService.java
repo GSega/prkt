@@ -6,7 +6,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
@@ -31,50 +30,45 @@ public class BookingService {
     }
 
     // ----- add new booking -----
-    public void addNewBookingInfoToNewBooking(Booking newBooking, Client newClient, Date dateOfArrival, Date dateOfReturn) {
+    public void addNewBookingInfoToNewBookingAndAddNewBookingToDB(Booking newBooking, Client newClient, Date dateOfArrival, Date dateOfReturn) {
         newBooking.setClient(newClient);
         newBooking.setDateOfArrival(dateOfArrival);
         newBooking.setDateOfReturn(dateOfReturn);
-    }
-
-    public void addNewBookingToDB(Booking booking) {
-        bookingRepository.save(booking);
+        bookingRepository.save(newBooking);
     }
 
     public void addNewRiderToBooking(Long id, Rider rider) {
-        Booking bookingToBeUpdated = bookingRepository.findById(id).orElseThrow(() ->
-                new IllegalStateException("Booking with id = " + id + " not found!"));
-        bookingToBeUpdated.addToListOfRiders(rider);
+        Booking bookingToBeUpdated = bookingRepository.findById(id).orElseThrow(() -> new IllegalStateException("Booking with id = " + id + " not found!"));
+        bookingToBeUpdated.getListOfRiders().add(rider);
         bookingRepository.save(bookingToBeUpdated);
     }
 
     // ----- edit booking info -----
     public Booking showOneBookingById(Long id) {
-        return bookingRepository.findById(id).orElseThrow(() ->
-                new IllegalStateException("Booking with id = " + id + " not found!"));
+        return bookingRepository.findById(id).orElseThrow(() -> new IllegalStateException("Booking with id = " + id + " not found!"));
     }
 
-    //// ----- edit booking info / edit booking and client info -----
+    //// ----- edit booking info
     public void updateBookingById(Long bookingToBeUpdatedId, Booking updatedBooking) {
         Booking bookingToBeUpdated = showOneBookingById(bookingToBeUpdatedId);
+
         bookingToBeUpdated.setClient(updatedBooking.getClient());
         bookingToBeUpdated.setDateOfArrival(updatedBooking.getDateOfArrival());
         bookingToBeUpdated.setDateOfReturn(updatedBooking.getDateOfReturn());
+
         bookingRepository.save(bookingToBeUpdated);
     }
 
-    //// ----- edit booking info / add existing rider to booking -----
-    public void addExistingRiderToBooking(Booking bookingToBeUpdated, Rider riderToBoAdded) {
+    public void addExistingRiderToBooking(Booking bookingToBeUpdated, Rider riderToBeAdded) {
         for (Rider oneRider : bookingToBeUpdated.getListOfRiders()) {
-            if (oneRider.getId().equals(riderToBoAdded.getId())) {
+            if (oneRider.getId().equals(riderToBeAdded.getId())) {
                 return;
             }
         }
-        bookingToBeUpdated.getListOfRiders().add(riderToBoAdded);
+        bookingToBeUpdated.getListOfRiders().add(riderToBeAdded);
         bookingRepository.save(bookingToBeUpdated);
     }
 
-    //// ----- edit booking info / remove rider from booking -----
     public void removeRiderFromBooking(Booking bookingToBeUpdated, Rider riderToBeRemoved) {
         bookingToBeUpdated.getListOfRiders().remove(riderToBeRemoved);
         bookingRepository.save(bookingToBeUpdated);
@@ -87,35 +81,25 @@ public class BookingService {
 
     // ----- mark booking completed -----
     public void markBookingCompleted(Long bookingId) {
-        Booking bookingToChangeCompleted = bookingRepository.findById(bookingId).orElseThrow(() ->
-                new IllegalStateException("Booking with id = " + bookingId + " not found!"));
+        Booking bookingToChangeCompleted = bookingRepository.findById(bookingId).orElseThrow(() -> new IllegalStateException("Booking with id = " + bookingId + " not found!"));
         bookingToChangeCompleted.setCompleted(bookingToChangeCompleted.isCompleted() ? false : true);
         bookingRepository.save(bookingToChangeCompleted);
     }
 
     // ----- search -----
-    public List<Booking> showBookingsByParameter(String parameter) {
-        List<Booking> searchResult = new ArrayList<>();
-        List<Booking> allBookings = bookingRepository.findAll();
-        for (Booking oneBooking : allBookings) {
-            if (oneBooking.getClient().getSurname().toLowerCase().contains(parameter.toLowerCase()) ||
-                    oneBooking.getClient().getPhone1().contains(parameter) ||
-                    oneBooking.getClient().getPhone2().contains(parameter)) {
-                searchResult.add(oneBooking);
-            }
-        }
-        return searchResult;
+    public List<Booking> showBookingsBySearch(String search) {
+        return bookingRepository.findAllByClientSurnameContainingIgnoreCaseOrClientPhone1ContainingIgnoreCaseOrClientPhone2ContainingIgnoreCase(
+                search, search, search);
     }
 
     // ----- sort -----
     public List<Booking> sortAllBookingsByParameter(String parameter, String sortDirection) {
-        Sort sort = sortDirection.equalsIgnoreCase(Sort.Direction.ASC.name()) ?
-                Sort.by(parameter).ascending() : Sort.by(parameter).descending();
+        Sort sort = sortDirection.equalsIgnoreCase(Sort.Direction.ASC.name()) ? Sort.by(parameter).ascending() : Sort.by(parameter).descending();
         return bookingRepository.findAll(sort);
     }
 
     // ----- show bookings for the date
-    public Date[] getToday() {
+    public Date[] getTodayBeginningAndEnd() {
         Calendar c1 = Calendar.getInstance();
         c1.setTime(new Date());
 
@@ -130,10 +114,10 @@ public class BookingService {
         c2.set(Calendar.MINUTE, 59);
         c2.set(Calendar.SECOND, 59);
 
-        return new Date[] {c1.getTime(), c2.getTime()};
+        return new Date[]{c1.getTime(), c2.getTime()};
     }
 
-    public Date[] getTomorrow() {
+    public Date[] getTomorrowBeginningAndEnd() {
         Calendar c1 = Calendar.getInstance();
         c1.setTime(new Date());
         c1.add(Calendar.DATE, 1);
@@ -150,7 +134,7 @@ public class BookingService {
         c2.set(Calendar.MINUTE, 59);
         c2.set(Calendar.SECOND, 59);
 
-        return new Date[] {c1.getTime(), c2.getTime()};
+        return new Date[]{c1.getTime(), c2.getTime()};
     }
 
     public List<Booking> showBookingsForTheDate(Date dateFrom, Date dateTo) {

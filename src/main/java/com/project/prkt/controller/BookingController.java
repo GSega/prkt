@@ -82,9 +82,8 @@ public class BookingController {
         );
         clientService.addNewClientToDB(newClient);
         Booking newBooking = new Booking();
-        bookingService.addNewBookingInfoToNewBooking(newBooking, newClient,
+        bookingService.addNewBookingInfoToNewBookingAndAddNewBookingToDB(newBooking, newClient,
                 newClientAndNewBookingInfo.getDateOfArrival(), newClientAndNewBookingInfo.getDateOfReturn());
-        bookingService.addNewBookingToDB(newBooking);
         return "redirect:/admin/info-riders/add-new?id=" + newBooking.getId();
     }
 
@@ -254,8 +253,8 @@ public class BookingController {
 
     // ----- search -----
     @GetMapping("/search")
-    public String searchBookingsByParameter(@RequestParam("parameter") String parameter, Model model) {
-        model.addAttribute("bookingsByParameter", bookingService.showBookingsByParameter(parameter));
+    public String showBookingsBySearch(@RequestParam("search") String search, Model model) {
+        model.addAttribute("bookingsBySearch", bookingService.showBookingsBySearch(search));
         return "booking/search";
     }
 

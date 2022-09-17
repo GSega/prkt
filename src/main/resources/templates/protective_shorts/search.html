@@ -21,7 +21,7 @@
     <th th:text="#{protective_shorts.search.table.header.size}">?????</th>
     <th></th>
   </tr>
-  <tr th:each="oneProtectiveShorts : ${protectiveShortsByPartOfName}">
+  <tr th:each="oneProtectiveShorts : ${protectiveShortsBySearch}">
     <td th:text="${oneProtectiveShorts.getId()}">?????</td>
     <td th:align="left"
         th:text="${oneProtectiveShorts.getName()}">?????

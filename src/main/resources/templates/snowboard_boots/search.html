@@ -22,7 +22,7 @@
         <th th:text="#{snowboard_boots.search.table.header.stiffness}">?????</th>
         <th></th>
     </tr>
-    <tr th:each="oneSnowboardBoots : ${snowboardBootsByPartOfName}">
+    <tr th:each="oneSnowboardBoots : ${snowboardBootsBySearch}">
         <td th:text="${oneSnowboardBoots.getId()}">?????</td>
         <td th:align="left"
             th:text="${oneSnowboardBoots.getName()}">?????

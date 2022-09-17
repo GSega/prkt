@@ -6,7 +6,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -56,16 +55,8 @@ public class ClientService {
 
     // ----- search -----
     public List<Client> showClientsBySearch(String search) {
-        List<Client> searchResult = new ArrayList<>();
-        List<Client> allClients = clientRepository.findAll();
-        for (Client oneClient : allClients) {
-            if (oneClient.getSurname().toLowerCase().contains(search.toLowerCase()) ||
-                    oneClient.getPhone1().contains(search) ||
-                    oneClient.getPhone2().contains(search)) {
-                searchResult.add(oneClient);
-            }
-        }
-        return searchResult;
+        return clientRepository.findAllBySurnameContainingIgnoreCaseOrPhone1ContainingIgnoreCaseOrPhone2ContainingIgnoreCase(
+                search, search, search);
     }
 
     // ----- sort -----
