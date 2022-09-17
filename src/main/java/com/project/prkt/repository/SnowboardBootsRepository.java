@@ -1,5 +1,6 @@
 package com.project.prkt.repository;
 
+import com.project.prkt.model.Snowboard;
 import com.project.prkt.model.SnowboardBoots;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
@@ -18,4 +19,7 @@ public interface SnowboardBootsRepository extends JpaRepository<SnowboardBoots, 
 
     // ----- search -----
     List<SnowboardBoots> findAllByNameContainingIgnoreCase(String search);
+
+    //// ----- edit booking info / assign equipment to riders -----
+    List<SnowboardBoots> findAllByOrderBySize();
 }

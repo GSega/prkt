@@ -1,6 +1,7 @@
 package com.project.prkt.repository;
 
 import com.project.prkt.model.ProtectiveShorts;
+import com.project.prkt.model.Snowboard;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
@@ -18,4 +19,7 @@ public interface ProtectiveShortsRepository extends JpaRepository<ProtectiveShor
 
     // ----- search -----
     List<ProtectiveShorts> findAllByNameContainingIgnoreCase(String partOfName);
+
+    //// ----- edit booking info / assign equipment to riders -----
+    List<ProtectiveShorts> findAllByOrderBySize();
 }

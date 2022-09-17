@@ -1,10 +1,12 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
+
 <head>
     <meta charset="UTF-8">
     <meta name="author" content="Nikolai Khriapov">
     <title th:text="#{booking.edit.title}">?????</title>
 </head>
+
 <body th:align="center">
 
 <!--Header-->
@@ -98,7 +100,7 @@
                 <td style="vertical-align:center" th:align="left">
                     <span th:each="oneEquipmentId : ${oneRider.getEquipmentNeededIds()}">
                         <div th:if="${oneEquipmentId.name()} == SNOWBOARD">
-                            <select name="snowboard">
+                            <select name="snowboard" style="width:300px">
                                 <span th:if="${oneRider.assignedEquipment.snowboard.id} == null">
                                     <option value="" th:disabled="false" th:selected="selected"></option>
                                     <option th:each="oneSnowboard : ${allSnowboardsAvailable}"
@@ -122,7 +124,7 @@
                             </select>
                         </div>
                         <div th:if="${oneEquipmentId.name()} == SNOWBOARD_BOOTS">
-                            <select name="snowboardBoots">
+                            <select name="snowboardBoots" style="width:300px">
                                 <span th:if="${oneRider.assignedEquipment.snowboardBoots.id} == null">
                                     <option value="" th:disabled="false" th:selected="selected"></option>
                                     <option th:each="oneSnowboardBoots : ${allSnowboardBootsAvailable}"
@@ -146,7 +148,7 @@
                             </select>
                         </div>
                         <div th:if="${oneEquipmentId.name()} == SKI">
-                            <select name="ski">
+                            <select name="ski" style="width:300px">
                                 <span th:if="${oneRider.assignedEquipment.ski.id} == null">
                                     <option value="" th:disabled="false" th:selected="selected"></option>
                                     <option th:each="oneSki : ${allSkiAvailable}"
@@ -172,7 +174,7 @@
                             </select>
                         </div>
                         <div th:if="${oneEquipmentId.name()} == SKI_BOOTS">
-                            <select name="skiBoots">
+                            <select name="skiBoots" style="width:300px">
                                 <span th:if="${oneRider.assignedEquipment.skiBoots.id} == null">
                                     <option value="" th:disabled="false" th:selected="selected"></option>
                                     <option th:each="oneSkiBoots : ${allSkiBootsAvailable}"
@@ -196,7 +198,7 @@
                             </select>
                         </div>
                         <div th:if="${oneEquipmentId.name()} == JACKET">
-                            <select name="jacket">
+                            <select name="jacket" style="width:300px">
                                 <span th:if="${oneRider.assignedEquipment.jacket.id} == null">
                                     <option value="" th:disabled="false" th:selected="selected"></option>
                                     <option th:each="oneJacket : ${allJacketsAvailable}"
@@ -220,7 +222,7 @@
                             </select>
                         </div>
                         <div th:if="${oneEquipmentId.name()} == KNEE_PROTECTION">
-                            <select name="kneeProtection">
+                            <select name="kneeProtection" style="width:300px">
                                 <span th:if="${oneRider.assignedEquipment.kneeProtection.id} == null">
                                     <option value="" th:disabled="false" th:selected="selected"></option>
                                     <option th:each="oneKneeProtection : ${allKneeProtectionAvailable}"
@@ -244,7 +246,7 @@
                             </select>
                         </div>
                         <div th:if="${oneEquipmentId.name()} == PROTECTIVE_SHORTS">
-                            <select name="protectiveShorts">
+                            <select name="protectiveShorts" style="width:300px">
                                 <span th:if="${oneRider.assignedEquipment.protectiveShorts.id} == null">
                                     <option value="" th:disabled="false" th:selected="selected"></option>
                                     <option th:each="oneProtectiveShorts : ${allProtectiveShortsAvailable}"
@@ -268,7 +270,7 @@
                             </select>
                         </div>
                         <div th:if="${oneEquipmentId.name()} == HELMET">
-                            <select name="helmet">
+                            <select name="helmet" style="width:300px">
                                 <span th:if="${oneRider.assignedEquipment.helmet.id} == null">
                                     <option value="" th:disabled="false" th:selected="selected"></option>
                                     <option th:each="oneHelmet : ${allHelmetsAvailable}"
@@ -292,7 +294,7 @@
                             </select>
                         </div>
                         <div th:if="${oneEquipmentId.name()} == GLOVES">
-                            <select name="gloves">
+                            <select name="gloves" style="width:300px">
                                 <span th:if="${oneRider.assignedEquipment.gloves.id} == null">
                                     <option value="" th:disabled="false" th:selected="selected"></option>
                                     <option th:each="oneGloves : ${allGlovesAvailable}"
@@ -316,7 +318,7 @@
                             </select>
                         </div>
                         <div th:if="${oneEquipmentId.name()} == PANTS">
-                            <select name="pants">
+                            <select name="pants" style="width:300px">
                                 <span th:if="${oneRider.assignedEquipment.pants.id} == null">
                                     <option value="" th:disabled="false" th:selected="selected"></option>
                                     <option th:each="onePants : ${allPantsAvailable}"
@@ -341,7 +343,7 @@
                         </div>
                     </span>
                 </td>
-                <td th:width="50"></td>
+                <td th:width="25"></td>
                 <td style="vertical-align:center">
                     <input type="submit" th:value="#{booking.edit.table.button.assign}"/>
                 </td>
@@ -400,4 +402,5 @@
 </a>
 
 </body>
+
 </html>

@@ -38,7 +38,8 @@ public class BookingController {
                              AssignedEquipmentService assignedEquipmentService, SnowboardService snowboardService,
                              SnowboardBootsService snowboardBootsService, SkiService skiService,
                              SkiBootsService skiBootsService, JacketService jacketService,
-                             KneeProtectionService kneeProtectionService, ProtectiveShortsService protectiveShortsService, PantsService pantsService, HelmetService helmetService, GlovesService glovesService) {
+                             KneeProtectionService kneeProtectionService, ProtectiveShortsService protectiveShortsService,
+                             PantsService pantsService, HelmetService helmetService, GlovesService glovesService) {
         this.bookingService = bookingService;
         this.clientService = clientService;
         this.riderService = riderService;
