@@ -38,8 +38,6 @@
             <th> <a th:href="@{'/admin/info_equipment/ski/sort?parameter=id&sortDirection=' + ${reverseSortDirection}}"
                     th:text="#{ski.show_all.table.header.rostovka}"></a> </th>
             <th> <a th:href="@{'/admin/info_equipment/ski/sort?parameter=id&sortDirection=' + ${reverseSortDirection}}"
-                    th:text="#{ski.show_all.table.header.free}"> </a> </th>
-            <th> <a th:href="@{'/admin/info_equipment/ski/sort?parameter=id&sortDirection=' + ${reverseSortDirection}}"
                     th:text="#{ski.show_all.table.header.condition}" ></a> </th>
             <th> <a th:href="@{'/admin/info_equipment/ski/sort?parameter=id&sortDirection=' + ${reverseSortDirection}}"
                     th:text="#{ski.show_all.table.header.stiffness}" ></a> </th>
@@ -50,7 +48,6 @@
             <td th:text="${oneSki.getId()}"> id</td>
             <td th:text="${oneSki.getName()}"> name</td>
             <td th:text="${oneSki.getSize()}"> size </td>
-            <td th:text="${oneSki.isAvailable()} ? #{ski.show_all.table.available.true} : #{ski.show_all.table.available.false}"> avlblty </td>
             <td th:text="#{${'equipment_condition.' + oneSki.getCondition()}}"> cond </td>
             <td th:text="#{${'ski.stiffness.' + oneSki.getStiffness()}}"> stffns </td>
             <td>

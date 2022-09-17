@@ -62,7 +62,6 @@ public class HelmetService {
     public void updateHelmetById(Long id, Helmet helmetNewInfo) {
         Helmet helmet = showOneHelmetById(id);
         helmet.setName(helmetNewInfo.getName());
-        helmet.setAvailable(helmetNewInfo.isAvailable());
         helmet.setSize(helmetNewInfo.getSize());
         helmet.setCondition(helmetNewInfo.getCondition());
         helmetRepository.save(helmet);
@@ -83,9 +82,5 @@ public class HelmetService {
     }
 
     // ----- assign equipment to riders in booking -----
-    public void changeHelmetAvailableById(Long helmetId) {
-        Helmet helmetToBeUpdated = showOneHelmetById(helmetId);
-        helmetToBeUpdated.setAvailable(true ? false : true);
-        helmetRepository.save(helmetToBeUpdated);
-    }
+
 }

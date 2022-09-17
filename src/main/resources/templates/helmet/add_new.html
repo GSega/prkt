@@ -39,16 +39,6 @@
     </tr>
 
     <tr>
-      <td th:text="#{helmet.add_new.table.available}"> Доступность</td>
-      <td>
-        <select name="available" th:field="*{available}">
-          <option th:value="1" th:text="#{helmet.add_new.table.available.true}"></option>
-          <option th:value="0" th:text="#{helmet.add_new.table.available.false}"></option>
-        </select>
-      </td>
-    </tr>
-
-    <tr>
       <td th:text="#{helmet.add_new.table.condition}"> Состояние</td>
       <td><select name="condition">
         <option th:each="i : ${T(com.project.prkt.model.EquipmentCondition).values()}"

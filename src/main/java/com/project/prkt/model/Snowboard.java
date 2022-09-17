@@ -53,7 +53,6 @@ public class Snowboard extends Equipment {
     private Long id;
     @Size(min = 3, max = 30, message = "{snowboard.message.invalid_name}")
     private String name;
-    private boolean available;
     private EquipmentCondition condition;
     @Pattern(regexp = "(1[0-6][0-9]|170)([w|W]?)", message = "{snowboard.message.invalid_size}")
     private String size;
@@ -66,9 +65,8 @@ public class Snowboard extends Equipment {
     public Snowboard() {
     }
 
-    public Snowboard(String name, boolean available, EquipmentCondition condition, String size, Stiffness stiffness, Arch arch, BindingSize bindingSize) {
+    public Snowboard(String name, EquipmentCondition condition, String size, Stiffness stiffness, Arch arch, BindingSize bindingSize) {
         this.name = name;
-        this.available = available;
         this.condition = condition;
         this.size = size;
         this.stiffness = stiffness;
@@ -86,14 +84,6 @@ public class Snowboard extends Equipment {
 
     public void setName(String name) {
         this.name = name;
-    }
-
-    public boolean isAvailable() {
-        return available;
-    }
-
-    public void setAvailable(boolean available) {
-        this.available = available;
     }
 
     public EquipmentCondition getCondition() {
@@ -141,7 +131,6 @@ public class Snowboard extends Equipment {
         return "Snowboard{" +
                 "id=" + id +
                 ", name='" + name + '\'' +
-                ", available=" + available +
                 ", condition=" + condition +
                 ", size='" + size + '\'' +
                 ", stiffness=" + stiffness +

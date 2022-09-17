@@ -45,7 +45,6 @@ public class JacketService {
         Jacket jacketToBeUpdated = showOneJacketById(id);
 
         jacketToBeUpdated.setName(updatedJacket.getName());
-        jacketToBeUpdated.setAvailable(updatedJacket.isAvailable());
         jacketToBeUpdated.setCondition(updatedJacket.getCondition());
         jacketToBeUpdated.setSize(updatedJacket.getSize());
 
@@ -53,12 +52,6 @@ public class JacketService {
     }
 
     //// ----- edit booking info / assign equipment to riders -----
-    public void changeJacketAvailableById(Long jacketId) {
-        Jacket jacketToBeUpdated = showOneJacketById(jacketId);
-        jacketToBeUpdated.setAvailable(true ? false : true);
-        jacketRepository.save(jacketToBeUpdated);
-    }
-
     public List<Jacket> showAllAvailableJackets(Date dateOfArrival, Date dateOfReturn, List<Booking> allBookings) {
         List<Jacket> listOfAvailableJackets = jacketRepository.findAll();
         for (Booking booking : allBookings) {

@@ -16,7 +16,6 @@
     <tr>
         <th th:text="#{ski_boots.search.table.header.id}">?????</th>
         <th th:text="#{ski_boots.search.table.header.name}">?????</th>
-        <th th:text="#{ski_boots.search.table.header.available}">?????</th>
         <th th:text="#{ski_boots.search.table.header.condition}">?????</th>
         <th th:text="#{ski_boots.search.table.header.size}">?????</th>
         <th th:text="#{ski_boots.search.table.header.stiffness}">?????</th>
@@ -27,7 +26,6 @@
         <td th:align="left"
             th:text="${oneSkiBoots.getName()}">?????
         </td>
-        <td th:text="${oneSkiBoots.isAvailable()} ? #{ski_boots.available.true} : #{ski_boots.available.false}">?????</td>
         <td th:text="#{${'equipment_condition.' + oneSkiBoots.getCondition()}}">?????</td>
         <td th:text="#{${'ski_boots.size.' + oneSkiBoots.getSize()}}">?????</td>
         <td th:text="#{${'ski_boots.stiffness.' + oneSkiBoots.getStiffness()}}">?????</td>

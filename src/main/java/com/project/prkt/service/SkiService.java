@@ -35,7 +35,6 @@ public class SkiService {
     public void updateById(Long id, Ski updatedSki) {
         Ski skiToBeUpdated = findById(id);
         skiToBeUpdated.setName(updatedSki.getName());
-        skiToBeUpdated.setAvailable(updatedSki.isAvailable());
         skiToBeUpdated.setSize(updatedSki.getSize());
         skiToBeUpdated.setStiffness(updatedSki.getStiffness());
         skiToBeUpdated.setCondition(updatedSki.getCondition());
@@ -63,11 +62,6 @@ public class SkiService {
         return skiRepository.findById(id).orElseThrow(() -> new IllegalStateException("exception"));
     }
 
-    public void changeSkiAvailableById(Long skiId) {
-        Ski skiToBeUpdated = showOneSkiById(skiId);
-        skiToBeUpdated.setAvailable(true ? false : true);
-        skiRepository.save(skiToBeUpdated);
-    }
 
 
 

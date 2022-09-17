@@ -62,7 +62,6 @@ public class SnowboardBoots extends Equipment {
     private Long id;
     @javax.validation.constraints.Size(min = 3, max = 30, message = "{snowboard_boots.message.invalid_name}")
     private String name;
-    private boolean available;
     private EquipmentCondition condition;
     private Size size;
     private Stiffness stiffness;
@@ -72,9 +71,8 @@ public class SnowboardBoots extends Equipment {
     public SnowboardBoots() {
     }
 
-    public SnowboardBoots(String name, boolean available, EquipmentCondition condition, Size size, Stiffness stiffness) {
+    public SnowboardBoots(String name, EquipmentCondition condition, Size size, Stiffness stiffness) {
         this.name = name;
-        this.available = available;
         this.condition = condition;
         this.size = size;
         this.stiffness = stiffness;
@@ -90,14 +88,6 @@ public class SnowboardBoots extends Equipment {
 
     public void setName(String name) {
         this.name = name;
-    }
-
-    public boolean isAvailable() {
-        return available;
-    }
-
-    public void setAvailable(boolean available) {
-        this.available = available;
     }
 
     public EquipmentCondition getCondition() {
@@ -129,7 +119,6 @@ public class SnowboardBoots extends Equipment {
         return "SnowboardBoots{" +
                 "id=" + id +
                 ", name='" + name + '\'' +
-                ", available=" + available +
                 ", condition=" + condition +
                 ", size=" + size +
                 ", stiffness=" + stiffness +

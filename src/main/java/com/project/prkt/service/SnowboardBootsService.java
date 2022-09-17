@@ -45,7 +45,6 @@ public class SnowboardBootsService {
         SnowboardBoots snowboardBootsToBeUpdated = showOneSnowboardBootsById(id);
 
         snowboardBootsToBeUpdated.setName(updatedSnowboardBoots.getName());
-        snowboardBootsToBeUpdated.setAvailable(updatedSnowboardBoots.isAvailable());
         snowboardBootsToBeUpdated.setCondition(updatedSnowboardBoots.getCondition());
         snowboardBootsToBeUpdated.setSize(updatedSnowboardBoots.getSize());
         snowboardBootsToBeUpdated.setStiffness(updatedSnowboardBoots.getStiffness());
@@ -54,12 +53,6 @@ public class SnowboardBootsService {
     }
 
     //// ----- edit booking info / assign equipment to riders -----
-    public void changeSnowboardBootsAvailableById(Long snowboardBootsId) {
-        SnowboardBoots snowboardBootsToBeUpdated = showOneSnowboardBootsById(snowboardBootsId);
-        snowboardBootsToBeUpdated.setAvailable(true ? false : true);
-        snowboardBootsRepository.save(snowboardBootsToBeUpdated);
-    }
-
     public List<SnowboardBoots> showAllAvailableSnowboardBoots(Date dateOfArrival, Date dateOfReturn, List<Booking> allBookings) {
         List<SnowboardBoots> listOfAvailableSnowboardBoots = snowboardBootsRepository.findAll();
         for (Booking booking : allBookings) {

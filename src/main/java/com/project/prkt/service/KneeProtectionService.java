@@ -45,7 +45,6 @@ public class KneeProtectionService {
         KneeProtection kneeProtectionToBeUpdated = showOneKneeProtectionById(id);
 
         kneeProtectionToBeUpdated.setName(updatedKneeProtection.getName());
-        kneeProtectionToBeUpdated.setAvailable(updatedKneeProtection.isAvailable());
         kneeProtectionToBeUpdated.setCondition(updatedKneeProtection.getCondition());
         kneeProtectionToBeUpdated.setSize(updatedKneeProtection.getSize());
 
@@ -53,12 +52,6 @@ public class KneeProtectionService {
     }
 
     //// ----- edit booking info / assign equipment to riders -----
-    public void changeKneeProtectionAvailableById(Long kneeProtectionId) {
-        KneeProtection kneeProtectionToBeUpdated = showOneKneeProtectionById(kneeProtectionId);
-        kneeProtectionToBeUpdated.setAvailable(true ? false : true);
-        kneeProtectionRepository.save(kneeProtectionToBeUpdated);
-    }
-
     public List<KneeProtection> showAllAvailableKneeProtection(Date dateOfArrival, Date dateOfReturn, List<Booking> allBookings) {
         List<KneeProtection> listOfAvailableKneeProtection = kneeProtectionRepository.findAll();
         for (Booking booking : allBookings) {

@@ -14,7 +14,6 @@
   <tr>
     <th th:text="#{helmet.show_all.table.header.id}">?????</th>
     <th th:text="#{helmet.show_all.table.header.name}">?????</th>
-    <th th:text="#{helmet.show_all.table.header.free}">?????</th>
     <th th:text="#{helmet.show_all.table.header.condition}">?????</th>
     <th th:text="#{helmet.show_all.table.header.size}">?????</th>
     <th></th>
@@ -24,7 +23,6 @@
     <td th:align="left"
         th:text="${oneHelmet.getName()}">?????
     </td>
-    <td th:text="${oneHelmet.isAvailable()} ? #{helmet.show_all.table.available.true} : #{helmet.show_all.table.available.false}">?????</td>
     <td th:text="#{${'equipment_condition.' + oneHelmet.getCondition()}}">?????</td>
     <td th:text="${oneHelmet.size}">?????</td>
     <td th:width="50"></td>

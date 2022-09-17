@@ -45,7 +45,6 @@ public class ProtectiveShortsService {
         ProtectiveShorts protectiveShortsToBeUpdated = showOneProtectiveShortsById(id);
 
         protectiveShortsToBeUpdated.setName(updatedProtectiveShorts.getName());
-        protectiveShortsToBeUpdated.setAvailable(updatedProtectiveShorts.isAvailable());
         protectiveShortsToBeUpdated.setCondition(updatedProtectiveShorts.getCondition());
         protectiveShortsToBeUpdated.setSize(updatedProtectiveShorts.getSize());
 
@@ -53,12 +52,6 @@ public class ProtectiveShortsService {
     }
 
     //// ----- edit booking info / assign equipment to riders -----
-    public void changeProtectiveShortsAvailableById(Long protectiveShortsId) {
-        ProtectiveShorts protectiveShortsToBeUpdated = showOneProtectiveShortsById(protectiveShortsId);
-        protectiveShortsToBeUpdated.setAvailable(true ? false : true);
-        protectiveShortsRepository.save(protectiveShortsToBeUpdated);
-    }
-
     public List<ProtectiveShorts> showAllAvailableProtectiveShorts(Date dateOfArrival, Date dateOfReturn, List<Booking> allBookings) {
         List<ProtectiveShorts> listOfAvailableProtectiveShorts = protectiveShortsRepository.findAll();
         for (Booking booking : allBookings) {

@@ -16,7 +16,6 @@
     <tr>
         <th th:text="#{ski.search.table.header.id}">?????</th>
         <th th:text="#{ski.search.table.header.name}">?????</th>
-        <th th:text="#{ski.search.table.header.available}">?????</th>
         <th th:text="#{ski.search.table.header.condition}">?????</th>
         <th th:text="#{ski.search.table.header.size}">?????</th>
         <th th:text="#{ski.search.table.header.stiffness}">?????</th>
@@ -27,7 +26,6 @@
         <td th:align="left"
             th:text="${oneSki.getName()}">?????
         </td>
-        <td th:text="${oneSki.isAvailable()} ? #{ski.available.true} : #{ski.available.false}">?????</td>
         <td th:text="#{${'equipment_condition.' + oneSki.getCondition()}}">?????</td>
         <td th:text="#{${'ski.size.' + oneSki.getSize()}}">?????</td>
         <td th:text="#{${'ski.stiffness.' + oneSki.getStiffness()}}">?????</td>

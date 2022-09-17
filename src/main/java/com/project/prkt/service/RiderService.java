@@ -55,15 +55,16 @@ public class RiderService {
     }
 
     public void removeAssignedEquipment(Rider rider) {
-        rider.getAssignedEquipment().getSnowboard().setAvailable(true);
-        rider.getAssignedEquipment().getSnowboardBoots().setAvailable(true);
-        rider.getAssignedEquipment().getSki().setAvailable(true);
-        rider.getAssignedEquipment().getSkiBoots().setAvailable(true);
-
         rider.getAssignedEquipment().setSnowboard(null);
         rider.getAssignedEquipment().setSnowboardBoots(null);
         rider.getAssignedEquipment().setSki(null);
         rider.getAssignedEquipment().setSkiBoots(null);
+        rider.getAssignedEquipment().setJacket(null);
+        rider.getAssignedEquipment().setPants(null);
+        rider.getAssignedEquipment().setKneeProtection(null);
+        rider.getAssignedEquipment().setProtectiveShorts(null);
+        rider.getAssignedEquipment().setHelmet(null);
+        rider.getAssignedEquipment().setGloves(null);
 
         riderRepository.save(rider);
     }

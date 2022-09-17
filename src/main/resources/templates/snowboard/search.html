@@ -17,7 +17,6 @@
     <tr>
         <th th:text="#{snowboard.search.table.header.id}">?????</th>
         <th th:text="#{snowboard.search.table.header.name}">?????</th>
-        <th th:text="#{snowboard.search.table.header.available}">?????</th>
         <th th:text="#{snowboard.search.table.header.size}">?????</th>
         <th th:text="#{snowboard.search.table.header.stiffness}">?????</th>
         <th th:text="#{snowboard.search.table.header.arch}">?????</th>
@@ -29,7 +28,6 @@
         <td th:align="left"
             th:text="${oneSnowboard.getName()}">?????
         </td>
-        <td th:text="${oneSnowboard.isAvailable()} ? #{snowboard.available.true} : #{snowboard.available.false}">?????</td>
         <td th:text="${oneSnowboard.getSize()}">?????</td>
         <td th:text="#{${'snowboard.stiffness.' + oneSnowboard.getStiffness()}}">?????</td>
         <td th:text="#{${'snowboard.arch.' + oneSnowboard.getArch()}}">?????</td>

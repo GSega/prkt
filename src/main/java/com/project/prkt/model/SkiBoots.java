@@ -61,7 +61,6 @@ public class SkiBoots extends Equipment {
     private Long id;
     @javax.validation.constraints.Size(min = 3, max = 30, message = "Name Should be 3-30 symbols")
     private String name;
-    private boolean available;
     private EquipmentCondition condition;
     private SkiBoots.Size size;
     private SkiBoots.Stiffness stiffness;
@@ -82,14 +81,6 @@ public class SkiBoots extends Equipment {
 
     public void setName(String name) {
         this.name = name;
-    }
-
-    public boolean isAvailable() {
-        return available;
-    }
-
-    public void setAvailable(boolean available) {
-        this.available = available;
     }
 
     public EquipmentCondition getCondition() {
@@ -121,7 +112,6 @@ public class SkiBoots extends Equipment {
         return "SkiBoots{" +
                 "id=" + id +
                 ", name='" + name + '\'' +
-                ", available=" + available +
                 ", condition=" + condition +
                 ", size=" + size +
                 ", stiffness=" + stiffness +

@@ -49,14 +49,12 @@ public class GlovesService {
     public void updateGlovesById(Long id, Gloves updatedGloves){
         Gloves gloves = showOneById(id);
         gloves.setName(updatedGloves.getName());
-        gloves.setAvailable(updatedGloves.isAvailable());
         gloves.setCondition(updatedGloves.getCondition());
         gloves.setSize(updatedGloves.getSize());
         glovesRepository.save(gloves);
     }
 
     //----list of available for booking gloves -----
-
     public List<Gloves> showAllAvailableGloves(Date dateOfArrival, Date dateOfReturn, List<Booking> allBookings){
         List<Gloves> listOfAvailableGloves = glovesRepository.findAll();
 
@@ -85,9 +83,5 @@ public class GlovesService {
     }
 
     // ----- assign equipment to riders in booking -----
-    public void changeGlovesAvailableById(Long glovesId) {
-        Gloves glovesToBeUpdated = showOneById(glovesId);
-        glovesToBeUpdated.setAvailable(true ? false : true);
-        glovesRepository.save(glovesToBeUpdated);
-    }
+
 }

@@ -15,7 +15,6 @@ public class Gloves extends Equipment{
     @javax.validation.constraints.Size(min = 3, max = 30, message = "{message.invalid_name}")
     private String name;
     private Size size;
-    private boolean available;
     private EquipmentCondition condition;
     @OneToMany(mappedBy = "gloves")
     private List<AssignedEquipment> listOfAssignedEquipment;
@@ -43,14 +42,6 @@ public class Gloves extends Equipment{
         this.size = size;
     }
 
-    public boolean isAvailable() {
-        return available;
-    }
-
-    public void setAvailable(boolean available) {
-        this.available = available;
-    }
-
     public EquipmentCondition getCondition() {
         return condition;
     }
@@ -76,7 +67,6 @@ public class Gloves extends Equipment{
                 "id=" + id +
                 ", name='" + name + '\'' +
                 ", size=" + size +
-                ", available=" + available +
                 ", condition=" + condition +
                 ", listOfAssignedEquipment=" + listOfAssignedEquipment +
                 '}';

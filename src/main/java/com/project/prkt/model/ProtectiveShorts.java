@@ -24,7 +24,6 @@ public class ProtectiveShorts extends Equipment {
     private Long id;
     @javax.validation.constraints.Size(min = 3, max = 30, message = "{protective_shorts.message.invalid_name}")
     private String name;
-    private boolean available;
     private EquipmentCondition condition;
     private Size size;
     @OneToMany(mappedBy = "protectiveShorts")
@@ -33,9 +32,8 @@ public class ProtectiveShorts extends Equipment {
     public ProtectiveShorts() {
     }
 
-    public ProtectiveShorts(String name, boolean available, EquipmentCondition condition, Size size) {
+    public ProtectiveShorts(String name, EquipmentCondition condition, Size size) {
         this.name = name;
-        this.available = available;
         this.condition = condition;
         this.size = size;
     }
@@ -50,14 +48,6 @@ public class ProtectiveShorts extends Equipment {
 
     public void setName(String name) {
         this.name = name;
-    }
-
-    public boolean isAvailable() {
-        return available;
-    }
-
-    public void setAvailable(boolean available) {
-        this.available = available;
     }
 
     public EquipmentCondition getCondition() {
@@ -81,7 +71,6 @@ public class ProtectiveShorts extends Equipment {
         return "ProtectiveShorts{" +
                 "id=" + id +
                 ", name='" + name + '\'' +
-                ", available=" + available +
                 ", condition=" + condition +
                 ", size=" + size +
                 '}';

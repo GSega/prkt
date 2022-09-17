@@ -165,87 +165,44 @@ public class BookingController {
         AssignedEquipment newAssignedEquipment = new AssignedEquipment();
 
         if (assignedEquipment.getSnowboard().getId() != null) {
-            riderService.showOneRiderById(riderToBeUpdatedId).getAssignedEquipment().getSnowboard().setAvailable(true);
-            snowboardService.changeSnowboardAvailableById(assignedEquipment.getSnowboard().getId());
             Snowboard newSnowboard = snowboardService.showOneSnowboardById(assignedEquipment.getSnowboard().getId());
             newAssignedEquipment.setSnowboard(newSnowboard);
-        } else {
-            riderService.showOneRiderById(riderToBeUpdatedId).getAssignedEquipment().getSnowboard().setAvailable(true);
         }
         if (assignedEquipment.getSnowboardBoots().getId() != null) {
-            riderService.showOneRiderById(riderToBeUpdatedId).getAssignedEquipment().getSnowboardBoots().setAvailable(true);
-            snowboardBootsService.changeSnowboardBootsAvailableById(assignedEquipment.getSnowboardBoots().getId());
             SnowboardBoots newSnowboardBoots = snowboardBootsService.showOneSnowboardBootsById(assignedEquipment.getSnowboardBoots().getId());
             newAssignedEquipment.setSnowboardBoots(newSnowboardBoots);
-        } else {
-            riderService.showOneRiderById(riderToBeUpdatedId).getAssignedEquipment().getSnowboardBoots().setAvailable(true);
         }
         if (assignedEquipment.getSki().getId() != null) {
-            riderService.showOneRiderById(riderToBeUpdatedId).getAssignedEquipment().getSki().setAvailable(true);
-            skiService.changeSkiAvailableById(assignedEquipment.getSki().getId());
             Ski newSki = skiService.showOneSkiById(assignedEquipment.getSki().getId());
             newAssignedEquipment.setSki(newSki);
-        } else {
-            riderService.showOneRiderById(riderToBeUpdatedId).getAssignedEquipment().getSki().setAvailable(true);
         }
         if (assignedEquipment.getSkiBoots().getId() != null) {
-            riderService.showOneRiderById(riderToBeUpdatedId).getAssignedEquipment().getSkiBoots().setAvailable(true);
-            skiBootsService.changeSkiBootsAvailableById(assignedEquipment.getSkiBoots().getId());
             SkiBoots newSkiBoots = skiBootsService.showOneSkiBootsById(assignedEquipment.getSkiBoots().getId());
             newAssignedEquipment.setSkiBoots(newSkiBoots);
-        } else {
-            riderService.showOneRiderById(riderToBeUpdatedId).getAssignedEquipment().getSkiBoots().setAvailable(true);
         }
         if (assignedEquipment.getJacket().getId() != null) {
-            riderService.showOneRiderById(riderToBeUpdatedId).getAssignedEquipment().getJacket().setAvailable(true);
-            jacketService.changeJacketAvailableById(assignedEquipment.getJacket().getId());
             Jacket newJacket = jacketService.showOneJacketById(assignedEquipment.getJacket().getId());
             newAssignedEquipment.setJacket(newJacket);
-        } else {
-            riderService.showOneRiderById(riderToBeUpdatedId).getAssignedEquipment().getJacket().setAvailable(true);
         }
         if (assignedEquipment.getKneeProtection().getId() != null) {
-            riderService.showOneRiderById(riderToBeUpdatedId).getAssignedEquipment().getKneeProtection().setAvailable(true);
-            kneeProtectionService.changeKneeProtectionAvailableById(assignedEquipment.getKneeProtection().getId());
             KneeProtection newKneeProtection = kneeProtectionService.showOneKneeProtectionById(assignedEquipment.getKneeProtection().getId());
             newAssignedEquipment.setKneeProtection(newKneeProtection);
-        } else {
-            riderService.showOneRiderById(riderToBeUpdatedId).getAssignedEquipment().getKneeProtection().setAvailable(true);
         }
         if (assignedEquipment.getProtectiveShorts().getId() != null) {
-            riderService.showOneRiderById(riderToBeUpdatedId).getAssignedEquipment().getProtectiveShorts().setAvailable(true);
-            protectiveShortsService.changeProtectiveShortsAvailableById(assignedEquipment.getProtectiveShorts().getId());
             ProtectiveShorts newProtectiveShorts = protectiveShortsService.showOneProtectiveShortsById(assignedEquipment.getProtectiveShorts().getId());
             newAssignedEquipment.setProtectiveShorts(newProtectiveShorts);
-        } else {
-            riderService.showOneRiderById(riderToBeUpdatedId).getAssignedEquipment().getProtectiveShorts().setAvailable(true);
         }
-
         if(assignedEquipment.getHelmet().getId() != null){
-            riderService.showOneRiderById(riderToBeUpdatedId).getAssignedEquipment().getHelmet().setAvailable(true);
-            helmetService.changeHelmetAvailableById(assignedEquipment.getHelmet().getId());
             Helmet newHelmet = helmetService.showOneHelmetById(assignedEquipment.getHelmet().getId());
             newAssignedEquipment.setHelmet(newHelmet);
-        } else {
-            riderService.showOneRiderById(riderToBeUpdatedId).getAssignedEquipment().getHelmet().setAvailable(true);
         }
-
         if(assignedEquipment.getPants().getId() != null){
-            riderService.showOneRiderById(riderToBeUpdatedId).getAssignedEquipment().getPants().setAvailable(true);
-            pantsService.changePantsAvailableById(assignedEquipment.getPants().getId());
             Pants newPants = pantsService.showOneById(assignedEquipment.getPants().getId());
             newAssignedEquipment.setPants(newPants);
-        } else{
-            riderService.showOneRiderById(riderToBeUpdatedId).getAssignedEquipment().getPants().setAvailable(true);
         }
-
         if(assignedEquipment.getGloves().getId() != null){
-            riderService.showOneRiderById(riderToBeUpdatedId).getAssignedEquipment().getGloves().setAvailable(true);
-            glovesService.changeGlovesAvailableById(assignedEquipment.getGloves().getId());
             Gloves newGloves = glovesService.showOneById(assignedEquipment.getGloves().getId());
             newAssignedEquipment.setGloves(newGloves);
-        } else{
-            riderService.showOneRiderById(riderToBeUpdatedId).getAssignedEquipment().getPants().setAvailable(true);
         }
 
         assignedEquipmentService.addNewAssignedEquipmentToDB(newAssignedEquipment);

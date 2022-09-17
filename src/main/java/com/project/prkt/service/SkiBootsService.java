@@ -37,7 +37,6 @@ public class SkiBootsService {
         SkiBoots skiBootsToBeUpdated = showOneSkiBootsById(id);
 
         skiBootsToBeUpdated.setName(updatedSkiBoots.getName());
-        skiBootsToBeUpdated.setAvailable(updatedSkiBoots.isAvailable());
         skiBootsToBeUpdated.setCondition(updatedSkiBoots.getCondition());
         skiBootsToBeUpdated.setSize(updatedSkiBoots.getSize());
         skiBootsToBeUpdated.setStiffness(updatedSkiBoots.getStiffness());
@@ -62,12 +61,6 @@ public class SkiBootsService {
 
 
 
-
-    public void changeSkiBootsAvailableById(Long skiBootsId) {
-        SkiBoots skiBootsToBeUpdated = showOneSkiBootsById(skiBootsId);
-        skiBootsToBeUpdated.setAvailable(true ? false : true);
-        skiBootsRepository.save(skiBootsToBeUpdated);
-    }
 
     public List<SkiBoots> showAllAvailableSkiBoots(Date dateOfArrival, Date dateOfReturn, List<Booking> allBookings) {
         List<SkiBoots> listOfAvailableSkiBoots = skiBootsRepository.findAll();

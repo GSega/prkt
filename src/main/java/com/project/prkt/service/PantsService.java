@@ -45,7 +45,6 @@ public class PantsService {
     public void updatePantsById(Long id, Pants updatedPants){
         Pants pants = showOneById(id);
         pants.setName(updatedPants.getName());
-        pants.setAvailable(updatedPants.isAvailable());
         pants.setCondition(updatedPants.getCondition());
         pants.setSize(updatedPants.getSize());
         pantsRepository.save(pants);
@@ -78,9 +77,5 @@ public class PantsService {
     }
 
     // ----- assign equipment to riders in booking -----
-    public void changePantsAvailableById(Long pantsId) {
-        Pants pantsToBeUpdated = showOneById(pantsId);
-        pantsToBeUpdated.setAvailable(true ? false : true);
-        pantsRepository.save(pantsToBeUpdated);
-    }
+
 }

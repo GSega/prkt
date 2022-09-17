@@ -28,7 +28,6 @@ public class Ski extends Equipment{
     //@NotEmpty(message = "type something!")
     @Size(min = 3, max = 30, message = "{ski.message.invalid_name}")
     private String name;
-    private boolean available;
     private EquipmentCondition condition;
     private String size; //пишем руками.  размер лыж - это цифры от 80 до 200
     private Stiffness stiffness;
@@ -36,9 +35,8 @@ public class Ski extends Equipment{
     public Ski() {
     }
 
-    public Ski(String name, boolean available, EquipmentCondition condition, String size, Stiffness stiffness) {
+    public Ski(String name, EquipmentCondition condition, String size, Stiffness stiffness) {
         this.name = name;
-        this.available = available;
         this.condition = condition;
         this.size = size;
         this.stiffness = stiffness;
@@ -55,14 +53,6 @@ public class Ski extends Equipment{
 
     public void setName(String name) {
         this.name = name;
-    }
-
-    public boolean isAvailable() {
-        return available;
-    }
-
-    public void setAvailable(boolean available) {
-        this.available = available;
     }
 
     public EquipmentCondition getCondition() {
@@ -94,7 +84,6 @@ public class Ski extends Equipment{
         return "Ski{" +
                 "id=" + id +
                 ", name='" + name + '\'' +
-                ", available=" + available +
                 ", condition=" + condition +
                 ", size='" + size + '\'' +
                 ", stiffness=" + stiffness +

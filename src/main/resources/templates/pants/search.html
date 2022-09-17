@@ -14,7 +14,6 @@
   <tr>
     <th th:text="#{pants.show_all.table.header.id}">id</th>
     <th th:text="#{pants.show_all.table.header.name}">id</th>
-    <th th:text="#{pants.add_new.field.available}">avlbl</th>
     <th th:text="#{pants.show_all.table.header.condition}">cond</th>
     <th th:text="#{pants.show_all.table.header.size}">size</th>
     <th></th>
@@ -24,7 +23,6 @@
     <td th:align="left"
         th:text="${onePants.getName()}">name
     </td>
-    <td th:text="${onePants.isAvailable()} ? #{pants.available.true} : #{pants.available.false}">avlblt</td>
     <td th:text="#{${'equipment_condition.' + onePants.getCondition()}}">cond</td>
     <td th:text="${onePants.size}">size</td>
     <td th:width="50"></td>

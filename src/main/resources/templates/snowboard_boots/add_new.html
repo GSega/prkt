@@ -25,19 +25,9 @@
             </td>
         </tr>
         <tr>
-            <td th:text="#{snowboard_boots.add_new.field.available}">?????</td>
-            <td>
-                <select th:field="*{available}">
-                    <option th:value="1" th:text="#{snowboard_boots.available.true}">?????</option>
-                    <option th:value="0" th:text="#{snowboard_boots.available.false}">?????</option>
-                </select>
-            </td>
-        </tr>
-        <tr>
             <td th:text="#{snowboard_boots.add_new.field.condition}">?????</td>
             <td>
-                <select name="condition">         <!-- name is needed, otherwise won't display properly in the table -->
-                                                  <!-- must be named as the class field (camelCase) -->
+                <select name="condition">
                     <option th:each="i : ${T(com.project.prkt.model.EquipmentCondition).values()}"
                             th:value="${i.name()}"
                             th:text="#{${'equipment_condition.' + i}}">?????

@@ -24,15 +24,6 @@
             </td>
         </tr>
         <tr>
-            <td th:text="#{ski_boots.add_new.field.available}">Доступность</td>
-            <td>
-                <select th:field="*{available}">
-                    <option th:value="1" th:text="#{ski_boots.add_new.available.true}">Свободно</option>
-                    <option th:value="0" th:text="#{ski_boots.add_new.available.false}">Занято</option>
-                </select>
-            </td>
-        </tr>
-        <tr>
             <td th:text="#{ski_boots.add_new.field.condition}">Состояние</td>
             <td>
                 <select name="condition">         <!-- name is needed, otherwise won't display properly in the table -->

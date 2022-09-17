@@ -12,8 +12,4 @@ public interface SkiRepository extends JpaRepository<Ski, Long> {
     List<Ski> findAllByOrderById();
 
     List<Ski> findByNameContaining(String search);
-
-
-
-    List<Ski> findAllByAvailableIsTrue();
 }

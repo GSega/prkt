@@ -39,9 +39,6 @@
                th:text="#{pants.show_all.table.header.condition}">?????</a>
         </th>
         <th>
-            <a th:href="@{'/admin/info-equipment/pants/sort?parameter=available&sortDirection=' + ${reverseSortDirection}}"
-               th:text="#{pants.add_new.field.available}"> </a></th>
-        <th>
             <a th:href="@{'/admin/info-equipment/pants/sort?parameter=size&sortDirection=' + ${reverseSortDirection}}"
                th:text="#{pants.show_all.table.header.size}">?????</a>
         </th>
@@ -54,9 +51,6 @@
         </td>
         <td th:text="#{${'equipment_condition.' + onePants.getCondition()}}">cond</td>
         <td th:text="${onePants.getSize()}">size</td>
-        <td th:text="${onePants.isAvailable()} ? #{pants.available.true} : #{pants.available.false}">
-            avlblty
-        </td>
         <td th:width="50"></td>
         <td>
             <a th:href="@{/admin/info-equipment/pants/edit/{id}(id=${onePants.getId()})}">
