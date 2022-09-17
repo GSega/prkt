@@ -59,11 +59,23 @@ public class RiderService {
         rider.getAssignedEquipment().getSnowboardBoots().setAvailable(true);
         rider.getAssignedEquipment().getSki().setAvailable(true);
         rider.getAssignedEquipment().getSkiBoots().setAvailable(true);
+        rider.getAssignedEquipment().getJacket().setAvailable(true);
+        rider.getAssignedEquipment().getPants().setAvailable(true);
+        rider.getAssignedEquipment().getKneeProtection().setAvailable(true);
+        rider.getAssignedEquipment().getProtectiveShorts().setAvailable(true);
+        rider.getAssignedEquipment().getHelmet().setAvailable(true);
+        rider.getAssignedEquipment().getGloves().setAvailable(true);
 
         rider.getAssignedEquipment().setSnowboard(null);
         rider.getAssignedEquipment().setSnowboardBoots(null);
         rider.getAssignedEquipment().setSki(null);
         rider.getAssignedEquipment().setSkiBoots(null);
+        rider.getAssignedEquipment().setJacket(null);
+        rider.getAssignedEquipment().setPants(null);
+        rider.getAssignedEquipment().setKneeProtection(null);
+        rider.getAssignedEquipment().setProtectiveShorts(null);
+        rider.getAssignedEquipment().setHelmet(null);
+        rider.getAssignedEquipment().setGloves(null);
 
         riderRepository.save(rider);
     }
