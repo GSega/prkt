@@ -72,24 +72,16 @@
     <table th:align="center"
            th:border="1" th:rules="rows"
            th:cellpadding="5">
-        <tr>
-            <th><a th:text="#{booking.edit.table.header.id}">?????</a></th>
-            <th><a th:text="#{booking.edit.table.header.name}">?????</a></th>
-            <th><a th:text="#{booking.edit.table.header.sex}">?????</a></th>
-            <th><a th:text="#{booking.edit.table.header.height}">?????</a></th>
-            <th><a th:text="#{booking.edit.table.header.weight}">?????</a></th>
-            <th><a th:text="#{booking.edit.table.header.foot}">?????</a></th>
-            <th><a th:text="#{booking.edit.table.header.equipment}">?????</a></th>
-            <th></th>
-        </tr>
         <tr th:each="oneRider : ${clientAndBookingInfoToBeUpdated.getListOfRiders()}">
-            <td style="vertical-align:top" th:text="${oneRider.getId()}">?????</td>
-            <td style="vertical-align:top" th:text="${oneRider.getName()}" th:align="left">?????</td>
-            <td style="vertical-align:top" th:text="${oneRider.getSex()}">?????</td>
-            <td style="vertical-align:top" th:text="${oneRider.getHeight()}">?????</td>
-            <td style="vertical-align:top" th:text="${oneRider.getWeight()}">?????</td>
-            <td style="vertical-align:top" th:text="${oneRider.getFoot()}">?????</td>
-            <td style="vertical-align:center" th:align="left">
+            <td th:text="${oneRider.getId()}" style="vertical-align:top" >?????</td>
+            <td style="vertical-align:top" th:align="left">
+                <div th:text="#{booking.edit.table.header.name} + ': ' + ${oneRider.getName()}">?????</div>
+                <div th:text="#{booking.edit.table.header.sex} + ': ' + ${oneRider.getSex()}">?????</div>
+                <div th:text="#{booking.edit.table.header.height} + ': ' + ${oneRider.getHeight()}">?????</div>
+                <div th:text="#{booking.edit.table.header.weight} + ': ' + ${oneRider.getWeight()}">?????</div>
+                <div th:text="#{booking.edit.table.header.foot} + ': ' + ${oneRider.getFoot()}">?????</div>
+            </td>
+            <td th:align="left">
                 <span th:each="oneEquipmentId : ${oneRider.getEquipmentNeededIds()}">
                     <div th:text="${oneEquipmentId.name()}">?????</div>
                 </span>
