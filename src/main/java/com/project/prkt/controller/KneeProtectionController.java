@@ -41,7 +41,7 @@ public class KneeProtectionController {
 
     @PostMapping()
     public String addNewKneeProtectionToDB(@ModelAttribute("newKneeProtection") @Valid KneeProtection kneeProtection,
-                                   BindingResult bindingResult) {
+                                           BindingResult bindingResult) {
         if (bindingResult.hasErrors()) {
             return "knee_protection/add_new";
         }
@@ -49,22 +49,18 @@ public class KneeProtectionController {
         return "redirect:/admin/info-equipment/knee-protection";
     }
 
-
     // ----- edit -----
     @GetMapping("/edit/{id}")
     public String showOneKneeProtection(@PathVariable("id") Long id, Model model) {
-        model.addAttribute("id", id);
         model.addAttribute("kneeProtectionToUpdate", kneeProtectionService.showOneKneeProtectionById(id));
         return "knee_protection/edit";
     }
 
     @PatchMapping("/edit/{id}")
     public String updateKneeProtection(@PathVariable("id") Long id,
-                               @ModelAttribute("kneeProtectionToUpdate") @Valid KneeProtection updatedKneeProtection,
-                               BindingResult bindingResult, Model model) {
+                                       @ModelAttribute("kneeProtectionToUpdate") @Valid KneeProtection updatedKneeProtection,
+                                       BindingResult bindingResult) {
         if (bindingResult.hasErrors()) {
-            model.addAttribute("id", id);
-            model.addAttribute("kneeProtectionToUpdate", updatedKneeProtection);
             return "knee_protection/edit";
         }
         kneeProtectionService.updateKneeProtectionById(id, updatedKneeProtection);
@@ -79,21 +75,19 @@ public class KneeProtectionController {
     }
 
     // ----- search -----
-    @GetMapping("/search-by-name")
-    public String showKneeProtectionByPartOfName(@RequestParam("partOfName") String partOfName, Model model) {
-        model.addAttribute("kneeProtectionByPartOfName", kneeProtectionService.showKneeProtectionByPartOfName(partOfName));
-        model.addAttribute("partOfName", partOfName);
+    @GetMapping("/search")
+    public String showKneeProtectionBySearch(@RequestParam("search") String search, Model model) {
+        model.addAttribute("kneeProtectionBySearch", kneeProtectionService.showKneeProtectionBySearch(search));
         return "knee_protection/search";
     }
 
     // ----- sort -----
     @GetMapping("/sort")
     public String sortAllKneeProtectionByParameter(@RequestParam("parameter") String parameter,
-                                            @RequestParam("sortDirection") String sortDirection,
-                                            Model model) {
+                                                   @RequestParam("sortDirection") String sortDirection,
+                                                   Model model) {
         model.addAttribute("reverseSortDirection", sortDirection.equals("asc") ? "desc" : "asc");
         model.addAttribute("allKneeProtection", kneeProtectionService.sortAllKneeProtectionByParameter(parameter, sortDirection));
-        // the above attributeName must be the same as in method "showAllKneeProtection"
         return "knee_protection/show_all";
     }
 }

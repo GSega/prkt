@@ -1,10 +1,12 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
+
 <head>
     <meta charset="UTF-8">
     <meta name="author" content="Nikolai Khriapov">
     <title th:text="#{protective_shorts.add_new.title}">?????</title>
 </head>
+
 <body th:align="center">
 
 <!--Header-->
@@ -14,9 +16,7 @@
 <form th:method="POST"
       th:action="@{/admin/info-equipment/protective-shorts}"
       th:object="${newProtectiveShorts}">
-
-    <table th:align="center" style="text-align:left"
-           th:cellpadding="2">
+    <table th:align="center" style="text-align:left" th:cellpadding="2">
         <tr>
             <td th:text="#{protective_shorts.add_new.field.name}">?????</td>
             <td>
@@ -61,4 +61,5 @@
 </a>
 
 </body>
+
 </html>

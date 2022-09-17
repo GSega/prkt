@@ -40,29 +40,29 @@ public class AdminHomeController {
     // ----- bookings for today -----
     @GetMapping("/show-today")
     public String showBookingsForToday(Model model) {
-        Date todayFrom = bookingService.getToday()[0];
-        Date todayTo = bookingService.getToday()[1];
+        Date todayBeginning = bookingService.getTodayBeginningAndEnd()[0];
+        Date todayEnd = bookingService.getTodayBeginningAndEnd()[1];
 
-        model.addAttribute("date", todayFrom);
-        model.addAttribute("bookingsForTheDate", bookingService.showBookingsForTheDate(todayFrom, todayTo));
+        model.addAttribute("date", todayBeginning);
+        model.addAttribute("bookingsForTheDate", bookingService.showBookingsForTheDate(todayBeginning, todayEnd));
         return "admin/bookings_by_date";
     }
 
     // ----- bookings for tomorrow -----
     @GetMapping("/show-tomorrow")
     public String showBookingsForTomorrow(Model model) {
-        Date tomorrowFrom = bookingService.getTomorrow()[0];
-        Date tomorrowTo = bookingService.getTomorrow()[1];
+        Date tomorrowBeginning = bookingService.getTomorrowBeginningAndEnd()[0];
+        Date tomorrowEnd = bookingService.getTomorrowBeginningAndEnd()[1];
 
-        model.addAttribute("date", tomorrowFrom);
-        model.addAttribute("bookingsForTheDate", bookingService.showBookingsForTheDate(tomorrowFrom, tomorrowTo));
+        model.addAttribute("date", tomorrowBeginning);
+        model.addAttribute("bookingsForTheDate", bookingService.showBookingsForTheDate(tomorrowBeginning, tomorrowEnd));
         return "admin/bookings_by_date";
     }
 
     // ----- mark booking completed -----
     @GetMapping("/change-booking-completed/{id}")
     public String changeBookingCompleted(@PathVariable("id") Long bookingId) {
-        bookingService.markBookingCompleted(bookingId);
+        bookingService.changeBookingCompleted(bookingId);
         return "redirect:/admin";
     }
 

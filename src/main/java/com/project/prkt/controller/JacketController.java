@@ -49,11 +49,9 @@ public class JacketController {
         return "redirect:/admin/info-equipment/jacket";
     }
 
-
     // ----- edit -----
     @GetMapping("/edit/{id}")
     public String showOneJacket(@PathVariable("id") Long id, Model model) {
-        model.addAttribute("id", id);
         model.addAttribute("jacketToUpdate", jacketService.showOneJacketById(id));
         return "jacket/edit";
     }
@@ -61,10 +59,8 @@ public class JacketController {
     @PatchMapping("/edit/{id}")
     public String updateJacket(@PathVariable("id") Long id,
                                @ModelAttribute("jacketToUpdate") @Valid Jacket updatedJacket,
-                               BindingResult bindingResult, Model model) {
+                               BindingResult bindingResult) {
         if (bindingResult.hasErrors()) {
-            model.addAttribute("id", id);
-            model.addAttribute("jacketToUpdate", updatedJacket);
             return "jacket/edit";
         }
         jacketService.updateJacketById(id, updatedJacket);
@@ -79,10 +75,9 @@ public class JacketController {
     }
 
     // ----- search -----
-    @GetMapping("/search-by-name")
-    public String showJacketsByPartOfName(@RequestParam("partOfName") String partOfName, Model model) {
-        model.addAttribute("jacketsByPartOfName", jacketService.showJacketsByPartOfName(partOfName));
-        model.addAttribute("partOfName", partOfName);
+    @GetMapping("/search")
+    public String showJacketsBySearch(@RequestParam("search") String search, Model model) {
+        model.addAttribute("jacketsBySearch", jacketService.showJacketsBySearch(search));
         return "jacket/search";
     }
 
@@ -93,7 +88,6 @@ public class JacketController {
                                             Model model) {
         model.addAttribute("reverseSortDirection", sortDirection.equals("asc") ? "desc" : "asc");
         model.addAttribute("allJackets", jacketService.sortAllJacketsByParameter(parameter, sortDirection));
-        // the above attributeName must be the same as in method "showAllJackets"
         return "jacket/show_all";
     }
 }

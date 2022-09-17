@@ -50,19 +50,32 @@ public class JacketService {
         jacketRepository.save(jacketToBeUpdated);
     }
 
+    // ----- delete -----
+    public void deleteJacketById(Long id) {
+        jacketRepository.deleteById(id);
+    }
+
+    // ----- search -----
+    public List<Jacket> showJacketsBySearch(String search) {
+        return jacketRepository.findAllByNameContainingIgnoreCase(search);
+    }
+
+    // ----- sort -----
+    public List<Jacket> sortAllJacketsByParameter(String parameter, String sortDirection) {
+        Sort sort = sortDirection.equalsIgnoreCase(Sort.Direction.ASC.name()) ?
+                Sort.by(parameter).ascending() : Sort.by(parameter).descending();
+        return jacketRepository.findAll(sort);
+    }
+
     //// ----- edit booking info / assign equipment to riders -----
     public List<Jacket> showAllAvailableJackets(Date dateOfArrival, Date dateOfReturn, List<Booking> allBookings) {
         //get all jackets
         List<Jacket> listOfAvailableJackets = jacketRepository.findAllByOrderBySize();
         //remove equipment that is broken, in service, or otherwise not ready
-        for (Iterator<Jacket> iterator = listOfAvailableJackets.iterator(); iterator.hasNext(); ) {
-            Jacket oneJacket = iterator.next();
-            if (oneJacket.getCondition().equals(EquipmentCondition.BROKEN) ||
-                    oneJacket.getCondition().equals(EquipmentCondition.SERVICE) ||
-                    oneJacket.getCondition().equals(EquipmentCondition.UNKNOWN)) {
-                iterator.remove();
-            }
-        }
+        listOfAvailableJackets.removeIf(oneJacket ->
+                oneJacket.getCondition().equals(EquipmentCondition.BROKEN) ||
+                oneJacket.getCondition().equals(EquipmentCondition.SERVICE) ||
+                oneJacket.getCondition().equals(EquipmentCondition.UNKNOWN));
         //remove already assigned equipment
         for (Booking booking : allBookings) {
             if (((dateOfArrival.after(booking.getDateOfArrival()) || dateOfArrival.equals(booking.getDateOfArrival())) &&
@@ -75,22 +88,5 @@ public class JacketService {
             }
         }
         return listOfAvailableJackets;
-    }
-
-    // ----- delete -----
-    public void deleteJacketById(Long id) {
-        jacketRepository.deleteById(id);
-    }
-
-    // ----- search -----
-    public List<Jacket> showJacketsByPartOfName(String partOfName) {
-        return jacketRepository.findAllByNameContainingIgnoreCase(partOfName);
-    }
-
-    // ----- sort -----
-    public List<Jacket> sortAllJacketsByParameter(String parameter, String sortDirection) {
-        Sort sort = sortDirection.equalsIgnoreCase(Sort.Direction.ASC.name()) ?
-                Sort.by(parameter).ascending() : Sort.by(parameter).descending();
-        return jacketRepository.findAll(sort);
     }
 }

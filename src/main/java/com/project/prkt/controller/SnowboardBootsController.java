@@ -52,7 +52,6 @@ public class SnowboardBootsController {
     // ----- edit -----
     @GetMapping("/edit/{id}")
     public String showOneSnowboardBoots(@PathVariable("id") Long id, Model model) {
-        model.addAttribute("id", id);
         model.addAttribute("snowboardBootsToUpdate", snowboardBootsService.showOneSnowboardBootsById(id));
         return "snowboard_boots/edit";
     }
@@ -60,10 +59,8 @@ public class SnowboardBootsController {
     @PatchMapping("/edit/{id}")
     public String updateSnowboardBoots(@PathVariable("id") Long id,
                                        @ModelAttribute("snowboardBootsToUpdate") @Valid SnowboardBoots updatedSnowboardBoots,
-                                       BindingResult bindingResult, Model model) {
+                                       BindingResult bindingResult) {
         if (bindingResult.hasErrors()) {
-            model.addAttribute("id", id);
-            model.addAttribute("snowboardBootsToUpdate", updatedSnowboardBoots);
             return "snowboard_boots/edit";
         }
         snowboardBootsService.updateSnowboardBootsById(id, updatedSnowboardBoots);
@@ -78,9 +75,9 @@ public class SnowboardBootsController {
     }
 
     // ----- search -----
-    @GetMapping("/search-by-name")
-    public String showSnowboardBootsByPartOfName(@RequestParam("partOfName") String partOfName, Model model) {
-        model.addAttribute("snowboardBootsByPartOfName", snowboardBootsService.showSnowboardBootsByPartOfName(partOfName));
+    @GetMapping("/search")
+    public String showSnowboardBootsBySearch(@RequestParam("search") String search, Model model) {
+        model.addAttribute("snowboardBootsBySearch", snowboardBootsService.showSnowboardBootsBySearch(search));
         return "snowboard_boots/search";
     }
 
@@ -91,7 +88,6 @@ public class SnowboardBootsController {
                                                    Model model) {
         model.addAttribute("reverseSortDirection", sortDirection.equals("asc") ? "desc" : "asc");
         model.addAttribute("allSnowboardBoots", snowboardBootsService.sortAllSnowboardBootsByParameter(parameter, sortDirection));
-        // the above attributeName must be the same as in method "showAllSnowboardBoots"
         return "snowboard_boots/show_all";
     }
 }

@@ -2,6 +2,7 @@ package com.project.prkt.model;
 
 import javax.persistence.*;
 import java.util.List;
+import java.util.Objects;
 
 /**
  * @author Nikolai Khriapov
@@ -30,12 +31,6 @@ public class ProtectiveShorts extends Equipment {
     private List<AssignedEquipment> listOfAssignedEquipment;
 
     public ProtectiveShorts() {
-    }
-
-    public ProtectiveShorts(String name, EquipmentCondition condition, Size size) {
-        this.name = name;
-        this.condition = condition;
-        this.size = size;
     }
 
     public Long getId() {
@@ -67,12 +62,25 @@ public class ProtectiveShorts extends Equipment {
     }
 
     @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        ProtectiveShorts that = (ProtectiveShorts) o;
+        return Objects.equals(id, that.id) && Objects.equals(name, that.name) && condition == that.condition && size == that.size;
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, name, condition, size);
+    }
+
+    @Override
     public String toString() {
         return "ProtectiveShorts{" +
                 "id=" + id +
-                ", name='" + name + '\'' +
-                ", condition=" + condition +
-                ", size=" + size +
+                ", name='" + name +
+                ", condition=" + condition.name() +
+                ", size=" + size.name() +
                 '}';
     }
 }

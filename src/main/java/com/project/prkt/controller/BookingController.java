@@ -66,24 +66,19 @@ public class BookingController {
     // ----- add new booking -----
     @GetMapping("/add-new")
     public String createNewBooking(Model model) {
-        model.addAttribute("newClientAndNewBookingInfo", new BookingCreationRequest());
+        model.addAttribute("newBooking", new Booking());
         return "booking/add_new";
     }
 
     @PostMapping()
-    public String addNewClientAndBookingToDB(@ModelAttribute("newClientAndNewBookingInfo")
-                                                 @Valid BookingCreationRequest newClientAndNewBookingInfo,
+    public String addNewClientAndBookingToDB(@ModelAttribute("newBooking") @Valid Booking newBooking,
                                              BindingResult bindingResult) {
         if (bindingResult.hasErrors()) {
             return "booking/add_new";
         }
-        Client newClient = new Client(newClientAndNewBookingInfo.getSurname(),
-                newClientAndNewBookingInfo.getPhone1(), newClientAndNewBookingInfo.getPhone2()
-        );
+        Client newClient = new Client(newBooking.getClient().getSurname(),
+                newBooking.getClient().getPhone1(), newBooking.getClient().getPhone2());
         clientService.addNewClientToDB(newClient);
-        Booking newBooking = new Booking();
-        bookingService.addNewBookingInfoToNewBooking(newBooking, newClient,
-                newClientAndNewBookingInfo.getDateOfArrival(), newClientAndNewBookingInfo.getDateOfReturn());
         bookingService.addNewBookingToDB(newBooking);
         return "redirect:/admin/info-riders/add-new?id=" + newBooking.getId();
     }
@@ -92,19 +87,14 @@ public class BookingController {
     @GetMapping("/edit/{id}")
     public String showOneBooking(@PathVariable("id") Long bookingToBeUpdatedId, Model model) {
         Booking bookingToBeUpdated = bookingService.showOneBookingById(bookingToBeUpdatedId);
-        Client clientToBeUpdated = bookingToBeUpdated.getClient();
 
-        BookingCreationRequest clientAndBookingInfoToBeUpdated = new BookingCreationRequest(
-                clientToBeUpdated.getId(), bookingToBeUpdatedId, clientToBeUpdated.getSurname(),
-                clientToBeUpdated.getPhone1(), clientToBeUpdated.getPhone2(), bookingToBeUpdated.getDateOfArrival(),
-                bookingToBeUpdated.getDateOfReturn(), bookingToBeUpdated.getListOfRiders(), 0L);
-
-        model.addAttribute("clientAndBookingInfoToBeUpdated", clientAndBookingInfoToBeUpdated);
+        model.addAttribute("bookingToBeUpdated", bookingService.showOneBookingById(bookingToBeUpdatedId));
+        model.addAttribute("existingRiderToBeAddedId", 0L);
         model.addAttribute("allRiders", riderService.showAllRiders());
 
         model.addAttribute("allSnowboardsAvailable",
                 snowboardService.showAllAvailableSnowboards(bookingToBeUpdated.getDateOfArrival(),
-                bookingToBeUpdated.getDateOfReturn(), bookingService.showAllBookings()));
+                        bookingToBeUpdated.getDateOfReturn(), bookingService.showAllBookings()));
         model.addAttribute("allSnowboardBootsAvailable",
                 snowboardBootsService.showAllAvailableSnowboardBoots(bookingToBeUpdated.getDateOfArrival(),
                         bookingToBeUpdated.getDateOfReturn(), bookingService.showAllBookings()));
@@ -135,29 +125,24 @@ public class BookingController {
         return "booking/edit";
     }
 
-    //// ----- edit booking info / edit booking and client info -----
     @PatchMapping("/edit/{id}")
-    public String updateBookingById(@PathVariable("id") Long bookingToBeUpdatedId,
-                                    @ModelAttribute("clientAndBookingInfoToBeUpdated") @Valid BookingCreationRequest updatedClientAndBookingInfo,
-                                    BindingResult bindingResult, Model model) {
+    public String updateBookingAndClientInfo(@PathVariable("id") Long bookingToBeUpdatedId,
+                                             @ModelAttribute("bookingToBeUpdated") @Valid Booking updatedBookingInfo,
+                                             BindingResult bindingResult, Model model) {
+        Booking bookingToBeUpdated = bookingService.showOneBookingById(bookingToBeUpdatedId);
         if (bindingResult.hasErrors()) {
-            model.addAttribute("id", bookingToBeUpdatedId);
-            updatedClientAndBookingInfo.setListOfRiders(bookingService.showOneBookingById(bookingToBeUpdatedId).getListOfRiders());
-            model.addAttribute("clientAndBookingInfoToBeUpdated", updatedClientAndBookingInfo);
+            updatedBookingInfo.setListOfRiders(bookingToBeUpdated.getListOfRiders());
+            model.addAttribute("bookingToBeUpdated", updatedBookingInfo);
+            model.addAttribute("existingRiderToBeAddedId", 0L);
             model.addAttribute("allRiders", riderService.showAllRiders());
             return "booking/edit";
         }
-        Booking bookingToBeUpdated = bookingService.showOneBookingById(bookingToBeUpdatedId);
-
-        clientService.updateClientById(bookingToBeUpdated.getClient().getId(), new Client(updatedClientAndBookingInfo.getSurname(),
-                updatedClientAndBookingInfo.getPhone1(), updatedClientAndBookingInfo.getPhone2()));
-
+        clientService.updateClientById(bookingToBeUpdated.getClient().getId(), updatedBookingInfo.getClient());
         bookingService.updateBookingById(bookingToBeUpdatedId, new Booking(bookingToBeUpdated.getClient(),
-                updatedClientAndBookingInfo.getDateOfArrival(), updatedClientAndBookingInfo.getDateOfReturn()));
+                updatedBookingInfo.getDateOfArrival(), updatedBookingInfo.getDateOfReturn()));
         return "redirect:/admin/info-booking/edit/{id}";
     }
 
-    //// ----- edit booking info / assign equipment to riders -----
     @PatchMapping("/edit/assign-equipment")
     public String assignEquipmentToOneRider(@RequestParam("bid") Long bookingToBeUpdatedId,
                                             @RequestParam("rid") Long riderToBeUpdatedId,
@@ -193,15 +178,15 @@ public class BookingController {
             ProtectiveShorts newProtectiveShorts = protectiveShortsService.showOneProtectiveShortsById(assignedEquipment.getProtectiveShorts().getId());
             newAssignedEquipment.setProtectiveShorts(newProtectiveShorts);
         }
-        if(assignedEquipment.getHelmet().getId() != null){
+        if (assignedEquipment.getHelmet().getId() != null) {
             Helmet newHelmet = helmetService.showOneHelmetById(assignedEquipment.getHelmet().getId());
             newAssignedEquipment.setHelmet(newHelmet);
         }
-        if(assignedEquipment.getPants().getId() != null){
+        if (assignedEquipment.getPants().getId() != null) {
             Pants newPants = pantsService.showOneById(assignedEquipment.getPants().getId());
             newAssignedEquipment.setPants(newPants);
         }
-        if(assignedEquipment.getGloves().getId() != null){
+        if (assignedEquipment.getGloves().getId() != null) {
             Gloves newGloves = glovesService.showOneById(assignedEquipment.getGloves().getId());
             newAssignedEquipment.setGloves(newGloves);
         }
@@ -211,27 +196,23 @@ public class BookingController {
         return "redirect:/admin/info-booking/edit/" + bookingToBeUpdatedId;
     }
 
-    //// ----- edit booking info / add existing rider to booking -----
-    @PatchMapping("/edit/add-existing-rider/{bid}")
-    public String addExistingRiderToBooking(@PathVariable("bid") Long bookingToBeUpdatedId,
-                                            @ModelAttribute("clientAndBookingInfoToBeUpdated") BookingCreationRequest clientAndBookingInfoToBeUpdated) {
-        Rider existingRiderToBeAdded = riderService.showOneRiderById(clientAndBookingInfoToBeUpdated.getExistingRiderToBeAddedId());
+    @PatchMapping("/edit/add-existing-rider/{id}")
+    public String addExistingRiderToBooking(@PathVariable("id") Long bookingToBeUpdatedId,
+                                            @ModelAttribute("existingRiderToBeAddedId") Long existingRiderToBeAddedId) {
+        Rider existingRiderToBeAdded = riderService.showOneRiderById(existingRiderToBeAddedId);
         Booking bookingToBeUpdated = bookingService.showOneBookingById(bookingToBeUpdatedId);
         bookingService.addExistingRiderToBooking(bookingToBeUpdated, existingRiderToBeAdded);
-        return "redirect:/admin/info-booking/edit/" + bookingToBeUpdatedId;
+        return "redirect:/admin/info-booking/edit/{id}";
     }
 
-    //// ----- edit booking info / remove rider from booking -----
     @GetMapping("/edit/remove")
     public String removeRiderFromBooking(@RequestParam("bid") Long bookingToBeUpdatedId,
-                                         @RequestParam("rid") Long riderToBeRemovedId, Model model) {
-        Booking bookingToBeUpdated = bookingService.showOneBookingById(bookingToBeUpdatedId);
+                                         @RequestParam("rid") Long riderToBeRemovedId) {
         Rider riderToBoUpdated = riderService.showOneRiderById(riderToBeRemovedId);
+        Booking bookingToBeUpdated = bookingService.showOneBookingById(bookingToBeUpdatedId);
 
         riderService.removeAssignedEquipment(riderToBoUpdated);
-
         bookingService.removeRiderFromBooking(bookingToBeUpdated, riderToBoUpdated);
-        model.addAttribute("allRiders", riderService.showAllRiders());
         return "redirect:/admin/info-booking/edit/" + bookingToBeUpdatedId;
     }
 
@@ -248,14 +229,14 @@ public class BookingController {
     // ----- mark booking completed -----
     @GetMapping("/change-booking-completed/{id}")
     public String changeBookingCompleted(@PathVariable("id") Long bookingId) {
-        bookingService.markBookingCompleted(bookingId);
+        bookingService.changeBookingCompleted(bookingId);
         return "redirect:/admin/info-booking";
     }
 
     // ----- search -----
     @GetMapping("/search")
-    public String searchBookingsByParameter(@RequestParam("parameter") String parameter, Model model) {
-        model.addAttribute("bookingsByParameter", bookingService.showBookingsByParameter(parameter));
+    public String showBookingsBySearch(@RequestParam("search") String search, Model model) {
+        model.addAttribute("bookingsBySearch", bookingService.showBookingsBySearch(search));
         return "booking/search";
     }
 

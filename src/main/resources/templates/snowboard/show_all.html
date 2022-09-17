@@ -1,10 +1,12 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
+
 <head>
     <meta charset="UTF-8">
     <meta name="author" content="Nikolai Khriapov">
     <title th:text="#{snowboard.show_all.title}">?????</title>
 </head>
+
 <body th:align="center">
 
 <!--Header-->
@@ -12,11 +14,9 @@
 
 <!--Search-->
 <form th:method="GET"
-      th:action="@{/admin/info-equipment/snowboard/search-by-name}">
-
-    <input th:type="text" th:name="partOfName"
+      th:action="@{/admin/info-equipment/snowboard/search}">
+    <input th:type="text" th:name="search"
            th:placeholder="#{snowboard.show_all.search_placeholder}" style="width:200px"/>
-
     <input type="submit" th:value="#{snowboard.show_all.search_button}"/>
 </form>
 
@@ -55,19 +55,16 @@
             <a th:href="@{'/admin/info-equipment/snowboard/sort?parameter=bindingSize&sortDirection=' + ${reverseSortDirection}}"
                th:text="#{snowboard.show_all.table.header.binding_size}">?????</a>
         </th>
-        <th></th>
     </tr>
     <tr th:each="oneSnowboard : ${allSnowboards}">
         <td th:text="${oneSnowboard.getId()}">?????</td>
-        <td th:align="left"
-            th:text="${oneSnowboard.getName()}">?????
-        </td>
+        <td th:text="${oneSnowboard.getName()}" th:align="left">?????</td>
         <td th:text="#{${'equipment_condition.' + oneSnowboard.getCondition()}}">?????</td>
         <td th:text="${oneSnowboard.getSize()}">?????</td>
         <td th:text="#{${'snowboard.stiffness.' + oneSnowboard.getStiffness()}}">?????</td>
         <td th:text="#{${'snowboard.arch.' + oneSnowboard.getArch()}}">?????</td>
         <td th:text="${oneSnowboard.getBindingSize()}">?????</td>
-        <td th:width="50"></td>
+        <td th:width="25"></td>
         <td>
             <a th:href="@{/admin/info-equipment/snowboard/edit/{id}(id=${oneSnowboard.getId()})}">
                 <button th:text="#{snowboard.show_all.table.button.edit}">?????</button>
@@ -101,4 +98,5 @@
 </a>
 
 </body>
+
 </html>

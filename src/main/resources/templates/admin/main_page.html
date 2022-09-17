@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
+
 <head>
     <meta charset="UTF-8">
     <meta name="author" content="Sergei Gavrilov">
@@ -18,9 +19,11 @@
 </p>
 
 <br>
+
+<!--Links to Database-->
 <nav>
     <a href="/admin/info-equipment/">
-        <button> Списки оборудования </button>
+        <button> Списки оборудования</button>
     </a>
     <a href="/admin/info-clients">
         <button> Список клиентов</button>
@@ -35,37 +38,18 @@
 
 <br>
 
+<!--Orders for today/tomorrow-->
 <a href="admin/show-today">
-    <button> Заказы на сегодня </button>
+    <button>Заказы на сегодня</button>
 </a>
 <a href="admin/show-tomorrow">
-    <button> Заказы на завтра </button>
-</a> <br>
+    <button> Заказы на завтра</button>
+</a>
 
-<br>
-<!--таблица [Неукомплектованные заказы]-->
+<br><br>
 
-<!--<table border="1"-->
-<!--       style="background: lemonchiffon"-->
-<!--       th:cellpadding="10">-->
-<!--    <caption>Неукомплектованные заказы</caption>-->
-<!--    <tr>-->
-<!--        <th>ID</th>-->
-<!--        <th>Фамилия</th>-->
-<!--        <th>тел осн</th>-->
-<!--        <th>тел 2</th>-->
-<!--        <th>когода приедут</th>-->
-<!--        <th>на сколько берут</th>-->
-<!--        <th>количество райдеров</th>-->
-<!--    </tr>-->
-<!--    <tr>-->
-
-<!--    </tr>-->
-<!--</table>-->
-
-<!--Таблица с неукомплектованными заказами-->
+<!--Table for Incomplete Orders-->
 <h2 th:text="#{admin.main_page.table.h2}" th:align="center">?????</h2>
-
 <table th:align="center"
        th:border="1" th:rules="rows"
        th:cellpadding="5">
@@ -87,10 +71,10 @@
         <td th:text="${#dates.format(oneBooking.getDateOfArrival(), 'dd MMM yyyy HH:mm')}"></td>
         <td th:text="${#dates.format(oneBooking.getDateOfReturn(), 'dd MMM yyyy HH:mm')}"></td>
         <td th:text="${oneBooking.getListOfRiders().size()}">?????</td>
-        <td th:width="50"></td>
+        <td th:width="25"></td>
         <td>
             <form th:method="GET" th:action="@{/admin/change-booking-completed/{id}(id=${oneBooking.getId()})}">
-                    <input type="submit" th:value="#{admin.main_page.table.button.mark_completed}"/>
+                <input type="submit" th:value="#{admin.main_page.table.button.mark_completed}"/>
             </form>
         </td>
         <td>
@@ -113,6 +97,6 @@
     <button th:text="#{booking.show_all.button.add_new}">?????</button>
 </a>
 
-
 </body>
+
 </html>

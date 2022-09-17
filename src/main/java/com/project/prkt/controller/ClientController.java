@@ -51,17 +51,14 @@ public class ClientController {
     // ----- edit -----
     @GetMapping("/edit/{id}")
     public String showOneClient(@PathVariable("id") Long id, Model model) {
-        model.addAttribute("id", id);
         model.addAttribute("clientToUpdate", clientService.showOneClientById(id));
         return "client/edit";
     }
 
     @PatchMapping("/edit/{id}")
-    public String updateClient(@PathVariable("id") Long id, @ModelAttribute("clientToUpdate") @Valid Client updatedClient,
-                               BindingResult bindingResult, Model model) {
+    public String updateClient(@PathVariable("id") Long id,
+                               @ModelAttribute("clientToUpdate") @Valid Client updatedClient, BindingResult bindingResult) {
         if (bindingResult.hasErrors()) {
-            model.addAttribute("id", id);
-            model.addAttribute("clientToUpdate", updatedClient);
             return "client/edit";
         }
         clientService.updateClientById(id, updatedClient);
@@ -79,7 +76,6 @@ public class ClientController {
     @GetMapping("/search")
     public String showClientsBySearch(@RequestParam("search") String search, Model model) {
         model.addAttribute("clientsBySearch", clientService.showClientsBySearch(search));
-        model.addAttribute("search", search);
         return "client/search";
     }
 

@@ -1,10 +1,12 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
+
 <head>
     <meta charset="UTF-8">
     <meta name="author" content="Nikolai Khriapov">
     <title th:text="#{snowboard.add_new.title}">?????</title>
 </head>
+
 <body th:align="center">
 
 <!--Header-->
@@ -14,9 +16,7 @@
 <form th:method="POST"
       th:action="@{/admin/info-equipment/snowboard}"
       th:object="${newSnowboard}">
-
-    <table th:align="center" style="text-align:left"
-           th:cellpadding="2">
+    <table th:align="center" style="text-align:left" th:cellpadding="2">
         <tr>
             <td th:text="#{snowboard.add_new.field.name}">?????</td>
             <td>
@@ -27,8 +27,7 @@
         <tr>
             <td th:text="#{snowboard.add_new.field.condition}">?????</td>
             <td>
-                <select name="condition">         <!-- name is needed, otherwise won't display properly in the table -->
-                                                  <!-- must be named as the class field (camelCase) -->
+                <select name="condition">
                     <option th:each="i : ${T(com.project.prkt.model.EquipmentCondition).values()}"
                             th:value="${i.name()}"
                             th:text="#{${'equipment_condition.' + i}}">?????
@@ -91,4 +90,5 @@
 </a>
 
 </body>
+
 </html>

@@ -2,6 +2,7 @@ package com.project.prkt.model;
 
 import javax.persistence.*;
 import java.util.List;
+import java.util.Objects;
 import java.util.ResourceBundle;
 
 /**
@@ -71,13 +72,6 @@ public class SnowboardBoots extends Equipment {
     public SnowboardBoots() {
     }
 
-    public SnowboardBoots(String name, EquipmentCondition condition, Size size, Stiffness stiffness) {
-        this.name = name;
-        this.condition = condition;
-        this.size = size;
-        this.stiffness = stiffness;
-    }
-
     public Long getId() {
         return id;
     }
@@ -115,13 +109,27 @@ public class SnowboardBoots extends Equipment {
     }
 
     @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        SnowboardBoots that = (SnowboardBoots) o;
+        return Objects.equals(id, that.id) && Objects.equals(name, that.name) && condition == that.condition &&
+                size == that.size && stiffness == that.stiffness;
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, name, condition, size, stiffness);
+    }
+
+    @Override
     public String toString() {
         return "SnowboardBoots{" +
                 "id=" + id +
-                ", name='" + name + '\'' +
-                ", condition=" + condition +
-                ", size=" + size +
-                ", stiffness=" + stiffness +
+                ", name='" + name +
+                ", condition=" + condition.name() +
+                ", size=" + size.name() +
+                ", stiffness=" + stiffness.name() +
                 '}';
     }
 }
