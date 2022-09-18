@@ -1,6 +1,7 @@
 package com.project.prkt.model;
 
 import javax.persistence.*;
+import javax.validation.constraints.*;
 import java.util.List;
 import java.util.Objects;
 /**
@@ -39,20 +40,21 @@ public class Rider {
     @SequenceGenerator(name = "sequence", sequenceName = "sequence", allocationSize = 1)
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "sequence")
     private Long id;
+    @NotEmpty(message = "{message.notempty}")
     private String name;
     private Sex sex;
+    @DecimalMin(value = "20", message = "{message.height}")
+    @DecimalMax(value = "220", message = "{message.height}")
+    @NotNull(message= "{message.height}")
     private Integer height;
+    @NotNull(message= "{message.weight}")
+    @DecimalMin(value = "10", message = "{message.weight}")
+    @DecimalMax(value = "160", message = "{message.weight}")
     private Integer weight;
     private Size foot;
     @ManyToMany(mappedBy = "listOfRiders")
     private List<Booking> listOfBookings;
-    //показали какой класс в коллекции и кактой то fetch хз что это
     @ElementCollection(targetClass = TypesOfEquipment.class, fetch = FetchType.EAGER)
-
-    //назвали колонку. в базе появилась types_of_eqipment вместо кэмел кейса
-    //@Column(name="typesOfEquipment", nullable=false)
-
-    //указали имя дочерней таблицы и имя колонки которая будет связывать основнйо класс и дочернюю коллекцию
     @CollectionTable(name="rider_types_of_equipment", joinColumns= {@JoinColumn(name="rider_id")})
     private List<TypesOfEquipment> equipmentNeededIds;
     @OneToOne(cascade = CascadeType.ALL)

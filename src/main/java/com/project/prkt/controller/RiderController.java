@@ -6,7 +6,10 @@ import com.project.prkt.service.RiderService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
+
+import javax.validation.Valid;
 
 /**
  * @author Sergei Gavrilov
@@ -27,14 +30,23 @@ public class RiderController {
 
     //add new
     @GetMapping("/add-new")
-    public String createNewRider(Model model, @RequestParam("id") Long bookingId) {
+    public String createNewRider(Model model, @RequestParam(value = "id", required = false) Long bookingId) {
         model.addAttribute("newRider", new Rider());
         model.addAttribute("bookingId", bookingId);
         return "rider/add_new";
     }
 
     @PostMapping("/add")
-    public String addNewRiderToDb(@ModelAttribute("newRider") Rider rider, @RequestParam("id") Long bookingId) {
+    public String addNewRiderToDb(@RequestParam(value = "id", required = false) Long bookingId,
+                                  @Valid @ModelAttribute("newRider") Rider rider,
+                                  BindingResult bindingResult,
+                                  Model model) {
+        if (bindingResult.hasErrors()) {
+            model.addAttribute("bookingId", bookingId);
+            model.addAttribute("newRider", rider);
+            return "rider/add_new";
+
+        }
         riderService.addNewRiderToDB(rider);
         bookingService.addNewRiderToBooking(bookingId, rider);
         return "redirect:/admin/info-riders/add-new?id=" + bookingId;
@@ -63,19 +75,35 @@ public class RiderController {
         model.addAttribute("riderToBeUpdated", riderService.showOneRiderById(id));
         model.addAttribute("bookingId", bookingId);
         model.addAttribute("idOfRider", id);
-        //добавить <input hidden...> во вбюшку rider/edit ???
         return "rider/edit";
     }
 
     @PatchMapping("/edit/{id}")
     public String updateRiderById(@PathVariable("id") Long riderToBeUpdatedId,
-                                  @ModelAttribute("riderToBeUpdated") Rider oneUpdatedRider
+                                  @RequestParam(value = "bookingid", required = false) Long bookingId,
+                                  @Valid @ModelAttribute("riderToBeUpdated") Rider oneUpdatedRider,
+                                 BindingResult bindingResult,
+                                 Model model
                                  /* @ModelAttribute("bookingId") Long bookingId) */){
+        if (bindingResult.hasErrors()){
+            model.addAttribute("riderToBeUpdated", oneUpdatedRider);
+            model.addAttribute("idOfRider", riderToBeUpdatedId);
+            model.addAttribute("bookingId", bookingId);
+            return "rider/edit";
+        }
         riderService.updateRiderById(riderToBeUpdatedId, oneUpdatedRider);
+        return "redirect:/admin/info-booking/edit/" + bookingId; //пусть пока туда летит. void почемуто крашит метод
+    }
 
-        return "redirect:/admin/info-booking"; //пусть пока туда летит. void почемуто крашит метод
-
-
+    //-----------sort----------
+    @GetMapping("/sort")
+    public String sortAllRidersByParameter(@RequestParam("parameter") String parameter,
+                                           @RequestParam("sortDirection") String sortDirection,
+                                           Model model){
+        model.addAttribute("reverseSortDirection", sortDirection.equals("asc") ? "desc" : "asc");
+        model.addAttribute("allRiders", riderService.sortAllByParameter(parameter, sortDirection));
+        model.addAttribute("allBookings", bookingService.showAllBookings());
+        return "rider/show_all";
     }
 
 }

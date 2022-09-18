@@ -11,7 +11,7 @@
 
 <!--Input parameters-->
 <form th:method="PATCH"
-      th:action="@{/admin/info-equipment/ski-boots/{id}(id=${skiBootsToUpdate.getId()})}"
+      th:action="@{/admin/info-equipment/ski-boots/{id}(id=${id})}"
       th:object="${skiBootsToUpdate}">
 
     <table th:align="center" style="text-align:left"
@@ -71,6 +71,7 @@
 <a href="/admin/info-equipment/ski-boots/">
     <button th:text="#{ski_boots.edit.button.return}">?????</button>
 </a>
+<a href="/admin"> <button th:text="#{knee_protection.edit.button.go_to_main}"> return to main  </button></a>
 
 </body>
 </html>

@@ -48,7 +48,6 @@ public class HelmetController {
     @GetMapping("/edit/{id}")
     public String showOneHelmet (@PathVariable("id") Long id, Model model){
         model.addAttribute("helmetToUpdate", helmetService.showOneHelmetById(id));
-        model.addAttribute("id", id);
         return "helmet/edit";
     }
     //-------edit patch----------
@@ -58,7 +57,7 @@ public class HelmetController {
                                 BindingResult bindingResult,
                                 Model model){
         if(bindingResult.hasErrors()){
-            model.addAttribute("helmetToUpdate", helmetService.showOneHelmetById(id));
+            model.addAttribute("helmetToUpdate", helmetToBeUpdated);
             model.addAttribute("id", id);
             return "helmet/edit";
         }

@@ -3,21 +3,25 @@
 <head>
     <meta charset="UTF-8">
     <meta name="author" content="Sergei Gavrilov">
-    <title>new Rider</title>
+    <title th:text="#{rider.add_new_rider}">new Rider</title>
 </head>
 <body  th:align="center">
+<h1 th:text="#{rider.add_new_rider}"> new rider</h1>
 <form th:method="POST"
-      th:action="@{'/admin/info-riders/add?id=' + ${bookingId}}"
-      th:object="${newRider}">
+      th:object="${newRider}"
+      th:action="@{'/admin/info-riders/add?id=' + ${bookingId}}">
+
     <table th:align="center" style="text-align:left"
            th:cellpadding="2">
         <tr>
-            <td> Имя </td>
-            <td> <input th:type="text" th:field="*{name}"/> </td>
+            <td th:text="#{rider.name}"> Имя </td>
+            <td> <input th:type="text" th:field="*{name}"/>
+                <div style="color:red" th:if="${#fields.hasErrors('name')}" th:errors="*{name}">?????</div>
+            </td>
         </tr>
 
         <tr>
-            <td> Пол </td>
+            <td th:text="#{rider.sex}"> Пол </td>
             <td><select name="sex">
                 <option th:each="s : ${T(com.project.prkt.model.Rider.Sex).values()}"
                         th:value="${s}" th:text="${s}"> sex should be here
@@ -27,17 +31,20 @@
         </tr>
 
         <tr>
-            <td> Рост </td>
-            <td><input th:type="text" th:field="*{height}"/></td>
+            <td th:text="#{rider.height}"> Рост </td>
+            <td><input th:type="text" th:field="*{height}"/>
+                <div style="color:red" th:if="${#fields.hasErrors('height')}" th:errors="*{height}">?????</div></td>
         </tr>
 
         <tr>
-            <td> Вес </td>
-            <td><input th:type="text" th:field="*{weight}"/></td>
+            <td th:text="#{rider.weight}"> Вес </td>
+            <td><input th:type="text" th:field="*{weight}"/>
+                <div style="color:red" th:if="${#fields.hasErrors('weight')}" th:errors="*{weight}">?????</div>
+            </td>
         </tr>
 
         <tr>
-            <td> Размер ноги </td>
+            <td th:text="#{rider.foot}"> Размер ноги </td>
             <td><select name="foot">
                 <option th:each="f : ${T(com.project.prkt.model.Rider.Size).values()}"
                         th:value="${f}" th:text="${f}"> foot size should be here
@@ -47,7 +54,7 @@
         </tr>
 
         <tr>
-            <td> fckn sht</td>
+            <td th:text="#{rider.newlist}"> <br  th:text="#{rider.ofequip}"> </td>
             <td>
                 <div th:each="equip : ${T(com.project.prkt.model.TypesOfEquipment).values()}">
 
@@ -65,7 +72,7 @@
 
     <br/>
 
-    <input type="submit" value="сохранить"/>
+    <input type="submit" th:value="#{rider.save}"/>
 
 </form>
 
@@ -73,7 +80,16 @@
 
 <form th:method="GET"
       th:action="@{/admin/info-booking}">
-    <input type="submit" value="выйти в список броней">
+    <input type="submit" th:value="#{rider.back_to_list_of_bookings}">
+</form>
+
+<br>
+<br>
+
+
+<form th:method="GET"
+      th:action="@{/admin/info-booking/edit/{id}(id=${bookingId})}">
+    <input type="submit" th:value="#{rider.back_to_cur_order}">
 </form>
 
 

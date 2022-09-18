@@ -7,17 +7,13 @@
 
 <body  th:align="center">
 <h1 th:text="#{ski.add_new.title}"/>
-
+<br>
 <form th:method="POST"
       th:action="@{/admin/info-equipment/ski}"
       th:object="${ski}">
-    <table th:align="center"
-           th:border="1" th:rules="rows"
+    <table th:align="center" style="text-align:left"
            th:cellpadding="5">
-        <tr>
-            <td th:text="#{ski.add_new.table.header.param}"> Параметр</td>
-            <td th:text="#{ski.add_new.table.header.input}"> Значение</td>
-        </tr>
+
         <tr>
             <td th:text="#{ski.add_new.table.name}"> Название</td>
             <td><input th:type="text" th:field="*{name}"/>
@@ -66,6 +62,13 @@
     <br/>
     <input type="submit" th:value="#{ski.add_new.table.savebutton}"/> <!--ахуеть это кнопка формы -->
 </form>
+
+<a href="/admin/info-equipment/ski">
+    <button th:text="#{ski.add_new.button.return}">назад</button>
+</a>
+<a href="/admin">
+    <button th:text="#{gloves.edit.button.go_to_main}">back to main</button>
+</a>
 
 </body>
 </html>

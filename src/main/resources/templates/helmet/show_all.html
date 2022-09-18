@@ -8,11 +8,6 @@
 
 <h1 th:text="#{helmet.show_all.h1}"> all helmets list </h1>
 
-<p>
-  <a th:href="@{/admin/info-equipment/helmet(lang=ru)}" th:text="Русский">?????</a>
-  <a th:href="@{/admin/info-equipment/helmet(lang=en)}" th:text="English">?????</a>
-</p>
-
 <br/>
 
 <form th:method="GET"
@@ -24,7 +19,6 @@
   <input type="submit" th:value="#{helmet.show_all.search_button}"/>
 </form>
 
-<br/>
 <br/>
 
 <div>

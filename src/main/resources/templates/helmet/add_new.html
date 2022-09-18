@@ -7,16 +7,13 @@
 
 <body  th:align="center">
 <h1 th:text="#{helmet.add_new.title}"> </h1>
+<br>
 <form th:method="POST"
       th:action="@{/admin/info-equipment/helmet}"
       th:object="${helmet}">
-  <table th:align="center"
-         th:border="1" th:rules="rows"
-         th:cellpadding="5">
-    <tr>
-      <td th:text="#{helmet.add_new.table.header.param}"> Параметр</td>
-      <td th:text="#{helmet.add_new.table.header.input}"> Значение</td>
-    </tr>
+
+  <table th:align="center" style="text-align:left"
+         th:cellpadding="2">
     <tr>
       <td th:text="#{helmet.add_new.table.name}"> Название</td>
       <td><input th:type="text" th:field="*{name}"/>
@@ -58,6 +55,9 @@
 
 <a href="/admin/info-equipment/helmet/">
   <button th:text="#{helmet.add_new.button.return}">back to helmets button</button>
+</a>
+<a href="/admin">
+  <button th:text="#{gloves.edit.button.go_to_main}">back to main</button>
 </a>
 
 </body>

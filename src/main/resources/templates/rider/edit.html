@@ -3,26 +3,28 @@
 <head>
     <meta charset="UTF-8">
     <meta name="author" content="Sergei Gavrilov">
-    <title>Edit Rider</title>
+    <title th:text="#{rider.header.edit}">Edit Rider</title>
 </head>
 
-<h1>Изменение данных райдера</h1>
+<h1 th:text="#{rider.header.edit}"> Изменение данных райдера</h1>
 
 <body th:align="center">
 <form th:method="PATCH"
-      th:action="@{/admin/info-riders/edit/{id}(id=${idOfRider})}"
+      th:action="@{'/admin/info-riders/edit/' + ${idOfRider} + '?bookingid=' + ${bookingId}}"
       th:object="${riderToBeUpdated}">
   <table th:align="center" style="text-align:left"
          th:cellpadding="2">
                                               <!--name-->
     <tr>
-      <td> Имя </td>
+      <td th:text="#{rider.name}"> Имя </td>
       <td>
-        <input type="text" th:field="*{name}" id="name"> </td>
+        <input type="text" th:field="*{name}" id="name">
+          <div style="color:red" th:if="${#fields.hasErrors('name')}" th:errors="*{name}">?????</div>
+      </td>
     </tr>
                                               <!--sex-->
     <tr>
-      <td> Пол </td>
+      <td  th:text="#{rider.sex}"> Пол </td>
       <td>
         <select th:field="*{sex}">
           <option th:each="s : ${T(com.project.prkt.model.Rider.Sex).values()}"
@@ -33,19 +35,23 @@
       </select>
       </td>
     </tr>
-
+                                                <!--height-->
     <tr>
-      <td> Рост </td>
-      <td><input type="text" th:field="*{height}"/></td>
+      <td th:text="#{rider.height}"> Рост </td>
+      <td><input type="text" th:field="*{height}"/>
+          <div style="color:red" th:if="${#fields.hasErrors('height')}" th:errors="*{height}">?????</div>
+      </td>
     </tr>
-
+                                                 <!--weight-->
     <tr>
-      <td> Вес </td>
-      <td><input type="text" th:field="*{weight}"/></td>
+      <td th:text="#{rider.weight}"> Вес </td>
+      <td><input type="text" th:field="*{weight}"/>
+          <div style="color:red" th:if="${#fields.hasErrors('weight')}" th:errors="*{weight}">?????</div>
+      </td>
     </tr>
                                             <!--foot size-->
     <tr>
-      <td>
+      <td th:text="#{rider.foot}">
         Размер ноги
       </td>
       <td>
@@ -70,8 +76,9 @@
 <!--    </tr>-->
                               <!-- new checkbox set for equipment-->
     <tr>
-        <td valign="top">
-            Новый список <br> оборудования:
+        <td valign="top"
+            th:text="#{rider.newlist}">
+            Новый список <br th:text="#{rider.ofequip}"> оборудования:
         </td>
         <td>
             <div th:each="oneFromEnum : ${T(com.project.prkt.model.TypesOfEquipment).values()}">
@@ -88,7 +95,7 @@
 
 <br/>
 
-  <input type="submit" value="сохранить"/>
+  <input type="submit" th:value="#{rider.save}"/>
 
 </form>
 
@@ -96,14 +103,14 @@
 
 <form th:method="GET"
       th:action="@{/admin/info-booking}">
-  <input type="submit" value="выйти в список броней">
+  <input type="submit" th:value="#{rider.back_to_list_of_bookings}">
 </form>
 
 <br/>
 
 <form th:method="GET"
       th:action="@{/admin/info-booking/edit/{id}(id=${bookingId})}">
-    <input type="submit" value="выйти в текущий заказ">
+    <input type="submit" th:value="#{rider.back_to_cur_order}">
 </form>
 </body>
 </html>

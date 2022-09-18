@@ -48,27 +48,23 @@ public class SkiController {
         skiService.addToDatabase(ski);
         return "redirect:/admin/info-equipment/ski";
     }
-                // edit
+                // edit view page
     @GetMapping("/edit/{id}")
     public String edit(@PathVariable("id") Long id,  Model model){
         model.addAttribute("ski", skiService.findById(id));
-        model.addAttribute("id", id);
-
         return "ski/edit";
     }
-
+            // edit save to DB
     @PatchMapping("/{id}")
     public String edit(@PathVariable("id") Long id,
                        @ModelAttribute("ski") @Valid Ski ski,
                        BindingResult bindingResult,
                        Model model){
-        System.out.println("im above ");
         if (bindingResult.hasErrors()){
             model.addAttribute("id", id);
             model.addAttribute("ski", ski);
             return "ski/edit";
         }
-        System.out.println("я below проверкой");
         skiService.updateById(id, ski);
         return "redirect:/admin/info-equipment/ski/";
     }

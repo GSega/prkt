@@ -7,7 +7,7 @@
 <body th:align="center">
 
 <h1 th:text="#{pants.add_new.title}">?????</h1>
-
+<br>
 <form th:method="POST"
       th:action="@{/admin/info-equipment/pants}"
       th:object="${newPants}">
@@ -54,6 +54,9 @@
 
 <a href="/admin/info-equipment/pants/">
     <button th:text="#{pants.add_new.button.return}">?????</button>
+</a>
+<a href="/admin">
+    <button th:text="#{gloves.edit.button.go_to_main}">back to main</button>
 </a>
 
 </body>

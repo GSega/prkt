@@ -3,22 +3,28 @@
 <head>
     <meta charset="UTF-8">
     <meta name="author" content="Sergei Gavrilov">
-    <title>All riders</title>
+    <title th:text="#{rider.show_all.title}">All riders</title>
 </head>
 <body th:align="center">
 
-<h1>Список райдеров</h1>
+<h1 th:text="#{rider.show_all.title}">Список райдеров</h1>
 
 <table  th:align="center"
         th:border="1" th:rules="rows"
         th:cellpadding="5">
     <tr>
-        <th> <a th:href="@{'/admin/info_equipment/ski/sort?parameter=id&sortDirection=' + ${reverseSortDirection}}"> ID </a> </th>
-        <th> <a th:href="@{'/admin/info_equipment/ski/sort?parameter=id&sortDirection=' + ${reverseSortDirection}}"> Имя </a> </th>
-        <th> <a th:href="@{'/admin/info_equipment/ski/sort?parameter=id&sortDirection=' + ${reverseSortDirection}}"> Рост </a> </th>
-        <th> <a th:href="@{'/admin/info_equipment/ski/sort?parameter=id&sortDirection=' + ${reverseSortDirection}}"> Вес </a> </th>
-        <th> <a th:href="@{'/admin/info_equipment/ski/sort?parameter=id&sortDirection=' + ${reverseSortDirection}}"> пол </a> </th>
-        <th> <a th:href="@{'/admin/info_equipment/ski/sort?parameter=id&sortDirection=' + ${reverseSortDirection}}"> Размер ноги </a> </th>
+        <th> <a th:href="@{'/admin/info-riders/sort?parameter=id&sortDirection=' + ${reverseSortDirection}}"
+                th:text="#{rider.id}"> ID </a> </th>
+        <th> <a th:href="@{'/admin/info-riders/sort?parameter=name&sortDirection=' + ${reverseSortDirection}}"
+                th:text="#{rider.name}"> Имя </a> </th>
+        <th> <a th:href="@{'/admin/info-riders/sort?parameter=height&sortDirection=' + ${reverseSortDirection}}"
+                th:text="#{rider.height}"> Рост </a> </th>
+        <th> <a th:href="@{'/admin/info-riders/sort?parameter=weight&sortDirection=' + ${reverseSortDirection}}"
+                th:text="#{rider.weight}"> Вес </a> </th>
+        <th> <a th:href="@{'/admin/info-riders/sort?parameter=sex&sortDirection=' + ${reverseSortDirection}}"
+                th:text="#{rider.sex}"> пол </a> </th>
+        <th> <a th:href="@{'/admin/info-riders/sort?parameter=foot&sortDirection=' + ${reverseSortDirection}}"
+                th:text="#{rider.foot}"> Размер ноги </a> </th>
 <!--        <th> edit </th>-->
 <!--        <th> delete</th>-->
     </tr>
@@ -30,18 +36,29 @@
     <td th:text="${oneRider.getWeight()}"> Weight </td>
     <td th:text="${oneRider.getSex()}"> Sex </td>
     <td th:text="${oneRider.getFoot()}"> Foot Size </td>
+<!--    <td>-->
+<!--        <a th:href="@{'/admin/info-riders/edit?id=' + ${oneRider.getId()}}"> <button th:text="#{rider.edit}"> изменить </button> </a>-->
+<!--    </td>-->
     <td>
-        <a th:href="@{'/admin/info-riders/edit?id=' + ${oneRider.getId()}}"> <button> изменить </button> </a>
-    </td>
-    <td>
-        <form th:method="DELETE" th:action="@{/admin/info-riders/{id}(id=${oneRider.getId()})}"> <input type="submit" value="удалить"> </form>
+        <form th:method="DELETE" th:action="@{/admin/info-riders/{id}(id=${oneRider.getId()})}"> <input type="submit" th:value="#{rider.delete}"> </form>
     </td>
 </tr>
 </table>
 <br/>
+<!--add new button-->
+<!--<a href="/admin/info-riders/add-new">-->
+<!--    <button th:text="#{rider.add_new_rider}">addnew bttn</button>-->
+<!--</a>-->
+<!--<br>-->
+<br>
 <div>
-    <a href="/admin"> <button> back to main </button> </a>
+    <a href="/admin"> <button th:text="#{rider.button.go_to_main}"> back to main </button> </a>
 </div>
+<br/>
+<div>
+
+</div>
+
 
 </body>
 </html>

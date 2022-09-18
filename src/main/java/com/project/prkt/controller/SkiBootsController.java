@@ -55,8 +55,8 @@ public class SkiBootsController {
                                  BindingResult bindingResult,
                                  Model model) {
         if (bindingResult.hasErrors()){
-            model.addAttribute("id", id);
             model.addAttribute("skiBootsToUpdate", updatedSkiBoots);
+            model.addAttribute("id", id);
             return "ski_boots/edit";
         }
         skiBootsService.updateSkiBootsById(id, updatedSkiBoots);

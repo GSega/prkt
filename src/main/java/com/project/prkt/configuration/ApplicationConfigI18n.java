@@ -45,6 +45,7 @@ public class ApplicationConfigI18n implements WebMvcConfigurer {
                 "classpath:/equipment_condition",
                 "classpath:/admin",
                 "classpath:/booking",
+                "classpath:/rider",
                 "classpath:/client",
                 "classpath:/snowboard",
                 "classpath:/snowboard_boots",

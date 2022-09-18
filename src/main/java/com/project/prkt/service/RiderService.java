@@ -4,6 +4,7 @@ import com.project.prkt.model.AssignedEquipment;
 import com.project.prkt.model.Rider;
 import com.project.prkt.repository.RiderRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -67,5 +68,11 @@ public class RiderService {
         rider.getAssignedEquipment().setGloves(null);
 
         riderRepository.save(rider);
+    }
+    //--------sort---------
+    public List<Rider> sortAllByParameter(String parameter, String sortDirection){
+        Sort sort = sortDirection.equalsIgnoreCase(Sort.Direction.ASC.name()) ?
+                Sort.by(parameter).ascending() : Sort.by(parameter).descending();
+        return riderRepository.findAll(sort);
     }
 }
