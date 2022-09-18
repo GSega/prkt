@@ -56,7 +56,8 @@ public class ApplicationConfigI18n implements WebMvcConfigurer {
                 "classpath:/protective_shorts",
                 "classpath:/helmet",
                 "classpath:/pants",
-                "classpath:/gloves"
+                "classpath:/gloves",
+                "classpath:/info_equipment"
         );
         messageSource.setDefaultEncoding("UTF-8");
         return messageSource;
