@@ -3,6 +3,8 @@ package com.project.prkt.model;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
+import javax.validation.Valid;
+import javax.validation.constraints.NotNull;
 import java.util.*;
 
 /**
@@ -18,12 +20,15 @@ public class Booking {
     private Long id;
     @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "client_id")
+    @Valid
     private Client client;
     @Temporal(TemporalType.TIMESTAMP)
     @DateTimeFormat(pattern = "yyyy-MM-dd'T'HH:mm")
+    @NotNull(message = "{booking.message.invalid_date}")
     private Date dateOfArrival;
     @Temporal(TemporalType.TIMESTAMP)
     @DateTimeFormat(pattern = "yyyy-MM-dd'T'HH:mm")
+    @NotNull(message = "{booking.message.invalid_date}")
     private Date dateOfReturn;
     private boolean completed;
     @ManyToMany
@@ -80,21 +85,36 @@ public class Booking {
     }
 
     public List<Rider> getListOfRiders() {
+        if (listOfRiders == null) {
+            return new ArrayList<>();
+        }
         return listOfRiders;
     }
 
-    public void addToListOfRiders(Rider rider) {
-        if (listOfRiders == null) {
-            listOfRiders = new ArrayList<>();
-        }
-        this.listOfRiders.add(rider);
+    public void setListOfRiders(List<Rider> listOfRiders) {
+        this.listOfRiders = listOfRiders;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Booking booking = (Booking) o;
+        return completed == booking.completed && Objects.equals(id, booking.id) &&
+                Objects.equals(client, booking.client) && Objects.equals(dateOfArrival, booking.dateOfArrival) &&
+                Objects.equals(dateOfReturn, booking.dateOfReturn) && Objects.equals(listOfRiders, booking.listOfRiders);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, client, dateOfArrival, dateOfReturn, completed, listOfRiders);
     }
 
     @Override
     public String toString() {
         return "Booking{" +
                 "id=" + id +
-                ", client=" + client +
+                ", client=" + client.toString() +
                 ", dateOfArrival=" + dateOfArrival +
                 ", dateOfReturn=" + dateOfReturn +
                 ", completed=" + completed +

@@ -1,37 +1,38 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
+
 <head>
     <meta charset="UTF-8">
     <meta name="author" content="Nikolai Khriapov">
     <title th:text="#{booking.add_new.title}">?????</title>
 </head>
+
 <body th:align="center">
+
 <h1 th:text="#{booking.add_new.header}">?????</h1>
 
 <!--Input parameters-->
 <form th:method="POST"
-      th:object="${newClientAndNewBookingInfo}"
+      th:object="${newBooking}"
       th:action="@{/admin/info-booking}">
-
-    <table th:align="center" style="text-align:left"
-           th:cellpadding="2">
+    <table th:align="center" style="text-align:left" th:cellpadding="2">
         <tr>
             <td th:text="#{booking.add_new.field.client}">?????</td>
             <td>
-                <input type="text" th:field="*{surname}"/>
-                <div style="color:red" th:if="${#fields.hasErrors('surname')}" th:errors="*{surname}">?????</div>
+                <input type="text" th:field="*{client.surname}"/>
+                <div style="color:red" th:if="${#fields.hasErrors('client.surname')}" th:errors="*{client.surname}">?????</div>
             </td>
         </tr>
         <tr>
             <td th:text="#{booking.add_new.field.phone1}">?????</td>
             <td>
-                <input type="text" th:field="*{phone1}" placeholder="X(XXX)XXX-XX-XX"/>
-                <div style="color:red" th:if="${#fields.hasErrors('phone1')}" th:errors="*{phone1}">?????</div>
+                <input type="text" th:field="*{client.phone1}" placeholder="X(XXX)XXX-XX-XX"/>
+                <div style="color:red" th:if="${#fields.hasErrors('client.phone1')}" th:errors="*{client.phone1}">?????</div>
             </td>
         </tr>
         <tr>
             <td th:text="#{booking.add_new.field.phone2}">?????</td>
-            <td><input type="text" th:field="*{phone2}" placeholder="X(XXX)XXX-XX-XX"/></td>
+            <td><input type="text" th:field="*{client.phone2}" placeholder="X(XXX)XXX-XX-XX"/></td>
         </tr>
         <tr>
             <td th:text="#{booking.add_new.field.date_of_arrival}">?????</td>
@@ -67,4 +68,5 @@
 </a>
 
 </body>
+
 </html>

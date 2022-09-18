@@ -4,6 +4,7 @@ import javax.persistence.*;
 import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
 import java.util.List;
+import java.util.Objects;
 import java.util.ResourceBundle;
 
 /**
@@ -65,15 +66,6 @@ public class Snowboard extends Equipment {
     public Snowboard() {
     }
 
-    public Snowboard(String name, EquipmentCondition condition, String size, Stiffness stiffness, Arch arch, BindingSize bindingSize) {
-        this.name = name;
-        this.condition = condition;
-        this.size = size;
-        this.stiffness = stiffness;
-        this.arch = arch;
-        this.bindingSize = bindingSize;
-    }
-
     public Long getId() {
         return id;
     }
@@ -127,15 +119,30 @@ public class Snowboard extends Equipment {
     }
 
     @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Snowboard snowboard = (Snowboard) o;
+        return Objects.equals(id, snowboard.id) && Objects.equals(name, snowboard.name) &&
+                condition == snowboard.condition && Objects.equals(size, snowboard.size) &&
+                stiffness == snowboard.stiffness && arch == snowboard.arch && bindingSize == snowboard.bindingSize;
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, name, condition, size, stiffness, arch, bindingSize);
+    }
+
+    @Override
     public String toString() {
         return "Snowboard{" +
                 "id=" + id +
-                ", name='" + name + '\'' +
-                ", condition=" + condition +
-                ", size='" + size + '\'' +
-                ", stiffness=" + stiffness +
-                ", arch=" + arch +
-                ", bindingSize=" + bindingSize +
+                ", name='" + name +
+                ", condition=" + condition.name() +
+                ", size='" + size +
+                ", stiffness=" + stiffness.name() +
+                ", arch=" + arch.name() +
+                ", bindingSize=" + bindingSize.name() +
                 '}';
     }
 }

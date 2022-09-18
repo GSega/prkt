@@ -1,6 +1,7 @@
 package com.project.prkt.model;
 
 import javax.persistence.*;
+import java.util.Objects;
 
 @Entity
 public class AssignedEquipment {
@@ -8,6 +9,7 @@ public class AssignedEquipment {
     @SequenceGenerator(name = "sequence", sequenceName = "sequence", allocationSize = 1)
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "sequence")
     private Long id;
+
     @OneToOne(mappedBy = "assignedEquipment")
     private Rider rider;
 
@@ -54,16 +56,14 @@ public class AssignedEquipment {
     public AssignedEquipment() {
     }
 
-
     public Long getId() {
         return id;
     }
 
-    public void setId(Long id) {
-        this.id = id;
-    }
-
     public Rider getRider() {
+        if (rider == null) {
+            return new Rider();
+        }
         return rider;
     }
 
@@ -182,20 +182,38 @@ public class AssignedEquipment {
     }
 
     @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        AssignedEquipment that = (AssignedEquipment) o;
+        return Objects.equals(id, that.id) && Objects.equals(rider, that.rider) && Objects.equals(snowboard, that.snowboard) &&
+                Objects.equals(snowboardBoots, that.snowboardBoots) && Objects.equals(ski, that.ski) &&
+                Objects.equals(skiBoots, that.skiBoots) && Objects.equals(jacket, that.jacket) &&
+                Objects.equals(kneeProtection, that.kneeProtection) && Objects.equals(protectiveShorts, that.protectiveShorts) &&
+                Objects.equals(helmet, that.helmet) && Objects.equals(pants, that.pants) && Objects.equals(gloves, that.gloves);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, rider, snowboard, snowboardBoots, ski, skiBoots, jacket, kneeProtection,
+                protectiveShorts, helmet, pants, gloves);
+    }
+
+    @Override
     public String toString() {
         return "AssignedEquipment{" +
                 "id=" + id +
-                ", rider=" + rider +
-                ", snowboard=" + snowboard +
-                ", snowboardBoots=" + snowboardBoots +
-                ", ski=" + ski +
-                ", skiBoots=" + skiBoots +
-                ", jacket=" + jacket +
-                ", kneeProtection=" + kneeProtection +
-                ", protectiveShorts=" + protectiveShorts +
-                ", helmet=" + helmet +
-                ", pants=" + pants +
-                ", gloves=" + gloves +
+                ", rider=" + rider.toString() +
+                ", snowboard=" + snowboard.toString() +
+                ", snowboardBoots=" + snowboardBoots.toString() +
+                ", ski=" + ski.toString() +
+                ", skiBoots=" + skiBoots.toString() +
+                ", jacket=" + jacket.toString() +
+                ", kneeProtection=" + kneeProtection.toString() +
+                ", protectiveShorts=" + protectiveShorts.toString() +
+                ", helmet=" + helmet.toString() +
+                ", pants=" + pants.toString() +
+                ", gloves=" + gloves.toString() +
                 '}';
     }
 }

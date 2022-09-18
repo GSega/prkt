@@ -50,19 +50,32 @@ public class ProtectiveShortsService {
         protectiveShortsRepository.save(protectiveShortsToBeUpdated);
     }
 
+    // ----- delete -----
+    public void deleteProtectiveShortsById(Long id) {
+        protectiveShortsRepository.deleteById(id);
+    }
+
+    // ----- search -----
+    public List<ProtectiveShorts> showProtectiveShortsBySearch(String search) {
+        return protectiveShortsRepository.findAllByNameContainingIgnoreCase(search);
+    }
+
+    // ----- sort -----
+    public List<ProtectiveShorts> sortAllProtectiveShortsByParameter(String parameter, String sortDirection) {
+        Sort sort = sortDirection.equalsIgnoreCase(Sort.Direction.ASC.name()) ?
+                Sort.by(parameter).ascending() : Sort.by(parameter).descending();
+        return protectiveShortsRepository.findAll(sort);
+    }
+
     //// ----- edit booking info / assign equipment to riders -----
     public List<ProtectiveShorts> showAllAvailableProtectiveShorts(Date dateOfArrival, Date dateOfReturn, List<Booking> allBookings) {
         //get all protective shorts
         List<ProtectiveShorts> listOfAvailableProtectiveShorts = protectiveShortsRepository.findAllByOrderBySize();
         //remove equipment that is broken, in service, or otherwise not ready
-        for (Iterator<ProtectiveShorts> iterator = listOfAvailableProtectiveShorts.iterator(); iterator.hasNext(); ) {
-            ProtectiveShorts oneProtectiveShorts = iterator.next();
-            if (oneProtectiveShorts.getCondition().equals(EquipmentCondition.BROKEN) ||
-                    oneProtectiveShorts.getCondition().equals(EquipmentCondition.SERVICE) ||
-                    oneProtectiveShorts.getCondition().equals(EquipmentCondition.UNKNOWN)) {
-                iterator.remove();
-            }
-        }
+        listOfAvailableProtectiveShorts.removeIf(oneProtectiveShorts ->
+                oneProtectiveShorts.getCondition().equals(EquipmentCondition.BROKEN) ||
+                oneProtectiveShorts.getCondition().equals(EquipmentCondition.SERVICE) ||
+                oneProtectiveShorts.getCondition().equals(EquipmentCondition.UNKNOWN));
         //remove already assigned equipment
         for (Booking booking : allBookings) {
             if (((dateOfArrival.after(booking.getDateOfArrival()) || dateOfArrival.equals(booking.getDateOfArrival())) &&
@@ -75,22 +88,5 @@ public class ProtectiveShortsService {
             }
         }
         return listOfAvailableProtectiveShorts;
-    }
-
-    // ----- delete -----
-    public void deleteProtectiveShortsById(Long id) {
-        protectiveShortsRepository.deleteById(id);
-    }
-
-    // ----- search -----
-    public List<ProtectiveShorts> showProtectiveShortsByPartOfName(String partOfName) {
-        return protectiveShortsRepository.findAllByNameContainingIgnoreCase(partOfName);
-    }
-
-    // ----- sort -----
-    public List<ProtectiveShorts> sortAllProtectiveShortsByParameter(String parameter, String sortDirection) {
-        Sort sort = sortDirection.equalsIgnoreCase(Sort.Direction.ASC.name()) ?
-                Sort.by(parameter).ascending() : Sort.by(parameter).descending();
-        return protectiveShortsRepository.findAll(sort);
     }
 }

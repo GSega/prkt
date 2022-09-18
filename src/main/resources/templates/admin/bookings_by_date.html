@@ -1,16 +1,18 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
+
 <head>
     <meta charset="UTF-8">
     <meta name="author" content="Nikolai Khriapov">
-    <title th:text="#{admin.bookings_by_date.title} + ' ' + ${#dates.format(date, 'dd MMM yyyy')}">?????</title>
+    <title th:text="#{admin.bookings_by_date.title} + ' | ' + ${#dates.format(date, 'dd MMM yyyy')}">?????</title>
 </head>
+
 <body th:align="center">
 
 <!--Header-->
 <h1 th:text="#{admin.bookings_by_date.header} + ' ' + ${#dates.format(date, 'dd MMM yyyy')}">?????</h1>
 
-<!--Table 1-->
+<!--Table-->
 <table th:align="center"
        th:border="1" th:rules="rows"
        th:cellpadding="5">
@@ -32,7 +34,7 @@
         <td th:text="${#dates.format(oneBooking.getDateOfArrival(), 'dd MMM yyyy HH:mm')}"></td>
         <td th:text="${#dates.format(oneBooking.getDateOfReturn(), 'dd MMM yyyy HH:mm')}"></td>
         <td th:text="${oneBooking.getListOfRiders().size()}">?????</td>
-        <td th:width="50"></td>
+        <td th:width="25"></td>
         <td>
             <form th:method="GET"
                   th:action="@{/admin/info-booking/edit/{id}(id=${oneBooking.getId()})}">
@@ -51,72 +53,11 @@
 
 <br/>
 
+<!--Return button-->
 <a href="/admin">
     <button th:text="#{booking.search.button.return}">?????</button>
 </a>
 
 </body>
+
 </html>
-
-
-
-<!--Table 2-->
-<!--<table th:align="center"-->
-<!--       th:border="1" th:rules="rows"-->
-<!--       th:cellpadding="5">-->
-<!--    <span th:each="oneBooking : ${bookingsForTheDate}">-->
-<!--    <tr th:align="left" style="vertical-align:top">-->
-<!--        <td>-->
-<!--            <div th:text="'Бронь на фамилию: ' + ${oneBooking.getClient().getSurname()}">?????</div>-->
-<!--            <div th:text="'Телефон 1: ' + ${oneBooking.getClient().getPhone1()}">?????</div>-->
-<!--            <div th:text="'Телефон 2: ' + ${oneBooking.getClient().getPhone2()}">?????</div>-->
-<!--            <div th:text="'Дата прибытия: ' + ${oneBooking.getDateOfArrival()}">?????</div>-->
-<!--            <div th:text="'Дата возврата: ' + ${oneBooking.getDateOfReturn()}">?????</div>-->
-<!--        </td>-->
-<!--        <td th:if="${oneBooking.getListOfRiders().size() > 0}">-->
-<!--            <div th:text="${oneBooking.getListOfRiders().get(0).getName()}" th:align="left">?????</div>-->
-<!--            <div th:text="'Рост: ' + ${oneBooking.getListOfRiders().get(0).getHeight()}">?????</div>-->
-<!--            <div th:text="'Вес: ' + ${oneBooking.getListOfRiders().get(0).getWeight()}">?????</div>-->
-<!--            <div th:text="'Размер ноги: ' + ${oneBooking.getListOfRiders().get(0).getFoot()}">?????</div>-->
-<!--            <div th:text="'Оборудование:'"></div>-->
-<!--        </td>-->
-<!--        <td th:if="${oneBooking.getListOfRiders().size() > 0}">-->
-<!--            <span th:each="i : ${oneBooking.getListOfRiders().get(0).getEquipmentNeededIds()}">-->
-<!--                <div th:text="${i.name()}" th:align="left">?????</div>-->
-<!--            </span>-->
-<!--        </td>-->
-<!--    </tr>-->
-<!--    <span th:if="${oneBooking.getListOfRiders().size() > 1}">-->
-<!--        <tr th:align="left" style="vertical-align:top"-->
-<!--            th:each="i : ${oneBooking.getListOfRiders()}">-->
-<!--            <td></td>-->
-<!--            <td>-->
-<!--                <div th:text="${i.getName()}" th:align="left">?????</div>-->
-<!--                <div th:text="'Рост: ' + ${i.getHeight()}">?????</div>-->
-<!--                <div th:text="'Вес: ' + ${i.getWeight()}">?????</div>-->
-<!--                <div th:text="'Размер ноги: ' + ${i.getFoot()}">?????</div>-->
-<!--                <div th:text="'Оборудование:'"></div>-->
-<!--            </td>-->
-<!--            <td>-->
-<!--                <span th:each="i : ${i.getEquipmentNeededIds()}">-->
-<!--                    <div th:text="${i.name()}" th:align="left">?????</div>-->
-<!--                </span>-->
-<!--            </td>-->
-<!--        </tr>-->
-<!--    </span>-->
-<!--        </span>-->
-<!--</table>-->
-
-<!--<br/>-->
-
-<!--&lt;!&ndash;Return to "booking/show_all"&ndash;&gt;-->
-
-
-<!--<br/>-->
-
-<!--<a href="/admin">-->
-<!--    <button th:text="#{booking.search.button.return}">?????</button>-->
-<!--</a>-->
-
-<!--</body>-->
-<!--</html>-->
