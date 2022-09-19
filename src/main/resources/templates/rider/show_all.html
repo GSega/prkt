@@ -36,20 +36,20 @@
     <td th:text="${oneRider.getWeight()}"> Weight </td>
     <td th:text="${oneRider.getSex()}"> Sex </td>
     <td th:text="${oneRider.getFoot()}"> Foot Size </td>
-<!--    <td>-->
-<!--        <a th:href="@{'/admin/info-riders/edit?id=' + ${oneRider.getId()}}"> <button th:text="#{rider.edit}"> изменить </button> </a>-->
-<!--    </td>-->
+    <td>
+        <a th:href="@{'/admin/info-riders/edit?id=' + ${oneRider.getId()}}"> <button th:text="#{rider.edit}"> изменить </button> </a>
+    </td>
     <td>
         <form th:method="DELETE" th:action="@{/admin/info-riders/{id}(id=${oneRider.getId()})}"> <input type="submit" th:value="#{rider.delete}"> </form>
     </td>
 </tr>
 </table>
 <br/>
-<!--add new button-->
-<!--<a href="/admin/info-riders/add-new">-->
-<!--    <button th:text="#{rider.add_new_rider}">addnew bttn</button>-->
-<!--</a>-->
-<!--<br>-->
+add new button
+<a href="/admin/info-riders/add-new">
+    <button th:text="#{rider.add_new_rider}">addnew bttn</button>
+</a>
+<br>
 <br>
 <div>
     <a href="/admin"> <button th:text="#{rider.button.go_to_main}"> back to main </button> </a>

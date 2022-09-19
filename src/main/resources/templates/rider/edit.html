@@ -10,7 +10,8 @@
 
 <body th:align="center">
 <form th:method="PATCH"
-      th:action="@{'/admin/info-riders/edit/' + ${idOfRider} + '?bookingid=' + ${bookingId}}"
+      th:action="${bookingId == null} ? '/admin/info-riders/edit/' + ${idOfRider}
+                    : '/admin/info-riders/edit/' + ${idOfRider} + '?bookingid=' + ${bookingId}"
       th:object="${riderToBeUpdated}">
   <table th:align="center" style="text-align:left"
          th:cellpadding="2">
