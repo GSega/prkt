@@ -16,9 +16,9 @@ public class Client {
     @SequenceGenerator(name = "sequence", sequenceName = "sequence", allocationSize = 1)
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "sequence")
     private Long id;
-    @NotEmpty(message = "{client.message.invalid_surname}")
+    @NotEmpty(message = "{validation.client.invalid_surname}")
     private String surname;
-    @Pattern(regexp = "[\\d]\\([\\d]{3}\\)[\\d]{3}-[\\d]{2}-[\\d]{2}", message = "{client.message.invalid_phone_number}")
+    @Pattern(regexp = "[\\d]\\([\\d]{3}\\)[\\d]{3}-[\\d]{2}-[\\d]{2}", message = "{validation.client.invalid_phone_number}")
     private String phone1;
     private String phone2;
     @OneToMany(mappedBy = "client")

@@ -9,7 +9,7 @@ public enum EquipmentCondition {
     BROKEN,
     SERVICE;
 
-    private static final ResourceBundle resourceBundle = ResourceBundle.getBundle("equipment_condition");
+    private static final ResourceBundle resourceBundle = ResourceBundle.getBundle("equipment");
 
     public String toString() {
         return resourceBundle.getString("equipment_condition." + name());

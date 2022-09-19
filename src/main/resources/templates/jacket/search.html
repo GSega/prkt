@@ -4,23 +4,23 @@
 <head>
     <meta charset="UTF-8">
     <meta name="author" content="Nikolai Khriapov">
-    <title th:text="#{jacket.search.title}">?????</title>
+    <title th:text="#{jacket.title}">?????</title>
 </head>
 
 <body th:align="center">
 
 <!--Header-->
-<h1 th:text="#{jacket.search.header}">?????</h1>
+<h1 th:text="#{jacket.header.search}">?????</h1>
 
 <!--Table-->
 <table th:align="center"
        th:border="1" th:rules="rows"
        th:cellpadding="5">
     <tr>
-        <th th:text="#{jacket.search.table.header.id}">?????</th>
-        <th th:text="#{jacket.search.table.header.name}">?????</th>
-        <th th:text="#{jacket.search.table.header.condition}">?????</th>
-        <th th:text="#{jacket.search.table.header.size}">?????</th>
+        <th th:text="#{jacket.parameter.id}">?????</th>
+        <th th:text="#{jacket.parameter.name}">?????</th>
+        <th th:text="#{jacket.parameter.condition}">?????</th>
+        <th th:text="#{jacket.parameter.size}">?????</th>
     </tr>
     <tr th:each="oneJacket : ${jacketsBySearch}">
         <td th:text="${oneJacket.getId()}">?????</td>
@@ -30,13 +30,13 @@
         <td th:width="25"></td>
         <td>
             <a th:href="@{/admin/info-equipment/jacket/edit/{id}(id=${oneJacket.getId()})}">
-                <button th:text="#{jacket.search.table.button.edit}">?????</button>
+                <button th:text="#{equipment.button.edit}">?????</button>
             </a>
         </td>
         <td>
             <form th:method="DELETE"
                   th:action="@{/admin/info-equipment/jacket/{id}(id=${oneJacket.getId()})}">
-                <input type="submit" th:value="#{jacket.search.table.button.delete}"/>
+                <input type="submit" th:value="#{equipment.button.delete}"/>
             </form>
         </td>
     </tr>
@@ -46,7 +46,7 @@
 
 <!--Return to "jacket/show_all"-->
 <a href="/admin/info-equipment/jacket/">
-    <button th:text="#{jacket.search.button.return}">?????</button>
+    <button th:text="#{equipment.button.return}">?????</button>
 </a>
 
 </body>

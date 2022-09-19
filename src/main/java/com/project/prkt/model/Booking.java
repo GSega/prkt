@@ -24,11 +24,11 @@ public class Booking {
     private Client client;
     @Temporal(TemporalType.TIMESTAMP)
     @DateTimeFormat(pattern = "yyyy-MM-dd'T'HH:mm")
-    @NotNull(message = "{booking.message.invalid_date}")
+    @NotNull(message = "{validation.booking.invalid_date}")
     private Date dateOfArrival;
     @Temporal(TemporalType.TIMESTAMP)
     @DateTimeFormat(pattern = "yyyy-MM-dd'T'HH:mm")
-    @NotNull(message = "{booking.message.invalid_date}")
+    @NotNull(message = "{validation.booking.invalid_date}")
     private Date dateOfReturn;
     private boolean completed;
     @ManyToMany

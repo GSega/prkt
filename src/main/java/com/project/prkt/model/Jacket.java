@@ -23,7 +23,7 @@ public class Jacket extends Equipment {
     @SequenceGenerator(name = "sequence", sequenceName = "sequence", allocationSize = 1)
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "sequence")
     private Long id;
-    @javax.validation.constraints.Size(min = 3, max = 30, message = "{jacket.message.invalid_name}")
+    @javax.validation.constraints.Size(min = 3, max = 30, message = "{validation.jacket.invalid_name}")
     private String name;
     private EquipmentCondition condition;
     private Size size;
