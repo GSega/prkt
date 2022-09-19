@@ -2,12 +2,13 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
   <meta charset="UTF-8">
-  <title th:text="#{gloves.edit.title}"></title>
+  <meta name="author" content="Sergei Gavrilov">
+  <title th:text="#{gloves.title}"></title>
 </head>
 <body th:align="center">
-
-<h1 th:text="#{gloves.edit.title}">gloves edit</h1>
-
+<!--Header-->
+<h1 th:text="#{gloves.header.edit}">gloves edit</h1>
+<!--Table-->
 <form th:method="PATCH"
       th:action="@{/admin/info-equipment/gloves/edit/{id}(id=${id})}"
       th:object="${glovesToUpdate}">
@@ -34,7 +35,7 @@
       </td>
     </tr>
     <tr>
-      <td th:text="#{gloves.size}">size</td>
+      <td th:text="#{gloves.table.size}">size</td>
       <td>
         <select th:field="*{size}">
           <option th:each="i : ${T(com.project.prkt.model.Gloves.Size).values()}"
@@ -49,23 +50,18 @@
 
   <br/>
 
-  <input type="submit" th:value="#{gloves.button.save}"/>
+  <input type="submit" th:value="#{equipment.button.save}"/>
 </form>
 
 <br/>
-
+<!--Return to .../gloves-->
 <a href="/admin/info-equipment/gloves">
-  <button th:text="#{gloves.add_new.button.return}">bck to gloves list bttn </button>
+  <button th:text="#{gloves.go_to_gloves}">bck to gloves list bttn </button>
 </a>
 
-<br/><br/>
-
-<a href="/admin/info-equipment/">
-  <button th:text="#{gloves.show_all.button.return}">back to equip</button>
-</a>
+<!--Return to "/admin"-->
 <a href="/admin">
-  <button th:text="#{gloves.edit.button.go_to_main}">back to admin page</button>
+  <button th:text="#{equipment.button.go_to_main}">?????</button>
 </a>
-
 </body>
 </html>

@@ -6,7 +6,7 @@ import java.util.List;
 
 @Entity
 public class Helmet extends Equipment{
-    public enum Size{UNKNOWN, XS, S, M, L, XL}
+    public enum Size{XS, S, M, L, XL}
 
     @Id
     @SequenceGenerator(name = "sequence", sequenceName = "sequence", allocationSize = 1)
