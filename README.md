@@ -1,4 +1,4 @@
-# App for Ski Rental Shop
+# Booking Management Application for Ski Rental Shop
 
 ### Technology stack: 
 - Java
