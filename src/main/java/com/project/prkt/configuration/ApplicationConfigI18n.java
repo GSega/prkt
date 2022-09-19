@@ -42,18 +42,15 @@ public class ApplicationConfigI18n implements WebMvcConfigurer {
     public MessageSource messageSource() {
         ReloadableResourceBundleMessageSource messageSource = new ReloadableResourceBundleMessageSource();
         messageSource.setBasenames(
-                "classpath:/equipment_condition",
+                "classpath:/validation",
                 "classpath:/admin",
                 "classpath:/booking",
-                "classpath:/rider",
                 "classpath:/client",
-                "classpath:/snowboard",
-                "classpath:/snowboard_boots",
+                "classpath:/rider",
+                "classpath:/equipment",
+
                 "classpath:/ski",
                 "classpath:/ski_boots",
-                "classpath:/jacket",
-                "classpath:/knee_protection",
-                "classpath:/protective_shorts",
                 "classpath:/helmet",
                 "classpath:/pants",
                 "classpath:/gloves"

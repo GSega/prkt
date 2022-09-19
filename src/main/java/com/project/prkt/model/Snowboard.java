@@ -20,7 +20,7 @@ public class Snowboard extends Equipment {
         MEDIUM,
         HARD;
 
-        private final static ResourceBundle resourceBundle = ResourceBundle.getBundle("snowboard");
+        private final static ResourceBundle resourceBundle = ResourceBundle.getBundle("equipment");
 
         @Override
         public String toString() {
@@ -52,10 +52,10 @@ public class Snowboard extends Equipment {
     @SequenceGenerator(name = "sequence", sequenceName = "sequence", allocationSize = 1)
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "sequence")
     private Long id;
-    @Size(min = 3, max = 30, message = "{snowboard.message.invalid_name}")
+    @Size(min = 3, max = 30, message = "{validation.snowboard.invalid_name}")
     private String name;
     private EquipmentCondition condition;
-    @Pattern(regexp = "(1[0-6][0-9]|170)([w|W]?)", message = "{snowboard.message.invalid_size}")
+    @Pattern(regexp = "(1[0-6][0-9]|170)([w|W]?)", message = "{validation.snowboard.invalid_size}")
     private String size;
     private Stiffness stiffness;
     private Arch arch;

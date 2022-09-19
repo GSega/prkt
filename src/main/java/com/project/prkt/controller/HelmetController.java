@@ -53,7 +53,7 @@ public class HelmetController {
     //-------edit patch----------
     @PatchMapping("/{id}")
     public String updateHelmet (@PathVariable("id") Long id,
-                                @Valid @ModelAttribute("helmetToBeUpdated") Helmet helmetToBeUpdated,
+                                @Valid @ModelAttribute("helmetToUpdate") Helmet helmetToBeUpdated,
                                 BindingResult bindingResult,
                                 Model model){
         if(bindingResult.hasErrors()){

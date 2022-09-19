@@ -4,24 +4,24 @@
 <head>
     <meta charset="UTF-8">
     <meta name="author" content="Nikolai Khriapov">
-    <title th:text="#{snowboard_boots.search.title}">?????</title>
+    <title th:text="#{snowboard_boots.title}">?????</title>
 </head>
 
 <body th:align="center">
 
 <!--Header-->
-<h1 th:text="#{snowboard_boots.search.header}">?????</h1>
+<h1 th:text="#{snowboard_boots.header.search}">?????</h1>
 
 <!--Table-->
 <table th:align="center"
        th:border="1" th:rules="rows"
        th:cellpadding="5">
     <tr>
-        <th th:text="#{snowboard_boots.search.table.header.id}">?????</th>
-        <th th:text="#{snowboard_boots.search.table.header.name}">?????</th>
-        <th th:text="#{snowboard_boots.search.table.header.condition}">?????</th>
-        <th th:text="#{snowboard_boots.search.table.header.size}">?????</th>
-        <th th:text="#{snowboard_boots.search.table.header.stiffness}">?????</th>
+        <th th:text="#{snowboard_boots.parameter.id}">?????</th>
+        <th th:text="#{snowboard_boots.parameter.name}">?????</th>
+        <th th:text="#{snowboard_boots.parameter.condition}">?????</th>
+        <th th:text="#{snowboard_boots.parameter.size}">?????</th>
+        <th th:text="#{snowboard_boots.parameter.stiffness}">?????</th>
     </tr>
     <tr th:each="oneSnowboardBoots : ${snowboardBootsBySearch}">
         <td th:text="${oneSnowboardBoots.getId()}">?????</td>
@@ -32,13 +32,13 @@
         <td th:width="25"></td>
         <td>
             <a th:href="@{/admin/info-equipment/snowboard-boots/edit/{id}(id=${oneSnowboardBoots.getId()})}">
-                <button th:text="#{snowboard_boots.search.table.button.edit}">?????</button>
+                <button th:text="#{equipment.button.edit}">?????</button>
             </a>
         </td>
         <td>
             <form th:method="DELETE"
                   th:action="@{/admin/info-equipment/snowboard-boots/{id}(id=${oneSnowboardBoots.getId()})}">
-                <input type="submit" th:value="#{snowboard_boots.search.table.button.delete}"/>
+                <input type="submit" th:value="#{equipment.button.delete}"/>
             </form>
         </td>
     </tr>
@@ -48,7 +48,7 @@
 
 <!--Return to "snowboard_boots/show_all"-->
 <a href="/admin/info-equipment/snowboard-boots/">
-    <button th:text="#{snowboard_boots.search.button.return}">?????</button>
+    <button th:text="#{equipment.button.return}">?????</button>
 </a>
 
 </body>
