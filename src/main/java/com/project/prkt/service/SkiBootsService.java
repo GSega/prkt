@@ -64,7 +64,7 @@ public class SkiBootsService {
 
 
     public List<SkiBoots> showAllAvailableSkiBoots(Date dateOfArrival, Date dateOfReturn, List<Booking> allBookings) {
-        List<SkiBoots> listOfAvailableSkiBoots = skiBootsRepository.findAll();
+        List<SkiBoots> listOfAvailableSkiBoots = skiBootsRepository.findAllByOrderBySize();
         listOfAvailableSkiBoots.removeIf(oneSnowboard ->
                 oneSnowboard.getCondition().equals(EquipmentCondition.BROKEN) ||
                         oneSnowboard.getCondition().equals(EquipmentCondition.SERVICE) ||

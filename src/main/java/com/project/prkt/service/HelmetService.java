@@ -31,7 +31,7 @@ public class HelmetService {
 
     //----------all available helmets according to the dates
     public List<Helmet> allAvailableHelmets(Date dateOfArrival, Date dateOfReturn, List<Booking> allBookings) {
-        List<Helmet> listOfAvailableHelmets = helmetRepository.findAll();
+        List<Helmet> listOfAvailableHelmets = helmetRepository.findAllByOrderBySize();
 
         listOfAvailableHelmets.removeIf(oneSnowboard ->
                 oneSnowboard.getCondition().equals(EquipmentCondition.BROKEN) ||

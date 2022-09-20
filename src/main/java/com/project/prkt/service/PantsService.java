@@ -52,7 +52,7 @@ public class PantsService {
     }
     //----list of available for booking pants -----
     public List<Pants> showAllAvailablePants(Date dateOfArrival, Date dateOfReturn, List<Booking> allBookings){
-        List<Pants> listOfAvailablePants = pantsRepository.findAll();
+        List<Pants> listOfAvailablePants = pantsRepository.findAllByOrderBySize();
         listOfAvailablePants.removeIf(onePants ->
                 onePants.getCondition().equals(EquipmentCondition.BROKEN) ||
                         onePants.getCondition().equals(EquipmentCondition.SERVICE) ||

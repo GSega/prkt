@@ -57,7 +57,7 @@ public class GlovesService {
 
     //----list of available for booking gloves -----
     public List<Gloves> showAllAvailableGloves(Date dateOfArrival, Date dateOfReturn, List<Booking> allBookings){
-        List<Gloves> listOfAvailableGloves = glovesRepository.findAll();
+        List<Gloves> listOfAvailableGloves = glovesRepository.findAllByOrderBySize();
 
         listOfAvailableGloves.removeIf(oneSnowboard ->
                 oneSnowboard.getCondition().equals(EquipmentCondition.BROKEN) ||
