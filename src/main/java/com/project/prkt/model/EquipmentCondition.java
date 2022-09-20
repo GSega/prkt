@@ -2,6 +2,11 @@ package com.project.prkt.model;
 
 import java.util.ResourceBundle;
 
+/**
+ * @author Nikolai Khriapov
+ * @author Sergei Gavrilov
+ */
+
 public enum EquipmentCondition {
     UNKNOWN,
     GOOD,

@@ -3,6 +3,10 @@ package com.project.prkt.model;
 import javax.persistence.*;
 import java.util.Objects;
 
+/**
+ * @author Nikolai Khriapov
+ */
+
 @Entity
 public class AssignedEquipment {
     @Id
