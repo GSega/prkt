@@ -24,7 +24,6 @@
         <th><a th:text="#{booking.search.table.header.date_of_arrival}">?????</a></th>
         <th><a th:text="#{booking.search.table.header.date_of_return}">?????</a></th>
         <th><a th:text="#{booking.show_all.table.header.number_of_riders}">?????</a></th>
-        <th></th>
     </tr>
     <tr th:each="oneBooking : ${bookingsForTheDate}">
         <td th:text="${oneBooking.getId()}">?????</td>

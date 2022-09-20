@@ -5,6 +5,10 @@ import com.project.prkt.repository.AssignedEquipmentRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+/**
+ * @author Nikolai Khriapov
+ */
+
 @Service
 public class AssignedEquipmentService {
 

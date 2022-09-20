@@ -34,7 +34,7 @@ public class Snowboard extends Equipment {
         FLAT,
         ROCKER;
 
-        private final static ResourceBundle resourceBundle = ResourceBundle.getBundle("snowboard");
+        private final static ResourceBundle resourceBundle = ResourceBundle.getBundle("equipment");
 
         @Override
         public String toString() {
