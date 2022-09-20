@@ -1,6 +1,7 @@
 package com.project.prkt.service;
 
 import com.project.prkt.model.Booking;
+import com.project.prkt.model.EquipmentCondition;
 import com.project.prkt.model.Pants;
 import com.project.prkt.model.Rider;
 import com.project.prkt.repository.PantsRepository;
@@ -52,14 +53,19 @@ public class PantsService {
     //----list of available for booking pants -----
     public List<Pants> showAllAvailablePants(Date dateOfArrival, Date dateOfReturn, List<Booking> allBookings){
         List<Pants> listOfAvailablePants = pantsRepository.findAll();
-
+        listOfAvailablePants.removeIf(onePants ->
+                onePants.getCondition().equals(EquipmentCondition.BROKEN) ||
+                        onePants.getCondition().equals(EquipmentCondition.SERVICE) ||
+                        onePants.getCondition().equals(EquipmentCondition.UNKNOWN));
+        //remove already assigned equipment
         for (Booking booking : allBookings) {
             if (((dateOfArrival.after(booking.getDateOfArrival()) || dateOfArrival.equals(booking.getDateOfArrival())) &&
                     (dateOfArrival.before(booking.getDateOfReturn()) || dateOfArrival.equals(booking.getDateOfReturn()))) ||
                     ((dateOfReturn.after(booking.getDateOfArrival()) || dateOfReturn.equals(booking.getDateOfArrival())) &&
-                            (dateOfReturn.before(booking.getDateOfReturn()) || dateOfReturn.equals(booking.getDateOfReturn())))) {
+                            (dateOfReturn.before(booking.getDateOfReturn()) || dateOfReturn.equals(booking.getDateOfReturn()))) ||
+                    (dateOfArrival.before(booking.getDateOfArrival()) && dateOfReturn.after(booking.getDateOfReturn()))) {
                 for (Rider rider : booking.getListOfRiders()) {
-                    listOfAvailablePants.remove(rider.getAssignedEquipment().getPants());
+                    listOfAvailablePants.remove(rider.getAssignedEquipment().getSnowboard());
                 }
             }
         }
