@@ -9,7 +9,7 @@
 <h1 th:text="#{rider.add_new_rider}"> new rider</h1>
 <form th:method="POST"
       th:object="${newRider}"
-      th:action="@{'/admin/info-riders/add?id=' + ${bookingId}}">
+      th:action="'/admin/info-riders/add?id=' + ${bookingId}">
 
     <table th:align="center" style="text-align:left"
            th:cellpadding="2">

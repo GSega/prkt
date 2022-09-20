@@ -2,20 +2,20 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
   <meta charset="UTF-8">
-  <title th:text="#{pants.search.title}">pants search</title>
+  <title th:text="#{pants.title}">pants search</title>
 </head>
 <body th:align="center">
 
-<h1 th:text="#{pants.search.title}">pants search</h1>
+<h1 th:text="#{equipment.search_results}">pants search</h1>
 
 <table th:align="center"
        th:border="1" th:rules="rows"
        th:cellpadding="5">
   <tr>
-    <th th:text="#{pants.show_all.table.header.id}">id</th>
-    <th th:text="#{pants.show_all.table.header.name}">id</th>
-    <th th:text="#{pants.show_all.table.header.condition}">cond</th>
-    <th th:text="#{pants.show_all.table.header.size}">size</th>
+    <th th:text="#{pants.table.id}">id</th>
+    <th th:text="#{pants.table.name}">id</th>
+    <th th:text="#{pants.table.condition}">cond</th>
+    <th th:text="#{pants.table.size}">size</th>
     <th></th>
   </tr>
   <tr th:each="onePants : ${pantsByPartOfName}">
@@ -28,12 +28,12 @@
     <td th:width="50"></td>
     <td>
       <a th:href="@{/admin/info-equipment/pants/edit/{id}(id=${onePants.getId()})}">
-        <button th:text="#{pants.show_all.table.button.edit}">edit bttn</button>
+        <button th:text="#{equipment.button.edit}">edit bttn</button>
       </a>
     </td>
     <td>
       <form th:method="DELETE" th:action="@{/admin/info-equipment/pants/{id}(id=${onePants.getId()})}">
-        <input type="submit" th:value="#{pants.show_all.table.button.delete}"/>
+        <input type="submit" th:value="#{equipment.button.delete}"/>
       </form>
     </td>
   </tr>
@@ -42,7 +42,7 @@
 <br/>
 
 <a href="/admin/info-equipment/pants/">
-  <button th:text="#{pants.add_new.button.return}">back to pants bttn</button>
+  <button th:text="#{pants.go_to_pants}">back to pants bttn</button>
 </a>
 
 </body>

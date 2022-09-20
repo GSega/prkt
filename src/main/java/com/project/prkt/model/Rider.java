@@ -4,6 +4,8 @@ import javax.persistence.*;
 import javax.validation.constraints.*;
 import java.util.List;
 import java.util.Objects;
+import java.util.ResourceBundle;
+
 /**
  * @author Sergei Gavrilov
  */
@@ -22,18 +24,31 @@ public class Rider {
     RU39_EU40_MM255,
     RU40_EU41_MM260,
     RU41_EU42_MM265,
-    RU415_EU425_MM275,
+    RU415_EU425_MM270,
     RU42_EU43_MM275,
     RU425_EU435_MM280,
     RU43_EU44_MM285,
     RU44_EU45_MM290,
     RU45_EU46_MM300,
-    RU46_EU47_MM310,
+    RU46_EU47_MM310;
+        private final static ResourceBundle resourceBundle = ResourceBundle.getBundle("rider");
+
+        @Override
+        public String toString() {
+            return resourceBundle.getString("rider.size." + name());
+        }
+
 }
 
     enum Sex{
         MALE,
-        FEMALE
+        FEMALE;
+        private final static ResourceBundle resourceBundle = ResourceBundle.getBundle("rider");
+
+        @Override
+        public String toString() {
+            return resourceBundle.getString("rider.sex." + name());
+    }
     }
 
     @Id

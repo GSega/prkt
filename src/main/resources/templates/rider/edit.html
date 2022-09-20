@@ -58,7 +58,8 @@
       <td>
         <select th:field="*{foot}">
           <option th:each="f : ${T(com.project.prkt.model.Rider.Size).values()}"
-                  th:value="${f}" th:text="${f}"
+                  th:value="${f}"
+                  th:text="${f}"
                   th:selected="${riderToBeUpdated.getFoot()}"> foot size should be here
           </option>
         </select>

@@ -2,21 +2,21 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title th:text="#{pants.show_all.title}">?????</title>
+    <title th:text="#{pants.title}">?????</title>
 </head>
 <body th:align="center">
 
 <!--Header-->
-<h1 th:text="#{pants.show_all.title}">?????</h1>
+<h1 th:text="#{pants.header.show_all}">?????</h1>
 
 <!--Search-->
 <form th:method="GET"
       th:action="@{/admin/info-equipment/pants/search-by-name}">
 
     <input th:type="text" th:name="partOfName"
-           th:placeholder="#{pants.show_all.search_placeholder}" style="width:200px"/>
+           th:placeholder="#{equipment.search_placeholder}" style="width:200px"/>
 
-    <input type="submit" th:value="#{pants.show_all.search_button}"/>
+    <input type="submit" th:value="#{equipment.search_button}"/>
 </form>
 
 <br/>
@@ -28,19 +28,19 @@
     <tr>
         <th>
             <a th:href="@{'/admin/info-equipment/pants/sort?parameter=id&sortDirection=' + ${reverseSortDirection}}"
-               th:text="#{pants.show_all.table.header.id}">?????</a>
+               th:text="#{pants.table.id}">?????</a>
         </th>
         <th>
             <a th:href="@{'/admin/info-equipment/pants/sort?parameter=name&sortDirection=' + ${reverseSortDirection}}"
-               th:text="#{pants.show_all.table.header.name}">?????</a>
+               th:text="#{pants.table.name}">?????</a>
         </th>
         <th>
             <a th:href="@{'/admin/info-equipment/pants/sort?parameter=condition&sortDirection=' + ${reverseSortDirection}}"
-               th:text="#{pants.show_all.table.header.condition}">?????</a>
+               th:text="#{pants.table.condition}">?????</a>
         </th>
         <th>
             <a th:href="@{'/admin/info-equipment/pants/sort?parameter=size&sortDirection=' + ${reverseSortDirection}}"
-               th:text="#{pants.show_all.table.header.size}">?????</a>
+               th:text="#{pants.table.size}">?????</a>
         </th>
         <th></th>
     </tr>
@@ -54,12 +54,12 @@
         <td th:width="50"></td>
         <td>
             <a th:href="@{/admin/info-equipment/pants/edit/{id}(id=${onePants.getId()})}">
-                <button th:text="#{pants.show_all.table.button.edit}">edit bttn</button>
+                <button th:text="#{equipment.button.edit}">edit bttn</button>
             </a>
         </td>
         <td>
             <form th:method="DELETE" th:action="@{/admin/info-equipment/pants/{id}(id=${onePants.getId()})}">
-                <input type="submit" th:value="#{pants.show_all.table.button.delete}"/>
+                <input type="submit" th:value="#{equipment.button.delete}"/>
             </form>
         </td>
     </tr>
@@ -68,7 +68,7 @@
 <br/>
 
 <a href="/admin/info-equipment/pants/add-new">
-    <button th:text="#{pants.show_all.button.add_new}">addnew bttn</button>
+    <button th:text="#{pants.button.add_new}">addnew bttn</button>
 </a>
 
 <br/><br/>
