@@ -22,7 +22,7 @@ public class HelmetService {
     }
 
     public List<Helmet> showAllHelmets() {
-        return helmetRepository.findAll();
+        return helmetRepository.findAllByOrderBySize();
     }
 
     public void saveHelmetToDB(Helmet helmet) {

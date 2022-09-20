@@ -22,7 +22,7 @@ public class SkiService {
     }
 
     public List<Ski> findAll() {
-        return skiRepository.findAllByOrderById();
+        return skiRepository.findAllByOrderBySize();
     }
 
     public Ski findById(Long id) { // в лямбду пока тупо верим. разберемся позже

@@ -9,7 +9,7 @@ import java.util.List;
 public interface PantsRepository extends JpaRepository<Pants, Long> {
 
     // ----- show all -----
-    List<Pants> findAllByOrderById();
+    List<Pants> findAllByOrderBySize();
 
     // ----- search -----
     List<Pants> findAllByNameContainingIgnoreCase(String partOfName);

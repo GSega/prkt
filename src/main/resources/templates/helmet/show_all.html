@@ -5,10 +5,10 @@
   <title th:text="#{helmet.title}"></title>
 </head>
 <body th:align="center">
+
 <!--Header-->
 <h1 th:text="#{header.header.show_all}"> all helmets list </h1>
 
-<br/>
 <!--Search-->
 <form th:method="GET"
       th:action="@{/admin/info-equipment/helmet/search-by-name}">
@@ -66,7 +66,7 @@
   </a>
 </div>
 
-<br/><br/>
+<br/>
 
 <!--Return to list of equipment-->
 <a href="/admin/info-equipment">

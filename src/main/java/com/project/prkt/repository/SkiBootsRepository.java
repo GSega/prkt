@@ -9,7 +9,7 @@ import java.util.List;
 @Repository
 public interface SkiBootsRepository extends JpaRepository<SkiBoots, Long> {
 
-    List<SkiBoots> findAllByOrderById();
+    List<SkiBoots> findAllByOrderBySize();
 
     List<SkiBoots> findAllByNameContaining(String search);
 }

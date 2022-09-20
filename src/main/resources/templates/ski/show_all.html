@@ -13,7 +13,7 @@
 <form th:method="GET"
       th:action="@{/admin/info-equipment/ski/search-by-name}">
 
-    <input th:type="text" name="partOfName"
+    <input th:type="text" name="search"
            th:placeholder="#{equipment.search_placeholder}" style="width:200px"/>
 
     <input type="submit" th:value="#{equipment.search_button}"/>
@@ -62,7 +62,7 @@
     <a href="/admin/info-equipment/ski/add-new"><button th:text="#{ski.add_new}">добавить новые лыжи</button></a>
 </div>
 
-<br/><br/>
+<br/>
 
 <!--Return to list of equipment-->
 <a href="/admin/info-equipment">

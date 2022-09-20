@@ -23,7 +23,7 @@ public class GlovesService {
     //-------show all-------
 
     public List<Gloves> showAllGloves(){
-        return glovesRepository.findAllByOrderById();
+        return glovesRepository.findAllByOrderBySize();
     }
 
     //------show one------

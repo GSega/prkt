@@ -7,7 +7,7 @@ import java.util.List;
 
 public interface GlovesRepository extends JpaRepository<Gloves, Long> {
     //------show all----
-    List<Gloves> findAllByOrderById();
+    List<Gloves> findAllByOrderBySize();
     //-------search-----
     List<Gloves> findAllByNameContainingIgnoreCase(String partOfName);
 

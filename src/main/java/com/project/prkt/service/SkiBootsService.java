@@ -22,7 +22,7 @@ public class SkiBootsService {
     }
 
     public List<SkiBoots> showAllSkiBoots() {
-        return skiBootsRepository.findAllByOrderById();
+        return skiBootsRepository.findAllByOrderBySize();
     }
 
     public void addNewSkiBootsToDB(SkiBoots skiBoots) {

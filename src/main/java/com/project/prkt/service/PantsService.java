@@ -22,7 +22,7 @@ public class PantsService {
 
     //-------show all-------
     public List<Pants> showAllPants(){
-        return pantsRepository.findAllByOrderById();
+        return pantsRepository.findAllByOrderBySize();
     }
 
     //------show one------
