@@ -41,7 +41,7 @@
         </tr>
         <tr th:each="oneSki : ${allSki}">
             <td th:text="${oneSki.getId()}"> id</td>
-            <td th:text="${oneSki.getName()}"> name</td>
+            <td th:align="left" th:text="${oneSki.getName()}"> name</td>
             <td th:text="${oneSki.getSize()}"> size </td>
             <td th:text="#{${'equipment_condition.' + oneSki.getCondition()}}"> cond </td>
             <td th:text="#{${'ski.stiffness.' + oneSki.getStiffness()}}"> stffns </td>

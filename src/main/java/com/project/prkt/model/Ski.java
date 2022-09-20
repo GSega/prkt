@@ -35,14 +35,6 @@ public class Ski extends Equipment{
     public Ski() {
     }
 
-    public Ski(String name, EquipmentCondition condition, String size, Stiffness stiffness) {
-        this.name = name;
-        this.condition = condition;
-        this.size = size;
-        this.stiffness = stiffness;
-    }
-    //ниже стандартные геттеры,сеттеры,equals,hashcode,toString
-    //поле id только геттер
     public Long getId() {
         return id;
     }

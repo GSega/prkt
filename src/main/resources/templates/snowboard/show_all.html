@@ -58,7 +58,7 @@
     </tr>
     <tr th:each="oneSnowboard : ${allSnowboards}">
         <td th:text="${oneSnowboard.getId()}">?????</td>
-        <td th:text="${oneSnowboard.getName()}" th:align="left">?????</td>
+        <td th:align="left" th:text="${oneSnowboard.getName()}" th:align="left">?????</td>
         <td th:text="#{${'equipment_condition.' + oneSnowboard.getCondition()}}">?????</td>
         <td th:text="${oneSnowboard.getSize()}">?????</td>
         <td th:text="#{${'snowboard.stiffness.' + oneSnowboard.getStiffness()}}">?????</td>

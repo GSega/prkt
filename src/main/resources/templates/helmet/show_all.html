@@ -42,7 +42,7 @@
     </tr>
     <tr th:each="oneHelmet : ${allHelmet}">
       <td th:text="${oneHelmet.getId()}"> id</td>
-      <td th:text="${oneHelmet.getName()}"> name</td>
+      <td  th:align="left" th:text="${oneHelmet.getName()}"> name</td>
       <td th:text="${oneHelmet.getSize()}"> size</td>
       <td th:text="#{${'equipment_condition.' + oneHelmet.getCondition()}}"> cond</td>
       <td>
