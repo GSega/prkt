@@ -102,17 +102,22 @@
 </form>
 
 <br>
-
-<form th:method="GET"
-      th:action="@{/admin/info-booking}">
-  <input type="submit" th:value="#{rider.back_to_list_of_bookings}">
-</form>
+<!--back to order -->
+<div th:if="${bookingId != null}">
+    <form   th:method="GET"
+            th:action="@{/admin/info-booking/edit/{id}(id=${bookingId})}">
+        <input type="submit" th:value="#{rider.back_to_cur_order}">
+    </form>
+</div>
 
 <br/>
+<!--back to list of riders-->
+<div th:if="${bookingId == null}">
+    <form th:method="GET"
+          th:action="@{/admin/info-booking}">
+        <input type="submit" th:value="#{rider.back_to_list_of_riders}">
+    </form>
+</div>
 
-<form th:method="GET"
-      th:action="@{/admin/info-booking/edit/{id}(id=${bookingId})}">
-    <input type="submit" th:value="#{rider.back_to_cur_order}">
-</form>
 </body>
 </html>
