@@ -14,7 +14,7 @@ public class Ski extends Equipment{
         MEDIUM,
         HARD;
 
-        private final static ResourceBundle resourceBundle = ResourceBundle.getBundle("ski");
+        private final static ResourceBundle resourceBundle = ResourceBundle.getBundle("equipment");
 
         public String toString() {
             return resourceBundle.getString("ski.stiffness." + name());

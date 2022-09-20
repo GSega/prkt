@@ -20,7 +20,7 @@ public class SkiBoots extends Equipment {
         s90(),
         s100();
 
-        private final static ResourceBundle resourceBundle = ResourceBundle.getBundle("ski_boots");
+        private final static ResourceBundle resourceBundle = ResourceBundle.getBundle("equipment");
 
         public String toString() {
             return resourceBundle.getString("ski_boots.stiffness." + name());
@@ -51,7 +51,7 @@ public class SkiBoots extends Equipment {
         JUNIOR_37_MM245,
         JUNIOR_39_MM255;
 
-        private final static ResourceBundle resourceBundle = ResourceBundle.getBundle("ski_boots");
+        private final static ResourceBundle resourceBundle = ResourceBundle.getBundle("equipment");
 
         public String toString() {
             return resourceBundle.getString("ski_boots.size." + name());
