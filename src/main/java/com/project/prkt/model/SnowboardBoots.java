@@ -49,9 +49,9 @@ public class SnowboardBoots extends Equipment {
         JUNIOR_33_MM210,
         JUNIOR_34_MM215,
         JUNIOR_35_MM225,
-        JUNIOR36_MM235,
-        JUNIOR37_MM245,
-        JUNIOR39_MM255;
+        JUNIOR_36_MM235,
+        JUNIOR_37_MM245,
+        JUNIOR_39_MM255;
 
         private final static ResourceBundle resourceBundle = ResourceBundle.getBundle("equipment");
 
