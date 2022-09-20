@@ -46,7 +46,10 @@ public class SkiBoots extends Equipment {
         JUNIOR_32_MM205,
         JUNIOR_33_MM210,
         JUNIOR_34_MM215,
-        JUNIOR_35_MM225;
+        JUNIOR_35_MM225,
+        JUNIOR36_MM235,
+        JUNIOR37_MM245,
+        JUNIOR39_MM255;
 
         private final static ResourceBundle resourceBundle = ResourceBundle.getBundle("ski_boots");
 
@@ -59,7 +62,7 @@ public class SkiBoots extends Equipment {
     @SequenceGenerator(name = "sequence", sequenceName = "sequence", allocationSize = 1)
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "sequence")
     private Long id;
-    @javax.validation.constraints.Size(min = 3, max = 30, message = "Name Should be 3-30 symbols")
+    @javax.validation.constraints.Size(min = 3, max = 30, message = "{validation.ski_boots.invalid_name}")
     private String name;
     private EquipmentCondition condition;
     private SkiBoots.Size size;

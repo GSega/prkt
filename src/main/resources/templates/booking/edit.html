@@ -87,7 +87,7 @@
             </td>
             <td th:align="left">
                 <span th:each="oneEquipmentId : ${oneRider.getEquipmentNeededIds()}">
-                    <div th:text="${oneEquipmentId.name()}">?????</div>
+                    <div th:text="#{'equipment.type.' + ${oneEquipmentId.name()}}">?????</div>
                 </span>
             </td>
             <form th:method="PATCH"

@@ -48,8 +48,13 @@ public class RiderController {
 
         }
         riderService.addNewRiderToDB(rider);
+
+        if(bookingId != null){
         bookingService.addNewRiderToBooking(bookingId, rider);
-        return "redirect:/admin/info-riders/add-new?id=" + bookingId;
+            return "redirect:/admin/info-riders/add-new?id=" + bookingId;
+        }
+
+        return "redirect:/admin/info-riders/";
     }
 
     //delete
@@ -92,7 +97,12 @@ public class RiderController {
             return "rider/edit";
         }
         riderService.updateRiderById(riderToBeUpdatedId, oneUpdatedRider);
-        return "redirect:/admin/info-booking/edit/" + bookingId; //пусть пока туда летит. void почемуто крашит метод
+        if(bookingId != null) {
+           return "redirect:/admin/info-booking/edit/" + bookingId; //пусть пока туда летит. void почемуто крашит метод
+        } else {
+            return "redirect:/admin/info-riders";
+
+        }
     }
 
     //-----------sort----------

@@ -10,7 +10,7 @@
 
 <body th:align="center">
 
-<h1>Administrator main page</h1>
+<h1 th:text="#{admin.mainpage.header}">Administrator main page</h1>
 
 <!--Language-->
 <p>
@@ -23,16 +23,16 @@
 <!--Links to Database-->
 <nav>
     <a href="/admin/info-equipment/">
-        <button> Списки оборудования</button>
+        <button th:text="#{admin.mainpage.lists_of_equip}"> Списки оборудования</button>
     </a>
     <a href="/admin/info-clients">
-        <button> Список клиентов</button>
+        <button th:text="#{admin.mainpage.lists_of_clients}"> Список клиентов</button>
     </a>
     <a href="/admin/info-riders">
-        <button> Список райдеров</button>
+        <button th:text="#{admin.mainpage.lists_of_riders}"> Список райдеров</button>
     </a>
     <a href="/admin/info-booking">
-        <button> Список заказов</button>
+        <button th:text="#{admin.mainpage.lists_of_orders}"> Список заказов</button>
     </a> <br>
 </nav>
 
@@ -40,10 +40,10 @@
 
 <!--Orders for today/tomorrow-->
 <a href="admin/show-today">
-    <button>Заказы на сегодня</button>
+    <button th:text="#{admin.mainpage.today_orders}">Заказы на сегодня</button>
 </a>
 <a href="admin/show-tomorrow">
-    <button> Заказы на завтра</button>
+    <button th:text="#{admin.mainpage.tomorrow_orders}"> Заказы на завтра</button>
 </a>
 
 <br><br>

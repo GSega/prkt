@@ -2,23 +2,23 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title th:text="#{ski_boots.search.title}">?????</title>
+    <title th:text="#{ski_boots.title}">?????</title>
 </head>
 <body th:align="center">
 
 <!--Header-->
-<h1 th:text="#{ski_boots.search.header}">?????</h1>
+<h1 th:text="#{equipment.search_results}">?????</h1>
 
 <!--Table-->
 <table th:align="center"
        th:border="1" th:rules="rows"
        th:cellpadding="5">
     <tr>
-        <th th:text="#{ski_boots.search.table.header.id}">?????</th>
-        <th th:text="#{ski_boots.search.table.header.name}">?????</th>
-        <th th:text="#{ski_boots.search.table.header.condition}">?????</th>
-        <th th:text="#{ski_boots.search.table.header.size}">?????</th>
-        <th th:text="#{ski_boots.search.table.header.stiffness}">?????</th>
+        <th th:text="#{ski_boots.table.id}">id</th>
+        <th th:text="#{ski_boots.table.name}">name</th>
+        <th th:text="#{ski_boots.table.condition}">cond</th>
+        <th th:text="#{ski_boots.table.size}">size</th>
+        <th th:text="#{ski_boots.table.stiffness}">stfns</th>
         <th></th>
     </tr>
     <tr th:each="oneSkiBoots : ${skiBootsByPartOfName}">
@@ -32,12 +32,12 @@
         <td th:width="50"></td>
         <td>
             <a th:href="@{/admin/info-equipment/ski-boots/edit/{id}(id=${oneSkiBoots.getId()})}">
-                <button th:text="#{ski_boots.search.table.button.edit}">?????</button>
+                <button th:text="#{equipment.button.edit}">?????</button>
             </a>
         </td>
         <td>
             <form th:method="DELETE" th:action="@{/admin/info-equipment/ski-boots/{id}(id=${oneSkiBoots.getId()})}">
-                <input type="submit" th:value="#{ski_boots.search.table.button.delete}"/>
+                <input type="submit" th:value="#{equipment.button.delete}"/>
             </form>
         </td>
     </tr>
@@ -47,7 +47,7 @@
 
 <!--Return to "ski_boots/show_all"-->
 <a href="/admin/info-equipment/ski-boots/">
-    <button th:text="#{ski_boots.search.button.return}">?????</button>
+    <button th:text="#{ski_boots.go_to_ski_boots}">go to ski boots</button>
 </a>
 
 </body>

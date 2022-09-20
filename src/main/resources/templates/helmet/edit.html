@@ -2,12 +2,13 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title th:text="#{helmet.edit.title}">Edit helmet</title>
+    <title th:text="#{helmet.title}">Edit helmet</title>
 </head>
 <body  th:align="center">
+<!--Header-->
+<h1 th:text="#{helmet.header.edit}">?????</h1>
 
-<h1 th:text="#{helmet.edit.title}">?????</h1>
-
+<!--Input parameters-->
 <form th:method="PATCH"
       th:action="@{/admin/info-equipment/helmet/{id}(id=${id})}"
       th:object="${helmetToUpdate}">
@@ -16,7 +17,7 @@
            th:cellpadding="2">
 
         <tr>
-            <td th:text="#{helmet.edit.table.name}"> </td>
+            <td th:text="#{helmet.table.name}"> </td>
             <td>
                 <input type="text" th:field="*{name}" id="name"/>
                 <div style="color:#9a0a0a" th:if="${#fields.hasErrors('name')}" th:errors="*{name}">Name error</div>
@@ -24,7 +25,7 @@
             </td>
         </tr>
         <tr>
-            <td  th:text="#{helmet.edit.table.size}"> размер </td>
+            <td  th:text="#{helmet.table.size}"> размер </td>
             <td>
                 <select th:field="*{size}">
                     <option th:each="s : ${T(com.project.prkt.model.Helmet.Size).values()}"
@@ -36,7 +37,7 @@
             </td>
         </tr>
         <tr>
-            <td  th:text="#{helmet.edit.table.condition}"> состояние </td>
+            <td  th:text="#{helmet.table.condition}"> состояние </td>
             <td> <select th:field="*{condition}">
                 <option th:each="i : ${T(com.project.prkt.model.EquipmentCondition).values()}"
                         th:value="${i.name}"
@@ -47,18 +48,21 @@
             </td>
         </tr>
 
-
-
     </table>
+
     <br/>
-    <input type="submit" th:value="#{helmet.edit.table.editbutton}"/>
+
+    <input type="submit" th:value="#{equipment.button.save}"/>
 </form>
 
 <br/>
 
-<a href="/admin/info-equipment/helmet/"> <button th:text="#{helmet.edit.button.return}"> return to helmet </button></a>
-<a href="/admin"> <button th:text="#{knee_protection.edit.button.go_to_main}"> return to main  </button></a>
+<!--Return to "/admin/info-equipment/helmet"-->
+<a href="/admin/info-equipment/helmet/"> <button th:text="#{helmet.go_to_gloves}"> return to helmet </button></a>
 
+<!--Return to "/admin"-->
+<a href="/admin">
+    <button th:text="#{equipment.button.go_to_main}">?????</button>
 </a>
 
 

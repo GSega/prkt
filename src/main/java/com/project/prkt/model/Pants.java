@@ -5,7 +5,7 @@ import java.util.ArrayList;
 import java.util.List;
 @Entity
 public class Pants extends Equipment{
-    enum Size {UNKNOWN, XS, S, M, L, XL}
+    enum Size {XS, S, M, L, XL}
 
     @Id
     @SequenceGenerator(name = "sequence", sequenceName = "sequence", allocationSize = 1)

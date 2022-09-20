@@ -2,11 +2,12 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
   <meta charset="UTF-8">
-  <title th:text="#{gloves.search.title}">gloves search</title>
+  <meta name="author" content="Sergei Gavrilov">
+  <title th:text="#{gloves.title}">gloves search</title>
 </head>
 <body th:align="center">
 
-<h1 th:text="#{gloves.search.title}">gloves search</h1>
+<h1 th:text="#{equipment.search_results}">gloves search</h1>
 
 <table th:align="center"
        th:border="1" th:rules="rows"
@@ -15,7 +16,7 @@
     <th th:text="#{gloves.table.id}">id</th>
     <th th:text="#{gloves.table.name}">id</th>
     <th th:text="#{gloves.table.condition}">cond</th>
-    <th th:text="#{gloves.size}">size</th>
+    <th th:text="#{gloves.table.size}">size</th>
     <th></th>
   </tr>
   <tr th:each="oneGloves : ${glovesByPartOfName}">
@@ -28,33 +29,21 @@
     <td th:width="50"></td>
     <td>
       <a th:href="@{/admin/info-equipment/gloves/edit/{id}(id=${oneGloves.getId()})}">
-        <button th:text="#{gloves.button.edit}">edit bttn</button>
+        <button th:text="#{equipment.button.edit}">edit bttn</button>
       </a>
     </td>
     <td>
       <form th:method="DELETE" th:action="@{/admin/info-equipment/gloves/{id}(id=${oneGloves.getId()})}">
-        <input type="submit" th:value="#{gloves.button.delete}"/>
+        <input type="submit" th:value="#{equipment.button.delete}"/>
       </form>
     </td>
   </tr>
 </table>
 
 <br/>
-
+<!--Return to "gloves/show_all"-->
 <a href="/admin/info-equipment/gloves">
-  <button th:text="#{gloves.add_new.button.return}">bck to gloves list bttn </button>
-</a>
-
-<br/><br/>
-
-<a href="/admin/info-equipment/">
-  <button th:text="#{gloves.show_all.button.return}">back to equip</button>
-</a>
-
-<br><br>
-
-<a href="/admin">
-  <button th:text="#{gloves.edit.button.go_to_main}">back to admin page</button>
+  <button th:text="#{equipment.button.return}">bck to gloves list bttn </button>
 </a>
 
 </body>

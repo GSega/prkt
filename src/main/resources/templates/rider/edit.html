@@ -29,8 +29,8 @@
       <td>
         <select th:field="*{sex}">
           <option th:each="s : ${T(com.project.prkt.model.Rider.Sex).values()}"
-                th:value="${s}"
-                th:text="${s}"
+                th:value="${s.name()}"
+                th:text="#{${'rider.sex.' + s}}"
                 th:selected="${riderToBeUpdated.getSex()}"> sex should be here
           </option>
       </select>
@@ -58,7 +58,8 @@
       <td>
         <select th:field="*{foot}">
           <option th:each="f : ${T(com.project.prkt.model.Rider.Size).values()}"
-                  th:value="${f}" th:text="${f}"
+                  th:value="${f.name()}"
+                  th:text="#{${'rider.size.' + f}}"
                   th:selected="${riderToBeUpdated.getFoot()}"> foot size should be here
           </option>
         </select>
@@ -86,8 +87,8 @@
 
                <input th:field="*{equipmentNeededIds}"
                      type="checkbox"
-                     th:value="${oneFromEnum}"/>
-                <span th:text="${oneFromEnum.name()}">  checked </span>
+                     th:value="${oneFromEnum.name()}"/>
+                <span th:text="#{${'equipment.type.' + oneFromEnum}}">  checked </span>
 
             </div>
         </td>
@@ -101,17 +102,22 @@
 </form>
 
 <br>
-
-<form th:method="GET"
-      th:action="@{/admin/info-booking}">
-  <input type="submit" th:value="#{rider.back_to_list_of_bookings}">
-</form>
+<!--back to order -->
+<div th:if="${bookingId != null}">
+    <form   th:method="GET"
+            th:action="@{/admin/info-booking/edit/{id}(id=${bookingId})}">
+        <input type="submit" th:value="#{rider.back_to_cur_order}">
+    </form>
+</div>
 
 <br/>
+<!--back to list of riders-->
+<div th:if="${bookingId == null}">
+    <form th:method="GET"
+          th:action="@{/admin/info-riders}">
+        <input type="submit" th:value="#{rider.back_to_list_of_riders}">
+    </form>
+</div>
 
-<form th:method="GET"
-      th:action="@{/admin/info-booking/edit/{id}(id=${bookingId})}">
-    <input type="submit" th:value="#{rider.back_to_cur_order}">
-</form>
 </body>
 </html>

@@ -9,7 +9,7 @@
 <h1 th:text="#{rider.add_new_rider}"> new rider</h1>
 <form th:method="POST"
       th:object="${newRider}"
-      th:action="@{'/admin/info-riders/add?id=' + ${bookingId}}">
+      th:action="${bookingId == null} ? '/admin/info-riders/add' : '/admin/info-riders/add?id=' + ${bookingId}">
 
     <table th:align="center" style="text-align:left"
            th:cellpadding="2">
@@ -24,7 +24,8 @@
             <td th:text="#{rider.sex}"> Пол </td>
             <td><select name="sex">
                 <option th:each="s : ${T(com.project.prkt.model.Rider.Sex).values()}"
-                        th:value="${s}" th:text="${s}"> sex should be here
+                        th:value="${s.name()}"
+                        th:text="#{${'rider.sex.'+ s}}"> sex should be here
                 </option>
             </select>
             </td>
@@ -47,7 +48,8 @@
             <td th:text="#{rider.foot}"> Размер ноги </td>
             <td><select name="foot">
                 <option th:each="f : ${T(com.project.prkt.model.Rider.Size).values()}"
-                        th:value="${f}" th:text="${f}"> foot size should be here
+                        th:value="${f.name()}"
+                        th:text="#{${'rider.size.' + f}}"> foot size should be here
                 </option>
             </select>
             </td>
@@ -60,8 +62,8 @@
 
                     <input th:field="*{equipmentNeededIds}"
                            type="checkbox"
-                           th:value="${equip}" />
-                    <span th:text="${equip.name()}">INGREDIENT</span><br />
+                           th:value="${equip.name()}" />
+                    <span th:text="#{${'equipment.type.' + equip}}">INGREDIENT</span><br />
                 </div>
 
             </td>
@@ -78,20 +80,28 @@
 
 <br>
 
-<form th:method="GET"
-      th:action="@{/admin/info-booking}">
-    <input type="submit" th:value="#{rider.back_to_list_of_bookings}">
-</form>
+<!--button back to booking-->
+<div th:if="${bookingId != null}">
+    <form th:method="GET"
+          th:action="@{/admin/info-booking/edit/{id}(id=${bookingId})}">
+        <input type="submit" th:value="#{rider.back_to_cur_order}">
+    </form>
 
-<br>
-<br>
+    <br>
 
+    <form th:method="GET"
+          th:action="@{/admin/info-booking}">
+        <input type="submit" th:value="#{rider.back_to_list_of_bookings}">
+    </form>
+</div>
 
-<form th:method="GET"
-      th:action="@{/admin/info-booking/edit/{id}(id=${bookingId})}">
-    <input type="submit" th:value="#{rider.back_to_cur_order}">
-</form>
+<div th:if="${bookingId == null}">
 
+    <form th:method="GET"
+          th:action="@{/admin/info-riders}">
+        <input type="submit" th:value="#{rider.back_to_list_of_riders}">
+    </form>
+</div>
 
 </body>
 </html>

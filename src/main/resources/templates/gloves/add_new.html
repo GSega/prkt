@@ -2,11 +2,12 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
   <meta charset="UTF-8">
-  <title th:text="#{gloves.add_new.title}">title</title>
+  <meta name="author" content="Sergei Gavrilov">
+  <title th:text="#{gloves.title}">title</title>
 </head>
 <body th:align="center">
 
-<h1 th:text="#{gloves.add_new.title}">ttl</h1>
+<h1 th:text="#{gloves.add_new.header}">ttl</h1>
 <br>
 <form th:method="POST"
       th:action="@{/admin/info-equipment/gloves}"
@@ -33,7 +34,7 @@
       </td>
     </tr>
     <tr>
-      <td th:text="#{gloves.size}">size</td>
+      <td th:text="#{gloves.table.size}">size</td>
       <td>
         <select name="size">
           <option th:each="i : ${T(com.project.prkt.model.Gloves.Size).values()}"
@@ -47,23 +48,14 @@
 
   <br/>
 
-  <input type="submit" th:value="#{gloves.button.save}"/>
+  <input type="submit" th:value="#{gloves.button.add_new}"/>
 </form>
 
+
 <br/>
-
+<!--Return to "gloves/show_all"-->
 <a href="/admin/info-equipment/gloves/">
-  <button th:text="#{gloves.add_new.button.return}">gloves list</button>
-</a>
-
-<br/><br/>
-
-<a href="/admin/info-equipment/">
-  <button th:text="#{gloves.show_all.button.return}">back to equip</button>
-</a>
-<br/><br/>
-<a href="/admin">
-  <button th:text="#{gloves.edit.button.go_to_main}">back to main</button>
+  <button th:text="#{equipment.button.return}">?????</button>
 </a>
 </body>
 </html>
