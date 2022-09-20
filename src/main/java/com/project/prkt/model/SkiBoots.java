@@ -46,7 +46,10 @@ public class SkiBoots extends Equipment {
         JUNIOR_32_MM205,
         JUNIOR_33_MM210,
         JUNIOR_34_MM215,
-        JUNIOR_35_MM225;
+        JUNIOR_35_MM225,
+        JUNIOR36_MM235,
+        JUNIOR37_MM245,
+        JUNIOR39_MM255;
 
         private final static ResourceBundle resourceBundle = ResourceBundle.getBundle("ski_boots");
 
