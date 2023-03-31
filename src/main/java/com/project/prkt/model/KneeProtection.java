@@ -1,5 +1,7 @@
 package com.project.prkt.model;
 
+import lombok.Data;
+
 import javax.persistence.*;
 import java.util.List;
 import java.util.Objects;
@@ -7,7 +9,7 @@ import java.util.Objects;
 /**
  * @author Nikolai Khriapov
  */
-
+@Data
 @Entity
 public class KneeProtection extends Equipment {
 
@@ -30,36 +32,6 @@ public class KneeProtection extends Equipment {
     @OneToMany(mappedBy = "kneeProtection")
     private List<AssignedEquipment> listOfAssignedEquipment;
 
-    public KneeProtection() {
-    }
-
-    public Long getId() {
-        return id;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public EquipmentCondition getCondition() {
-        return condition;
-    }
-
-    public void setCondition(EquipmentCondition condition) {
-        this.condition = condition;
-    }
-
-    public Size getSize() {
-        return size;
-    }
-
-    public void setSize(Size size) {
-        this.size = size;
-    }
 
     @Override
     public boolean equals(Object o) {

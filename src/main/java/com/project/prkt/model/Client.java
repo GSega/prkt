@@ -1,5 +1,7 @@
 package com.project.prkt.model;
 
+import lombok.Data;
+
 import javax.persistence.*;
 import javax.validation.constraints.*;
 import java.util.List;
@@ -8,7 +10,7 @@ import java.util.Objects;
 /**
  * @author Nikolai Khriapov
  */
-
+@Data
 @Entity
 public class Client {
 
@@ -18,14 +20,12 @@ public class Client {
     private Long id;
     @NotEmpty(message = "{validation.client.invalid_surname}")
     private String surname;
-    @Pattern(regexp = "[\\d]\\([\\d]{3}\\)[\\d]{3}-[\\d]{2}-[\\d]{2}", message = "{validation.client.invalid_phone_number}")
+    //@Pattern(regexp = "[\\d]\\([\\d]{3}\\)[\\d]{3}-[\\d]{2}-[\\d]{2}", message = "{validation.client.invalid_phone_number}")
     private String phone1;
     private String phone2;
     @OneToMany(mappedBy = "client")
     private List<Booking> listOfBookings;
 
-    public Client() {
-    }
 
     public Client(String surname, String phone1, String phone2) {
         this.surname = surname;
@@ -33,32 +33,8 @@ public class Client {
         this.phone2 = phone2;
     }
 
-    public Long getId() {
-        return id;
-    }
+    public Client() {
 
-    public String getSurname() {
-        return surname;
-    }
-
-    public void setSurname(String surname) {
-        this.surname = surname;
-    }
-
-    public String getPhone1() {
-        return phone1;
-    }
-
-    public void setPhone1(String phone1) {
-        this.phone1 = phone1;
-    }
-
-    public String getPhone2() {
-        return phone2;
-    }
-
-    public void setPhone2(String phone2) {
-        this.phone2 = phone2;
     }
 
     @Override

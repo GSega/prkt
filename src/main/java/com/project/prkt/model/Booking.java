@@ -1,5 +1,6 @@
 package com.project.prkt.model;
 
+import lombok.Data;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
@@ -10,7 +11,7 @@ import java.util.*;
 /**
  * @author Nikolai Khriapov
  */
-
+@Data
 @Entity
 public class Booking {
 
@@ -48,41 +49,6 @@ public class Booking {
         this.dateOfReturn = dateOfReturn;
     }
 
-    public Long getId() {
-        return id;
-    }
-
-    public Client getClient() {
-        return client;
-    }
-
-    public void setClient(Client client) {
-        this.client = client;
-    }
-
-    public Date getDateOfArrival() {
-        return dateOfArrival;
-    }
-
-    public void setDateOfArrival(Date dateOfArrival) {
-        this.dateOfArrival = dateOfArrival;
-    }
-
-    public Date getDateOfReturn() {
-        return dateOfReturn;
-    }
-
-    public void setDateOfReturn(Date dateOfReturn) {
-        this.dateOfReturn = dateOfReturn;
-    }
-
-    public boolean isCompleted() {
-        return completed;
-    }
-
-    public void setCompleted(boolean completed) {
-        this.completed = completed;
-    }
 
     public List<Rider> getListOfRiders() {
         if (listOfRiders == null) {

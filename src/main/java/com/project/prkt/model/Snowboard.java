@@ -1,5 +1,7 @@
 package com.project.prkt.model;
 
+import lombok.Data;
+
 import javax.persistence.*;
 import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
@@ -11,6 +13,7 @@ import java.util.ResourceBundle;
  * @author Nikolai Khriapov
  */
 
+@Data
 @Entity
 public class Snowboard extends Equipment {
 
@@ -63,60 +66,6 @@ public class Snowboard extends Equipment {
     @OneToMany(mappedBy = "snowboard")
     private List<AssignedEquipment> listOfAssignedEquipment;
 
-    public Snowboard() {
-    }
-
-    public Long getId() {
-        return id;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public EquipmentCondition getCondition() {
-        return condition;
-    }
-
-    public void setCondition(EquipmentCondition condition) {
-        this.condition = condition;
-    }
-
-    public String getSize() {
-        return size;
-    }
-
-    public void setSize(String size) {
-        this.size = size;
-    }
-
-    public Stiffness getStiffness() {
-        return stiffness;
-    }
-
-    public void setStiffness(Stiffness stiffness) {
-        this.stiffness = stiffness;
-    }
-
-    public Arch getArch() {
-        return arch;
-    }
-
-    public void setArch(Arch arch) {
-        this.arch = arch;
-    }
-
-    public BindingSize getBindingSize() {
-        return bindingSize;
-    }
-
-    public void setBindingSize(BindingSize bindingSize) {
-        this.bindingSize = bindingSize;
-    }
 
     @Override
     public boolean equals(Object o) {

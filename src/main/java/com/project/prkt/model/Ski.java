@@ -1,10 +1,12 @@
 package com.project.prkt.model;
 
 
+import lombok.Data;
+
 import javax.persistence.*;
 import javax.validation.constraints.Size;
 import java.util.ResourceBundle;
-
+@Data
 @Entity
 @Table
 public class Ski extends Equipment{
@@ -32,44 +34,6 @@ public class Ski extends Equipment{
     private String size; //пишем руками.  размер лыж - это цифры от 80 до 200
     private Stiffness stiffness;
 
-    public Ski() {
-    }
-
-    public Long getId() {
-        return id;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public EquipmentCondition getCondition() {
-        return condition;
-    }
-
-    public void setCondition(EquipmentCondition condition) {
-        this.condition = condition;
-    }
-
-    public String getSize() {
-        return size;
-    }
-
-    public void setSize(String size) {
-        this.size = size;
-    }
-
-    public Stiffness getStiffness() {
-        return stiffness;
-    }
-
-    public void setStiffness(Stiffness stiffness) {
-        this.stiffness = stiffness;
-    }
 
     @Override
     public String toString() {

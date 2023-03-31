@@ -1,5 +1,7 @@
 package com.project.prkt.model;
 
+import lombok.Data;
+
 import javax.persistence.*;
 import javax.validation.constraints.*;
 import java.util.List;
@@ -9,6 +11,7 @@ import java.util.ResourceBundle;
 /**
  * @author Sergei Gavrilov
  */
+@Data
 @Entity
 //@Table
 public class Rider {
@@ -88,49 +91,6 @@ public class Rider {
     @JoinColumn(name = "assigned_equipment_id", referencedColumnName = "id")
     private AssignedEquipment assignedEquipment;
 
-    public Long getId() {
-        return id;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public Sex getSex() {
-        return sex;
-    }
-
-    public void setSex(Sex sex) {
-        this.sex = sex;
-    }
-
-    public Integer getHeight() {
-        return height;
-    }
-
-    public void setHeight(Integer height) {
-        this.height = height;
-    }
-
-    public Integer getWeight() {
-        return weight;
-    }
-
-    public void setWeight(Integer weight) {
-        this.weight = weight;
-    }
-
-    public Size getFoot() {
-        return foot;
-    }
-
-    public void setFoot(Size foot) {
-        this.foot = foot;
-    }
 
     public List<TypesOfEquipment> getEquipmentNeededIds() {
         return equipmentNeededIds;

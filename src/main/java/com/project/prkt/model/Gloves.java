@@ -1,9 +1,12 @@
 package com.project.prkt.model;
 
+import lombok.*;
+
 import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
 
+@Data
 @Entity
 public class Gloves extends Equipment{
     enum Size {XS, S, M, L, XL}
@@ -18,37 +21,6 @@ public class Gloves extends Equipment{
     private EquipmentCondition condition;
     @OneToMany(mappedBy = "gloves")
     private List<AssignedEquipment> listOfAssignedEquipment;
-
-    public Gloves() {
-    }
-
-    public Long getId() {
-        return id;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public Size getSize() {
-        return size;
-    }
-
-    public void setSize(Size size) {
-        this.size = size;
-    }
-
-    public EquipmentCondition getCondition() {
-        return condition;
-    }
-
-    public void setCondition(EquipmentCondition condition) {
-        this.condition = condition;
-    }
 
     public List<AssignedEquipment> getListOfAssignedEquipment() {
         if(listOfAssignedEquipment == null){

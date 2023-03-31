@@ -1,8 +1,10 @@
 package com.project.prkt.model;
 
+import lombok.Data;
+
 import javax.persistence.*;
 import java.util.ResourceBundle;
-
+@Data
 @Entity
 @Table
 public class SkiBoots extends Equipment {
@@ -68,56 +70,5 @@ public class SkiBoots extends Equipment {
     private SkiBoots.Size size;
     private SkiBoots.Stiffness stiffness;
 
-    public SkiBoots() {
-    }
 
-    //below are getter for id field and getters and setters for the rest of the fields
-    //and standard equals, hashCode, toString
-
-    public Long getId() {
-        return id;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public EquipmentCondition getCondition() {
-        return condition;
-    }
-
-    public void setCondition(EquipmentCondition condition) {
-        this.condition = condition;
-    }
-
-    public SkiBoots.Size getSize() {
-        return size;
-    }
-
-    public void setSize(SkiBoots.Size size) {
-        this.size = size;
-    }
-
-    public SkiBoots.Stiffness getStiffness() {
-        return stiffness;
-    }
-
-    public void setStiffness(SkiBoots.Stiffness stiffness) {
-        this.stiffness = stiffness;
-    }
-
-    @Override
-    public String toString() {
-        return "SkiBoots{" +
-                "id=" + id +
-                ", name='" + name + '\'' +
-                ", condition=" + condition +
-                ", size=" + size +
-                ", stiffness=" + stiffness +
-                '}';
-    }
 }
